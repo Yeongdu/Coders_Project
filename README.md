@@ -17,7 +17,7 @@
 
 
 
-> ### 사용기술
+>> ### 사용기술
 > Servlet
 > JSP
 > Java
@@ -27,14 +27,14 @@
 > HTML5
 > jQuery
 >
-> #### 개발환경
+>> #### 개발환경
 > Eclipse
 > Oracle SQL Developer
 >
-> #### WAS
+>> #### WAS
 > Tomcat
 >
-> #### 사용한 API
+>> #### 사용한 API
 > BootStrap
 <br/>
 <br/>

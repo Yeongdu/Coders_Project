@@ -19,7 +19,9 @@
 
 >> ### 사용기술
 > Servlet
+>
 > JSP
+> 
 > Java
 > Ajax
 > JavaScript

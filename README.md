@@ -3,32 +3,34 @@
 <br/>
 
 #### 진행기간 : 2022.10.18 ~ 2022.11.14
-#### 팀리더 : [리더아이디](https://github.com/리더아이디)
-#### 팀원 : [팀원1](https://github.com/팀원1), [팀원2](https://github.com/팀원2), [팀원3](https://github.com/팀원3), [팀원4](https://github.com/팀원4)
+#### 팀리더 : [이현지](https://github.com/leehyunji1107)
+#### 팀원 : [정영훈](https://github.com/qjqtkwns), [최은지](https://github.com/shushuchoi), [전영주](https://github.com/Yeongdu), [김예지](https://github.com/yeajizy)
 
 <br/>
 
 ## Description
-코딩을 배우는 사람끼리 이야기를 나누고 가까이 살면 친구를 만들 수 있는 웹 사이트
+코딩관련 질문답변 , 지식공유 , 스터디 모임찾기 웹사이트
 
 
 <br/>
 <br/>
 
 
-> JAVA
+> Servlet, JSP
 > 
-> Oracle
+> Oracle SQL
 > 
-> git
+> JavaScript
+> 
+> github
 
 
 <br/>
 <br/>
 
 
-- 팀원1 : 파트1
-- 팀원2 : 파트2
-- 팀원3 : 파트3
-- 팀원4 : 파트4
-- 팀원5 : 파트5
+- 정영훈 : 로그인/메인
+- 이현지 : Q&A 게시판
+- 최은지 : Q&A 답변
+- 전영주 : 스터디 모임 게시판
+- 김예지 : 스터디 모임 답변

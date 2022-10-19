@@ -17,7 +17,7 @@
 
 
 > ### 사용기술
-> *Servlet
+> Servlet
 > JSP
 > Java
 > Ajax
@@ -27,13 +27,14 @@
 > jQuery
 >
 > #### 개발환경
-> +EclipseOracle SQL Developer
+> Eclipse
+> Oracle SQL Developer
 >
 > #### WAS
-> +Tomcat
+> Tomcat
 >
 > #### API
-> +BootStrap
+> BootStrap
 <br/>
 <br/>
 

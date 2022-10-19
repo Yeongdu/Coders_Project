@@ -17,7 +17,7 @@
 
 
 > ### 사용기술
-> +Servlet
+> *Servlet
 > JSP
 > Java
 > Ajax

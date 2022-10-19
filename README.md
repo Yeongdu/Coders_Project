@@ -16,15 +16,24 @@
 <br/>
 
 
-> Servlet, JSP
-> 
-> Oracle SQL
-> 
-> JavaScript
-> 
-> github
-
-
+> ### 사용기술
+> +Servlet
+> +JSP
+> +Java
+> +Ajax
+> +JavaScript
+> +CSS3
+> +HTML5
+> +jQuery
+>
+> #### 개발환경
+> +EclipseOracle SQL Developer
+>
+> #### WAS
+> +Tomcat
+>
+> #### API
+> +BootStrap
 <br/>
 <br/>
 

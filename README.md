@@ -23,14 +23,20 @@
 > JSP
 > 
 > Java
+> 
 > Ajax
+> 
 > JavaScript
+> 
 > CSS3
+> 
 > HTML5
+> 
 > jQuery
 >
 >> #### 개발환경
 > Eclipse
+> 
 > Oracle SQL Developer
 >
 >> #### WAS

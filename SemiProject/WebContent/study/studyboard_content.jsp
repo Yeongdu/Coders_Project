@@ -41,7 +41,7 @@
 	      <tr>
 	      	<td colspan="2">
 	      	  <c:if test="${!empty dto.getStudy_file() }">
-	      		<img src="<%=request.getContextPath() %>/upload/${dto.getStudy_file() }" width="150" height="150">
+	      		<img src="<%=request.getContextPath() %>/study_upload/${dto.getStudy_file() }" width="150" height="150">
 	      	 </td>
 	           </c:if>
 	           
@@ -96,10 +96,10 @@
 	               onclick="location.href='studyboard_modify.do?no=${dto.getStudy_num() }'">
 	         
 	            <input type="button" value="글삭제"
-	               onclick="location.href='studyboard_remove.do?no=${dto.getStudy_num() }'">
+	               onclick="location.href='studyboard_delete_ok.do?no=${dto.getStudy_num() }'">
 	               
 	            <input type="button" value="전체목록"
-	               onclick="location.href='study_list.do'">
+	               onclick="location.href='studyBoard_list.do'">
 	         </td>
 	      </tr>
 	   </table>

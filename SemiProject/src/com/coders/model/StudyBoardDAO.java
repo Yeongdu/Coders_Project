@@ -214,6 +214,114 @@ public class StudyBoardDAO {
 		}//StudyboardContent() 메서드 end
 		
 		
+		//studyboard 테이블의 게시글을 수정하는 메서드.
+		public int modifyStudyboard(StudyBoardDTO dto) {
+			
+			int result = 0;
+			
+			
+			try {
+				
+				openConn();
+				
+				sql="select * from study_group where study_num = ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, dto.getStudy_num());
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					if(dto.getStudy_file() == null) { //첨부파일을 새로 추가하지 않고 넣은 경우
+						
+						sql="update study_group set study_title = ?, study_cont = ?, study_update = sysdate where study_num = ?";
+						
+						pstmt = con.prepareStatement(sql);
+						
+						pstmt.setString(1, dto.getStudy_title());
+						
+						pstmt.setString(2, dto.getStudy_cont());
+										
+						pstmt.setInt(3, dto.getStudy_num());
+						
+						result = pstmt.executeUpdate();
+					}else {//수정 폼 창에서 첨부파일이 있는(선택한) 경우
+						
+						sql="update study_group set study_title = ?, study_cont = ?, study_file = ?, "
+								+ "study_update = sysdate where study_num = ?";
+						
+						
+                        pstmt = con.prepareStatement(sql);
+						
+						pstmt.setString(1, dto.getStudy_title());
+						
+						pstmt.setString(2, dto.getStudy_cont());
+						
+						pstmt.setString(3, dto.getStudy_file());
+										
+						pstmt.setInt(4, dto.getStudy_num());
+						
+						
+					}
+					
+					
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				
+				closeConn(rs, pstmt, con);
+			}
+			
+			return result;
+			
+		}//modifyStudyboard()메서드 end
+		
+		
+		
+		//글번호에 해당하는 studyboard 게시글을 삭제하는 메서드.
+		
+		public int deleteStudyboard(int no) {
+			
+			int result = 0;
+			
+			
+			
+			try {
+				
+				openConn();
+				
+				sql="delete from study_group where study_num = ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, no);
+				
+				result = pstmt.executeUpdate();
+				
+				sql="update study_group set study_num = study_num - 1 where study_num > ?";
+				
+                pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, no);
+				
+				pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				
+				closeConn(rs, pstmt, con);
+			}
+			
+			return result;
+			
+		}//deleteStudyboard()메서드 end
+		
+		
 		//글번호에 해당하는 댓글리스트를 조회하는 메서드.
 		public String getReplyList(int no) {
 			

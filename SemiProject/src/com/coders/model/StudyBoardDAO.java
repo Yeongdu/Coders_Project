@@ -212,6 +212,105 @@ public class StudyBoardDAO {
 			
 			
 		}//StudyboardContent() 메서드 end
+		
+		
+		//글번호에 해당하는 댓글리스트를 조회하는 메서드.
+		public String getReplyList(int no) {
+			
+			String result = "";
+			
+			
+			
+			try {
+				
+				openConn();
+				
+				sql="select * from study_comment where study_num = ? order by scomment_date desc";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, no);
+				
+				rs = pstmt.executeQuery();
+				
+                 result += "<replys>";
+				
+				while(rs.next()) {
+					
+					result += "<reply>";
+					result += "<scomment_num>" +rs.getInt("scomment_num") +"</scomment_num>";
+					result += "<study_num>" +rs.getInt("study_num") +"</study_num>";
+					result += "<scomment_writer>" +rs.getString("scomment_writer") +"</scomment_writer>";
+					result += "<scomment_cont>" +rs.getString("scomment_cont") +"</scomment_cont>";
+					result += "<scomment_date>" +rs.getString("scomment_date") +"</scomment_date>";
+					result += "<scomment_update>" +rs.getString("scomment_update") +"</scomment_update>";
+					result += "</reply>";
+					
+				}
+				
+				result += "</replys>";
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				
+				closeConn(rs, pstmt, con);
+			}
+					
+			return result;
+		}//getReplyList() 메서드 end
+		
+		
+		//답변글을 study_comment 테이블에 저장하는 메서드
+		public int replyInsert(StudyBoardCommentDTO dto) {
+			
+			
+			int result = 0, count = 0;
+			
+			
+			
+			try {
+				
+				openConn();
+				
+				sql="select max(scomment_num) from study_comment";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					 count = rs.getInt(1) + 1;
+				 }
+				
+				sql="insert into study_comment values(?, ?, ?, ?, sysdate, '')";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, count);
+				
+				pstmt.setInt(2, dto.getStudy_num());  //원글번호반영
+				
+				pstmt.setString(3, dto.getScomment_writer());
+				
+				pstmt.setString(4, dto.getScomment_cont());
+				
+				result = pstmt.executeUpdate();
+				
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}
+			
+			return result;
+			
+		}//replyInsert() 메서드 end
 
 
 }

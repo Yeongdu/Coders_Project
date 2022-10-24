@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -60,12 +60,12 @@
 
 	<div align = "center" id = "main">
 	
-		<div id = "main_top"> <%-- ¡§∑ƒ / ææÓ º±≈√ √¢ --%>
+		<div id = "main_top"> <%-- Ï†ïÎ†¨ / Ïñ∏Ïñ¥ ÏÑ†ÌÉù Ï∞Ω --%>
 			<ul>
 				<li class = "qna_language_sort">
-					<b>«¡∑Œ±◊∑°π÷ ææÓ</b>
+					<b>ÌîÑÎ°úÍ∑∏ÎûòÎ∞ç Ïñ∏Ïñ¥</b>
 					<select name = "code">
-							<option value = "none">::: ææÓ º±≈√ :::</option>
+							<option value = "none">::: Ïñ∏Ïñ¥ ÏÑ†ÌÉù :::</option>
 							<option value = "Java">JAVA</option>
 							<option value = "Python">PYTHON</option>
 							<option value = "Html">HTML</option>
@@ -78,21 +78,21 @@
 						</select>
 				</li>
 				<li class = "qna_sort">
-					<input type = "button" value = "√÷Ω≈º¯" class = "sort_Btn" onclick = "location.href ='<%=request.getContextPath()%>/qna_list.do'">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-					<input type = "button" value = "¡∂»∏º¯" class = "sort_Btn" onclick = "location.href='<%=request.getContextPath()%>/qna_list_view.do'">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-					<input type = "button" value = "¥‰∫Øº¯" class = "sort_Btn" onclick = "location.href ='<%=request.getContextPath()%>/qna_list_comment.do'">
+					<input type = "button" value = "ÏµúÏã†Ïàú" class = "sort_Btn" onclick = "location.href ='<%=request.getContextPath()%>/qna_list.do'">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+					<input type = "button" value = "Ï°∞ÌöåÏàú" class = "sort_Btn" onclick = "location.href='<%=request.getContextPath()%>/qna_list_view.do'">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+					<input type = "button" value = "ÎãµÎ≥ÄÏàú" class = "sort_Btn" onclick = "location.href ='<%=request.getContextPath()%>/qna_list_comment.do'">
 				</li>
 			</ul>
-		</div> <%-- main_top¿« end --%>
+		</div> <%-- main_topÏùò end --%>
 		
-		<div id = "main_center"> <%-- ∞‘Ω√∆« ∏ÆΩ∫∆Æ --%>
+		<div id = "main_center"> <%-- Í≤åÏãúÌåê Î¶¨Ïä§Ìä∏ --%>
 			<c:set var = "list" value = "${List }" />
 			<c:if test="${!empty list }">
 				<c:forEach items="${list }" var="dto">
 					<div id="container" class="border-top" class="border-bottom">
 						<div class="qna_view_left">
 							<div>${dto.getQna_hit() }</div>
-							<div>${dto.getQna_hit() }</div> <%-- ¥‰∫Ø ºˆ ∞™ --%>
+							<div>${dto.getQna_hit() }</div> <%-- ÎãµÎ≥Ä Ïàò Í∞í --%>
 						</div>
 	
 						<div class="qna_view_center">
@@ -108,9 +108,9 @@
 				</div>   <!-- id="container" end -->
 				</c:forEach>
 			</c:if>
-		</div> <%-- main_center¿« end --%>
+		</div> <%-- main_centerÏùò end --%>
 
-	<%-- BootStrap¿ª ¿ÃøÎ«— ∆‰¿Ã¬° √≥∏Æ øµø™ --%>
+	<%-- BootStrapÏùÑ Ïù¥Ïö©Ìïú ÌéòÏù¥Ïßï Ï≤òÎ¶¨ ÏòÅÏó≠ --%>
 		<nav id = "page_nav">
 		  <ul class="pagination">
 		  
@@ -149,6 +149,6 @@
 		  </ul>
 		</nav>
 	
-	</div> <%-- main¿« end --%>
+	</div> <%-- mainÏùò end --%>
 </body>
 </html>

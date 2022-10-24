@@ -44,14 +44,11 @@
 			</tr>
 			
 			<tr>
-				<th>첨부 파일</th>
-				<td> <img src = "<%= request.getContextPath()%>/upload/${dto.qna_file }"
-						width = "100" height = "80"> 
-					  <input type = "file" name = "qna_file_new">	
-					  	
-					  <input type = "hidden" name = "qna_file_old" value = "${dto.qna_file }">	
-				</td>
-			</tr>
+	            <th>파일첨부</th>
+	            <td>
+	               <input type="file" name="qna_file">
+	            </td>
+	         </tr>
 			
 			<tr>
 				<th> 태그 선택 </th>

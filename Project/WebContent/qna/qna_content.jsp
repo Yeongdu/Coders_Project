@@ -11,54 +11,111 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
 
+<style type="text/css">
+.mb-3 {
+	width: 40em;
+}
+#qna_cont{
+	height:26em; 
+    resize:none; /* 크기고정 */ 
+    maxlength = "1000";
+}
+
+
+table {
+	width: 1200px;
+}
+
+
+</style>
+
+
 </head>
 <body>
+
+	<c:if test="${empty userId }">
+	<jsp:include page="../include/none_top.jsp" />
+	</c:if>
+	
+	<c:if test="${!empty userId }">
+	<jsp:include page="../include/user_top.jsp" />
+	</c:if>
+	
+	<br>
 	
 	<div align="center">
 		<c:set var="dto" value="${Cont }"/>
 		
 	<h3> ${dto.qna_writer } 님의 게시글입니다. </h3>
 	
-	<table border ="1" cellspacing = "0" width = "800">
+	<br>
+
+			<div class="mb-3 row">
+			<label for="exampleFormControlInput1" 
+					class="col-sm-2 col-form-label">작성자 </label>
+			<div class="col-sm-10">
+					<input name="qna_writer" class="form-control" value="${dto.qna_writer }" readonly="readonly">
+				</div>
+			</div>
 		
 		
-		<tr>
-			<th>작성자</th>
-			<td> ${dto.qna_writer }</td>
-		</tr>	
+		<div class="mb-3 row">
+			<label for="exampleFormControlInput1" 
+					class="col-sm-2 col-form-label">제목 </label>
+			<div class="col-sm-10">
+					<input name="qna_title" class="form-control" value="${dto.qna_title }" readonly="readonly">
+				</div>
+		</div>
+			
+		<div class="mb-3 row">
+				<label for="exampleFormControlInput1"
+					class="col-sm-2 col-form-label">본문</label>
+				<div class="col-sm-10">
+					<textarea class="form-control" id="qna_cont" name="qna_cont" rows="7" cols="35" readonly>${dto.qna_cont }</textarea>
+				</div>
+		</div>
 		
-		<tr>
-			<th>글 제목</th>
-			<td> ${dto.qna_title }</td>
-		</tr>
-		
-		<tr>
-			<th>글 내용</th>
-			<td>
-				<textarea rows="7" cols="35" readonly>${dto.qna_cont }</textarea>
-			</td>
-		</tr>
-		
-		<tr>
+		<div class="mb-3 row">
 			<c:if test="${empty dto.qna_update }">
-				<th>작성일자</th>
-				<td> ${dto.qna_date }</td>	
+			
+				<label for="exampleFormControlInput1"
+					class="col-sm-2 col-form-label">작성일자 </label>
+	
+					<input name="qna_date" class="form-control" value="${dto.qna_date }" readonly="readonly">
+			
 			</c:if>
 			
-			<c:if test="${!empty dto.qna_update }">
-				<th>수정일자</th>
-				<td> ${dto.qna_update }</td>	
+			<c:if test="${empty dto.qna_update }">
+
+				<label for="exampleFormControlInput1"
+					class="col-sm-2 col-form-label">수정일자 </label>
+				
+					<input name="qna_update" class="form-control" value="${dto.qna_update }" readonly="readonly">
+				
 			</c:if>
-		</tr> 
+		</div>
+		 
 		
-		<tr>
-			<th>조회수</th>
-			<td> ${dto.qna_hit }</td>	
-		</tr>
+		<div class="mb-3 row">
+				<label for="exampleFormControlInput1"
+					class="col-sm-2 col-form-label">조회수 </label>
+		<div class="col-sm-10">
+					<input name="qna_hit" class="form-control" value="${dto.qna_hit }" readonly="readonly">
+				</div>
+		</div>
 		
 		
-		<tr>
-			<th> 첨부 파일 </th>
+		<div class="mb-3 row">
+				<label for="exampleFormControlInput1"
+					class="col-sm-2 col-form-label">파일 첨부</label>
+				<div class="col-sm-10">
+					<input class="form-control" type="file" name="qna_file">
+				</div>
+		</div>
+		
+	
+	<%-- 	<tr>
+			<th> 파일 첨부</th>
 				<c:if test="${!empty dto.qna_file }">
 				<td> 
 					<a href = "<%= request.getContextPath()%>/upload/${dto.getQna_file() }"
@@ -70,86 +127,99 @@
 				<c:if test="${empty dto.qna_file }">
 				<td> </td>
 				</c:if>
-		</tr>
+		</tr> --%>
 		
 		
-		<tr>
-			<th>태그</th>
-			<td> ${dto.qna_tag }</td>	
-		</tr>
+		<div class="mb-3 row">
+				<label for="exampleFormControlInput1"
+					class="col-sm-2 col-form-label"> 태그 </label>
+			<div class="col-sm-10">
+					<input name="qna_tag" class="form-control" value="${dto.qna_tag }" readonly="readonly">
+			</div>		
+		</div>
 		
-		<tr>
-			<td colspan ="2" align = "center">
-				<input type = "button" value="글 수정"
+
+		<div>
+				<input class= "btn btn-primary" type = "button" value="글 수정"
 					onclick = "location.href='qna_modify.do?no=${dto.qna_num}'">
 					
-				<input type = "button" value="글 삭제"
+				<input class="btn btn-outline-primary" type = "button" value="글 삭제"
 					onclick = "location.href='qna_delete.do?no=${dto.qna_num}'">
 					
-				<input type = "button" value="전체 목록"
+				<input class="btn btn-outline-secondary" type = "button" value="전체 목록"
 					onclick = "location.href='qna_list.do'">
-			</td>
-		</tr>
-	
-	</table>
-	
-	<br>
-	<br>
-	
-	
-	<!-- 댓글 폼 영역 -->
-	<div> 
-		<table cellspacing ="0" width = "600">
-			<tr>
-				<th> 작성자 </th>
-				<td> 
-					<input type = "text" name = "co_writer" id ="co_writer">
-				 </td>
-			</tr>
-			
-			<tr>
-				<th> 내 용 </th>
-				<td> 
-					<textarea rows="7" cols="35" name = "co_content" id ="co_content"></textarea>
-				 </td>
-			</tr>
-			
-			<tr>
-			<th> 첨부 파일 </th>
-				<td>
-					<input type = "file" name = "co_file" id ="co_file">
-				</td>
-			</tr>
-			
-				
-			<tr>
-				<td colspan ="2" align="right">
-					<input type="button" id="commentBtn" value="댓글 작성">
-				</td>
-			</tr>
-			
+		</div>
 
-		</table>
-	</div> 
-	<!-- 댓글폼 end -->
-	
+
+	<br>
+	<br>
+	<br>
 	
 	<h3>댓글 목록</h3>
-		
+	
+	<br>
+	<br>
+	
 	<div>
 		<table class ="list" cellspacing ="0" width = "400" >
 		
 			<tr class = "line">
-				<td colspan ="3"> 작성자</td>
+				<td colspan ="3"></td>
 			</tr>
 		
 			<tr class = "line">
-				<td> 댓글 내용</td> <td> 작성 일자</td> <td>첨부 파일</td>
+				<td></td> <td></td> <td></td>
 			</tr>
 		
 		</table>
 
 	</div>
+	
+	<br>
+	<br>
+	<br>
+	
+	<h3> ${dto.qna_writer } 님의 게시글에 댓글 작성하기 </h3>
+	
+	<br>
+	<br>
+	<!-- 댓글 폼 영역 -->
+	<div class = "commentArea"> 
+		<div class="mb-3 row">
+				<label for="exampleFormControlInput1"
+					class="col-sm-2 col-form-label">작성자 </label>
+				<div class="col-sm-10">
+					<input class="form-control" type = "text" name = "co_writer" id ="co_writer" value =${userId  } readonly>
+				 </div>
+		</div>
+			
+		<div class="mb-3 row">
+				<label for="exampleFormControlInput1"
+					class="col-sm-2 col-form-label">본문</label>
+				<div class="col-sm-10">
+					<textarea class="form-control" id="co_content" name="co_content" rows="10" cols="3"></textarea>
+				</div>
+		</div>
+
+		<div class="mb-3 row">
+				<label for="exampleFormControlInput1"
+					class="col-sm-2 col-form-label">파일 첨부</label>
+				<div class="col-sm-10">
+					<input class="form-control" type="file" name = "co_file" id ="co_file">
+				</div>
+		</div>
+			
+			
+		<div>	
+			<input type="button" id="commentBtn" value="댓글 작성" class= "btn btn-primary">
+
+			<input type="reset" id="resetBtn" value="다시 작성" class="btn btn-outline-primary">
+		</div>
+		
+		
+	</div> 
+	<!-- 댓글폼 end -->
+	
 	
 	</div>
 	<!-- 전체 div end -->	
@@ -181,16 +251,22 @@
 					
 					$(data).find("comment").each(function() {
 						table += "<tr>";
-						table += "<td colspan='2'>" + $(this).find("qcomment_writer").text() +"</td>";
+						table += "<td colspan='2'>" + "작성자: " + $(this).find("qcomment_writer").text() +"</td>";
 						table += "</tr>";
 						
 						table += "<tr>";
-						table += "<td>" + $(this).find("qcomment_cont").text() + "</td>";
-						table += "<td>" + $(this).find("qcomment_date").text() + "</td>";
-						table += "<td>" + $(this).find("qcomment_file").text() + "</td>";
-						table += "<td>" + $(this).find("qcomment_num").text() + "</td>";
+						table += "<td>" + "답글 번호: " +$(this).find("qcomment_num").text() + "</td>";
+						table += "<td>" + "내용: " + $(this).find("qcomment_cont").text() + "</td>";
+						table += "<td>" + "작성일자: " + $(this).find("qcomment_date").text() + "</td>";
+						table += "<td>" + "첨부파일: " + $(this).find("qcomment_file").text() + "</td>";
+						table += "</td>";
 						table += "</tr>";
-						
+						table += "<tr>";
+						table += "<td colspan='5' align = 'right'>" + 
+									"<input type = 'button' value = '수정' id ='modifyBtn' class= 'btn btn-primary'>" + "&nbsp &nbsp"+
+									"<input type = 'button' value = '삭제' id ='deleteBtn' class='btn btn-outline-primary'>";
+						table += "</td>";
+						table += "</tr>";
 						table += "<tr>";
 						table += "<td colspan='2'>&nbsp;</td>";
 						table += "</tr>";
@@ -205,6 +281,13 @@
 			});
 		}  // getList() 함수 end
 		
+		
+		//댓글 수정 버튼 누르기
+		$("#modifyBtn").on("click", function(){
+		
+			alert('test');
+			
+		});
 		
 		
 		// 댓글 작성 버튼을 클릭했을 때 DB에 추가로 저장.
@@ -241,14 +324,18 @@
 				}
 			});
 		});  // 댓글 등록하기 end
-		
-		
+				
 		getList();  // 전체 리스트 함수 호출
 		
 	});
 
 	</script>	
 	
+	<br>
+	<br>
+	<br>
+	
+	<jsp:include page="../include/bottom.jsp" />
 	
 </body>
 </html>

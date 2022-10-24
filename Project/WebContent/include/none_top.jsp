@@ -28,7 +28,7 @@
 							<a class="nav-link" href="<%=request.getContextPath() %>/qna_list.do">Q&A</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="<%=request.getContextPath() %>/study_list.do">Study</a>
+							<a class="nav-link" href="<%=request.getContextPath() %>/studyBoard_list.do">Study</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="<%=request.getContextPath() %>/user_login.do">로그인</a>

@@ -44,7 +44,7 @@
 							<a class="nav-link" href="<%=request.getContextPath() %>/qna_list.do" style="color: light">Q&A</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#" style="color: light">Study</a>
+							<a class="nav-link" href="<%=request.getContextPath() %>/studyBoard_list.do" style="color: light">Study</a>
 						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

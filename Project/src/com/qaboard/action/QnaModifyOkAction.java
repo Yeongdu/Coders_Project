@@ -1,7 +1,9 @@
 package com.qaboard.action;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,9 +20,11 @@ public class QnaModifyOkAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		String saveFolder = "C:\\NCS\\workspace(jsp_project)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Project\\upload";
+		String saveFolder = "C:\\Users\\user1\\git\\Coders_Project3\\Coders_Project\\Project\\WebContent\\upload";
 		
 		int fileSize = 10 * 1024 * 1024;
+		
+		QnaDTO dto = new QnaDTO();
 		
 		MultipartRequest multi = new MultipartRequest(
 				request,
@@ -32,25 +36,53 @@ public class QnaModifyOkAction implements Action {
 
 		int qna_no = Integer.parseInt(multi.getParameter("qna_num").trim());
 		
-		String qna_writer = multi.getParameter("qna_writer");
-		String qna_title = multi.getParameter("qna_title");
-		String qna_content = multi.getParameter("qna_content");
-		String qna_code = multi.getParameter("qna_code");
+		String qna_writer = multi.getParameter("qna_writer").trim();
+		String qna_title = multi.getParameter("qna_title").trim();
+		String qna_content = multi.getParameter("qna_content").trim();
+		String qna_code = multi.getParameter("qna_code").trim();
 		
-		String qna_file= multi.getFilesystemName("qna_file_new");
+		//파일 받기
+		File qna_file = multi.getFile("qna_file");
 		
-		if(qna_file == null) {
-			qna_file = multi.getParameter("qna_file_old");
+		
+		if(qna_file != null) { //첨부파일이 존재하는 경우
+			
+			String fileName = qna_file.getName();
+			
+			Calendar cal = Calendar.getInstance();
+			
+			int year = cal.get(Calendar.YEAR);
+			
+			int month = cal.get(Calendar.MONTH) + 1;
+			
+			int day = cal.get(Calendar.DAY_OF_MONTH);
+			
+			String homedir = saveFolder+"/"+year+"-"+month+"-"+day;
+			
+			File path1 = new File(homedir);
+			
+			if(!path1.exists()) {  // 폴더가 존재하지 않는 경우
+				path1.mkdir();  // 실제 폴더를 만들어 주는 메서드.
+				
+			}
+			
+			String reFileName = qna_writer+"_"+fileName;
+			
+			qna_file.renameTo(new File(homedir+"/"+reFileName));
+	
+			// 실제로 DB에 저장되는 파일 이름
+			// "/2022-10-11/홍길동_파일명" 으로 저장할 예정.
+			String fileDBName = "/"+year+"-"+month+"-"+day+"/"+reFileName;
+			
+			dto.setQna_file(fileDBName);
+					
 		}
-		
-		QnaDTO dto = new QnaDTO();
-		
+	
 		dto.setQna_num(qna_no);
 		dto.setQna_title(qna_title);
 		dto.setQna_writer(qna_writer);
 		dto.setQna_cont(qna_content);
 		dto.setQna_tag(qna_code);
-		dto.setQna_file(qna_file);
 		
 		QnaDAO dao = QnaDAO.getInstance();
 		

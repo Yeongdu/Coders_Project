@@ -105,7 +105,7 @@ public class QnaDAO {
 		try {
 			openConn();
 			
-			sql = "select * from (select row_number() over(order by qna_num desc) qnum, q.* from qna q) where qna_num >=? and qna_num <= ?";
+			sql = "select * from (select row_number() over(order by qna_date desc) qnum, q.* from qna q) where qna_num >=? and qna_num <= ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startNo);
 			pstmt.setInt(2, endNo);
@@ -121,6 +121,8 @@ public class QnaDAO {
 				dto.setQna_update(rs.getString("qna_update"));
 				dto.setQna_hit(rs.getInt("qna_hit"));
 				dto.setQna_tag(rs.getString("qna_tag"));
+				dto.setQna_code(rs.getString("qna_code"));
+				dto.setQna_reply(rs.getInt("qna_reply"));
 				
 				list.add(dto);
 			}
@@ -166,6 +168,8 @@ public class QnaDAO {
 				dto.setQna_update(rs.getString("qna_update"));
 				dto.setQna_hit(rs.getInt("qna_hit"));
 				dto.setQna_tag(rs.getString("qna_tag"));
+				dto.setQna_code(rs.getString("qna_code"));
+				dto.setQna_reply(rs.getInt("qna_reply"));
 				
 				list.add(dto);
 			}
@@ -180,34 +184,7 @@ public class QnaDAO {
 	}
 	
 	
-	// ´äº¯ °¹¼ö
-	public int getQcommentCount(int no) {
-		System.out.println("no >>> " + no);
-		
-		int count = 0;
-		
-		try {
-			openConn();
-			
-			sql = "select count(*) from qna_comment where qna_num = ?";
-			pstmt= con.prepareStatement(sql);
-			pstmt.setInt(1, no);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				count = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			closeConn(rs, pstmt, con);
-		}
-		return count;
-	}
-	
-	
-	
-	public List<QnaDTO> getQnaCommentList(int page, int rowsize, int comment){
+	public List<QnaDTO> qnaCList(int page, int rowsize){
 		
 		List<QnaDTO> list = new ArrayList<QnaDTO>();
 		
@@ -220,11 +197,10 @@ public class QnaDAO {
 		try {
 			openConn();
 			
-			sql = "select * from (select row_number() over(order by ?) qnum, q.* from qna q) where qna_num >=? and qna_num <= ?";
+			sql = "select * from (select row_number() over(order by qna_reply desc) qnum, q.* from qna q) where qna_num >=? and qna_num <= ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, comment);
-			pstmt.setInt(2, startNo);
-			pstmt.setInt(3, endNo);
+			pstmt.setInt(1, startNo);
+			pstmt.setInt(2, endNo);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -237,6 +213,8 @@ public class QnaDAO {
 				dto.setQna_update(rs.getString("qna_update"));
 				dto.setQna_hit(rs.getInt("qna_hit"));
 				dto.setQna_tag(rs.getString("qna_tag"));
+				dto.setQna_code(rs.getString("qna_code"));
+				dto.setQna_reply(rs.getInt("qna_reply"));
 				
 				list.add(dto);
 			}
@@ -281,6 +259,8 @@ public class QnaDAO {
 				dto.setQna_update(rs.getString("qna_update"));
 				dto.setQna_hit(rs.getInt("qna_hit"));
 				dto.setQna_tag(rs.getString("qna_tag"));
+				dto.setQna_code(rs.getString("qna_code"));
+				dto.setQna_reply(rs.getInt("qna_reply"));
 				
 				list.add(dto);
 			}
@@ -309,7 +289,7 @@ public class QnaDAO {
 				count = rs.getInt(1) + 1;
 			}
 			
-			sql = "insert into qna values(?,?,?,?,sysdate,'',?,0,?,?)";
+			sql = "insert into qna values(?,?,?,?,sysdate,'',?,0,?,?,default)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, count);
 			pstmt.setString(2, dto.getQna_writer());
@@ -393,6 +373,8 @@ public class QnaDAO {
 						dto.setQna_update(rs.getString("qna_update"));
 						dto.setQna_hit(rs.getInt("qna_hit"));
 						dto.setQna_tag(rs.getString("qna_tag"));
+						dto.setQna_code(rs.getString("qna_code"));
+						dto.setQna_reply(rs.getInt("qna_reply"));
 						
 						list.add(dto);
 					}
@@ -433,6 +415,8 @@ public class QnaDAO {
 					dto.setQna_hit(rs.getInt("qna_hit"));
 					dto.setQna_tag(rs.getString("qna_tag"));
 					dto.setQna_code(rs.getString("qna_code"));
+					dto.setQna_code(rs.getString("qna_code"));
+					dto.setQna_reply(rs.getInt("qna_reply"));
 				}
 				
 			} catch (SQLException e) {

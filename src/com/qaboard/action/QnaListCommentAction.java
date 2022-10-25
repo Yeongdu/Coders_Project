@@ -17,9 +17,9 @@ public class QnaListCommentAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// 페이징 처리 작업 진행
 				// 한 페이지당 보여질 게시물의 수
-				int rowsize = 10;
+				int rowsize = 5;
 				// 아래에 보여질 페이지의 최대 블럭 수 - 예) [1][2][3] / [4][5][6] / [7][8][9] / ....
-				int block = 5;
+				int block = 3;
 				
 				// DB상의 게시물의 전체 수
 				int totalRecord = 0;
@@ -61,7 +61,7 @@ public class QnaListCommentAction implements Action {
 				}
 				
 				// 현재 페이지에 해당하는 게시물을 가져오는 메서드 호출(최신순)
-				List<QnaDTO> qnaCommentList = dao.getQnaCommentList(page, rowsize);
+				List<QnaDTO> qnaCommentList = dao.qnaCList(page, rowsize);
 				
 				// ++++++++++ 답변수 받아오는 메서드 ++++++
 				

@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+	a {
+	text-decoration: none;
+	}
+	
+	#container {
+	  display: flex;
+	  width: 55em;
+	}
+	.qna_view_left {
+	  flex: 1;
+	}
+	.qna_view_center {
+	  flex: 3;
+	  text-align: left;
+	}
+	.qna_view_right {
+	  flex: 1;
+	  text-align: right;
+	}
+	
+	.qna_sort {
+		float: right;
+		list-style: none;
+		margin-right: 28%;
+		margin-bottom: 20px;
+	}
+	
+	.qna_language_sort {
+		list-style: none;
+		float:left;
+		margin-left: 28%;
+	}
+	
+	.qna_view_center{
+		margin: auto;
+	}
+	
+	#main_center {
+		clear: both;
+	}
+	
+	.pagination {
+		justify-content: center;
+	}
+	
+	#insert_area {
+		text-align: right;
+		margin-right: 30%;
+	}
+	
+	#search_keyword {
+		margin-top: 20px;
+		margin-right: 10px;
+		display: inline-block;
+		width:50%;
+	}

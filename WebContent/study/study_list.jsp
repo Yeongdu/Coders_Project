@@ -1,15 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="list" value="${studyBoardList }" />
+<c:set var="list" value="${List }" />
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>공부 게시판 전체 리스트</title>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 
 <style type="text/css">
 
@@ -52,6 +54,10 @@ font-size: 0.8em;
 }
 .studyViewWriter{
 font-size: 1.1em;
+}
+
+.pagination{
+justify-content: center;
 }
 
 </style>
@@ -98,7 +104,7 @@ font-size: 1.1em;
 					<div class="studyViewDate">${dto.getStudy_date() }</div>
 					</div>
 
-				</div>   <!-- id="container" end -->
+				</div>   <!-- id="studyListContainer" end -->
 
 				</c:forEach>
 				
@@ -108,15 +114,62 @@ font-size: 1.1em;
 			<c:if test="${empty list }">
 				<h3>게시글이 없음</h3>
 			</c:if>
+			
+			
+		<%-- BootStrap을 이용한 페이징 처리 영역 --%>
+		<nav>
+          <ul class="pagination">
+            <li class="page-item">
+              <a class="page-link" href="studyBoard_list.do?page=1">First</a></li>
+            <c:choose>
+                <c:when test="${ (page - 1) == 0}">
+                    <li><a class="page-link" href="studyBoard_list.do?page=1">Previous</a></li>
+                </c:when>
+                <c:otherwise>
+                    <li><a class="page-link" href="studyBoard_list.do?page=${ page - 1 }">Previous</a></li>
+                </c:otherwise>
+            </c:choose>
+            <c:forEach begin="${ startBlock }" end="${ endBlock }" var="i">
+                <c:if test="${ i==page }">
+                    <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="studyBoard_list.do?page=${i }">${i }</a></li>
+                </c:if>
+                <c:if test="${ i!=page }">
+                    <li class="page-item">
+                    <a class="page-link" href="studyBoard_list.do?page=${i }">${i }</a></li>
+                </c:if>
+            </c:forEach>
+           <c:if test="${ page < allPage }">
+                <li class="page-item">
+                <a class="page-link" href="studyBoard_list.do?page=${ page + 1 }">Next</a>
+                </li>
+                <li class="page-item">
+                <a class="page-link" href="studyBoard_list.do?page=${ allPage }">End</a>
+                </li>
+            </c:if>
+          </ul>
+        </nav>
+		<%-- BootStrap을 이용한 페이징 처리 영역 끝 --%>
+			  
 			  
                 <div class="col-12 text-right">
-                <a href="<%=request.getContextPath()%>/studyBoard_insert.do" class="btn btn-success"><i class="fa fa-pencil mr-1"></i> 새 글쓰기</a>
+                <button id="studyWrite_btn" class="btn btn-success"><i class="fa fa-pencil mr-1"></i> 새 글쓰기</button>
                 </div>
             
 	</div>
 	
 	<jsp:include page="../include/bottom.jsp" />
-	
+<script type="text/javascript">
+
+	$("#studyWrite_btn").click(function(){
+		if(${empty userId}) {
+			alert('로그인한 이용자만 이용할 수 있습니다.');
+		}else {
+			location.href = '<%=request.getContextPath()%>/studyBoard_insert.do';
+		}
+	});
+
+</script>
 <script src="https://kit.fontawesome.com/7703fd875c.js" crossorigin="anonymous"></script>
 </body>
 </html>

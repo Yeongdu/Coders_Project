@@ -88,14 +88,46 @@ public class StudyBoardDAO {
 		}
 
 	} // closeConn() 메서드 end
-
-	// 스터디 게시판의 전체 글을 조회하는 메서드
-	public List<StudyBoardDTO> getStudyBoardList() {
-		List<StudyBoardDTO> list = new ArrayList<StudyBoardDTO>();
+	
+	
+	//스터디 게시판 전체 글 수 세는 메서드
+	public int getStudyCount() {
+		int count = 0;
 		try {
 			openConn();
-			sql = "select * from study_group order by study_num desc";
+			sql = "select count(*) from study_group";
 			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return count;
+	} // getStudyCount() end
+	
+	
+	
+	
+
+	// 스터디 게시판의 전체 글을 조회하는 메서드
+	public List<StudyBoardDTO> getStudyBoardList(int page, int rowsize) {
+		List<StudyBoardDTO> list = new ArrayList<StudyBoardDTO>();
+		
+		int startNo = (page * rowsize) - (rowsize -1);
+		
+		int endNo = (page * rowsize);
+		try {
+			openConn();
+			sql = "select * from (select row_number() over(order by study_num desc) snum, s.* from study_group s) where study_num >=? and study_num <= ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startNo);
+			pstmt.setInt(2, endNo);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				StudyBoardDTO dto = new StudyBoardDTO();
@@ -113,7 +145,6 @@ public class StudyBoardDAO {
 				dto.setStudy_hit(rs.getInt("study_hit"));
 
 				list.add(dto);
-
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -123,6 +154,7 @@ public class StudyBoardDAO {
 		}
 		return list;
 	}
+	
 	
 	//Study 게시판 글쓰기 메서드
 	public int insertStudy(StudyBoardDTO dto) {

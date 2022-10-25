@@ -41,16 +41,16 @@ public class CodersSighUpOkAction implements Action {
 
 			forward.setRedirect(true);
 			
-			forward.setPath("Login/login.jsp");
+			forward.setPath("user_login.do");
 		}else {
 			out.println("<script>");
 			out.println("alert('회원 계정 생성에 실패하였습니다.')");
-			out.println("<script>");
+			out.println("history.back();");
 			out.println("</script>");
 			
 		}
 		
-		return null;
+		return forward;
 	}
 
 }

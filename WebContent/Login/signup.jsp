@@ -175,9 +175,9 @@
 	}
 	
 
-	h1 {
+	h1 a{
 		color: #4B89DC;
-		font-size: 6em;
+		font-size: 4em;
 	}
 
 	.login_input {
@@ -222,7 +222,7 @@
 	<div class="wrap">
 		<form class="form" method="post" action="<%=request.getContextPath()%>/user_signup_ok.do">
 			<div class="login">
-			<h1>Coders</h1>
+			<h1><a href="<%=request.getContextPath() %>/main.jsp">Coders</a></h1>
 				<div class="login_input">
 					<h4><b>*</b> E-mail&nbsp;&nbsp;<span id="idcheck"></span></h4>
 					<input type="email" id="id_input" name="id" placeholder="Email" required>

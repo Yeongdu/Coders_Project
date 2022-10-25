@@ -220,7 +220,7 @@
 </head>
 <body>
 	<div class="wrap">
-		<form class="form" method="post" action="<%=request.getContextPath()%>user_signup_ok.do">
+		<form class="form" method="post" action="<%=request.getContextPath()%>/user_signup_ok.do">
 			<div class="login">
 			<h1>Coders</h1>
 				<div class="login_input">
@@ -240,7 +240,7 @@
 				
 				<div class="login_input">
 					<h4><b>*</b> Name&nbsp;&nbsp;</h4>
-					<input type="text" name="pwd" placeholder="Name" required>
+					<input type="text" name="name" placeholder="Name" required>
 				</div>
 		            
 		            

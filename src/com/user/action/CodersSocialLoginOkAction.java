@@ -36,7 +36,7 @@ public class CodersSocialLoginOkAction implements Action {
 
 		if(check == 1) {	// DB에 정보가 존재하지 않을 때
 		  
-		  dao.UserInsert(userId, userNickname);
+		  dao.SnsUserInsert(userId, userNickname);
 		  
 		  session.setAttribute("userId", userId);
 		  session.setAttribute("userNickname", userNickname);

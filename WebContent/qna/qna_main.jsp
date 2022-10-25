@@ -199,23 +199,26 @@
 		}
 	});
 	
-	$(function() {
-		
-		$.ajax({
-			url : "/Semi/qna_qnaCommentCount.do",
-			datatype : "post",
-			data : {no : $("#qna_num").val() },
-			async: true,
-			success : function(data) {
-				console.log(data);
-				$("#commentCount").text(data);
-			},
-			error : function() {
-				alert('데이터 통신오류');
-			}
-		});
-	});
 	
+	$(function() {
+	
+	$.ajax({
+		url : "/Semi/qna_qnaCommentCount.do",
+		datatype : "post",
+		data : {no : $("#qna_num").val() },
+		async: true,
+		success : function(data) {
+			console.log(data);
+			$("#commentCount").text(data);
+		},
+		error : function() {
+			alert('데이터 통신오류');
+		}
+	});
+});
+ 
+	
+
 </script>
 
 </body>

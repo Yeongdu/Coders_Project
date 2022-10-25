@@ -207,50 +207,6 @@ public class QnaDAO {
 	
 	
 	
-	public List<QnaDTO> getQnaCommentList(int page, int rowsize, int comment){
-		
-		List<QnaDTO> list = new ArrayList<QnaDTO>();
-		
-		// 해당 페이지에서 시작 번호
-		int startNo = (page * rowsize) - (rowsize -1);
-				
-		// 해당 페이지에서 마지막 번호
-		int endNo = (page * rowsize);
-
-		try {
-			openConn();
-			
-			sql = "select * from (select row_number() over(order by ?) qnum, q.* from qna q) where qna_num >=? and qna_num <= ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, comment);
-			pstmt.setInt(2, startNo);
-			pstmt.setInt(3, endNo);
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				QnaDTO dto = new QnaDTO();
-				dto.setQna_num(rs.getInt("qna_num"));
-				dto.setQna_writer(rs.getString("qna_writer"));
-				dto.setQna_title(rs.getString("qna_title"));
-				dto.setQna_cont(rs.getString("qna_cont"));
-				dto.setQna_date(rs.getString("qna_date"));
-				dto.setQna_update(rs.getString("qna_update"));
-				dto.setQna_hit(rs.getInt("qna_hit"));
-				dto.setQna_tag(rs.getString("qna_tag"));
-				
-				list.add(dto);
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			closeConn(rs, pstmt, con);
-		}
-		return list;
-	}
-	
-	
 	
 	public List<QnaDTO> codeSortList(int page, int rowsize, String codeName) {
 		
@@ -491,7 +447,196 @@ public class QnaDAO {
 		 } //updateqna end
 	
 	
+		 //qna게시글 삭제 메소드
+		 public int deleteQna(int no){
+			 
+			 int result = 0;
+				
+				try {
+					openConn();
+					
+					sql = "delete from qna where qna_num = ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, no);
+					
+					result = pstmt.executeUpdate();
+					
+					sql = "update qna set qna_num = qna_num-1 where qna_num > ?";
+					
+					pstmt.setInt(1, no);
+					
+					pstmt.executeUpdate();
+					 
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+					return result;
+			 
+		 }//delete end
+		 
+
+		//게시글 삭제시 번호 재작업
+			
+			 public void updateQnaNum(int no){
+				
+				 try {
+					 
+						openConn();
+						 
+						sql = "update qna set qna_num = qna_num - 1 where qna_num > ?";
+						pstmt = con.prepareStatement(sql);
+						
+						pstmt.setInt(1, no);
+						pstmt.executeUpdate();
+							
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} finally {
+						closeConn(rs, pstmt, con);
+					}
+			 } 
+		 
+		 
+		 
+	//-----------------------------------------------------------------------------------------------------	 
+		 
 	
+		 //페이지에 해당하는 댓글 리스트를 조회하는 메소드
+		 public String getQnacommentList (int no){
+			 
+			 String result = "";
+			 
+			 try {
+				 
+				openConn();
+				 
+				sql = "select * from qna_comment where qna_num = ? order by qcomment_date desc";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, no);
+				rs = pstmt.executeQuery();
+				
+				result += "<comments>";
+				
+				while (rs.next()) {
+					result += "<comment>";
+					result += "<qcomment_num>" + rs.getInt("qcomment_num") + "</qcomment_num>";
+					result += "<qna_num>" + rs.getInt("qna_num") + "</qna_num>";
+					result += "<qcomment_writer>" + rs.getString("qcomment_writer") + "</qcomment_writer>";
+					result += "<qcomment_cont>" + rs.getString("qcomment_cont") + "</qcomment_cont>";
+					result += "<qcomment_date>" + rs.getString("qcomment_date") + "</qcomment_date>";
+					result += "<qcomment_update>" + rs.getString("qcomment_update") + "</qcomment_update>";
+					result += "<qcomment_good>" + rs.getInt("qcomment_good") + "</qcomment_good>";
+					result += "<qcomment_file>" + rs.getString("qcomment_file") + "</qcomment_file>";
+					result += "</comment>";
+				}
+				
+				result += "</comments>";
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+			 	return result;
+		 } //getqnacomment end
+		 
+		 
+
+		 //댓글 등록 메소드
+		 public int commentInsert(QnaCommentDTO dto) {
+			 
+			 int result = 0, count = 0; 
+			 
+				try {
+					
+					openConn();
+				
+					sql = "select max(qcomment_num) from qna_comment";
+					pstmt = con.prepareStatement(sql);
+					rs = pstmt.executeQuery();
+					
+					if(rs.next()) {
+						count = rs.getInt(1) + 1;
+					}
+					
+					sql = "insert into qna_comment values(?, ?, ?, ?, sysdate, '', 0, ?)";
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setInt(1, count);
+					pstmt.setInt(2, dto.getQna_num());
+					pstmt.setString(3, dto.getQcomment_writer());
+					pstmt.setString(4, dto.getQcomment_cont());
+					pstmt.setString(5, dto.getQcommnet_file());
+
+					result = pstmt.executeUpdate();
+					
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+				return result;
+		 } //commentinsert end
+		 
+		 
+		 public int deleteQnaComment(int no) {
+			 
+			 int result = 0;
+				
+				try {
+					openConn();
+					
+					sql = "delete from qna_comment where qcomment_num = ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, no);
+					
+					result = pstmt.executeUpdate();
+					
+					sql = "update qna set qcomment_num = qcomment_num-1 where qcomment_num > ?";
+					
+					pstmt.setInt(1, no);
+					
+					pstmt.executeUpdate();
+					 
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+					return result;
+			 
+		 }
 	
+		 
+		//게시글 삭제시 번호 재작업
+			
+		 public void updateQnaCommentNum(int no){
+			
+			 try {
+					openConn();
+					 
+					sql = "update qna_comment set qcoment_num = qcoment_num - 1 where qcoment_num > ?";
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setInt(1, no);
+					pstmt.executeUpdate();
+						
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+		 } 
+	 
+		 
 	
 }

@@ -207,9 +207,8 @@ table {
 	<br>
 	<br>
 	
-	<h3>댓글 목록</h3>
+	<h4>댓글 목록</h4>
 	
-	<br>
 	<br>
 	
 	<div>
@@ -231,43 +230,61 @@ table {
 	<br>
 	<br>
 	
-	<h3> ${dto.qna_writer } 님의 게시글에 댓글 작성하기 </h3>
+	<h4> ${dto.qna_writer } 님의 게시글에 댓글 작성하기 </h4>
 	
 	<br>
 	<br>
 	<!-- 댓글 폼 영역 -->
-	<div class = "commentArea"> 
+	
+	<div class="align-middle">
+		<div class="container col-md-6" style="width: 800px;">
+			<div class="card">
+			<div class="card-body">
+				
 		<div class="mb-3 row">
-				<label for="exampleFormControlInput1"
-					class="col-sm-2 col-form-label">작성자 </label>
-				<div class="col-sm-10">
-					<input class="form-control" type = "text" name = "co_writer" id ="co_writer" value =${userId  } readonly>
-				 </div>
+			<label for="exampleFormControlInput1"
+					class="col-sm-2 col-form-label"><i class="fa-regular fa-user"></i> 작성자 </label>
+			<div class="col-sm-10">
+			<input class="form-control" type = "text" name = "co_writer" id ="co_writer" value =${userId  } size="10" readonly>
 		</div>
-			
-		<div class="mb-3 row">
-				<label for="exampleFormControlInput1"
-					class="col-sm-2 col-form-label">본문</label>
+		</div>
+	
+		<br>
+		
+		<div>
+			<h6 class="card-title mb-3" align="center"> 댓글 내용</h6>
 				<div class="col-sm-10">
-					<textarea class="form-control" id="co_content" name="co_content" rows="10" cols="3"></textarea>
+					<textarea class="form-control" id="co_content" name="co_content" rows="7" cols="40" ></textarea>
 				</div>
 		</div>
+		
+		<br>
 
 		<div class="mb-3 row">
 				<label for="exampleFormControlInput1"
 					class="col-sm-2 col-form-label">파일 첨부</label>
 				<div class="col-sm-10">
 					<input class="form-control" type="file" name = "co_file" id ="co_file">
-				</div>
 		</div>
-			
+		
+		
+		<%-- <p>
+			<img class="card-img"
+				src="<%=request.getContextPath()%>/qna_upload/${dto.qna_file }"
+				alt="" />
+		</p>
+			 --%>
 			
 		<div>	
 			<input type="button" id="commentBtn" value="댓글 작성" class= "btn btn-primary">
 
 			<input type="reset" id="resetBtn" value="다시 작성" class="btn btn-outline-primary">
 		</div>
-		
+	
+	</div>
+	</div>
+	</div>
+	</div>	
 		
 	</div> 
 	<!-- 댓글폼 end -->
@@ -307,7 +324,7 @@ table {
 						table += "</tr>";
 						
 						table += "<tr>";
-						table += "<td>" + "답글 번호: " +$(this).find("qcomment_num").text() + "</td>";
+						table += "<td id='reNum'>" +$(this).find("qcomment_num").text() + "</td>";
 						table += "<td>" + "내용: " + $(this).find("qcomment_cont").text() + "</td>";
 						table += "<td>" + "작성일자: " + $(this).find("qcomment_date").text() + "</td>";
 						table += "<td>" + "첨부파일: " + $(this).find("qcomment_file").text() + "</td>";
@@ -365,7 +382,7 @@ table {
 				},
 				
 				error : function() {
-					alert('데이터 통신 오류입니다.');
+					alert('댓글 삭제 오류입니다.');
 				}
 			});
 		});  // 댓글 등록하기 end
@@ -375,21 +392,17 @@ table {
 		getList();  // 전체 리스트 함수 호출
 	
 		
-		//get List()에서 qcomment_num값 받아오기
-		
-		var qcnum = $("#qcomment_num").val();
-		
-		
+	
 		//댓글 삭제 버튼 누르기
-		$("#deleteBtn").on("click", function(qcnum){
+		$(document).on("click", "#deleteBtn", function(){
 		
 			if(confirm("해당 댓글을 삭제하시겠습니까?")){
 				$.ajax({
 					url : "/Project/qna_comment_delete_ok.do",
+					datatype : "text",
 					data : {
-						"qcomment_num" : qcnum	
+						reflyNum : $("#reNum").val()	
 						},
-					type : "get",
 					
 					success : function(data){
 						if(data>0){
@@ -402,14 +415,14 @@ table {
 					
 					error : function(){
 						alert("데이터 통신 오류입니다.")
+						console.log($("#reNum").val());
+						
 					}
 					
 				})
 			}
 			
-		}); //delete end 
-		
-
+	});//delete end 
 		
 	});
 

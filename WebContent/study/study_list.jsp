@@ -60,6 +60,16 @@ font-size: 1.1em;
 justify-content: center;
 }
 
+.input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3), .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-control, .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-select, .input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating) {
+border-start-start-radius: 7px;
+border-end-start-radius: 7px;
+}
+
+.studySearchWrite{
+display: flex;
+margin: auto;
+justify-content: center;
+}
 </style>
 
 </head>
@@ -75,6 +85,7 @@ justify-content: center;
 
 <div align="center">
 <h1>STUDY 할 사람 모여라</h1>
+<br />
 
 
 		<input type="hidden" value="${userId }" name="study_writer">
@@ -83,7 +94,7 @@ justify-content: center;
 				<c:forEach items="${list }" var="dto">
 
 
-				<div id="studyListContainer" class="border-top border-bottom">
+				<div id="studyListContainer" class="border-bottom">
 					<div class="study_view_left">
 						<div>${dto.getStudy_hit() }</div>
 						<div>${dto.getStudy_hit() }</div>
@@ -150,13 +161,42 @@ justify-content: center;
           </ul>
         </nav>
 		<%-- BootStrap을 이용한 페이징 처리 영역 끝 --%>
-			  
-			  
-                <div class="col-12 text-right">
-                <button id="studyWrite_btn" class="btn btn-success"><i class="fa fa-pencil mr-1"></i> 새 글쓰기</button>
-                </div>
-            
+		
+		
+		<br>
+		<%-- 검색 기능 처리 --%>
+		<div class="studySearchWrite">
+			<span class="study_search_left" style="width: 28em">
+				<span class="col-lg">
+					<form name="search_form" method="post"
+						action="<%=request.getContextPath()%>/board_search.do">
+						<span class="input-group list-search-form w-70">
+							<select name="search_field" class="custom-select col-sm-4">
+								<option value="title">제목</option>
+								<option value="cont">내용</option>
+								<option value="title_cont">제목+내용</option>
+								<option value="writer">작성자</option>
+							</select> <input type="text" name="search_keyword" value=""
+								class="form-control" />
+							<button type="submit" class="btn btn-secondary ml-1">
+								<i class="fa fa-search"></i> 검색
+							</button>
+						</span>
+					</form>
+				</span>
+			</span>
+			<%-- 검색 기능 처리 end--%>
+			
+			&nbsp;&nbsp;
+			<div class="study_search_right" class="col-12 text-right">
+				<button id="studyWrite_btn" class="btn btn-success">
+					<i class="fa fa-pencil mr-1"></i> 새 글쓰기
+				</button>
+			</div>
+		</div><%-- class="studySearchWrite" end--%>
+
 	</div>
+	<br />
 	
 	<jsp:include page="../include/bottom.jsp" />
 <script type="text/javascript">

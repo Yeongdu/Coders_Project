@@ -93,8 +93,8 @@
 						<i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }            
 					</h6>
 					<span class="studyEditDelete"><a class="studyEditIcon"
-						href="studyboard_modify.do?no=${dto.getStudy_num() }"><i
-							class="fa-solid fa-scissors"></i></a>&nbsp; <a
+						href="studyboard_modify.do?no=${dto.getStudy_num() }">
+						<i class="fa-solid fa-scissors"></i></a>&nbsp; <a
 						class="studyDeleteIcon"
 						onclick="if(confirm('게시글을 삭제하시겠습니까?')) {location.href='studyboard_delete_ok.do?no=${dto.getStudy_num() }'} else {return; }"><i
 							class="fa-solid fa-trash"></i></a></span> <br> <br>

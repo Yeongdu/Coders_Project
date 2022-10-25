@@ -202,7 +202,7 @@
 	$(function() {
 		
 		$.ajax({
-			url : "/Semi/qna_qnaCommentCount.do",
+			url : "/Project/qna_qnaCommentCount.do",
 			datatype : "post",
 			data : {no : $("#qna_num").val() },
 			async: true,

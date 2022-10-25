@@ -20,5 +20,5 @@
 	</div>
 	
 	<jsp:include page="./include/bottom.jsp" />
-</body>	
+</body>
 </html>

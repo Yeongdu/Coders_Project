@@ -166,34 +166,35 @@ justify-content: center;
 		<br>
 		<%-- 검색 기능 처리 --%>
 		<div class="studySearchWrite">
-			<span class="study_search_left" style="width: 28em">
-				<span class="col-lg">
-					<form name="search_form" method="post"
-						action="<%=request.getContextPath()%>/board_search.do">
-						<span class="input-group list-search-form w-70">
-							<select name="search_field" class="custom-select col-sm-4">
+			<form name="search_form" method="post"
+				action="<%=request.getContextPath()%>/study_search.do">
+				<span class="study_search_left" style="width: 28em"> <span
+					class="col-lg"> <span
+						class="input-group list-search-form w-70"> <select
+							name="search_field" class="custom-select col-sm-4">
 								<option value="title">제목</option>
 								<option value="cont">내용</option>
 								<option value="title_cont">제목+내용</option>
 								<option value="writer">작성자</option>
-							</select> <input type="text" name="search_keyword" value=""
-								class="form-control" />
+						</select> <input type="text" name="search_keyword" value=""
+							class="form-control" />
 							<button type="submit" class="btn btn-secondary ml-1">
 								<i class="fa fa-search"></i> 검색
 							</button>
-						</span>
-					</form>
+					</span>
 				</span>
-			</span>
+				</span>
+			</form>
 			<%-- 검색 기능 처리 end--%>
-			
+
 			&nbsp;&nbsp;
 			<div class="study_search_right" class="col-12 text-right">
 				<button id="studyWrite_btn" class="btn btn-success">
 					<i class="fa fa-pencil mr-1"></i> 새 글쓰기
 				</button>
 			</div>
-		</div><%-- class="studySearchWrite" end--%>
+		</div>
+		<%-- class="studySearchWrite" end--%>
 
 	</div>
 	<br />

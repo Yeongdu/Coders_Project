@@ -1,4 +1,9 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+
+	body {
+	font-family: 'Noto Sans KR' !important;
+	}
 
 	a {
 	text-decoration: none;
@@ -51,8 +56,32 @@
 	}
 	
 	#search_keyword {
+		margin-left: 5%;
 		margin-top: 20px;
-		margin-right: 10px;
 		display: inline-block;
-		width:50%;
+		width:45%;
+	}
+	
+	.btn {
+	margin-left: 10px;
+	}
+	
+	.qna_view_right {
+		font-size: 12px;
+		padding: 0;
+	}
+	
+	.qna_writer {
+		font-size: 16px;
+		color : #45C5F0;
+	}
+	
+	.qna_date {
+		margin-top:5px;
+		margin-bottom: 0px;
+		color: gray;
+	}
+	
+	.qna_view_center {
+		font-weight: bold;
 	}

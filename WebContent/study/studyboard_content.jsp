@@ -119,7 +119,7 @@
 	<div class="replyRap">
 	<input class="form-control re_cont" name="re_content" id="re_content">
 	&nbsp;&nbsp;
-	<span class="btn btn-outline-secondary">댓글쓰기</span>
+	<span class="btn btn-outline-secondary" id="replyBtn">댓글쓰기</span>
 	</div>
 	
 	
@@ -153,20 +153,18 @@
 	function getList() {
 		
 		$.ajax({
-			url : "/CodersPJ_01/study/studyboard_reply.jsp",
+			url : "/Project/WebContent/study/studyboard_reply.jsp",
 			data : {scomment_num : ${dto.study_num } },
 			datatype : "xml",    // 결과 데이터 타입
 			success : function(data) {
 				// 테이블 태그의 타이틀태그를 제외한 
 				// 댓글 목록을 지우는 명령어.
-				$(".list tr:gt(1)").remove();
+				$(".list tr:gt(0)").remove();
 				
 				let table = "";
 				
 				$(data).find("reply").each(function() {
-					table += "<tr>";
-					table += "<td colspan='2'>" + $(this).find("rewriter").text() +"</td>";
-					table += "</tr>";
+					
 					
 					table += "<tr>";
 					table += "<td>" + $(this).find("recont").text() + "</td>";
@@ -178,7 +176,8 @@
 					table += "</tr>";
 				});
 				
-				$(".list tr:eq(1)").after(table);
+				//테이블의 첫번째 행의 아래에 table를 추가
+				$(".list tr:eq(0)").after(table);
 			},
 			
 			
@@ -194,10 +193,10 @@
 	$("#replyBtn").on("click", function() {
 		
 		$.ajax({
-			url : "/CodersPJ_01/studyboard_reply_insert.do",
+			url : "/Project/studyboard_reply_insert.do",
 			datatype : "text",
 			data : {
-					writer : $("#re_writer").val(),
+					
 				    content : $("#re_content").val(),
 				    study_num : ${dto.study_num }
 					},
@@ -240,6 +239,15 @@
 
 	getList();  // 전체 리스트 함수 호출
 	adjustHeight();
+	
+	//글쓴 사람만 EditDelete 보이는 함수
+    function onlyWriter(){
+            if(${userId == dto.study_writer}){
+                $('.studyEditDelete').show();
+                }
+            };
+
+    onlyWriter();
 	
 
 });

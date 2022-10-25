@@ -207,8 +207,9 @@ table {
 	<br>
 	<br>
 	
-	<h4>댓글 목록</h4>
+	<h3>댓글 목록</h3>
 	
+	<br>
 	<br>
 	
 	<div>
@@ -230,49 +231,35 @@ table {
 	<br>
 	<br>
 	
-	<h4> ${dto.qna_writer } 님의 게시글에 댓글 작성하기 </h4>
+	<h3> ${dto.qna_writer } 님의 게시글에 댓글 작성하기 </h3>
 	
 	<br>
 	<br>
 	<!-- 댓글 폼 영역 -->
-	
-	<div class="align-middle">
-		<div class="container col-md-6" style="width: 800px;">
-			<div class="card">
-			<div class="card-body">
-				
+	<div class = "commentArea"> 
 		<div class="mb-3 row">
-			<label for="exampleFormControlInput1"
-					class="col-sm-2 col-form-label"><i class="fa-regular fa-user"></i> 작성자 </label>
-			<div class="col-sm-10">
-			<input class="form-control" type = "text" name = "co_writer" id ="co_writer" value =${userId  } size="10" readonly>
-		</div>
-		</div>
-	
-		<br>
-		
-		<div>
-			<h6 class="card-title mb-3" align="center"> 댓글 내용</h6>
+				<label for="exampleFormControlInput1"
+					class="col-sm-2 col-form-label">작성자 </label>
 				<div class="col-sm-10">
-					<textarea class="form-control" id="co_content" name="co_content" rows="7" cols="40" ></textarea>
+					<input class="form-control" type = "text" name = "co_writer" id ="co_writer" value =${userId  } readonly>
+				 </div>
+		</div>
+			
+		<div class="mb-3 row">
+				<label for="exampleFormControlInput1"
+					class="col-sm-2 col-form-label">본문</label>
+				<div class="col-sm-10">
+					<textarea class="form-control" id="co_content" name="co_content" rows="10" cols="3"></textarea>
 				</div>
 		</div>
-		
-		<br>
 
-		<!-- <div class="mb-3 row">
+		<div class="mb-3 row">
 				<label for="exampleFormControlInput1"
 					class="col-sm-2 col-form-label">파일 첨부</label>
 				<div class="col-sm-10">
 					<input class="form-control" type="file" name = "co_file" id ="co_file">
 				</div>
-		</div> -->
-		
-		<p>
-			<img class="card-img"
-				src="<%=request.getContextPath()%>/qna_upload/${dto.qna_file }"
-				alt="" />
-		</p>
+		</div>
 			
 			
 		<div>	
@@ -280,11 +267,7 @@ table {
 
 			<input type="reset" id="resetBtn" value="다시 작성" class="btn btn-outline-primary">
 		</div>
-	
-	</div>
-	</div>
-	</div>
-	</div>	
+		
 		
 	</div> 
 	<!-- 댓글폼 end -->

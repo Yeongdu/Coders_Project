@@ -9,30 +9,33 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <link rel = "stylesheet" href = "./css/qna_board_main.css">
 <script type="text/javascript">
 
-	// 선택한 코드를 카테고리로 가지는 게시물만 출력
 	function goSortCode() {
 		var codeName = document.getElementById("code");
 		var codeValue = codeName.options[codeName.selectedIndex].value;
 		
 		document.frm.action = "<%=request.getContextPath() %>/qna_codesort_list.do?code=" + codeValue;
+ 		// frm 태그 내의 form의 action을 설정
 		document.frm.submit();
 	}
 	
-	// 게시글 검색 함수 
 	function goSearch() {
 		var search_keyword = document.getElementById("search_keyword");
 		var keyword = search_keyword.value;
 		
 		document.frm.action = "<%=request.getContextPath() %>/qna_search.do?search_keyword=" + keyword;
+ 		// frm 태그 내의 form의 action을 설정
 		document.frm.submit();
 	}
 	
 </script>
+<style type="text/css">
+
+
+
+</style>
 </head>
 <body>
 
@@ -48,9 +51,9 @@
 	
 		<div id = "main_top"> <%-- 정렬 / 언어 선택 창 --%>
 				<div class="form-floating mb-3">
-				  <input type="text" class="form-control" placeholder="질문을 입력하세요." id ="search_keyword" name = "search_keyword">
-				 <a href = "#" class = "btn"><i class="fa-solid fa-magnifying-glass fa-2x" onclick = "goSearch()"></i></a>
-				 
+				  <input type="text" class="form-control" placeholder="질문" id ="search_keyword" name = "search_keyword">
+				 <a href = "#" style="width:30px; height:30px"><i class="fa-solid fa-magnifying-glass" onclick = "goSearch()" style = "width:30px; height:30px;"></i></a>
+				 <script src="https://kit.fontawesome.com/c85ddd0cc6.js" crossorigin="anonymous"></script>
 				</div>
 			<ul>
 				<li class = "qna_language_sort" onchange = "goSortCode()">
@@ -68,9 +71,9 @@
 					</select>
 				</li>
 				<li class = "qna_sort">
-					<input type = "button" value = "최신순" class="btn btn-outline-primary" onclick = "location.href ='<%=request.getContextPath()%>/qna_list.do'">&nbsp;&nbsp;&nbsp;
-					<input type = "button" value = "조회순" class="btn btn-outline-primary" onclick = "location.href='<%=request.getContextPath()%>/qna_list_view.do'">&nbsp;&nbsp;&nbsp;
-					<input type = "button" value = "답변순" class="btn btn-outline-primary" onclick = "location.href='<%=request.getContextPath()%>/qna_list_comment.do'">&nbsp;&nbsp;&nbsp;
+					<input type = "button" value = "최신순" class = "sort_Btn" onclick = "location.href ='<%=request.getContextPath()%>/qna_list.do'">&nbsp;&nbsp;&nbsp;
+					<input type = "button" value = "조회순" class = "sort_Btn" onclick = "location.href='<%=request.getContextPath()%>/qna_list_view.do'">&nbsp;&nbsp;&nbsp;
+					<input type = "button" value = "답변순" class = "sort_Btn" onclick = "location.href ='<%=request.getContextPath()%>/qna_list_comment.do'">
 				</li>
 			</ul>
 		</div> <%-- main_top의 end --%>
@@ -90,8 +93,11 @@
 							
 							<div>
 								<i class="fa-solid fa-pen-to-square"></i>
-								${dto.getQna_reply() }
-							</div> 
+								<span  id = "commentCount"></span>
+								<script type="text/javascript">
+								
+								</script>
+							</div> <%-- 답변 수 값 --%>
 						</div>
 	
 						<div class="qna_view_center">
@@ -127,8 +133,8 @@
 						</div>
 						
 						<div class="qna_view_right">
-						<div class = "qna_writer">${dto.getQna_writer() }</div>
-						<div class = "qna_date">${dto.getQna_date() }</div>
+						<div>${dto.getQna_writer() }</div>
+						<div>${dto.getQna_date() }</div>
 						</div>
 
 				</div>   <!-- id="container" end -->
@@ -193,8 +199,24 @@
 		}
 	});
 	
+	$(function() {
+		
+		$.ajax({
+			url : "/Semi/qna_qnaCommentCount.do",
+			datatype : "post",
+			data : {no : $("#qna_num").val() },
+			async: true,
+			success : function(data) {
+				console.log(data);
+				$("#commentCount").text(data);
+			},
+			error : function() {
+				alert('데이터 통신오류');
+			}
+		});
+	});
+	
 </script>
 
-<script src="https://kit.fontawesome.com/c85ddd0cc6.js" crossorigin="anonymous"></script>
 </body>
 </html>

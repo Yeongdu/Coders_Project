@@ -187,20 +187,17 @@
 		}
 	});
 	
+	
+	var listval = document.getElementByClassName("page-link").href;
+	
 	$("#recent_btn").on("click", function(){
 		$(".page_link").href = "qna_list.do";
 	});
 	
+	let listval = 
+	
 	$("#view_btn").on("click", function(){
-		$(".page_link").href = "qna_list_view.do";
-	});
-	
-	$("#comment_btn").on("click", function(){
-		$(".page_link").href = "qna_list_comment.do";
-	});
-	
-	$("code").on("change", function(){
-		$(".page_link").href = "qna_codesort_list.do";
+		$(".page-link").replace("qna_list.do", "qna_list_view.do");
 	});
 	
 </script>

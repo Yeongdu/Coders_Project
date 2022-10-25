@@ -105,7 +105,7 @@ public class QnaDAO {
 		try {
 			openConn();
 			
-			sql = "select * from (select row_number() over(order by qna_date desc) qnum, q.* from qna q) where qna_num >=? and qna_num <= ?";
+			sql = "select * from (select row_number() over(order by qna_date desc) qnum, q.* from qna q) where qnum >=? and qnum <= ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startNo);
 			pstmt.setInt(2, endNo);
@@ -152,7 +152,7 @@ public class QnaDAO {
 		try {
 			openConn();
 			
-			sql = "select * from (select row_number() over(order by qna_hit desc) qnum, q.* from qna q) where qna_num >=? and qna_num <= ?";
+			sql = "select * from (select row_number() over(order by qna_hit desc) qnum, q.* from qna q) where qnum >=? and qnum <= ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startNo);
 			pstmt.setInt(2, endNo);
@@ -197,7 +197,7 @@ public class QnaDAO {
 		try {
 			openConn();
 			
-			sql = "select * from (select row_number() over(order by qna_reply desc) qnum, q.* from qna q) where qna_num >=? and qna_num <= ?";
+			sql = "select * from (select row_number() over(order by qna_reply desc) qnum, q.* from qna q) where qnum >=? and qnum <= ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startNo);
 			pstmt.setInt(2, endNo);
@@ -242,7 +242,7 @@ public class QnaDAO {
 		
 		try {
 			openConn();
-			sql = "select * from (select row_number() over(order by qna_date desc) qnum, q.* from qna q) where qna_num >=? and qna_num <= ? and qna_tag = ?";
+			sql = "select * from (select row_number() over(order by qna_date desc) qnum, q.* from qna q) where qnum >=? and qnum <= ? and qna_tag = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startNo);
 			pstmt.setInt(2, endNo);

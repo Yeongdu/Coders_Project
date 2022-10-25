@@ -64,6 +64,7 @@ public class QnaListAction implements Action {
 				
 				// 현재 페이지에 해당하는 게시물을 가져오는 메서드 호출(최신순)
 				List<QnaDTO> qnaList = dao.getQnaList(page, rowsize);
+				List<QnaDTO> qnaViewList = (List<QnaDTO>)request.getAttribute("qnaViewList");
 				
 				// ++++++++++ 답변수 받아오는 메서드 ++++++
 				
@@ -78,6 +79,7 @@ public class QnaListAction implements Action {
 				request.setAttribute("startBlock", startBlock);
 				request.setAttribute("endBlock", endBlock);
 				request.setAttribute("List", qnaList);
+				request.setAttribute("qnaViewList", qnaViewList);
 				
 				ActionForward forward = new ActionForward();
 				

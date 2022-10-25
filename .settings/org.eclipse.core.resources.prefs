@@ -2,4 +2,3 @@ eclipse.preferences.version=1
 encoding//WebContent/sql/coders.sql=UTF-8
 encoding//src/com/coders/controller/FrontController.java=UTF-8
 encoding//src/com/coders/controller/mapping.properties=UTF-8
-encoding//src/com/coders/model/QnaDAO.java=UTF-8

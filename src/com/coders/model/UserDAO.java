@@ -155,4 +155,39 @@ public class UserDAO {
 			
 			
 		}	// UserInsert() 메서드 end
+		
+		// 유저 아이디가 중복인지 아닌지 확인하는 메서드.
+		public int checkUserId(String id) {
+			
+			int result = 0;
+			
+			try {
+				openConn();
+				
+				sql = "select * from user_member where user_id = ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, id);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					
+					result = -1;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				
+				closeConn(rs, pstmt, con);
+				
+			}
+			
+			return result;
+			
+			
+			
+		}	// checkUserId() 메서드 end
 }

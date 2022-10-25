@@ -41,7 +41,7 @@
 // 						return;
 // 					}
                   
-				  location.href="<%=request.getContextPath()%>/main.jsp";
+                  location.href="<%=request.getContextPath()%>/social_login_ok.do?id="+id+"&nickname="+nickname+"&token=kakao";
                   
 	          },
 	          fail: function (error) {
@@ -194,7 +194,7 @@
 				<li>
 					<!-- kakao 로그인 버튼 노출 영역 -->
 					<a href="javascript:kakaoLogin();">
-						<img src="../upload/kakaoicon.png">
+						<img src="upload/kakaoicon.png">
 					</a>
 					<!-- kakao 로그인 버튼 노출 영역 -->
 				</li>
@@ -204,7 +204,7 @@
 		  			<div id="naverIdLogin" style="display: none;"></div>
 				          <!-- 커스텀 버튼 -->
 					<a href="#" class="naver-login" id="naverLogin">
-						<img src="../upload/navericon.png">
+						<img src="upload/navericon.png">
 					</a> 
 					<!-- 커스텀 버튼 -->
 					<!-- naver 로그인 버튼 노출 영역 -->
@@ -214,7 +214,7 @@
 						var naverLogin = new naver.LoginWithNaverId(
 							{
 								clientId: "QUJaCNWazN945TqXtLvx",
-								callbackUrl: "http://localhost:8282/SemiProject/callback.jsp",
+								callbackUrl: "http://localhost:8282/Project/Login/callback.jsp",
 								isPopup: false, /* 팝업을 통한 연동처리 여부 */
 								loginButton: {color: "green", type: 3, height: 60} /* 로그인 버튼의 타입을 지정 */
 							}
@@ -257,7 +257,6 @@
 						    var id = responsePayload.email;
 						          
 						    location.href="<%=request.getContextPath()%>/social_login_ok.do?id="+id+"&nickname="+nickname+"&token=google";
-<%-- 							location.href="<%=request.getContextPath()%>/main.jsp"; --%>
 						}
 						        
 						function parseJwt (token) {
@@ -287,7 +286,7 @@
 	            
 	            <div class="login_etc">
 	                <div class="sign_up">
-	                <a href="signup.jsp">Sigh up</a>
+	                <a href="Login/signup.jsp">Sigh up</a>
 	                </div>
 	                
 	                <div class="forgot_pw">

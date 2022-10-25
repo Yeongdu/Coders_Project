@@ -8,24 +8,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NaverLoginSDK</title>
-<script>
-  	/* var naver_id_login = new naver_id_login("QUJaCNWazN945TqXtLvx", "http://localhost:8282/SemiProject/callback.jsp");
-  	// 접근 토큰 값 출력
-  	let tokken = naver_id_login.oauthParams.access_token;
-  	// 네이버 사용자 프로필 조회
-  	naver_id_login.get_naver_userprofile("naverSignInCallback()");
-  	// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
-  	
-  	function naverSignInCallback() {
-  	 let id = naver_id_login.getProfileData('email');
-   	 let nickname = naver_id_login.getProfileData('nickname');
-   	 
-   	 let url = "http://" + window.location.hostname + ( (location.port ==""||location.port==undefined)?"":":" + location.port) + "최종 로그인 url";
-  	
-  	 post_to_url( url, {'id' : id, 'nickname' : nickname, 'token' : token})
-  	} */
-  	
-</script>
 </head>
 <body>
 
@@ -39,7 +21,7 @@
 		var naverLogin = new naver.LoginWithNaverId(
 			{
 				clientId: "{QUJaCNWazN945TqXtLvx}",
-				callbackUrl: "{http://localhost:8282/SemiProject/callback.jsp}",
+				callbackUrl: "{http://localhost:8282/Project/Login/callback.jsp}",
 				isPopup: false,
 				callbackHandle: true
 				/* callback 페이지가 분리되었을 경우에 callback 페이지에서는 callback처리를 해줄수 있도록 설정합니다. */
@@ -68,7 +50,7 @@
 						return;
 					}
 
-					window.location.replace("http://" + window.location.hostname + ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/SemiProject/social_login_ok.do?id="+id+"&nickname="+nickname+"&token=naver");
+					window.location.replace("http://" + window.location.hostname + ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/Project/social_login_ok.do?id="+id+"&nickname="+nickname+"&token=naver");
 				} else {
 					console.log("callback 처리에 실패하였습니다.");
 				}

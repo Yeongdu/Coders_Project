@@ -131,11 +131,11 @@ public class UserDAO {
 		}
 		
 		// 유저 로그인 정보를 DB에 저장하는 메서드
-		public void SnsUserInsert(String id, String name) {
+		public void UserInsert(String id, String name) {
+			
+			openConn();
 			
 			try {
-				openConn();
-				
 				sql = "insert into user_member values(?, ?, sysdate, '', '', '')";
 				
 				pstmt = con.prepareStatement(sql);
@@ -190,35 +190,4 @@ public class UserDAO {
 			
 			
 		}	// checkUserId() 메서드 end
-		
-		// 유저 로그인 정보를 DB에 저장하는 메서드
-		public int UserInsert(UserDTO dto) {
-					
-			int result = 0;	
-				
-			try {
-				openConn();
-					
-				sql = "insert into user_member values(?, ?, sysdate, '', '', ?)";
-						
-				pstmt = con.prepareStatement(sql);
-						
-				pstmt.setString(1, dto.getUser_id());
-						
-				pstmt.setString(2, dto.getUser_name());
-					
-				pstmt.setString(3, dto.getUser_pwd());
-						
-				result = pstmt.executeUpdate();
-					
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				closeConn(rs, pstmt, con);
-			}
-				
-			return result;
-					
-		}	// UserInsert() 메서드 end
 }

@@ -123,10 +123,10 @@
 	</div>
 	
 	
-	 <div>
+	 <div align="center">
 	      <table class="list" cellspacing="0" width="400">
 	         
-	         <tr class="line">
+	         <tr class="line" align="center">
 	            <td>댓글내용</td> <td>작성일자</td>
 	         </tr>
 	     </table>
@@ -153,7 +153,7 @@
 	function getList() {
 		
 		$.ajax({
-			url : "/Project/WebContent/study/studyboard_reply.jsp",
+			url : "/Project/study/studyboard_reply.jsp",
 			data : {scomment_num : ${dto.study_num } },
 			datatype : "xml",    // 결과 데이터 타입
 			success : function(data) {
@@ -165,11 +165,17 @@
 				
 				$(data).find("reply").each(function() {
 					
+					table += "<tr>";
+					table += "<td>" + $(this).find("scomment_cont").text() + "</td>";
+					table += "<td>" + $(this).find("scomment_date").text() + "</td>";
+					table += "</tr>";
 					
 					table += "<tr>";
-					table += "<td>" + $(this).find("recont").text() + "</td>";
-					table += "<td>" + $(this).find("redate").text() + "</td>";
-					table += "</tr>";
+					table += "<td colspan='5' align = 'right'>" + 
+                    "<input type = 'button' value = '수정' id ='modifyBtn' class= 'btn btn-primary'>" + "&nbsp &nbsp"+
+                    "<input type = 'button' value = '삭제' id ='deleteBtn' class='btn btn-outline-primary'>";
+                     table += "</td>";
+                     table += "</tr>";
 					
 					table += "<tr>";
 					table += "<td colspan='2'>&nbsp;</td>";
@@ -184,7 +190,6 @@
 			error : function() {
 				alert('데이터 통신 에러');
 			}
-		
 		});
 	}  // getList() 함수 end
 	
@@ -196,8 +201,7 @@
 			url : "/Project/studyboard_reply_insert.do",
 			datatype : "text",
 			data : {
-					
-				    content : $("#re_content").val(),
+					content : $("#re_content").val(),
 				    study_num : ${dto.study_num }
 					},
 			success : function(data) {
@@ -212,7 +216,7 @@
 						
 						
 						// input 태그에 입력된 내용을 지워줌.
-						$("input[type=text]").each(function() {
+						$("input[name=re_content]").each(function() {
 							$(this).val("");  // 입력된 값 지우기
 						});
 					
@@ -226,8 +230,6 @@
 			}
 		});
 	});  // 댓글 등록하기 end
-	
-	
 	
 	
 	function adjustHeight() {

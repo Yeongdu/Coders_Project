@@ -122,7 +122,7 @@ justify-content: center;
 			</c:if>
 
 			<c:if test="${empty list }">
-				<h3>게시글이 없음</h3>
+				<h3>검색 결과가 없습니다</h3>
 			</c:if>
 			
 			
@@ -206,6 +206,14 @@ justify-content: center;
 			location.href = '<%=request.getContextPath()%>/studyBoard_insert.do';
 		}
 	});
+	
+	function nonSearch(){
+        if(${empty list }){
+            $('.pagination').hide();
+            }
+        };
+
+        nonSearch();
 
 </script>
 <script src="https://kit.fontawesome.com/7703fd875c.js" crossorigin="anonymous"></script>

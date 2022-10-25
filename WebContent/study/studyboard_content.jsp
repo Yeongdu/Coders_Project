@@ -92,7 +92,7 @@
 						<i class="fa-regular fa-clock"></i> ${dto.getStudy_date()} &nbsp;
 						<i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }            
 					</h6>
-					<span class="studyEditDelete"><a class="studyEditIcon"
+					<span id="studyEditDelete" class="studyEditDelete" style="display: none;"><a class="studyEditIcon"
 						href="studyboard_modify.do?no=${dto.getStudy_num() }"><i
 							class="fa-solid fa-scissors"></i></a>&nbsp; <a
 						class="studyDeleteIcon"

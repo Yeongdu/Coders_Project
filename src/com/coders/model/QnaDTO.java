@@ -12,7 +12,14 @@ public class QnaDTO {
 	private int qna_hit;
 	private String qna_tag;
 	private String qna_code;
+	private int qna_reply;
 	
+	public int getQna_reply() {
+		return qna_reply;
+	}
+	public void setQna_reply(int qna_reply) {
+		this.qna_reply = qna_reply;
+	}
 	public String getQna_code() {
 		return qna_code;
 	}

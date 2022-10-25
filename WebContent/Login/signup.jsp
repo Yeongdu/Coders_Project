@@ -195,10 +195,10 @@
 	  outline: none;
 	}
 
-
 	.submit {
+	  margin-left: 50px;
 	  margin-top: 50px;
-	  width: 80%;
+	  width: 85%;
 	}
 	.submit input {
 	  width: 100%;

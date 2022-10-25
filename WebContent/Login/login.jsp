@@ -290,8 +290,8 @@
 	                <a href="Login/signup.jsp">Sigh up</a>
 	                </div>
 	                
-	                <div class="forgot_pw">
-	                <a href="">Forgot Password?</a>
+	                <div class="forgot">
+	                <a href="Login/search.jsp">Forgot Password?</a>
 	            	</div>
 	            </div>
 	            

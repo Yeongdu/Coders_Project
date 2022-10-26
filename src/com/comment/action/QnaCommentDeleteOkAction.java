@@ -15,28 +15,20 @@ public class QnaCommentDeleteOkAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
+		int qcomment_no = Integer.parseInt(request.getParameter("qcomment_num"));
 		
-		int qcomment_no = Integer.parseInt(request.getParameter("reflyNum").trim());
+		System.out.println("commant no >>> " + qcomment_no);
 		
 		QnaDAO dao = QnaDAO.getInstance();
 		
 		int check = dao.deleteQnaComment(qcomment_no);
 		
 		PrintWriter out = response.getWriter();
-		ActionForward forward = new ActionForward();
-		
-		if(check>0) {			
-			forward.setRedirect(true);
-			forward.setPath("qna/qna_list.do");	
-		}else {
-			out.println("<script>");
-			out.println("alert('댓글 삭제에 실패했습니다.')");
-			out.println("history.back()");
-			out.println("</script>");
-		}
 		
 		
-		return forward;
+		out.println(check);
+		
+		return null;
 		
 	}
 

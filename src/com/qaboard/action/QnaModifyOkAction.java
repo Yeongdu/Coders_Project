@@ -40,6 +40,9 @@ public class QnaModifyOkAction implements Action {
 		String qna_title = multi.getParameter("qna_title").trim();
 		String qna_content = multi.getParameter("qna_content").trim();
 		String qna_code = multi.getParameter("qna_code").trim();
+		String qna_tag = multi.getParameter("qna_tag").trim();
+		
+		System.out.println("qna_tag>>" + qna_tag);
 		
 		//파일 받기
 		File qna_file = multi.getFile("qna_file");
@@ -82,9 +85,11 @@ public class QnaModifyOkAction implements Action {
 		dto.setQna_title(qna_title);
 		dto.setQna_writer(qna_writer);
 		dto.setQna_cont(qna_content);
-		dto.setQna_tag(qna_code);
+		dto.setQna_tag(qna_tag);
+		dto.setQna_code(qna_code);
 		
 		QnaDAO dao = QnaDAO.getInstance();
+		
 		
 		int check = dao.updateQna(dto);
 		

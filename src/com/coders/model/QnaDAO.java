@@ -419,7 +419,7 @@ public class QnaDAO {
 				 
 				if(rs.next()) {
 					
-					sql = "update qna set qna_writer = ?, qna_title = ?, qna_cont = ?, qna_update = sysdate, qna_file = ?, qna_tag = ? where qna_num = ?";
+					sql = "update qna set qna_writer = ?, qna_title = ?, qna_cont = ?, qna_update = sysdate, qna_file = ?, qna_tag = ?, qna_code = ? where qna_num = ?";
 					pstmt = con.prepareStatement(sql);
 					
 					pstmt.setString(1, dto.getQna_writer());
@@ -427,7 +427,8 @@ public class QnaDAO {
 					pstmt.setString(3, dto.getQna_cont());
 					pstmt.setString(4, dto.getQna_file());
 					pstmt.setString(5, dto.getQna_tag());
-					pstmt.setInt(6, dto.getQna_num());
+					pstmt.setString(6, dto.getQna_code());
+					pstmt.setInt(7, dto.getQna_num());
 					
 					result = pstmt.executeUpdate();
 					
@@ -588,6 +589,7 @@ public class QnaDAO {
 		 
 		 public int deleteQnaComment(int no) {
 			 
+			 
 			 int result = 0;
 				
 				try {
@@ -599,7 +601,7 @@ public class QnaDAO {
 					
 					result = pstmt.executeUpdate();
 					
-					sql = "update qna set qcomment_num = qcomment_num-1 where qcomment_num > ?";
+					sql = "update qna_comment set qcomment_num = qcomment_num-1 where qcomment_num > ?";
 					
 					pstmt.setInt(1, no);
 					
@@ -615,28 +617,6 @@ public class QnaDAO {
 			 
 		 }
 	
-		 
-		//게시글 삭제시 번호 재작업
-			
-		 public void updateQnaCommentNum(int no){
-			
-			 try {
-					openConn();
-					 
-					sql = "update qna_comment set qcoment_num = qcoment_num - 1 where qcoment_num > ?";
-					pstmt = con.prepareStatement(sql);
-					
-					pstmt.setInt(1, no);
-					pstmt.executeUpdate();
-						
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} finally {
-					closeConn(rs, pstmt, con);
-				}
-		 } 
-	 
 		 
 	
 }

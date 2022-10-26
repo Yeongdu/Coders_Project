@@ -24,12 +24,10 @@
 
 <script src="https://kit.fontawesome.com/89d1c95709.js" crossorigin="anonymous"></script>
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
 	
 <style type="text/css">
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
-
-<style type="text/css">
 .mb-3 {
 	width: 40em;
 }
@@ -58,6 +56,14 @@ table {
  
 .container col-md-6{
  margin: auto;
+ }
+ 
+ #emptyHeart{
+ 	color: red;
+ }
+ 
+ #fullHeart{
+ 	color: red;
  }
 
 </style>
@@ -121,7 +127,7 @@ table {
 			</c:if>
 			<c:if test="${!empty dto.qna_code }">
 				<div class="col-sm-10" align="left">
-				<pre><code class="${dto.qna_tag }"><textarea class="form-control" rows="7" cols="35" readonly>${dto.qna_code }</textarea></code></pre>
+				<pre><code class="${dto.qna_tag }"><textarea class="form-control" id="qna_code" name="qna_code" rows="7" cols="35" readonly>${dto.qna_code }</textarea></code></pre>
 				</div>
 			</c:if>
 		</div>
@@ -267,6 +273,7 @@ table {
 					<input class="form-control" type="file" name = "co_file" id ="co_file">
 		</div>
 		
+		<br> <br> <br>
 		
 		<%-- <p>
 			<img class="card-img"
@@ -319,6 +326,7 @@ table {
 					let table = "";
 					
 					$(data).find("comment").each(function() {
+						
 						table += "<tr>";
 						table += "<td colspan='2'>" + "작성자: " + $(this).find("qcomment_writer").text() +"</td>";
 						table += "</tr>";
@@ -328,12 +336,15 @@ table {
 						table += "<td>" + "내용: " + $(this).find("qcomment_cont").text() + "</td>";
 						table += "<td>" + "작성일자: " + $(this).find("qcomment_date").text() + "</td>";
 						table += "<td>" + "첨부파일: " + $(this).find("qcomment_file").text() + "</td>";
+						table += "<td align = 'center' id='goodBtn'>" + $(this).find("qcomment_good").text() + "</td>";
 						table += "</td>";
 						table += "</tr>";
 						table += "<tr>";
 						table += "<td colspan='5' align = 'right'>" + 
 									"<input type = 'button' value = '수정' id ='modifyBtn' class= 'btn btn-primary'>" + "&nbsp &nbsp"+
-									"<input type = 'button' value = '삭제' id ='deleteBtn' class='btn btn-outline-primary'>";
+									"<input type = 'button' value = '삭제' id ='deleteBtn' class='btn btn-outline-primary'>" + "&nbsp &nbsp"+
+									"<i class='fa-regular fa-heart' id = 'emptyHeart'></i>"
+									"<i class='fa-solid fa-heart' id = 'fullHeart'></i>";
 						table += "</td>";
 						table += "</tr>";
 						table += "<tr>";
@@ -367,7 +378,7 @@ table {
 				success : function(data) {
 						if(data > 0) {
 							alert('댓글이 등록되었습니다.');
-						
+
 							// 댓글 작성 후 다시 전체 댓글 리스트를 화면에 출력.
 							getList();
 							
@@ -390,8 +401,31 @@ table {
 	
 		
 		getList();  // 전체 리스트 함수 호출
-	
 		
+		
+	/* 	
+		//댓글 수정 버튼 누르기
+		$(document).on("click", "#modifyBtn", function(){
+		
+		$(data).find("comment").each(function() {
+			table += "<tr>";
+			table += "<td colspan='2'>" + "작성자: " + $(this).find("qcomment_writer").text() +"</td>";
+			table += "</tr>";
+			
+			table += "<tr>";
+			table += "<td id='reNum'>" +$(this).find("qcomment_num").text() + "</td>";
+			table += "<td>" + 
+						"<textarea>" + $(this).find("qcomment_cont").text() + "<textarea>";
+			table += "</td>";
+			table += "<td>" + "작성일자: " + $(this).find("qcomment_date").text() + "</td>";
+			table += "<td>" + "첨부파일: " + $(this).find("qcomment_file").text() + "</td>";
+			table += "</td>";
+			table += "</tr>";
+			
+		)}; 
+			
+		}); //수정 end */
+
 	
 		//댓글 삭제 버튼 누르기
 		$(document).on("click", "#deleteBtn", function(){
@@ -401,7 +435,8 @@ table {
 					url : "/Project/qna_comment_delete_ok.do",
 					datatype : "text",
 					data : {
-						reflyNum : $("#reNum").val()	
+						qcomment_num : $("#reNum").text()
+					
 						},
 					
 					success : function(data){
@@ -415,16 +450,34 @@ table {
 					
 					error : function(){
 						alert("데이터 통신 오류입니다.")
-						console.log($("#reNum").val());
-						
 					}
 					
 				})
 			}
 			
-	});//delete end 
+	});//delete end  
 		
-	});
+	
+	$(document).ready(function(){
+        
+        $("#emptyHeart").show();
+        $("#fullHeart").hide();
+
+	//emptyheart 클릭 시 full heart되게...
+       $(document).on("click", "#emptyHeart", function(){ 
+            $("#emptyHeart").hide();
+            $("#fullHeart").show();
+        });
+
+        /*img2를 클릭했을 때 img1을 보여줌*/
+        $(document).on("click", "#fullHeart", function(){
+            $("#emptyHeart").show();
+            $("#fullHeart").hide();
+        });
+    });
+	
+	
+	}); //전체 end
 
 	</script>	
 	

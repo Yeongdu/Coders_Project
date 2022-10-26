@@ -136,6 +136,7 @@
 		</div> <%-- main_center의 end --%>
 
 	<%-- BootStrap을 이용한 페이징 처리 영역 --%>
+	
 		<nav>
           <ul class="pagination">
             <li class="page-item">

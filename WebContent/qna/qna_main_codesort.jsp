@@ -65,7 +65,7 @@
 					</select>
 				</li>
 				<li class = "qna_sort">
-					<button type="button" class="btn btn-outline-primary" id = "recent_btn" onclick = "location.href ='<%=request.getContextPath()%>/qna_list.do'" disabled>최신순</button>&nbsp;&nbsp;
+					<button type="button" class="btn btn-outline-primary" id = "recent_btn" onclick = "location.href ='<%=request.getContextPath()%>/qna_list.do'">최신순</button>&nbsp;&nbsp;
 					<button type="button" class="btn btn-outline-primary" id = "view_btn" onclick = "location.href='<%=request.getContextPath()%>/qna_list_view.do'">조회순</button>&nbsp;&nbsp;
 					<button type="button" class="btn btn-outline-primary" id = "comment_btn" onclick = "location.href ='<%=request.getContextPath()%>/qna_list_comment.do'">답변순</button>
 				</li>
@@ -124,23 +124,27 @@
 						</div>
 						
 						<div class="qna_view_right">
-							<div id = "qna_view_writer">
-								<i class="fa-regular fa-user"></i>&nbsp;${dto.getQna_writer() }
-							</div>
+							<div id = "qna_view_writer">${dto.getQna_writer() }</div>
 							<div id = "qna_view_date">
 								<c:if test="${empty dto.getQna_update() }">
-									<i class="fa-regular fa-clock"></i>&nbsp;${dto.getQna_date() }
+									${dto.getQna_date() }
 								</c:if>
 								<c:if test="${!empty dto.getQna_update() }">
-									<i class="fa-regular fa-clock"></i>&nbsp;${dto.getQna_update() }
+									${dto.getQna_update() }
 								</c:if>
-								
 							</div>
 						</div>
 
 				</div>   <!-- id="container" end -->
 				</c:forEach>
 			</c:if>
+			<c:if test="${empty list }">
+				<div align = "center">
+					<h5>조회된 게시글이 없습니다.</h5>
+					<br>
+				</div>
+			</c:if>
+			
 			</form>
 		</div> <%-- main_center의 end --%>
 
@@ -148,48 +152,47 @@
 		<nav>
           <ul class="pagination">
             <li class="page-item">
-              <a class="page-link" href="qna_list.do?page=1" id = "page1">First</a></li>
+              <a class="page-link" href="qna_codesort_list.do?page=1" id = "page1">First</a></li>
             <c:choose>
                 <c:when test="${ (page - 1) == 0}">
-                    <li><a class="page-link" href="qna_list.do?page=1" id = "page2">Previous</a></li>
+                    <li><a class="page-link" href="qna_codesort_list.do?page=1" id = "page2">Previous</a></li>
                 </c:when>
                 <c:otherwise>
-                    <li><a class="page-link" href="qna_list.do?page=${ page - 1 }" id = "page3">Previous</a></li>
+                    <li><a class="page-link" href="qna_codesort_list.do?page=${ page - 1 }" id = "page3">Previous</a></li>
                 </c:otherwise>
             </c:choose>
             <c:forEach begin="${ startBlock }" end="${ endBlock }" var="i">
                 <c:if test="${ i==page }">
                     <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="qna_list.do?page=${i }" id = "page4">${i }</a></li>
+                    <a class="page-link" href="qna_codesort_list.do?page=${i }" id = "page4">${i }</a></li>
                 </c:if>
                 <c:if test="${ i!=page }">
                     <li class="page-item">
-                    <a class="page-link" href="qna_list.do?page=${i }" id = "page5">${i }</a></li>
+                    <a class="page-link" href="qna_codesort_list.do?page=${i }" id = "page5">${i }</a></li>
                 </c:if>
             </c:forEach>
            <c:if test="${ page < allPage }">
                 <li class="page-item">
-                <a class="page-link" href="qna_list.do?page=${ page + 1 }" id = "page6">Next</a>
+                <a class="page-link" href="qna_codesort_list.do?page=${ page + 1 }" id = "page6">Next</a>
                 </li>
                 <li class="page-item">
-                <a class="page-link" href="qna_list.do?page=${ allPage }" id = "page7">End</a>
+                <a class="page-link" href="qna_codesort_list.do?page=${ allPage }" id = "page7">End</a>
                 </li>
             </c:if>
           </ul>
         </nav>
 		<%-- BootStrap을 이용한 페이징 처리 영역 끝 --%>
 		
-			<div class="col-12 text-right">
-                <button id="studyWrite_btn" class="btn btn-success"><i class="fa fa-pencil mr-1"></i> 새 글쓰기</button>
-           </div>
-		
+		<div class="col-12 text-right">
+                <button id="studyWrite_btn" class="btn btn-success" id = "write_btn"><i class="fa fa-pencil mr-1"></i> 새 글쓰기</button>
+        </div>
 	</div> <%-- main의 end --%>
 	
 	<jsp:include page="../include/bottom.jsp" />
 	
 <script type="text/javascript">
 
-	$("#studyWrite_btn").click(function(){
+	$("#write_btn").click(function(){
 		if(${empty userId}) {
 			alert('로그인한 이용자만 이용할 수 있습니다.');
 		}else {
@@ -199,6 +202,4 @@
 	
 </script>
 
-<script src="https://kit.fontawesome.com/c85ddd0cc6.js" crossorigin="anonymous"></script>
-</body>
 </html>

@@ -21,6 +21,7 @@ public class QnaContentAction implements Action {
 		QnaDAO dao = QnaDAO.getInstance();
 		
 		QnaDTO dto = dao.getQnaContent(qna_no);
+		dao.updateHit(qna_no);
 		
 		System.out.println("qna_no >>> " + qna_no);
 		

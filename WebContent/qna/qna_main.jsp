@@ -139,31 +139,31 @@
 		<nav>
           <ul class="pagination">
             <li class="page-item">
-              <a class="page-link" href="qna_list.do?page=1">First</a></li>
+              <a class="page-link" href="qna_list.do?page=1" id = "page1">First</a></li>
             <c:choose>
                 <c:when test="${ (page - 1) == 0}">
-                    <li><a class="page-link" href="qna_list.do?page=1">Previous</a></li>
+                    <li><a class="page-link" href="qna_list.do?page=1" id = "page2">Previous</a></li>
                 </c:when>
                 <c:otherwise>
-                    <li><a class="page-link" href="qna_list.do?page=${ page - 1 }">Previous</a></li>
+                    <li><a class="page-link" href="qna_list.do?page=${ page - 1 }" id = "page3">Previous</a></li>
                 </c:otherwise>
             </c:choose>
             <c:forEach begin="${ startBlock }" end="${ endBlock }" var="i">
                 <c:if test="${ i==page }">
                     <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="qna_list.do?page=${i }">${i }</a></li>
+                    <a class="page-link" href="qna_list.do?page=${i }" id = "page5">${i }</a></li>
                 </c:if>
                 <c:if test="${ i!=page }">
                     <li class="page-item">
-                    <a class="page-link" href="qna_list.do?page=${i }">${i }</a></li>
+                    <a class="page-link" href="qna_list.do?page=${i }" id = "page6">${i }</a></li>
                 </c:if>
             </c:forEach>
            <c:if test="${ page < allPage }">
                 <li class="page-item">
-                <a class="page-link" href="qna_list.do?page=${ page + 1 }">Next</a>
+                <a class="page-link" href="qna_list.do?page=${ page + 1 }" id = "page7">Next</a>
                 </li>
                 <li class="page-item">
-                <a class="page-link" href="qna_list.do?page=${ allPage }">End</a>
+                <a class="page-link" href="qna_list.do?page=${ allPage }" id = "page8">End</a>
                 </li>
             </c:if>
           </ul>
@@ -188,16 +188,30 @@
 	});
 	
 	
-	var listval = document.getElementByClassName("page-link").href;
+	var listval = document.getElementById("page1").href;
 	
-	$("#recent_btn").on("click", function(){
-		$(".page_link").href = "qna_list.do";
-	});
-	
-	let listval = 
+	console.log(listval);
 	
 	$("#view_btn").on("click", function(){
-		$(".page-link").replace("qna_list.do", "qna_list_view.do");
+		$("#page1").replace("qna_list.do", "qna_list_view.do");
+		$("#page2").replace("qna_list.do", "qna_list_view.do");
+		$("#page3").replace("qna_list.do", "qna_list_view.do");
+		$("#page4").replace("qna_list.do", "qna_list_view.do");
+		$("#page5").replace("qna_list.do", "qna_list_view.do");
+		$("#page6").replace("qna_list.do", "qna_list_view.do");
+		$("#page7").replace("qna_list.do", "qna_list_view.do");
+		$("#page8").replace("qna_list.do", "qna_list_view.do");
+	});
+	
+	$("#comment_btn").on("click", function(){
+		$("#page1").replace("qna_list.do", "qna_list_comment.do");
+		$("#page2").replace("qna_list.do", "qna_list_comment.do");
+		$("#page3").replace("qna_list.do", "qna_list_comment.do");
+		$("#page4").replace("qna_list.do", "qna_list_comment.do");
+		$("#page5").replace("qna_list.do", "qna_list_comment.do");
+		$("#page6").replace("qna_list.do", "qna_list_comment.do");
+		$("#page7").replace("qna_list.do", "qna_list_comment.do");
+		$("#page8").replace("qna_list.do", "qna_list_comment.do");
 	});
 	
 </script>

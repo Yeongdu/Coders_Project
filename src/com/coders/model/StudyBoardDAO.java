@@ -124,11 +124,7 @@ public class StudyBoardDAO {
 		int endNo = (page * rowsize);
 		try {
 			openConn();
-			sql = "select * from( "
-					+ "select row_number() over(order by study_group.study_date desc) as snum, study_group.*, "
-					+ "(select count(*) from study_comment where study_group.study_num = study_comment.study_num) "
-					+ "as commentCnt "
-					+ "from study_group)where snum >=? and snum <= ?";
+			sql = "select * from (select row_number() over(order by study_date desc) snum, s.* from study_group s) where snum >=? and snum <= ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startNo);
 			pstmt.setInt(2, endNo);
@@ -147,13 +143,9 @@ public class StudyBoardDAO {
 				dto.setStudy_end(rs.getString("study_end"));
 				dto.setStudy_file(rs.getString("study_file"));
 				dto.setStudy_hit(rs.getInt("study_hit"));
-				dto.setStudy_reply(rs.getInt("commentCnt"));
 
-				
 				list.add(dto);
 			}
-			pstmt = con.prepareStatement(sql);
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

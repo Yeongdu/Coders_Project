@@ -31,6 +31,11 @@
 	}
 	
 </script>
+<style type="text/css">
+
+
+
+</style>
 </head>
 <body>
 
@@ -47,7 +52,7 @@
 		<div id = "main_top"> <%-- 정렬 / 언어 선택 창 --%>
 				<div class="form-floating mb-3">
 				  <input type="text" class="form-control" placeholder="질문" id ="search_keyword" name = "search_keyword">
-				 <a href = "#"><i class="fa-solid fa-magnifying-glass fa-2x" onclick = "goSearch()"></i></a>
+				 <a href = "#" style="width:30px; height:30px"><i class="fa-solid fa-magnifying-glass" onclick = "goSearch()" style = "width:30px; height:30px;"></i></a>
 				 <script src="https://kit.fontawesome.com/c85ddd0cc6.js" crossorigin="anonymous"></script>
 				</div>
 			<ul>
@@ -66,9 +71,9 @@
 					</select>
 				</li>
 				<li class = "qna_sort">
-					<input type = "button" value = "최신순" class = "sort_Btn" id = "recent_btn" onclick = "location.href ='<%=request.getContextPath()%>/qna_list.do'">&nbsp;&nbsp;&nbsp;
-					<input type = "button" value = "조회순" class = "sort_Btn" id = "view_btn" onclick = "location.href='<%=request.getContextPath()%>/qna_list_view.do'">&nbsp;&nbsp;&nbsp;
-					<input type = "button" value = "답변순" class = "sort_Btn" id = "comment_btn" onclick = "location.href ='<%=request.getContextPath()%>/qna_list_comment.do'">
+					<input type = "button" value = "최신순" class = "sort_Btn" onclick = "location.href ='<%=request.getContextPath()%>/qna_list.do'">&nbsp;&nbsp;&nbsp;
+					<input type = "button" value = "조회순" class = "sort_Btn" onclick = "location.href='<%=request.getContextPath()%>/qna_list_view.do'">&nbsp;&nbsp;&nbsp;
+					<input type = "button" value = "답변순" class = "sort_Btn" onclick = "location.href ='<%=request.getContextPath()%>/qna_list_comment.do'">
 				</li>
 			</ul>
 		</div> <%-- main_top의 end --%>
@@ -88,7 +93,10 @@
 							
 							<div>
 								<i class="fa-solid fa-pen-to-square"></i>
-								${dto.getQna_reply() }
+								<span  id = "commentCount"></span>
+								<script type="text/javascript">
+								
+								</script>
 							</div> <%-- 답변 수 값 --%>
 						</div>
 	
@@ -109,7 +117,7 @@
 									<span class="badge text-bg-secondary">PYTHON</span>
 								</c:if>
 								<c:if test="${tag == 'JQUERY'}">
-									<span class="badge text-bg-success">JQUERY</span>
+									<span class="badge text-bg-success">Success</span>
 								</c:if>
 								<c:if test="${tag == 'DATABASE'}">
 									<span class="badge text-bg-info">DataBase</span>
@@ -136,40 +144,43 @@
 		</div> <%-- main_center의 end --%>
 
 	<%-- BootStrap을 이용한 페이징 처리 영역 --%>
-	
 		<nav>
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="qna_list.do?page=1" id = "page1">First</a></li>
-            <c:choose>
-                <c:when test="${ (page - 1) == 0}">
-                    <li><a class="page-link" href="qna_list.do?page=1" id = "page2">Previous</a></li>
-                </c:when>
-                <c:otherwise>
-                    <li><a class="page-link" href="qna_list.do?page=${ page - 1 }" id = "page3">Previous</a></li>
-                </c:otherwise>
-            </c:choose>
-            <c:forEach begin="${ startBlock }" end="${ endBlock }" var="i">
-                <c:if test="${ i==page }">
-                    <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="qna_list.do?page=${i }" id = "page5">${i }</a></li>
-                </c:if>
-                <c:if test="${ i!=page }">
-                    <li class="page-item">
-                    <a class="page-link" href="qna_list.do?page=${i }" id = "page6">${i }</a></li>
-                </c:if>
-            </c:forEach>
-           <c:if test="${ page < allPage }">
-                <li class="page-item">
-                <a class="page-link" href="qna_list.do?page=${ page + 1 }" id = "page7">Next</a>
-                </li>
-                <li class="page-item">
-                <a class="page-link" href="qna_list.do?page=${ allPage }" id = "page8">End</a>
-                </li>
-            </c:if>
-          </ul>
-        </nav>
-		<%-- BootStrap을 이용한 페이징 처리 영역 끝 --%>
+		  <ul class="pagination">
+		  
+		    <li class="page-item">
+		      <a class="page-link" href = "board_list.do?page=1">First</a>
+		    </li>
+		    <li>
+		    	<c:if test="${page > 1 }">
+		      <a class="page-link" href = "board_list.do?page=${page -1 }">Previous</a>
+		      </c:if>
+		    </li>
+		    
+			    <c:forEach begin ="${startBlock }" end = "${endBlock }" var = "i">
+					<c:if test="${i == page }">
+						<li class = "page-item active" aria-current="page">
+							<a class = "page-link" href="board_list.do?page=${i }">${i }</a>
+						</li>
+					</c:if>
+					
+					<c:if test="${i != page }">
+						<li class = "page-item">
+							<a class = "page-link" href="board_list.do?page=${i }">${i }</a>
+						</li>
+					</c:if>
+				</c:forEach>
+				
+				<c:if test="${endBlock < allPage }">
+					<li class = "page-item">
+						<a class = "page-link" href = "board_list.do?page=${page + 1 }">Next</a>
+					</li>
+					
+					<li class = "page-item">
+						<a class = "page-link" href = "board_list.do?page=${allPage }">End</a>
+					</li>
+				</c:if>
+		  </ul>
+		</nav>
 		
 		<div id = "insert_area">
 			<input type = "button" value = "질문하기" id = "write_btn">
@@ -188,31 +199,21 @@
 		}
 	});
 	
-	
-	var listval = document.getElementById("page1").href;
-	
-	console.log(listval);
-	
-	$("#view_btn").on("click", function(){
-		$("#page1").replace("qna_list.do", "qna_list_view.do");
-		$("#page2").replace("qna_list.do", "qna_list_view.do");
-		$("#page3").replace("qna_list.do", "qna_list_view.do");
-		$("#page4").replace("qna_list.do", "qna_list_view.do");
-		$("#page5").replace("qna_list.do", "qna_list_view.do");
-		$("#page6").replace("qna_list.do", "qna_list_view.do");
-		$("#page7").replace("qna_list.do", "qna_list_view.do");
-		$("#page8").replace("qna_list.do", "qna_list_view.do");
-	});
-	
-	$("#comment_btn").on("click", function(){
-		$("#page1").replace("qna_list.do", "qna_list_comment.do");
-		$("#page2").replace("qna_list.do", "qna_list_comment.do");
-		$("#page3").replace("qna_list.do", "qna_list_comment.do");
-		$("#page4").replace("qna_list.do", "qna_list_comment.do");
-		$("#page5").replace("qna_list.do", "qna_list_comment.do");
-		$("#page6").replace("qna_list.do", "qna_list_comment.do");
-		$("#page7").replace("qna_list.do", "qna_list_comment.do");
-		$("#page8").replace("qna_list.do", "qna_list_comment.do");
+	$(function() {
+		
+		$.ajax({
+			url : "/Semi/qna_qnaCommentCount.do",
+			datatype : "post",
+			data : {no : $("#qna_num").val() },
+			async: true,
+			success : function(data) {
+				console.log(data);
+				$("#commentCount").text(data);
+			},
+			error : function() {
+				alert('데이터 통신오류');
+			}
+		});
 	});
 	
 </script>

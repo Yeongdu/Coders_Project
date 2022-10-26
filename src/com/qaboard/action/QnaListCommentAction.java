@@ -11,13 +11,11 @@ import com.coders.controller.ActionForward;
 import com.coders.model.QnaDAO;
 import com.coders.model.QnaDTO;
 
-
-public class QnaListAction implements Action {
+public class QnaListCommentAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-				// 페이징 처리 작업 진행
+		// 페이징 처리 작업 진행
 				// 한 페이지당 보여질 게시물의 수
 				int rowsize = 5;
 				// 아래에 보여질 페이지의 최대 블럭 수 - 예) [1][2][3] / [4][5][6] / [7][8][9] / ....
@@ -63,7 +61,7 @@ public class QnaListAction implements Action {
 				}
 				
 				// 현재 페이지에 해당하는 게시물을 가져오는 메서드 호출(최신순)
-				List<QnaDTO> qnaList = dao.getQnaList(page, rowsize);
+				List<QnaDTO> qnaCommentList = dao.qnaCList(page, rowsize);
 				
 				// ++++++++++ 답변수 받아오는 메서드 ++++++
 				
@@ -77,7 +75,7 @@ public class QnaListAction implements Action {
 				request.setAttribute("endNo", endNo);
 				request.setAttribute("startBlock", startBlock);
 				request.setAttribute("endBlock", endBlock);
-				request.setAttribute("List", qnaList);
+				request.setAttribute("List", qnaCommentList);
 				
 				ActionForward forward = new ActionForward();
 				

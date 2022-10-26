@@ -6,6 +6,7 @@ public class UserDTO {
 	private String user_date;
 	private String user_profile;
 	private String user_homepage;
+	private String user_pwd;
 	
 	public String getUser_id() {
 		return user_id;
@@ -37,6 +38,13 @@ public class UserDTO {
 	public void setUser_homepage(String user_homepage) {
 		this.user_homepage = user_homepage;
 	}
+	public String getUser_pwd() {
+		return user_pwd;
+	}
+	public void setUser_pwd(String user_pwd) {
+		this.user_pwd = user_pwd;
+	}
+	
 	
 	
 }

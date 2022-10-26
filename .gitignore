@@ -1,6 +1,11 @@
 
+<<<<<<< HEAD
 /build
 
 mapping.properties
 
 /
+=======
+/build/
+mapping.properties
+>>>>>>> refs/heads/master

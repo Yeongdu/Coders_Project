@@ -104,13 +104,11 @@
 							alt="" />
 					</p>
 					<p class="card-text"><textarea class="form-control" style="border:white;" readonly>${dto.getStudy_cont() }</textarea></p>
-					<br>&nbsp; <span class="btn btn-outline-dark"><i
+					<br> <span class="btn btn-outline-dark"><i
 						class="fa-regular fa-calendar-days"></i>
 						${dto.study_start.substring(0, 10)} ~ ${dto.study_end.substring(0, 10) }</span>
 					&nbsp; <span class="btn btn-outline-dark"><i
 						class="fa-solid fa-person"></i> ${dto.study_people }</span>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<span id="studyComplete" class="btn btn-outline-success" style="display: none;"><i class="fa-solid fa-check"></i>&nbsp;${dto.study_status }</span>
 				</div>
 			</div>
 		</div>
@@ -248,7 +246,6 @@
     function onlyWriter(){
             if(${userId == dto.study_writer}){
                 $('.studyEditDelete').show();
-                $('#studyComplete').show();
                 }
             };
 

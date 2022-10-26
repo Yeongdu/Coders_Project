@@ -32,11 +32,15 @@
 	    }
 	  }
 	
-	function userLogout() {
+	function naverLogout() {
 		location.href="<%=request.getContextPath()%>/user_logout_ok.do";			
 			
 		}
 	
+	function googleLogout(){
+		
+		location.href="<%=request.getContextPath()%>/user_logout_ok.do";	
+	}
 	
 </script>
 </head>
@@ -66,8 +70,12 @@
 									<li><a class="dropdown-item" href="javascript:kakaoLogout();">로그아웃</a></li>
 								</c:if>
 								
-								<c:if test="${token == 'user' }">
-									<li><a class="dropdown-item" href="javascript:userLogout();">로그아웃</a></li>
+								<c:if test="${token == 'naver' }">
+									<li><a class="dropdown-item" href="javascript:naverLogout();">로그아웃</a></li>
+								</c:if>
+								
+								<c:if test="${token == 'google' }">
+									<li><a class="dropdown-item" href="javascript:googleLogout();">로그아웃</a></li>
 								</c:if>
 							</ul>
 						</li>

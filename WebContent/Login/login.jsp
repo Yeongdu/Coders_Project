@@ -102,9 +102,9 @@
 	}
 	
 
-	h1 a{
+	h1 {
 		color: #4B89DC;
-		font-size: 4em;
+		font-size: 6em;
 	}
 	.login_sns {
 		padding: 20px;
@@ -187,10 +187,9 @@
 <body>
 
 	<div class="wrap">
-	<form class="form" method="post" action="<%=request.getContextPath()%>/user_login_ok.do">
-	<input type="hidden" name="token" value="user">
+	<form class="form" method="post" action="<%=request.getContextPath()%>user_login_ok.do">
 		<div class="login">
-		<h1><a href="main.jsp">Coders</a></h1>
+		<h1>Coders</h1>
 			<div class="login_sns">
 				<li>
 					<!-- kakao 로그인 버튼 노출 영역 -->
@@ -257,7 +256,7 @@
 						    var nickname = responsePayload.name;
 						    var id = responsePayload.email;
 						          
-						    location.href="<%=request.getContextPath()%>/social_login_ok.do?id="+id+"&nickname="+nickname+"&token=user";
+						    location.href="<%=request.getContextPath()%>/social_login_ok.do?id="+id+"&nickname="+nickname+"&token=google";
 						}
 						        
 						function parseJwt (token) {
@@ -290,8 +289,8 @@
 	                <a href="Login/signup.jsp">Sigh up</a>
 	                </div>
 	                
-	                <div class="forgot">
-	                <a href="Login/search.jsp">Forgot Password?</a>
+	                <div class="forgot_pw">
+	                <a href="">Forgot Password?</a>
 	            	</div>
 	            </div>
 	            

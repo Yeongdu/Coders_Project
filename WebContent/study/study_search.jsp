@@ -206,6 +206,7 @@ justify-content: center;
         nonSearch();
 </script>
 <script src="https://kit.fontawesome.com/7703fd875c.js" crossorigin="anonymous"></script>
-<script type="text/javascript">
+<script type="text/javascript"></script>
+
 </body>
 </html>

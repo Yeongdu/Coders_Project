@@ -20,7 +20,7 @@ public class QnaSearchAction implements Action {
 		
 		// 페이징 처리 작업 진행
 		// 한 페이지당 보여질 게시물의 수
-		int rowsize = 5;
+		int rowsize = 10;
 		// 아래에 보여질 페이지의 최대 블럭 수 - 예) [1][2][3] / [4][5][6] / [7][8][9] / ....
 		int block = 3;
 		
@@ -78,7 +78,7 @@ public class QnaSearchAction implements Action {
 		
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);
-		forward.setPath("qna/qna_main.jsp");
+		forward.setPath("qna/qna_main_search.jsp");
 		
 		return forward;
 	}

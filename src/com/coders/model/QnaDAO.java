@@ -184,6 +184,7 @@ public class QnaDAO {
 	}
 	
 	
+	// qna게시판을 답변수대로 정렬하는 메서드
 	public List<QnaDTO> qnaCList(int page, int rowsize){
 		
 		List<QnaDTO> list = new ArrayList<QnaDTO>();
@@ -229,7 +230,7 @@ public class QnaDAO {
 	}
 	
 	
-	
+	// qna게시판에서 선택한 코드 언어가 들어가는 태그만 출력하는 메서드
 	public List<QnaDTO> codeSortList(int page, int rowsize, String codeName) {
 		
 		List<QnaDTO> list = new ArrayList<QnaDTO>();
@@ -242,7 +243,8 @@ public class QnaDAO {
 		
 		try {
 			openConn();
-			sql = "select * from (select row_number() over(order by qna_date desc) qnum, q.* from qna q) where qnum >=? and qnum <= ? and qna_tag = ?";
+			sql = "select * from (select row_number() over(order by qna_date desc) qnum, "
+					+ "q.* from qna q) where qnum >=? and qnum <= ? and qna_tag = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startNo);
 			pstmt.setInt(2, endNo);
@@ -274,7 +276,7 @@ public class QnaDAO {
 	}
 	
 	
-	
+	// qna 게시판에 글 쓰기 하는 메서드
 	public int insertQna(QnaDTO dto) {
 		
 		int result = 0, count = 0;
@@ -313,7 +315,7 @@ public class QnaDAO {
 	
 	
 	
-	// 검색 게시물의 수
+	// qna게시판에서 검색된 게시물의 수
 	public int searchListCount(String keyword) {
 		
 		int count = 0;
@@ -339,6 +341,7 @@ public class QnaDAO {
 	}
 	
 	
+	// qna 게시판에서 검색된 게시글을 출력하는 메서드
 	public List<QnaDTO> searchQnaList(String keyword, int page, int rowsize){
 		
 			List<QnaDTO> list = new ArrayList<QnaDTO>();
@@ -352,10 +355,8 @@ public class QnaDAO {
 			openConn();
 			
 				try {
-					sql = "select * from "
-							+ "(select row_number() over(order by qna_num desc) rnum, "
-							+ "q.* from qna q where qna_title like  ? or qna_cont like ?) "
-							+ "where rnum >= ? and rnum <= ?";
+					sql = "select * from (select row_number() over(order by qna_date desc) qnum, q.* from qna q) where qnum >= ? and qnum <= ? and qna_title like ? or qna_cont like ?";
+					
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "%"+keyword+"%");
 					pstmt.setString(2, "%"+keyword+"%");
@@ -388,6 +389,24 @@ public class QnaDAO {
 				return list;
 	}
 	
+	// 조회수 증가 메서드
+	public void updateHit(int no) {
+	
+		try {
+			openConn();
+			
+			sql = "update qna set qna_hit = qna_hit + 1 where qna_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+	}
+		
 	
 	// qna 세부정보 조회 메소드
 		 public QnaDTO getQnaContent(int no) {

@@ -1,4 +1,9 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap');
+
+	body {
+	font-family: 'Noto Sans KR' !important;
+	}
 
 	a {
 	text-decoration: none;
@@ -45,14 +50,22 @@
 		justify-content: center;
 	}
 	
-	#insert_area {
-		text-align: right;
-		margin-right: 30%;
-	}
-	
 	#search_keyword {
 		margin-top: 20px;
 		margin-right: 10px;
 		display: inline-block;
-		width:50%;
+		width:35%;
 	}
+	
+	#qna_view_writer { 
+		color : skyblue;
+		font-size: 14px;
+		margin-bottom: 5px;
+	}
+	
+	#qna_view_date {
+		color: gray;
+		font-size: 13px;
+		margin-bottom: 0;
+	}
+	

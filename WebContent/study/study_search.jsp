@@ -75,7 +75,7 @@ justify-content: center;
 	</c:if>
 
 <div align="center">
-<h1>STUDY 검색결과</h1>
+<h1>STUDY 게시판 검색</h1>
 <br />
 
 
@@ -114,7 +114,7 @@ justify-content: center;
 			</c:if>
 
 			<c:if test="${empty list }">
-				<h3>게시글이 없음</h3>
+				<h3>검색 결과가 없음</h3>
 			</c:if>
 			
 			
@@ -197,6 +197,14 @@ justify-content: center;
 			location.href = '<%=request.getContextPath()%>/studyBoard_insert.do';
 		}
 	});
+	
+	function nonSearch(){
+        if(${empty list }){
+            $('.pagination').hide();
+            }
+        };
+        nonSearch();
+        
 </script>
 <script src="https://kit.fontawesome.com/7703fd875c.js" crossorigin="anonymous"></script>
 <script type="text/javascript">

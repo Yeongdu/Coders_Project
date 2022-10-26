@@ -18,6 +18,8 @@
         qna_file varchar2(300),             -- qna 게시판 첨부파일
         qna_hit number(5),                  -- qna 게시판 조회수
         qna_tag varchar2(20)                -- qna 게시판 태그(말머리)
+        qna_code varchar2(2000),			-- qna 게시판 코드 내용
+        qna_reply number(5)					-- qna 게시판 답변 갯수
     );
 
 -- 스터디 모임 게시판 테이블

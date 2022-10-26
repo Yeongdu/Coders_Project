@@ -5,19 +5,12 @@
 <%
     int reply_no =  
     Integer.parseInt(request.getParameter("scomment_num").trim());
+
+	System.out.println("넘겨 받은 원글 번호 >>> " + reply_no);
+	
     StudyBoardDAO dao = StudyBoardDAO.getInstance();
     
     String str = dao.getReplyList(reply_no);
     
     out.println(str);
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>

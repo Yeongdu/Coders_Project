@@ -122,31 +122,31 @@ justify-content: center;
 		<nav>
           <ul class="pagination">
             <li class="page-item">
-              <a class="page-link" href="study_search.do?page=1">First</a></li>
+              <a class="page-link" href="studyBoard_list.do?page=1">First</a></li>
             <c:choose>
                 <c:when test="${ (page - 1) == 0}">
-                    <li><a class="page-link" href="study_search.do?page=1">Previous</a></li>
+                    <li><a class="page-link" href="studyBoard_list.do?page=1">Previous</a></li>
                 </c:when>
                 <c:otherwise>
-                    <li><a class="page-link" href="study_search.do?page=${ page - 1 }">Previous</a></li>
+                    <li><a class="page-link" href="studyBoard_list.do?page=${ page - 1 }">Previous</a></li>
                 </c:otherwise>
             </c:choose>
             <c:forEach begin="${ startBlock }" end="${ endBlock }" var="i">
                 <c:if test="${ i==page }">
                     <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="study_search.do?page=${i }">${i }</a></li>
+                    <a class="page-link" href="studyBoard_list.do?page=${i }">${i }</a></li>
                 </c:if>
                 <c:if test="${ i!=page }">
                     <li class="page-item">
-                    <a class="page-link" href="study_search.do?page=${i }">${i }</a></li>
+                    <a class="page-link" href="studyBoard_list.do?page=${i }">${i }</a></li>
                 </c:if>
             </c:forEach>
            <c:if test="${ page < allPage }">
                 <li class="page-item">
-                <a class="page-link" href="study_search.do?page=${ page + 1 }">Next</a>
+                <a class="page-link" href="studyBoard_list.do?page=${ page + 1 }">Next</a>
                 </li>
                 <li class="page-item">
-                <a class="page-link" href="study_search.do?page=${ allPage }">End</a>
+                <a class="page-link" href="studyBoard_list.do?page=${ allPage }">End</a>
                 </li>
             </c:if>
           </ul>
@@ -189,7 +189,6 @@ justify-content: center;
 		<%-- class="studySearchWrite" end--%>
 			
 <jsp:include page="../include/bottom.jsp" />
-
 <script type="text/javascript">
 	$("#studyWrite_btn").click(function(){
 		if(${empty userId}) {
@@ -208,5 +207,6 @@ justify-content: center;
         
 </script>
 <script src="https://kit.fontawesome.com/7703fd875c.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
 </body>
 </html>

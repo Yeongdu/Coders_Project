@@ -46,6 +46,8 @@ public class CodersSocialLoginOkAction implements Action {
 		  
 		  forward.setPath("main.jsp");
 		  
+		  System.out.println("DB 값 존재");
+		  
 		}else if(check == -1){	// DB에 정보가 존재할 때
 		  
 		  session.setAttribute("userId", userId); 
@@ -56,13 +58,16 @@ public class CodersSocialLoginOkAction implements Action {
 		  
 		  forward.setPath("main.jsp");
 		  
+		  System.out.println("DB 값 없음");
+		  
 		}else { 
-			
 		  out.println("<script>");
 		  out.println("alert('로그인에 실패하셨습니다.')");
 		  out.println("location.href='main.jsp'"); 
 		  out.println("</script>"); }
 		
+		System.out.println("실패");
+		 
 
 		return forward;
 	}

@@ -36,9 +36,10 @@ public class CodersUserLoginOkAction implements Action {
 
 		if(check == 1) {	// DB에 정보가 존재하지 않을 때
 		  
-		  dao.SnsUserInsert(userId, userNickname);
+		  dao.UserInsert(userId, userNickname);
 		  
 		  session.setAttribute("userId", userId);
+		  session.setAttribute("userNickname", userNickname);
 		  session.setAttribute("token", token);
 		  
 		  forward.setRedirect(false);
@@ -48,6 +49,7 @@ public class CodersUserLoginOkAction implements Action {
 		}else if(check == -1){	// DB에 정보가 존재할 때
 		  
 		  session.setAttribute("userId", userId); 
+		  session.setAttribute("userNickname", userNickname);
 		  session.setAttribute("token", token);
 		  
 		  forward.setRedirect(false);

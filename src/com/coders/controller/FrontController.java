@@ -17,21 +17,20 @@ public class FrontController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    
     protected void service(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
 
-		// 한글 인코딩 처리
+        // 占쎈립疫뀐옙 占쎌뵥�굜遺얜뎃 筌ｌ꼶�봺
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
 
-		// getRequestURI() : "/프로젝트명/파일명(*.do)" 라는
-		//                   문자열을 반환해 주는 메서드.
+        // getRequestURI() : "/占쎈늄嚥≪뮇�젰占쎈뱜筌륅옙/占쎈솁占쎌뵬筌륅옙(*.do)" 占쎌뵬占쎈뮉
+        //                   �눧紐꾩쁽占쎈였占쎌뱽 獄쏆꼹�넎占쎈퉸 雅뚯눖�뮉 筌롫뗄苑뚳옙諭�.
         String uri = request.getRequestURI();
         System.out.println("URI >>> " + uri);
 
-        // getContextPath() : 현재 프로젝트명을 문자열로
-     	//                    반환해 주는 메서드.
+        // getContextPath() : 占쎌겱占쎌삺 占쎈늄嚥≪뮇�젰占쎈뱜筌뤿굞�뱽 �눧紐꾩쁽占쎈였嚥∽옙
+        //                    獄쏆꼹�넎占쎈퉸 雅뚯눖�뮉 筌롫뗄苑뚳옙諭�.
         String path = request.getContextPath();
         System.out.println("Path >>> " + path);
 
@@ -44,20 +43,20 @@ public class FrontController extends HttpServlet {
 
         Properties pro = new Properties();
 		
-        /*
-		 * java.util.Properties 클래스
-		 * - Properties 클래스는 HashTable의 하위 클래스.
-		 * - 보통은 환경변수 및 속성 값을 Properties 파일에
-		 *   저장하여 쉽게 접근할 수 있는 장점이 있음.
-		 * - Properties 파일은 일련의 키(key) - 값(value)의
-		 *   한 쌍으로 이루어져 있음.
-		 * - 보통은 파일에 저장하여 사용을 함. 파일 이름을
-		 *   *.properties 이름으로 끝나게 함.
-		 * - FileInputStream 클래스에 Properties 파일을 인자로
-		 *   넣어서 그 스트림으로부터 파일을 가져올 때 많이 사용함.
-		 *   인자로 들어온 Properties 파일을 읽게 됨.
-		 * - 읽어 들일 때 사용하는 메서드는 load() 라는 메서드를
-		 *   이용하여 파일을 읽어 들이게 됨.
+		/*
+		 * java.util.Properties 占쎄깻占쎌삋占쎈뮞
+		 * - Properties 占쎄깻占쎌삋占쎈뮞占쎈뮉 HashTable占쎌벥 占쎈릭占쎌맄 占쎄깻占쎌삋占쎈뮞.
+		 * - 癰귣똾�꽰占쏙옙 占쎌넎野껋럥占쏙옙�땾 獄쏉옙 占쎈꺗占쎄쉐 揶쏅�れ뱽 Properties 占쎈솁占쎌뵬占쎈퓠
+		 *   占쏙옙占쎌삢占쎈릭占쎈연 占쎈뤊野껓옙 占쎌젔域뱀눛釉� 占쎈땾 占쎌뿳占쎈뮉 占쎌삢占쎌젎占쎌뵠 占쎌뿳占쎌벉.
+		 * - Properties 占쎈솁占쎌뵬占쏙옙 占쎌뵬占쎌졃占쎌벥 占쎄텕(key) - 揶쏉옙(value)占쎌벥
+		 *   占쎈립 占쎈솂占쎌몵嚥∽옙 占쎌뵠�뙴�뫁堉깍옙議� 占쎌뿳占쎌벉.
+		 * - 癰귣똾�꽰占쏙옙 占쎈솁占쎌뵬占쎈퓠 占쏙옙占쎌삢占쎈릭占쎈연 占쎄텢占쎌뒠占쎌뱽 占쎈맙. 占쎈솁占쎌뵬 占쎌뵠�뵳袁⑹뱽
+		 *   *.properties 占쎌뵠�뵳袁⑹몵嚥∽옙 占쎄국占쎄돌野껓옙 占쎈맙.
+		 * - FileInputStream 占쎄깻占쎌삋占쎈뮞占쎈퓠 Properties 占쎈솁占쎌뵬占쎌뱽 占쎌뵥占쎌쁽嚥∽옙
+		 *   占쎄퐫占쎈선占쎄퐣 域뱄옙 占쎈뮞占쎈뱜�뵳�눘�몵嚥≪뮆占쏙옙苑� 占쎈솁占쎌뵬占쎌뱽 揶쏉옙占쎌죬占쎌궞 占쎈르 筌띾‘�뵠 占쎄텢占쎌뒠占쎈맙.
+		 *   占쎌뵥占쎌쁽嚥∽옙 占쎈굶占쎈선占쎌궔 Properties 占쎈솁占쎌뵬占쎌뱽 占쎌뵭野껓옙 占쎈쭡.
+		 * - 占쎌뵭占쎈선 占쎈굶占쎌뵬 占쎈르 占쎄텢占쎌뒠占쎈릭占쎈뮉 筌롫뗄苑뚳옙諭띰옙�뮉 load() 占쎌뵬占쎈뮉 筌롫뗄苑뚳옙諭띄몴占�
+		 *   占쎌뵠占쎌뒠占쎈릭占쎈연 占쎈솁占쎌뵬占쎌뱽 占쎌뵭占쎈선 占쎈굶占쎌뵠野껓옙 占쎈쭡.
 		 */
 	
 		FileInputStream fis = 
@@ -73,16 +72,16 @@ public class FrontController extends HttpServlet {
 	                    new StringTokenizer(value, "|");
 
 	            String url_1 = st.nextToken();  // "execute"
-	            String url_2 = st.nextToken();  // "패키지명.클래스명"
+	            String url_2 = st.nextToken();  // "占쎈솭占쎄텕筌욑옙筌륅옙.占쎄깻占쎌삋占쎈뮞筌륅옙"
 			
 	            try {
 	                Class<?> url = Class.forName(url_2);
 
-	                // 첫번째 방법 (deptrcated - 더 이상 사용되지 않는)
-					// action = (Action)url.newInstance();
-					
-					// getContructor() : 파라미터가 없는 기본생성자를
-					//                   가져오는 메서드.
+	                // 筌ｃ꺂苡뀐쭪占� 獄쎻뫖苡� (deprecated - 占쎈쐭 占쎌뵠占쎄맒 占쎄텢占쎌뒠占쎈┷筌욑옙 占쎈륫占쎈뮉)
+	                // action = (Action)url.newInstance();
+
+	                // getContructor() : 占쎈솁占쎌뵬沃섎챸苑ｅ첎占� 占쎈씨占쎈뮉 疫꿸퀡�궚占쎄문占쎄쉐占쎌쁽�몴占�
+	                //                   揶쏉옙占쎌죬占쎌궎占쎈뮉 筌롫뗄苑뚳옙諭�.
 	                Constructor<?> constructor = 
 	                                url.getConstructor();
 
@@ -97,7 +96,7 @@ public class FrontController extends HttpServlet {
 	                e.printStackTrace();
 	            }
 	        }else {  // value 揶쏅�れ뵠 "execute" 揶쏉옙 占쎈툡占쎈빒 野껋럩�뒭
-	        	// view page로 이동
+	            // view page嚥∽옙 占쎌뵠占쎈짗
 	            forward = new ActionForward();
 	            forward.setRedirect(false);
 	            forward.setPath(value);
@@ -105,9 +104,9 @@ public class FrontController extends HttpServlet {
 
 
 	        if(forward != null) {
-	            if(forward.isRedirect()) {  // true인 경우
+	            if(forward.isRedirect()) {  // true占쎌뵥 野껋럩�뒭
 	                response.sendRedirect(forward.getPath());
-	            }else {  // false인 경우 view page로 이동
+	            }else {  // false占쎌뵥 野껋럩�뒭 view page嚥∽옙 占쎌뵠占쎈짗
 	                request.getRequestDispatcher(forward.getPath()).forward(request, response);
 	            }
 	        }

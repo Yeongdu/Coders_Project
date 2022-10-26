@@ -28,6 +28,7 @@
 }
 .study_view_left {
   flex: 1;
+  text-align-last: left;
 }
 .study_view_left2{
   display: table-cell;
@@ -88,8 +89,8 @@ justify-content: center;
 
 				<div id="studyListContainer" class="border-bottom">
 					<div class="study_view_left">
-						<div>${dto.getStudy_hit() }</div>
-						<div>${dto.getStudy_hit() }</div>
+						<div><i class="fa-regular fa-eye"></i> &nbsp;${dto.getStudy_hit() }</div>
+						<div><i class="fa-regular fa-pen-to-square"></i> &nbsp;${dto.getStudy_reply() }</div>
 					</div>
 					
 					<div class="study_view_left2" class="align-middle">
@@ -192,6 +193,7 @@ justify-content: center;
 	<br />
 	
 	<jsp:include page="../include/bottom.jsp" />
+	
 <script type="text/javascript">
 	$("#studyWrite_btn").click(function(){
 		if(${empty userId}) {
@@ -200,6 +202,13 @@ justify-content: center;
 			location.href = '<%=request.getContextPath()%>/studyBoard_insert.do';
 		}
 	});
+	
+	function nonSearch(){
+        if(${empty list }){
+            $('.pagination').hide();
+            }
+        };
+        nonSearch();
 </script>
 <script src="https://kit.fontawesome.com/7703fd875c.js" crossorigin="anonymous"></script>
 </body>

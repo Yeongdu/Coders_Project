@@ -104,8 +104,20 @@ padding-bottom: 0px;
 
 					<div class="study_view_center"><a class="study_view_aTag" href="<%=request.getContextPath()%>/studyBoard_content.do?no=${dto.study_num }"
 							style="display: block;">
-					<button type="button" class="btn btn-outline-primary">${dto.study_status }</button>
-						&nbsp;${dto.getStudy_title() }
+					<button class="btn btn-outline-primary"
+								<c:if test="${dto.study_status eq '모집중'}" >
+					style="
+					background-color: #3468b7;
+				bs-btn-color:white;
+				color:white;
+				border-color:#3468b7;
+				"
+					</c:if>
+								<c:if test="${dto.study_status eq '모집완료'}" >
+					
+					</c:if>
+								disabled>${dto.study_status }</button>
+							&nbsp;${dto.getStudy_title() }
 							<!-- a태그에 style="display: block;" 하면 제목있는 부분 전체가 링크가 된다 -->
 					</a></div>
 					
@@ -200,6 +212,9 @@ padding-bottom: 0px;
 	
 	<jsp:include page="../include/bottom.jsp" />
 <script type="text/javascript">
+$(function() {
+
+
 	$("#studyWrite_btn").click(function(){
 		if(${empty userId}) {
 			alert('로그인한 이용자만 이용할 수 있습니다.');
@@ -207,26 +222,29 @@ padding-bottom: 0px;
 			location.href = '<%=request.getContextPath()%>/studyBoard_insert.do';
 		}
 	});
+
 	
 	
-	function statusView(){
-		if(${dto.study_status == '모집중'}){
-			$('.btn.btn-outline-primary').css({
-				'background-color': '#7194c9',
-				'bs-btn-color':'white'
-				});
-		}else{
-			$('.btn.btn-outline-primary').css({
-			'--bs-btn-border-color':'#a3bfe9',
-			'--bs-btn-color':'#1550a7',
-			'--bs-btn-hover-bg':'#7194c9',
-			'--bs-btn-hover-border-color':'#7194c9'
-			});
+// 	function statusView(){
+// 		if(${dto.study_status eq '모집중'}){
+// 			$('.btn.btn-outline-primary').css({
+// 				'background-color': '#7194c9',
+// 				'bs-btn-color':'white'
+// 				});
+// 		}else{
+// 			$('.btn.btn-outline-primary').css({
+// 			'--bs-btn-border-color':'#a3bfe9',
+// 			'--bs-btn-color':'#1550a7',
+// 			'--bs-btn-hover-bg':'#7194c9',
+// 			'--bs-btn-hover-border-color':'#7194c9'
+// 			});
 			
 			
-		}
-	}
-		statusView();
+// 		}
+// 	}
+// 		statusView();
+		
+});
 </script>
 <script src="https://kit.fontawesome.com/7703fd875c.js" crossorigin="anonymous"></script>
 </body>

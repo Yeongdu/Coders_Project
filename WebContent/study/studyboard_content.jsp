@@ -35,8 +35,8 @@
  }
  
  .studyEditIcon:hover{
-  font-size: 1.1em;
-  color: black;
+  color: DarkBlue;
+  text-shadow: 1px 2px 2px gray;
  }
  
  .studyDeleteIcon{
@@ -44,8 +44,8 @@
  }
  
  .studyDeleteIcon:hover {
-  color: black;
-  font-size: 1.1em;	
+  color: DarkBlue;
+  text-shadow: 1px 2px 2px gray;
  }
  
  .replyRap{

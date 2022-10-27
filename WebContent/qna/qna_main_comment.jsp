@@ -142,7 +142,7 @@
 		</div> <%-- main_center의 end --%>
 
 	<%-- BootStrap을 이용한 페이징 처리 영역 --%>
-		<nav id = "nav_page">
+		<nav>
           <ul class="pagination">
             <li class="page-item">
               <a class="page-link" href="qna_list_comment.do?page=1" id = "page1">First</a></li>

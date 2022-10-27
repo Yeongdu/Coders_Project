@@ -37,7 +37,7 @@
   flex: 3;
   text-align: left;
   font-size: 1.2em;
-  flex-grow: 3;
+  flex-grow: 5;
 }
 .study_view_right {
   flex: 1;
@@ -207,6 +207,26 @@ padding-bottom: 0px;
 			location.href = '<%=request.getContextPath()%>/studyBoard_insert.do';
 		}
 	});
+	
+	
+	function statusView(){
+		if(${dto.study_status == '모집중'}){
+			$('.btn.btn-outline-primary').css({
+				'background-color': '#7194c9',
+				'bs-btn-color':'white'
+				});
+		}else{
+			$('.btn.btn-outline-primary').css({
+			'--bs-btn-border-color':'#a3bfe9',
+			'--bs-btn-color':'#1550a7',
+			'--bs-btn-hover-bg':'#7194c9',
+			'--bs-btn-hover-border-color':'#7194c9'
+			});
+			
+			
+		}
+	}
+		statusView();
 </script>
 <script src="https://kit.fontawesome.com/7703fd875c.js" crossorigin="anonymous"></script>
 </body>

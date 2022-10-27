@@ -99,11 +99,10 @@
 						<i class="fa-regular fa-clock"></i> ${dto.getStudy_date()} &nbsp;
 						<i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }            
 					</h6>
-					<span id="studyEditDelete" class="studyEditDelete" style="display: none;"><a class="studyEditIcon"
-						href="studyboard_modify.do?no=${dto.getStudy_num() }"><i
-							class="fa-solid fa-scissors"></i></a>&nbsp; <a
-						class="studyDeleteIcon"
-						onclick="if(confirm('게시글을 삭제하시겠습니까?')) {location.href='studyboard_delete_ok.do?no=${dto.getStudy_num() }'} else {return; }"><i
+					<span id="studyEditDelete" class="studyEditDelete" style="display: none;"><a id="studyEditIcon" class="studyEditIcon"
+						><i
+							class="fa-solid fa-scissors"></i></a>&nbsp; <a id="studyDeleteIcon"
+						class="studyDeleteIcon"><i
 							class="fa-solid fa-trash"></i></a></span> <br> <br>
 					<p>
 						<img class="card-img"
@@ -118,7 +117,7 @@
 						class="fa-solid fa-person"></i> ${dto.study_people }</span>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<span id="studyComplete" class="btn btn-outline-success" style="display: none;" 
-						onclick="if(confirm('게시글을 모집완료로 변경하시겠습니까?')) {location.href='study_statusChange.do?no=${dto.getStudy_num() }'} else {return; }"><i class="fa-solid fa-check"></i>&nbsp;모집완료</span>
+						><i class="fa-solid fa-check"></i>&nbsp;모집완료</span>
 				</div>
 			</div>
 		</div>
@@ -253,27 +252,52 @@
 	adjustHeight();
 	
 	// 글쓴 사람만 studyEditDelete studyComplete 보이는 함수, 
-	// 모집중인 상태에서만 studyComplete 보이는 함수
+	// 글쓴 사람만 수정, 삭제, 모집완료처리 할수 있다. 모집중인 상태에서만 모집완료 버튼 보인다.
     function onlyWriter(){
             if(${userId == dto.study_writer}){
                 $('.studyEditDelete').show();
-                if(${dto.study_status == '모집중'})
-                $('#studyComplete').show();
+                $('#studyDeleteIcon').on({
+                	  click: function () {
+                		  if(${userId == dto.study_writer}){
+                	    		 var result = confirm('게시글을 삭제하시겠습니까?');
+                	    	        if(result) {
+                	    	        	//yes
+                	    	        	location.href='studyboard_delete_ok.do?no=${dto.getStudy_num() }';
+                	    	        	} else {
+                	    	        		//no
+                	    	        		return;
+                	    	        		}
+                	    	        }
+                		  }
+                });
+                $('#studyEditIcon').on({
+                	click: function () {
+                		if(${userId == dto.study_writer}){
+                			location.href="studyboard_modify.do?no=${dto.getStudy_num() }";}
+                		}
+                });
                 }
-            };
+            if(${dto.study_status == '모집중'}){
+            	$('#studyComplete').show();
+            	$('#studyComplete').on({
+            		click: function () {
+            			if(${userId == dto.study_writer}){
+            				var result = confirm('게시글을 모집완료로 변경하시겠습니까?');
+            				if(result) {
+            					//yes
+            					location.href='study_statusChange.do?no=${dto.getStudy_num() }';
+            					} else {
+            						//no
+            						return;
+            						}
+            				}
+            			}
+            	});
+            	}
+            }
 
     onlyWriter();
-    
-    
-//     //모집중인 상태에서만 보이는 함수
-//     function onlyStatusIng(){
-//     	if(${dto.study_status == '모집중'}){
-//     		${'#studyComplete'}.show();
-//     	}
-//     };
-    
-//     onlyStatusIng();
-	
+
 
 });
 </script>

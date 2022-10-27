@@ -15,7 +15,7 @@ public class QnaCommentDeleteOkAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		int qcomment_no = Integer.parseInt(request.getParameter("qcomment_num"));
+		int qcomment_no = Integer.parseInt(request.getParameter("no"));
 		
 		System.out.println("commant no >>> " + qcomment_no);
 		

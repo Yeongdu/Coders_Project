@@ -13,7 +13,13 @@ public class QnaCommentModifyOkAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
+		int no = Integer.parseInt(request.getParameter("no").trim());
+		String cont = request.getParameter("cont").trim();
+		String file = request.getParameter("file").trim();
 		
+		System.out.println("no >>> " + no);
+		System.out.println("cont >>> " + cont);
+		System.out.println("file >>> " + file);
 		
 		
 		

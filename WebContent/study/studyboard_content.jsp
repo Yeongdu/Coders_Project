@@ -95,6 +95,7 @@
 				<div class="card-body">
 					<h4 class="card-title mb-3"><button type="button" class="btn btn-outline-primary" disabled>${dto.study_status }</button>&nbsp;${dto.getStudy_title() }</h4>
 					<h6 class="card-subtitle text-muted mb-4">
+						<input type = "hidden" id = "session_id" value = "${userId }"> 
 						<i class="fa-regular fa-user"></i>${dto.getStudy_writer() } &nbsp;
 						<i class="fa-regular fa-clock"></i> ${dto.getStudy_date()} &nbsp;
 						<i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }            
@@ -103,7 +104,7 @@
 						href="studyboard_modify.do?no=${dto.getStudy_num() }"><i
 							class="fa-solid fa-scissors"></i></a>&nbsp; <a
 						class="studyDeleteIcon"
-						onclick="if(confirm('게시글을 삭제하시겠습니까?')) {location.href='studyboard_delete_ok.do?no=${dto.getStudy_num() }'} else {return; }"><i
+						onclick="if(confirm('게시글을 삭제하시겠습니까?')) {location.href='studyboard_delete_ok.do?no=${dto.getStudy_num() }&study_writer=${dto.getStudy_writer() }'} else {return; }"><i
 							class="fa-solid fa-trash"></i></a></span> <br> <br>
 					<p>
 						<img class="card-img"

@@ -53,7 +53,7 @@ public class QnaCodeSortListAction implements Action {
 		
 		QnaDAO dao = QnaDAO.getInstance();
 		// Qna 게시판의 전체 글 갯수
-		totalRecord = dao.getQnaCount();
+		totalRecord = dao.getQnaCodeSortCount(codeName);
 		
 		// 전체 페이지의 수 : 전체 게시물의 수를 한 페이지당 보여질 게시물의 수로 나누기
 		// 전체 페이지 수가 나올 때 나머지가 있으면 무조건 페이지 수 + 1(나머지 값이 들어올 부분)

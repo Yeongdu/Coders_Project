@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-    <%@taglib prefix="c"  uri ="http://java.sun.com/jsp/jstl/core"%> 
-    
+	pageEncoding="UTF-8"%>
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,64 +12,63 @@
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 
-<link
-  rel="stylesheet"
-  href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/github-dark-dimmed.min.css"/>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/github-dark-dimmed.min.css" />
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
 <script>
   hljs.highlightAll();
 </script>
 <!-- 코드 구현 스타일 -->
 
 
-<script src="https://kit.fontawesome.com/89d1c95709.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/89d1c95709.js"
+	crossorigin="anonymous"></script>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
-	
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.6.1.js"></script>
+
 <style type="text/css">
-
 .mb-3 {
 	width: 40em;
 }
-#qna_cont{
-	height:26em; 
-    resize:none; /* 크기고정 */ 
-    maxlength = "1000";
-}
 
+#qna_cont {
+	height: 26em;
+	resize: none; /* 크기고정 */
+	maxlength
+	=
+	"1000";
+}
 
 table {
 	width: 1000px;
 }
 
- .qnaEditDelete{
- margin-left: 650px;
- }
- 
- .qnaEditIcon{
-  color: black;
- }
- 
- .qnaDeleteIcon{
-  color: black;
- }
- 
-.container col-md-6{
- margin: auto;
- }
- 
- #emptyHeart{
- 	color: red;
- }
- 
- #fullHeart{
- 	color: red;
- }
- 
- textarea {
- 	resize: none;
- }
+.qnaEditDelete {
+	margin-left: 650px;
+}
 
+.qnaEditIcon {
+	color: black;
+}
+
+.qnaDeleteIcon {
+	color: black;
+}
+
+.container col-md-6 {
+	margin: auto;
+}
+
+#emptyHeart {
+	color: red;
+}
+
+#fullHeart {
+	color: red;
+	display: none;
+}
 </style>
 
 
@@ -77,75 +76,83 @@ table {
 <body>
 
 	<c:if test="${empty userId }">
-	<jsp:include page="../include/none_top.jsp" />
+		<jsp:include page="../include/none_top.jsp" />
 	</c:if>
-	
+
 	<c:if test="${!empty userId }">
-	<jsp:include page="../include/user_top.jsp" />
+		<jsp:include page="../include/user_top.jsp" />
 	</c:if>
-	
+
+	<input type="hidden" value="${userId }" id="userId">
+
 	<br>
-	
+
 	<div align="center">
-		<c:set var="dto" value="${Cont }"/>
-		
-	<h3> ${dto.qna_writer } 님의 게시글입니다. </h3>
-	
-	<br>
+		<c:set var="dto" value="${Cont }" />
+
+		<h3>${dto.qna_writer } 님의 게시글입니다.</h3>
+
+		<br>
 
 		<div class="align-middle">
 			<div class="container col-md-6" style="width: 800px;">
 				<div class="card">
-				<div class="card-body">
-				
-		<div>
-			<h4 class="card-title mb-3" align="left">${dto.qna_title }</h4>
-			
-			<h6 class="card-subtitle text-muted mb-4" align="left">
-			<i class="fa-regular fa-user"></i> &nbsp; ${dto.qna_writer }
-			</h6>
-			
-			<h6 class="card-subtitle text-muted mb-4" align="left">
-			<i class="fa-regular fa-clock"></i> &nbsp; ${dto.qna_date } &nbsp;
-			<i class="fa-regular fa-eye"></i> &nbsp; ${dto.qna_hit  } 
-			</h6>
-			
-			<span class="qnaEditDelete">
-				<a class="qnaEditIcon" 
-					href = "qna_modify.do?no=${dto.qna_num }">
-					<i class="fa-solid fa-scissors"></i></a> &nbsp; &nbsp;
-				<a class = "qnaDeleteIcon"
-					onclick="if(confirm('게시글을 삭제하시겠습니까?')) {location.href='qna_delete.do?no=${dto.qna_num }'} else {return; }">
-				<i class="fa-solid fa-trash"></i> </a>
-			</span>
-			
-		</div>
-		
-		<br>
-		
-		<div>
-		<h5 class="card-title mb-3" align="center"> 코드 내용</h5>
+					<div class="card-body">
 
-			<c:if test="${empty dto.qna_code }">
-				<label> </label>
-			</c:if>
-			<c:if test="${!empty dto.qna_code }">
-				<div class="col-sm-10" align="left">
-				<pre><code class="${dto.qna_tag }"><textarea class="form-control" id="qna_code" name="qna_code" rows="7" cols="35" readonly>${dto.qna_code }</textarea></code></pre>
-				</div>
-			</c:if>
-		</div>
-		
-		<br>
-			
-		<div>
-			<h5 class="card-title mb-3" align="center"> 본문 </h5>
-				<div class="col-sm-10">
-					<textarea class="form-control" id="qna_cont" name="qna_cont" rows="7" cols="35" readonly>${dto.qna_cont }</textarea>
-				</div>
-		</div>
-		
-	<%-- 	<div class="mb-3 row">
+						<div>
+							<h4 class="card-title mb-3" align="left">${dto.qna_title }</h4>
+
+							<h6 class="card-subtitle text-muted mb-4" align="left">
+								<i class="fa-regular fa-user"></i> &nbsp; ${dto.qna_writer }
+							</h6>
+
+							<h6 class="card-subtitle text-muted mb-4" align="left">
+								<i class="fa-regular fa-clock"></i> &nbsp; ${dto.qna_date }
+								&nbsp; <i class="fa-regular fa-eye"></i> &nbsp; ${dto.qna_hit  } 
+							</h6>
+
+							<span class="qnaEditDelete"> <a class="qnaEditIcon"
+								href="qna_modify.do?no=${dto.qna_num }"> <i
+									class="fa-solid fa-scissors"></i>
+							</a> &nbsp; &nbsp; <a class="qnaDeleteIcon"
+								onclick="if(confirm('게시글을 삭제하시겠습니까?')) {location.href='qna_delete.do?no=${dto.qna_num }'} else {return; }">
+									<i class="fa-solid fa-trash"></i>
+							</a>
+							</span>
+
+						</div>
+
+						<br>
+
+						<div>
+							<h5 class="card-title mb-3" align="center">코드 내용</h5>
+
+							<c:if test="${empty dto.qna_code }">
+								<label> </label>
+							</c:if>
+							<c:if test="${!empty dto.qna_code }">
+								<div class="col-sm-10" align="left">
+									<pre>
+										<code class="${dto.qna_tag }">
+											<textarea class="form-control" id="qna_code" name="qna_code"
+												rows="7" cols="35" readonly>${dto.qna_code }</textarea>
+										</code>
+									</pre>
+								</div>
+							</c:if>
+						</div>
+
+						<br>
+
+						<div>
+							<h5 class="card-title mb-3" align="center">본문</h5>
+							<div class="col-sm-10">
+								<textarea class="form-control" id="qna_cont" name="qna_cont"
+									rows="7" cols="35" readonly>${dto.qna_cont }</textarea>
+							</div>
+						</div>
+
+						<%-- 	<div class="mb-3 row">
 			<c:if test="${empty dto.qna_update }">
 			
 				<label for="exampleFormControlInput1"
@@ -164,20 +171,20 @@ table {
 				
 			</c:if>
 		</div> --%>
-		 
-		
-		<br> <br>
-		
-		<div class="mb-3 row">
-				<label for="exampleFormControlInput1"
-					class="col-sm-2 col-form-label">파일 첨부</label>
-				<div class="col-sm-10">
-					<input class="form-control" type="file" name="qna_file">
-				</div>
-		</div>
-		
-	
-	<%-- 	<tr>
+
+
+						<br> <br>
+
+						<div class="mb-3 row">
+							<label for="exampleFormControlInput1"
+								class="col-sm-2 col-form-label">파일 첨부</label>
+							<div class="col-sm-10">
+								<input class="form-control" type="file" name="qna_file">
+							</div>
+						</div>
+
+
+						<%-- 	<tr>
 			<th> 파일 첨부</th>
 				<c:if test="${!empty dto.qna_file }">
 				<td> 
@@ -191,121 +198,124 @@ table {
 				<td> </td>
 				</c:if>
 		</tr> --%>
-		
-		
-		<div class="mb-3 row">
-				<label for="exampleFormControlInput1"
-					class="col-sm-2 col-form-label"> 태그 </label>
-			<div class="col-sm-10">
-					<input name="qna_tag" class="form-control" value="${dto.qna_tag }" readonly="readonly">
-			</div>		
-		</div>
-		
-
-		<div>		
-				<input class="btn btn-outline-secondary" type = "button" value="전체 목록"
-					onclick = "location.href='qna_list.do'">
-		</div>
-		
-	</div>
-	</div>
-	</div> 
-		
 
 
-	<br>
-	<br>
-	<br>
-	
-	<h4>댓글 목록</h4>
-	
-	<br>
-	
-	<div>
-		<table class ="list" cellspacing ="0" width = "400" >
-		
-			<tr class = "line">
-				<td colspan ="3"></td>
-			</tr>
-		
-			<tr class = "line">
-				<td></td> <td></td> <td></td>
-			</tr>
-		
-		</table>
+						<div class="mb-3 row">
+							<label for="exampleFormControlInput1"
+								class="col-sm-2 col-form-label"> 태그 </label>
+							<div class="col-sm-10">
+								<input name="qna_tag" class="form-control"
+									value="${dto.qna_tag }" readonly="readonly">
+							</div>
+						</div>
 
-	</div>
-	
-	<br>
-	<br>
-	<br>
-	
-	<h4> ${dto.qna_writer } 님의 게시글에 댓글 작성하기 </h4>
-	
-	<br>
-	<br>
-	<!-- 댓글 폼 영역 -->
-	
-	<div class="align-middle">
-		<div class="container col-md-6" style="width: 800px;">
-			<div class="card">
-			<div class="card-body">
-				
-		<div class="mb-3 row">
-			<label for="exampleFormControlInput1"
-					class="col-sm-2 col-form-label"><i class="fa-regular fa-user"></i> 작성자 </label>
-			<div class="col-sm-10">
-			<input class="form-control" type = "text" name = "co_writer" id ="co_writer" value =${userId  } size="10" readonly>
-		</div>
-		</div>
-	
-		<br>
-		
-		<div>
-			<h6 class="card-title mb-3" align="center"> 댓글 내용</h6>
-				<div class="col-sm-10">
-					<textarea class="form-control" id="co_content" name="co_content" rows="7" cols="40" ></textarea>
+
+						<div>
+							<input class="btn btn-outline-secondary" type="button"
+								value="전체 목록" onclick="location.href='qna_list.do'">
+						</div>
+
+					</div>
 				</div>
-		</div>
-		
-		<br>
+			</div>
 
-		<div class="mb-3 row">
-				<label for="exampleFormControlInput1"
-					class="col-sm-2 col-form-label">파일 첨부</label>
-				<div class="col-sm-10">
-					<input class="form-control" type="file" name = "co_file" id ="co_file">
-		</div>
-		
-		<br> <br> <br>
-		
-		<%-- <p>
+
+
+			<br> <br> <br>
+
+			<h4>댓글 목록</h4>
+
+			<br>
+
+			<div>
+				<table class="list" cellspacing="0" width="400">
+
+					<tr class="line">
+						<td colspan="3"></td>
+					</tr>
+
+					<tr class="line">
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+
+				</table>
+
+			</div>
+
+			<br> <br> <br>
+
+			<h4>${dto.qna_writer } 님의 게시글에 댓글 작성하기</h4>
+
+			<br> <br>
+			<!-- 댓글 폼 영역 -->
+
+			<div class="align-middle">
+				<div class="container col-md-6" style="width: 800px;">
+					<div class="card">
+						<div class="card-body">
+
+							<div class="mb-3 row">
+								<label for="exampleFormControlInput1"
+									class="col-sm-2 col-form-label"><i
+									class="fa-regular fa-user"></i> 작성자 </label>
+								<div class="col-sm-10">
+									<input class="form-control" type="text" name="co_writer"
+										id="co_writer" value=${userId  } size="10" readonly>
+								</div>
+							</div>
+
+							<br>
+
+							<div>
+								<h6 class="card-title mb-3" align="center">댓글 내용</h6>
+								<div class="col-sm-10">
+									<textarea class="form-control" id="co_content"
+										name="co_content" rows="7" cols="40"></textarea>
+								</div>
+							</div>
+
+							<br>
+
+							<div class="mb-3 row">
+								<label for="exampleFormControlInput1"
+									class="col-sm-2 col-form-label">파일 첨부</label>
+								<div class="col-sm-10">
+									<input class="form-control" type="file" name="co_file"
+										id="co_file">
+								</div>
+
+								<br> <br> <br>
+
+								<%-- <p>
 			<img class="card-img"
 				src="<%=request.getContextPath()%>/qna_upload/${dto.qna_file }"
 				alt="" />
 		</p>
 			 --%>
-			
-		<div>	
-			<input type="button" id="commentBtn" value="댓글 작성" class= "btn btn-primary">
 
-			<input type="reset" id="resetBtn" value="다시 작성" class="btn btn-outline-primary">
+								<div>
+									<input type="button" id="commentBtn" value="댓글 작성"
+										class="btn btn-primary"> <input type="reset"
+										id="resetBtn" value="다시 작성" class="btn btn-outline-primary">
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!-- 댓글폼 end -->
+
+
 		</div>
-	
-	</div>
-	</div>
-	</div>
-	</div>	
-		
-	</div> 
-	<!-- 댓글폼 end -->
-	
-	
-	</div>
-	<!-- 전체 div end -->	
-	
-	
-	<script type="text/javascript">
+		<!-- 전체 div end -->
+
+
+		<script type="text/javascript">
+		var qment = 0;
 
 	$(function() {
 		
@@ -322,34 +332,32 @@ table {
 			$.ajax({
 				url : "/Project/qna/qna_comment.jsp",
 				data : { qcomment_num : ${dto.qna_num } },
-				datatype : "xml",    // 결과 데이터 타입
+				datatype : "json",    // 결과 데이터 타입
 				success : function(data) {
 					// 테이블 태그의 타이틀태그를 제외한 댓글 목록을 지우는 명령어.
 					$(".list tr:gt(1)").remove();
 					
 					let table = "";
 					
+					
 					$(data).find("comment").each(function() {
 						
 						table += "<tr>";
 						table += "<td colspan='2'>" + "작성자: " + $(this).find("qcomment_writer").text() +"</td>";
 						table += "</tr>";
-						
 						table += "<tr>";
-						table += "<td id='reNum'>" +$(this).find("qcomment_num").text() + "</td>";
+						table += "<td id='reNum'>" + $(this).find("qcomment_num").text() + "</td>";
 						table += "<td>" + "내용: " + $(this).find("qcomment_cont").text() + "</td>";
 						table += "<td>" + "작성일자: " + $(this).find("qcomment_date").text() + "</td>";
 						table += "<td>" + "첨부파일: " + $(this).find("qcomment_file").text() + "</td>";
-						table += "<td align = 'center' id='goodBtn'>" + $(this).find("qcomment_good").text() + "</td>";
+						table += "<td>" + $(this).find("qcomment_good").text() + "</td>";
 						table += "</td>";
 						table += "</tr>";
 						table += "<tr>";
-						table += "<td colspan='5' align = 'right'>" + 
-									"<input type = 'button' value = '수정' id ='modifyBtn' class= 'btn btn-primary'>" + "&nbsp &nbsp"+
-									"<input type = 'button' value = '삭제' id ='deleteBtn' class='btn btn-outline-primary'>" + "&nbsp &nbsp"+
-									"<i class='fa-regular fa-heart' id = 'emptyHeart'></i>"
-									"<i class='fa-solid fa-heart' id = 'fullHeart'></i>";
-						table += "</td>";
+						table += "<td colspan='5' align = 'right' id ='tdInput'> <input type = 'button' value = '수정'" +
+									"id = 'input' num = '"+$(this).find("qcomment_num").text()+"' cont ='"+$(this).find("qcomment_cont").text()+"' file = '"+$(this).find("qcomment_file").text()+"'></td>";
+						table += "<td colspan='5' align = 'right' id ='tdDel'> <input type = 'button' value = '삭제'" +
+							" id = 'del' num = '" +$(this).find("qcomment_num").text()+"'></td>"; 
 						table += "</tr>";
 						table += "<tr>";
 						table += "<td colspan='2'>&nbsp;</td>";
@@ -357,6 +365,9 @@ table {
 					});
 					
 					$(".list tr:eq(1)").after(table);
+					/* console.log("arr >>> " + arr);
+					console.log("qCo >>> " + qCo) */
+					
 				},
 				
 				error : function() {
@@ -365,9 +376,10 @@ table {
 			});
 		}  // getList() 함수 end
 		
+		// 댓글 작성 버튼을 클릭했을 때 DB에 추가로 저장.
+		
 	
 		
-		// 댓글 작성 버튼을 클릭했을 때 DB에 추가로 저장.
 		$("#commentBtn").on("click", function() {
 			
 			$.ajax({
@@ -402,102 +414,176 @@ table {
 			});
 		});  // 댓글 등록하기 end
 		
+		
+		
+		// 댓글 수정
+		$("table").on("click", "#input", function() {
+			$.ajax({
+				url : "/Project/qna_modify.jsp",
+				data : {
+						no : $(this).attr("num"),
+						cont : $(this).attr("cont"),
+						file : $(this).attr("file")
+				},
+				datatype : "text",
+				success : function(data) {
+					if(data > 0) {
+						alert('댓글이 삭제되었습니다.');
+						
+						getList();
+					}else {
+						alert('댓글이 삭제되지 않았습니다.');
+					}
+				},
+				
+				error : function() {
+					alert('데이터 통신 오류입니다.~~~');
+				}
+			});
+		});
+		
+		
+		
+		// 댓글 삭제
+		$("table").on("click", "#del", function() {
+			$.ajax({
+				url : "/Project/qna_comment_delete_ok.do",
+				data : "no="+$(this).attr("num"),
+				datatype : "text",
+				success : function(data) {
+					if(data > 0) {
+						alert('댓글이 삭제되었습니다.');
+						
+						getList();
+					}else {
+						alert('댓글이 삭제되지 않았습니다.');
+					}
+				},
+				
+				error : function() {
+					alert('데이터 통신 오류입니다.~~~');
+				}
+			});
+		});
+		
 	
 		
 		getList();  // 전체 리스트 함수 호출
-		
-		
-	/* 	
-		//댓글 수정 버튼 누르기
-		$(document).on("click", "#modifyBtn", function(){
-		
-		$(data).find("comment").each(function() {
-			table += "<tr>";
-			table += "<td colspan='2'>" + "작성자: " + $(this).find("qcomment_writer").text() +"</td>";
-			table += "</tr>";
-			
-			table += "<tr>";
-			table += "<td id='reNum'>" +$(this).find("qcomment_num").text() + "</td>";
-			table += "<td>" + 
-						"<textarea>" + $(this).find("qcomment_cont").text() + "<textarea>";
-			table += "</td>";
-			table += "<td>" + "작성일자: " + $(this).find("qcomment_date").text() + "</td>";
-			table += "<td>" + "첨부파일: " + $(this).find("qcomment_file").text() + "</td>";
-			table += "</td>";
-			table += "</tr>";
-			
-		)}; 
-			
-		}); //수정 end */
-
+			 	
 	
-		//댓글 삭제 버튼 누르기
-		$(document).on("click", "#deleteBtn", function(){
+	//좋아요 버튼 누르기 
+	$(document).on("click", ".goodBtn", function(){
 		
-			if(confirm("해당 댓글을 삭제하시겠습니까?")){
-				$.ajax({
-					url : "/Project/qna_comment_delete_ok.do",
-					datatype : "text",
-					data : {
-						qcomment_num : $("#reNum").text()
+		$.ajax({
+			url : "/Project/qna_comment_good_ok.do",
+			datatype : "text",
+			data : {
+				qcomment_num : $(".reNum").text(),
+				userId : $("#userId").val()
+			},
+			
+			success : function(data){
+				if(data>0){
 					
-						},
+						if(${empty userId}) {
+							alert('로그인이 필요한 기능입니다.');
+						}else{
 					
-					success : function(data){
-						if(data>0){
-							alert("댓글이 삭제되었습니다.")
-							getList(); 
-						}else {
-							alert("댓글 삭제에 실패했습니다.")
-						}
-					},
-					
-					error : function(){
-						alert("데이터 통신 오류입니다.")
+				     	
+				     	alert("좋아요를 누르셨습니다.")
+						
+						getList(); 
 					}
-					
-				})
+						
+				}else {
+					alert("좋아요 누르기에 실패했습니다.")
+				}
+			}, 
+			
+			error : function(){
+				alert("데이터 통신 오류입니다.")
 			}
 			
-	});//delete end  
+		})
 		
+	});
 	
-	$(document).ready(function(){
-        
-        $("#emptyHeart").show();
-        $("#fullHeart").hide();
 
-	//emptyheart 클릭 시 full heart되게...
-       $(document).on("click", "#emptyHeart", function(){ 
-            $("#emptyHeart").hide();
-            $("#fullHeart").show();
-        });
-
-        /*img2를 클릭했을 때 img1을 보여줌*/
-        $(document).on("click", "#fullHeart", function(){
-            $("#emptyHeart").show();
-            $("#fullHeart").hide();
-        });
-    });
+	//유저 아이디 값 받아와서 좋아요를 이미 눌렀다면 채운 하트 이미지 표시  -> 이후 좋아요 취소 기능
 	
+	
+/* 		
+	$(document).on("click", "#emptyHeart", function(){
+	       if (!$(this).data('clicked')) {
+	           //do your stuff here if the button is not clicked
+	            $("#emptyHeart").show();
+		     	$("#fullHeart").hide();
+	           
+	           $(this).data('clicked', true);
+	       } else {
+	           //do your stuff here if the button is clicked
+	           
+	           $("#emptyHeart").hide();
+		     	$("#fullHeart").show();
+		     	
+	           $(this).data('clicked', false);
+	       }
+
+	   });
+	
+	
+	$(document).on("click", "#fullHeart", function(){
+	       if (!$(this).data('clicked')) {
+	           //do your stuff here if the button is not clicked
+	            $("#emptyHeart").hide();
+		     	$("#fullHeart").show();
+	           
+	           $(this).data('clicked', true);
+	       } else {
+	           //do your stuff here if the button is clicked
+	           
+	           $("#emptyHeart").show();
+		     	$("#fullHeart").hide();
+		     	
+	           $(this).data('clicked', false);
+	       }
+
+	   });
+	 */
+
 	
 	}); //전체 end
 	
-	// 본문 글 textarea 높이 자동조절(높이 자동으로 스크롤 없이 맞추기)
-	function adjustHeight() {
-		  var textEle = $('textarea');
-		  textEle[0].style.width = 'auto';
-		  var textEleHeight = textEle.prop('scrollHeight');
-		};
+	
+	function dbtn(qment) {
+		console.log("qment >>> " + qment);
+		
+		if(confirm("해당 댓글을 삭제하시겠습니까?")){
+			$.ajax({
+				url : "/Project/qna_comment_delete_ok.do",
+				datatype : "text",
+				data : {
+						qcomment_num : qment
+					},
+				success : function(data){
+					if(data>0){
+						alert("댓글이 삭제되었습니다.")
+						getList(); 
+					}else {
+						alert("댓글 삭제에 실패했습니다.")
+					}
+				},
+				
+				error : function(){
+					alert("데이터 통신 오류입니다.")
+				}
+	});
+}
+	}
 
-	adjustHeight();
-	</script>	
-	
-	<br>
-	<br>
-	<br>
-	
-	<jsp:include page="../include/bottom.jsp" />
-	
+	</script>
+		<br> <br> <br>
+
+		<jsp:include page="../include/bottom.jsp" />
 </body>
 </html>

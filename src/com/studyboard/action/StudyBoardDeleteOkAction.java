@@ -20,6 +20,8 @@ public class StudyBoardDeleteOkAction implements Action {
 		
 		int studyboard_no = 
 			    Integer.parseInt(request.getParameter("no").trim());
+		String study_writer = request.getParameter("study_writer").trim();
+		String session_id = request.getParameter("session_id").trim();
 		
 		StudyBoardDAO dao = StudyBoardDAO.getInstance();
 		
@@ -50,9 +52,18 @@ public class StudyBoardDeleteOkAction implements Action {
     	}
 	    
 	    if(res > 0) {
-	    	forward.setRedirect(true);
+	    	if(study_writer.equals(session_id)) {
+	    		forward.setRedirect(true);
+		    	forward.setPath("studyBoard_list.do");
+		    	System.out.println("session_id >>> " + session_id);
+		    	System.out.println("study_writer >>> " + study_writer);
+	    	}else {
+	    		out.println("<script>");
+		    	out.println("alert('삭제를 진행할 수 없습니다.')");
+		    	out.println("history.back()");
+		    	out.println("</script>");
+	    	}
 	    	
-	    	forward.setPath("studyBoard_list.do");
 	    }else {    	
 	    	out.println("<script>");
 	    	out.println("alert('게시물 삭제 실패.')");

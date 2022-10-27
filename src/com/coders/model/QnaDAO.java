@@ -229,6 +229,30 @@ public class QnaDAO {
 		return list;
 	}
 	
+	// 선택한 코드 언어의 전체 게시물 갯수를 찾는 메서드
+	public int getQnaCodeSortCount(String code) {
+		
+		int count = 0;
+		
+		try {
+			openConn();
+			
+			sql = "select count(*) from where qna_tag = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, code);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return count;
+	}
+	
 	
 	// qna게시판에서 선택한 코드 언어가 들어가는 태그만 출력하는 메서드
 	public List<QnaDTO> codeSortList(int page, int rowsize, String codeName) {
@@ -358,10 +382,10 @@ public class QnaDAO {
 					sql = "select * from (select row_number() over(order by qna_date desc) qnum, q.* from qna q) where qnum >= ? and qnum <= ? and qna_title like ? or qna_cont like ?";
 					
 					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, "%"+keyword+"%");
-					pstmt.setString(2, "%"+keyword+"%");
-					pstmt.setInt(3, startNo);
-					pstmt.setInt(4, endNo);
+					pstmt.setInt(1, startNo);
+					pstmt.setInt(2, endNo);
+					pstmt.setString(3, "%"+keyword+"%");
+					pstmt.setString(4, "%"+keyword+"%");
 					rs = pstmt.executeQuery();
 					
 					while(rs.next()) {

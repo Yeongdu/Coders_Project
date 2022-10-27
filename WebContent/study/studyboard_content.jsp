@@ -71,6 +71,11 @@
     border-top-width: 1px;
 	font-size: 1.1rem;
  }
+ 
+ .contBottomWrab{
+ display: flex;
+ justify-content: space-between;
+ }
 
 </style>
 	
@@ -110,14 +115,18 @@
 							alt="" />
 					</p>
 					<p class="card-text"><textarea class="form-control" style="border:white;" readonly>${dto.getStudy_cont() }</textarea></p>
-					<br> <span class="btn btn-outline-dark"><i
+					<br> 
+					<div class="contBottomWrab">
+					<div><span class="btn btn-outline-dark"><i
 						class="fa-regular fa-calendar-days"></i>
 						${dto.study_start.substring(0, 10)} ~ ${dto.study_end.substring(0, 10) }</span>
 					&nbsp; <span class="btn btn-outline-dark"><i
-						class="fa-solid fa-person"></i> ${dto.study_people }</span>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						class="fa-solid fa-person"></i> ${dto.study_people }</span></div>
+						<div>
 						<span id="studyComplete" class="btn btn-outline-success" style="display: none;" 
 						><i class="fa-solid fa-check"></i>&nbsp;모집완료</span>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -277,26 +286,29 @@
                 		}
                 });
                 }
-            if(${dto.study_status == '모집중'}){
-            	$('#studyComplete').show();
-            	$('#studyComplete').on({
-            		click: function () {
-            			if(${userId == dto.study_writer}){
-            				var result = confirm('게시글을 모집완료로 변경하시겠습니까?');
-            				if(result) {
-            					//yes
-            					location.href='study_statusChange.do?no=${dto.getStudy_num() }';
-            					} else {
-            						//no
-            						return;
-            						}
-            				}
-            			}
-            	});
-            	}
             }
 
     onlyWriter();
+    
+    function onlyWriterStatus(){
+    	 if(${userId == dto.study_writer} && ${dto.study_status == '모집중'}){
+    		$('#studyComplete').show(); 
+         	$('#studyComplete').on({
+     		click: function () {
+
+     				var result = confirm('게시글을 모집완료로 변경하시겠습니까?');
+     				if(result) {
+     					//yes
+     					location.href='study_statusChange.do?no=${dto.getStudy_num() }';
+     					} else {
+     						//no
+     						return;
+     						}
+     				}
+         	});
+         	}
+    	 }
+    onlyWriterStatus();
 
 
 });

@@ -118,17 +118,16 @@ public class StudyBoardDAO {
 	// 스터디 게시판의 전체 글을 조회하는 메서드
 	public List<StudyBoardDTO> getStudyBoardList(int page, int rowsize) {
 		List<StudyBoardDTO> list = new ArrayList<StudyBoardDTO>();
-		
-		int startNo = (page * rowsize) - (rowsize -1);
-		
+
+		int startNo = (page * rowsize) - (rowsize - 1);
+
 		int endNo = (page * rowsize);
 		try {
 			openConn();
 			sql = "select * from( "
 					+ "select row_number() over(order by study_group.study_date desc) as snum, study_group.*, "
 					+ "(select count(*) from study_comment where study_group.study_num = study_comment.study_num) "
-					+ "as commentCnt "
-					+ "from study_group)where snum >=? and snum <= ?";
+					+ "as commentCnt " + "from study_group)where snum >=? and snum <= ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startNo);
 			pstmt.setInt(2, endNo);
@@ -149,11 +148,10 @@ public class StudyBoardDAO {
 				dto.setStudy_hit(rs.getInt("study_hit"));
 				dto.setStudy_reply(rs.getInt("commentCnt"));
 
-				
 				list.add(dto);
 			}
 			pstmt = con.prepareStatement(sql);
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -404,6 +402,30 @@ public class StudyBoardDAO {
 		}
 		return result;
 	}// modifyStudyboard()메서드 end
+	
+	
+	public int modifyStudyStatus(int no) {
+		int result = 0;
+		
+		try {
+			openConn();
+			sql ="update study_group set study_status='모집완료' where study_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+
+			result = pstmt.executeUpdate();
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	}
+	
+	
+	
 
 	// 글번호에 해당하는 studyboard 게시글을 삭제하는 메서드.
 	public int deleteStudyboard(int no) {

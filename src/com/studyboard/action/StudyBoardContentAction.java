@@ -16,6 +16,9 @@ public class StudyBoardContentAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// get방식으로 넘어온 글번호에 해당하는 게시글의 상세내역을 DB에서 조회하는 로직.
 		
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
 		int studyBoard_no = Integer.parseInt(request.getParameter("no").trim());
 		
 		StudyBoardDAO dao = StudyBoardDAO.getInstance();

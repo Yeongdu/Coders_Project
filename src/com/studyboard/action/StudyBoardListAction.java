@@ -15,6 +15,9 @@ public class StudyBoardListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
 		// 스터디 게시판의 글을 보여주는 비지니스 로직
 		
 		// 페이징 처리 작업 진행
@@ -65,8 +68,6 @@ public class StudyBoardListAction implements Action {
 		
 		//현재페이지에 해당하는 게시물을 가져오는 메서드 호출
 		List<StudyBoardDTO> pageList = dao.getStudyBoardList(page,rowsize);
-		
-		
 		
 		//지금까지 페이징 처리 시 작업했던 모든 값들을 view page로 이동
 		request.setAttribute("page", page);

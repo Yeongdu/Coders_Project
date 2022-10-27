@@ -15,9 +15,7 @@ public class StudyBoardDTO {
 	private String study_file;
 	private int study_hit;
 	
-	
 	private int study_reply;
-	
 	
 	public int getStudy_reply() {
 		return study_reply;
@@ -25,7 +23,6 @@ public class StudyBoardDTO {
 	public void setStudy_reply(int study_reply) {
 		this.study_reply = study_reply;
 	}
-	
 	
 	public int getStudy_num() {
 		return study_num;

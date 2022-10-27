@@ -29,21 +29,20 @@
 .study_view_left {
   flex: 1;
   text-align-last: left;
+  flex-grow: 1;
 }
-.study_view_left2{
-  display: table-cell;
-  vertical-align: middle;
-  text-align: right;
-}
+
 .study_view_center {
   align-items: center;
   flex: 3;
   text-align: left;
   font-size: 1.2em;
+  flex-grow: 3;
 }
 .study_view_right {
   flex: 1;
   text-align: right;
+  flex-grow: 2;
 }
 .studyViewDate{
 font-size: 0.8em;
@@ -62,6 +61,12 @@ border-end-start-radius: 7px;
 display: flex;
 margin: auto;
 justify-content: center;
+}
+
+.btn.btn-outline-primary{
+height: 37px;
+padding-top: 0px;
+padding-bottom: 0px;
 }
 </style>
 
@@ -93,15 +98,16 @@ justify-content: center;
 						<div><i class="fa-regular fa-pen-to-square"></i> &nbsp;${dto.getStudy_reply() }</div>
 					</div>
 					
-					<div class="study_view_left2" class="align-middle">
-						<button type="button" class="btn btn-outline-primary" style="height: 48px;">모집중</button>					
-					</div>
+<!-- 					<div class="study_view_left2" class="align-middle"> -->
+<!-- 						<button type="button" class="btn btn-outline-primary" style="height: 48px;">모집중</button>					 -->
+<!-- 					</div> -->
 
-					<div class="study_view_center">
-						<a class="study_view_aTag" href="<%=request.getContextPath()%>/studyBoard_content.do?no=${dto.study_num }"
-							style="display: block;"> &nbsp;${dto.getStudy_title() }</a>
+					<div class="study_view_center"><a class="study_view_aTag" href="<%=request.getContextPath()%>/studyBoard_content.do?no=${dto.study_num }"
+							style="display: block;">
+					<button type="button" class="btn btn-outline-primary">${dto.study_status }</button>
+						&nbsp;${dto.getStudy_title() }
 							<!-- a태그에 style="display: block;" 하면 제목있는 부분 전체가 링크가 된다 -->
-					</div>
+					</a></div>
 					
 					<div class="study_view_right">
 					<div class="studyViewWriter">${dto.getStudy_writer() }</div>
@@ -193,7 +199,6 @@ justify-content: center;
 	<br />
 	
 	<jsp:include page="../include/bottom.jsp" />
-	
 <script type="text/javascript">
 	$("#studyWrite_btn").click(function(){
 		if(${empty userId}) {
@@ -202,13 +207,6 @@ justify-content: center;
 			location.href = '<%=request.getContextPath()%>/studyBoard_insert.do';
 		}
 	});
-	
-	function nonSearch(){
-        if(${empty list }){
-            $('.pagination').hide();
-            }
-        };
-        nonSearch();
 </script>
 <script src="https://kit.fontawesome.com/7703fd875c.js" crossorigin="anonymous"></script>
 </body>

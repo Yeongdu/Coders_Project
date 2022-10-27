@@ -75,6 +75,7 @@ public class QnaSearchAction implements Action {
 		request.setAttribute("startBlock", startBlock);
 		request.setAttribute("endBlock", endBlock);
 		request.setAttribute("List", searchList);
+		request.setAttribute("searchkeyword", search_keyword);
 		
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);

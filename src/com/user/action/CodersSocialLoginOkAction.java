@@ -34,9 +34,9 @@ public class CodersSocialLoginOkAction implements Action {
 
 		HttpSession session = request.getSession();
 
-		if(check == 1) {	// DB에 정보가 존재하지 않을 때
+		if(check == 1) {	// DB�뿉 �젙蹂닿� 議댁옱�븯吏� �븡�쓣 �븣
 		  
-		  dao.UserInsert(userId, userNickname);
+		  dao.snsUserInsert(userId, userNickname);
 		  
 		  session.setAttribute("userId", userId);
 		  session.setAttribute("userNickname", userNickname);
@@ -46,9 +46,7 @@ public class CodersSocialLoginOkAction implements Action {
 		  
 		  forward.setPath("main.jsp");
 		  
-		  System.out.println("DB 값 존재");
-		  
-		}else if(check == -1){	// DB에 정보가 존재할 때
+		}else if(check == -1){	// DB�뿉 �젙蹂닿� 議댁옱�븷 �븣
 		  
 		  session.setAttribute("userId", userId); 
 		  session.setAttribute("userNickname", userNickname);
@@ -58,17 +56,12 @@ public class CodersSocialLoginOkAction implements Action {
 		  
 		  forward.setPath("main.jsp");
 		  
-		  System.out.println("DB 값 없음");
-		  
 		}else { 
 		  out.println("<script>");
 		  out.println("alert('로그인에 실패하셨습니다.')");
-		  out.println("location.href='main.jsp'"); 
+		  out.println("history.back()"); 
 		  out.println("</script>"); }
-		
-		System.out.println("실패");
 		 
-
 		return forward;
 	}
 

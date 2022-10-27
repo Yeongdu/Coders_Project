@@ -64,6 +64,13 @@
  padding-left: 10px;
  padding-right: 10px;
  }
+ 
+ .btn.btn-outline-primary{
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-top-width: 1px;
+	font-size: 1.1rem;
+ }
 
 </style>
 	
@@ -86,7 +93,7 @@
 		<div class="container col-md-6" style="width: 600px;">
 			<div class="card">
 				<div class="card-body">
-					<h4 class="card-title mb-3">${dto.getStudy_title() }</h4>
+					<h4 class="card-title mb-3"><button type="button" class="btn btn-outline-primary" disabled>${dto.study_status }</button>&nbsp;${dto.getStudy_title() }</h4>
 					<h6 class="card-subtitle text-muted mb-4">
 						<i class="fa-regular fa-user"></i>${dto.getStudy_writer() } &nbsp;
 						<i class="fa-regular fa-clock"></i> ${dto.getStudy_date()} &nbsp;
@@ -109,6 +116,9 @@
 						${dto.study_start.substring(0, 10)} ~ ${dto.study_end.substring(0, 10) }</span>
 					&nbsp; <span class="btn btn-outline-dark"><i
 						class="fa-solid fa-person"></i> ${dto.study_people }</span>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<span id="studyComplete" class="btn btn-outline-success" style="display: none;" 
+						onclick="if(confirm('게시글을 모집완료로 변경하시겠습니까?')) {location.href='study_statusChange.do?no=${dto.getStudy_num() }'} else {return; }"><i class="fa-solid fa-check"></i>&nbsp;모집완료</span>
 				</div>
 			</div>
 		</div>
@@ -123,10 +133,10 @@
 	</div>
 	
 	
-	 <div>
+	 <div align="center">
 	      <table class="list" cellspacing="0" width="400">
 	         
-	         <tr class="line">
+	         <tr class="line" align="center">
 	            <td>댓글내용</td> <td>작성일자</td>
 	         </tr>
 	     </table>
@@ -153,7 +163,7 @@
 	function getList() {
 		
 		$.ajax({
-			url : "/Project/WebContent/study/studyboard_reply.jsp",
+			url : "/Project/study/studyboard_reply.jsp",
 			data : {scomment_num : ${dto.study_num } },
 			datatype : "xml",    // 결과 데이터 타입
 			success : function(data) {
@@ -165,11 +175,17 @@
 				
 				$(data).find("reply").each(function() {
 					
+					table += "<tr>";
+					table += "<td>" + $(this).find("scomment_cont").text() + "</td>";
+					table += "<td>" + $(this).find("scomment_date").text() + "</td>";
+					table += "</tr>";
 					
 					table += "<tr>";
-					table += "<td>" + $(this).find("recont").text() + "</td>";
-					table += "<td>" + $(this).find("redate").text() + "</td>";
-					table += "</tr>";
+					table += "<td colspan='5' align = 'right'>" + 
+                    "<input type = 'button' value = '수정' id ='modifyBtn' class= 'btn btn-primary'>" + "&nbsp &nbsp"+
+                    "<input type = 'button' value = '삭제' id ='deleteBtn' class='btn btn-outline-primary'>";
+                     table += "</td>";
+                     table += "</tr>";
 					
 					table += "<tr>";
 					table += "<td colspan='2'>&nbsp;</td>";
@@ -184,7 +200,6 @@
 			error : function() {
 				alert('데이터 통신 에러');
 			}
-		
 		});
 	}  // getList() 함수 end
 	
@@ -196,8 +211,7 @@
 			url : "/Project/studyboard_reply_insert.do",
 			datatype : "text",
 			data : {
-					
-				    content : $("#re_content").val(),
+					content : $("#re_content").val(),
 				    study_num : ${dto.study_num }
 					},
 			success : function(data) {
@@ -212,7 +226,7 @@
 						
 						
 						// input 태그에 입력된 내용을 지워줌.
-						$("input[type=text]").each(function() {
+						$("input[name=re_content]").each(function() {
 							$(this).val("");  // 입력된 값 지우기
 						});
 					
@@ -227,9 +241,7 @@
 		});
 	});  // 댓글 등록하기 end
 	
-	
-	
-	
+	// 본문 글 textarea 높이 자동조절(높이 자동으로 스크롤 없이 맞추기)
 	function adjustHeight() {
 		  var textEle = $('textarea');
 		  textEle[0].style.height = 'auto';
@@ -240,14 +252,27 @@
 	getList();  // 전체 리스트 함수 호출
 	adjustHeight();
 	
-	//글쓴 사람만 EditDelete 보이는 함수
+	// 글쓴 사람만 studyEditDelete studyComplete 보이는 함수, 
+	// 모집중인 상태에서만 studyComplete 보이는 함수
     function onlyWriter(){
             if(${userId == dto.study_writer}){
                 $('.studyEditDelete').show();
+                if(${dto.study_status == '모집중'})
+                $('#studyComplete').show();
                 }
             };
 
     onlyWriter();
+    
+    
+//     //모집중인 상태에서만 보이는 함수
+//     function onlyStatusIng(){
+//     	if(${dto.study_status == '모집중'}){
+//     		${'#studyComplete'}.show();
+//     	}
+//     };
+    
+//     onlyStatusIng();
 	
 
 });

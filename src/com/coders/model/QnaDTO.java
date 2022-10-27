@@ -14,6 +14,7 @@ public class QnaDTO {
 	private String qna_code;
 	private int qna_reply;
 	
+
 	public int getQna_reply() {
 		return qna_reply;
 	}

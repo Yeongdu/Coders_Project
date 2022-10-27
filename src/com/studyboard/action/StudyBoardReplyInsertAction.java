@@ -15,7 +15,7 @@ public class StudyBoardReplyInsertAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// ë‹µë³€ê¸€ í¼ì—ì„œ ë„˜ì–´ì˜¨ ë°ì´í„°ë“¤ì„ ê°€ì§€ê³  DBì— ì €ì¥í•˜ëŠ” ë¹„ì§€ë‹ˆìŠ¤ ë¡œì§.
+		// ´äº¯±Û Æû¿¡¼­ ³Ñ¾î¿Â µ¥ÀÌÅÍµéÀ» °¡Áö°í DB¿¡ ÀúÀåÇÏ´Â ºñÁö´Ï½º ·ÎÁ÷.
 		
 		int study_num = Integer.parseInt(request.getParameter("study_num").trim());
 
@@ -48,7 +48,7 @@ public class StudyBoardReplyInsertAction implements Action {
 	    PrintWriter out = response.getWriter();
 	    
 	    
-	    //ê²°ê³¼ê°’ì„ ajaxì— ë³´ë‚´ì¤Œ
+	    //°á°ú°ªÀ» ajax¿¡ º¸³»ÁÜ
 	    
 	    out.println(check);
 		

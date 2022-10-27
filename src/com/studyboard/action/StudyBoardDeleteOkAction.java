@@ -16,7 +16,7 @@ public class StudyBoardDeleteOkAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// ì‚­ì œë²„íŠ¼ í´ë¦­ì‹œ ë„˜ì–´ì˜¨ ê¸€ë²ˆí˜¸í™” ë¹„ë°€ë²ˆí˜¸ë¥¼ ê°€ì§€ê³  DBì—ì„œ ê²Œì‹œê¸€ì„ ì‚­ì œí•˜ëŠ” ë¹„ì§€ë‹ˆìŠ¤ ë¡œì§.
+		// »èÁ¦¹öÆ° Å¬¸¯½Ã ³Ñ¾î¿Â ±Û¹øÈ£È­ ºñ¹Ğ¹øÈ£¸¦ °¡Áö°í DB¿¡¼­ °Ô½Ã±ÛÀ» »èÁ¦ÇÏ´Â ºñÁö´Ï½º ·ÎÁ÷.
 		
 		int studyboard_no = 
 			    Integer.parseInt(request.getParameter("no").trim());
@@ -29,7 +29,7 @@ public class StudyBoardDeleteOkAction implements Action {
 			    "C:\\NCS\\workspace(jsp)\\SemiProject\\WebContent\\study_upload";
 		
 		
-		//DTOì—ì„œ ì—…ë¡œë“œëœ íŒŒì¼ ê°€ì ¸ì˜¤ê¸°.
+		//DTO¿¡¼­ ¾÷·ÎµåµÈ ÆÄÀÏ °¡Á®¿À±â.
 		
 	    String fileName = dto.getStudy_file();
 	    
@@ -41,11 +41,11 @@ public class StudyBoardDeleteOkAction implements Action {
 	    
 	    
 	    
-	    if(fileName != null) {//ì²¨ë¶€íŒŒì¼ì´ ì¡´ì¬í•˜ëŠ” ê²½ìš°
+	    if(fileName != null) {//Ã·ºÎÆÄÀÏÀÌ Á¸ÀçÇÏ´Â °æ¿ì
     		
     		File file = new File(upload + fileName);
     		
-    		file.delete();  //íŒŒì¼ì„ ì œê±°í•˜ëŠ” ë©”ì„œë“œ.
+    		file.delete();  //ÆÄÀÏÀ» Á¦°ÅÇÏ´Â ¸Ş¼­µå.
     		
     	}
 	    
@@ -55,7 +55,7 @@ public class StudyBoardDeleteOkAction implements Action {
 	    	forward.setPath("studyBoard_list.do");
 	    }else {    	
 	    	out.println("<script>");
-	    	out.println("alert('ê²Œì‹œë¬¼ ì‚­ì œ ì‹¤íŒ¨.')");
+	    	out.println("alert('°Ô½Ã¹° »èÁ¦ ½ÇÆĞ.')");
 	    	out.println("history.back()");
 	    	out.println("</script>");	    	
 	    }

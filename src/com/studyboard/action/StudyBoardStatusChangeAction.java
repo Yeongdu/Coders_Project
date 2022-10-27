@@ -10,26 +10,21 @@ import com.coders.controller.ActionForward;
 import com.coders.model.StudyBoardDAO;
 import com.coders.model.StudyBoardDTO;
 
-public class StudyBoardModifyAction implements Action {
+public class StudyBoardStatusChangeAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// get방식으로 넘어온 글번호에 해당하는 게시글을 조회하여 수정 폼 페이지로 이동시키는 비지니스 로직.
+		// TODO Auto-generated method stub
 		
-		int studyboard_no = Integer.parseInt(request.getParameter("no").trim());
+		int study_num = Integer.parseInt(request.getParameter("no").trim());
 		
 		StudyBoardDAO dao = StudyBoardDAO.getInstance();
-		
-		StudyBoardDTO dto = dao.StudyboardContent(studyboard_no);
-		
-		request.setAttribute("Modify", dto);
-		
+		int res = dao.modifyStudyStatus(study_num);
 		ActionForward forward = new ActionForward();
-		
-		forward.setRedirect(false);
-		
-		forward.setPath("study/studyboard_modify.jsp");
-		
+		  if(res > 0) {
+	    	  forward.setRedirect(true);
+	    	  forward.setPath("studyBoard_content.do?no="+study_num);
+	     }
 		
 		return forward;
 	}

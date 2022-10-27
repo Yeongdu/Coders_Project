@@ -15,37 +15,9 @@
 			type : "post"
 		});
 		
-		$("#id_input").keyup(function() {
+		$("#id_input").blur(function() {
 			
 			var userId = $("#id_input").val();
-			
-			// 입력 길이 체크
-			/*if($ .trim($("#member_id").val()).length < 4){
-				
-				let warningTxt = '<font color="red">아이디는 4자 이상이어야 합니다.</font>';
-				
-				$("#id").text('');		// span 태그 영역 초기화
-				
-				$("#id").show();
-				
-				$("#id").append(warningTxt);
-				
-				return false;
-			}
-			
-			// 입력 길이 체크
-			if($.trim($("#id_input").val()).length > 16){
-				
-				let warningTxt = '<font color="red">아이디는 16자 이하이어야 합니다.</font>';
-				
-				$("#id").text('');		// span 태그 영역 초기화
-				
-				$("#id").show();
-				
-				$("#id").append(warningTxt);
-				
-				return false;
-			} */
 			
 			// 아이디 중복 여부 확인 - Ajax 기술
 			$.ajax({
@@ -55,21 +27,29 @@
 				datatype : "jsp",
 				success : function(data){
 					if(data == -1){		// DB에 아이디가 존재하는 경우
-						let warningTxt = '<font color="red">중복 아이디입니다.</font>';
+						let warningTxt = '<font color="red">중복된 이메일입니다.</font>';
 							
-							$("#idcheck").text('');		// span 태그 영역 초기화
+						$("#idcheck").text('');		// span 태그 영역 초기화
 							
-							$("#idcheck").append(warningTxt);
+						$("#idcheck").append(warningTxt);
 							
-							$("#member_id").val('').focus();
+						
+				 	}else if(data == 1){
+						let warningTxt = '<font color="red">이메일을 제대로 입력하세요.</font>';
+						
+						$("#idcheck").text('');		// span 태그 영역 초기화
+						
+						$("#idcheck").append(warningTxt);
+						
 						
 					}else {
 						let warningTxt = '<font color="blue">사용 가능한 아이디입니다.</font>';
-							
-							$("#idcheck").text('');		// span 태그 영역 초기화
-							
-							$("#idcheck").append(warningTxt);
-							
+						
+						$("#idcheck").text('');		// span 태그 영역 초기화
+						
+						$("#idcheck").append(warningTxt);
+						
+						
 					}
 				},
 				
@@ -80,18 +60,63 @@
 			
 		});
 		
-		$("#pwd_input").keyup(function(){
+		$("#pwd_input").blur(function(){
 			
 			var pwd = $("#pwd_input").val();
 			
-			var reg = "/^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
-			
-			if(pwd.match(reg) == null) {
-				let warningTxt = '<font color="red">특수문자 / 문자 / 숫자 포함한 형태의 8~15자리 이내의 암호를 만드세요
+			var num = pwd.search(/[0-9]/g);
+			var eng = pwd.search(/[a-zA-Z]/ig);
+			var spe = pwd.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+			if(pwd.length < 8 || pwd.length > 20){
+
+				let warningTxt = '<font color="red">8자리 ~ 20자리 이내로 입력해주세요.</font>';
 				
 				$("#pwdcheck").text('');		// span 태그 영역 초기화
 				
 				$("#pwdcheck").append(warningTxt);
+				
+				
+			 }else if(num < 0 || eng < 0 || spe < 0 ){
+				 
+			  	let warningTxt = '<font color="red">영문, 숫자, 특수문자를 혼합하여 입력해주세요.</font>';
+				
+				$("#pwdcheck").text('');		// span 태그 영역 초기화
+				
+				$("#pwdcheck").append(warningTxt);
+				
+				
+			 }else {
+				 
+				let warningTxt = '<font color="blue">사용 가능한 비밀번호 입니다.</font>';
+					
+				$("#pwdcheck").text('');		// span 태그 영역 초기화
+					
+				$("#pwdcheck").append(warningTxt);
+					
+			 }
+		});
+		
+		$("#pwd_ck_input").blur(function(){
+			
+			var pwd = $("#pwd_input").val();
+			var pwdck = $("#pwd_ck_input").val();
+			
+			if(pwd == pwdck){
+				
+				let warningTxt = '<font color="blue">비밀번호가 일치합니다.</font>';
+				
+				$("#pwdcheck_ck").text('');		// span 태그 영역 초기화
+				
+				$("#pwdcheck_ck").append(warningTxt);
+				
+			}else {
+				
+				let warningTxt = '<font color="red">비밀번호가 일치하지 않습니다.</font>';
+				
+				$("#pwdcheck_ck").text('');		// span 태그 영역 초기화
+				
+				$("#pwdcheck_ck").append(warningTxt);
 				
 			}
 		});
@@ -144,9 +169,9 @@
 	}
 	
 
-	h1 {
+	h1 a{
 		color: #4B89DC;
-		font-size: 6em;
+		font-size: 3em;
 	}
 
 	.login_input {
@@ -164,8 +189,8 @@
 	  outline: none;
 	}
 
-
 	.submit {
+	  margin-left: 40px;
 	  margin-top: 50px;
 	  width: 80%;
 	}
@@ -189,9 +214,9 @@
 </head>
 <body>
 	<div class="wrap">
-		<form class="form" method="post" action="<%=request.getContextPath()%>user_signup_ok.do">
+		<form class="form" method="post" action="<%=request.getContextPath()%>/user_signup_ok.do">
 			<div class="login">
-			<h1>Coders</h1>
+			<h1><a href="<%=request.getContextPath() %>/main.jsp">Coders</a></h1>
 				<div class="login_input">
 					<h4><b>*</b> E-mail&nbsp;&nbsp;<span id="idcheck"></span></h4>
 					<input type="email" id="id_input" name="id" placeholder="Email" required>
@@ -203,13 +228,13 @@
 				</div>
 				
 				<div class="login_input">
-					<h4><b>*</b> Password Check&nbsp;&nbsp;<span id="pwd_ck"></span></h4>
+					<h4><b>*</b> Password Check&nbsp;&nbsp;<span id="pwdcheck_ck"></span></h4>
 					<input type="password" id="pwd_ck_input" placeholder="Password Check" required>
 				</div>
 				
 				<div class="login_input">
 					<h4><b>*</b> Name&nbsp;&nbsp;</h4>
-					<input type="text" name="pwd" placeholder="Name" required>
+					<input type="text" name="name" placeholder="Name" required>
 				</div>
 		            
 		            

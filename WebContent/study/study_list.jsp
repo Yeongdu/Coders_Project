@@ -82,10 +82,12 @@ padding-bottom: 0px;
 	</c:if>
 
 <div align="center">
-<h1>STUDY 할 사람 모여라</h1>
+
 <br />
-
-
+<div align="right" style="width: 800px">
+<button class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/study_status_view.do'" >
+								<i class="fa fa-search"></i> 모집중인 글
+							</button></div>
 		<input type="hidden" value="${userId }" name="study_writer">
 
 			<c:if test="${!empty list }">

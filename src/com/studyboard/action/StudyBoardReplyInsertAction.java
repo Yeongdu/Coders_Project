@@ -23,9 +23,13 @@ public class StudyBoardReplyInsertAction implements Action {
 
 		String reply_cont = request.getParameter("content").trim();
 		
+		String scomment_writer = request.getParameter("scomment_writer").trim();
+		
+		
+		
 		
 		System.out.println("reply_cont >>> " + reply_cont);
-		// System.out.println("reply_num >>> " + reply_num);
+		System.out.println("scomment_writer >>> " + scomment_writer);
 		
 		
 		StudyBoardCommentDTO dto = new StudyBoardCommentDTO();
@@ -36,6 +40,10 @@ public class StudyBoardReplyInsertAction implements Action {
 	
 		
 		dto.setScomment_cont(reply_cont);
+		
+		dto.setScomment_writer(scomment_writer);
+		
+	
 		
 		
 		

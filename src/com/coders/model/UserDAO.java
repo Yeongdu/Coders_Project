@@ -11,36 +11,36 @@ import javax.sql.DataSource;
 
 public class UserDAO {
 	
-		// DBì™€ ì—°ë™í•˜ëŠ” ê°ì²´.
+		// DB¿Í ¿¬µ¿ÇÏ´Â °´Ã¼.
 		Connection con = null;
 		
-		// DBì— SQLë¬¸ì„ ì „ì†¡í•˜ëŠ” ê°ì²´
+		// DB¿¡ SQL¹®À» Àü¼ÛÇÏ´Â °´Ã¼
 		PreparedStatement pstmt = null;
 		
-		// SQLë¬¸ì„ ì‹¤í–‰í•œ í›„ì— ê²°ê³¼ ê°’ì„ ê°€ì§€ê³  ìžˆëŠ” ê°ì²´.
+		// SQL¹®À» ½ÇÇàÇÑ ÈÄ¿¡ °á°ú °ªÀ» °¡Áö°í ÀÖ´Â °´Ã¼.
 		ResultSet rs = null;
 		
-		// ì¿¼ë¦¬ë¬¸ì„ ì €ìž¥í•  ë³€ìˆ˜
+		// Äõ¸®¹®À» ÀúÀåÇÒ º¯¼ö
 		String sql = null;
 		
-		// UserDAO ê°ì²´ë¥¼ ì‹±ê¸€í„´ ë°©ì‹ìœ¼ë¡œ ë§Œë“¤ì–´ ë³´ìž.
-		// 1ë‹¨ê³„ : ì‹±ê¸€í„´ ë°©ì‹ìœ¼ë¡œ ê°ì²´ë¥¼ ë§Œë“¤ê¸° ìœ„í•´ì„œëŠ” ìš°ì„ ì ìœ¼ë¡œ
-		//        ê¸°ë³¸ìƒì„±ìžì˜ ì ‘ê·¼ì œì–´ìžë¥¼ publicì´ ì•„ë‹Œ private
-		//        ìœ¼ë¡œ ë°”ê¾¸ì–´ ì£¼ì–´ì•¼ í•œë‹¤.
-		//        ì¦‰, ì™¸ë¶€ì—ì„œ ì§ì ‘ì ìœ¼ë¡œ ê¸°ë³¸ìƒì„±ìžë¥¼ í˜¸ì¶œí•˜ì§€
-		//        ëª»í•˜ê²Œ í•˜ëŠ” ë°©ë²•ì´ë‹¤.
+		// UserDAO °´Ã¼¸¦ ½Ì±ÛÅÏ ¹æ½ÄÀ¸·Î ¸¸µé¾î º¸ÀÚ.
+		// 1´Ü°è : ½Ì±ÛÅÏ ¹æ½ÄÀ¸·Î °´Ã¼¸¦ ¸¸µé±â À§ÇØ¼­´Â ¿ì¼±ÀûÀ¸·Î
+		//        ±âº»»ý¼ºÀÚÀÇ Á¢±ÙÁ¦¾îÀÚ¸¦ publicÀÌ ¾Æ´Ñ private
+		//        À¸·Î ¹Ù²Ù¾î ÁÖ¾î¾ß ÇÑ´Ù.
+		//        Áï, ¿ÜºÎ¿¡¼­ Á÷Á¢ÀûÀ¸·Î ±âº»»ý¼ºÀÚ¸¦ È£ÃâÇÏÁö
+		//        ¸øÇÏ°Ô ÇÏ´Â ¹æ¹ýÀÌ´Ù.
 		
-		// 2ë‹¨ê³„ : UserDAO ê°ì²´ë¥¼ ì •ì (static) ë©¤ë²„ë¡œ ì„ ì–¸ì„ 
-		//        í•´ ì£¼ì–´ì•¼ í•œë‹¤.
+		// 2´Ü°è : UserDAO °´Ã¼¸¦ Á¤Àû(static) ¸â¹ö·Î ¼±¾ðÀ» 
+		//        ÇØ ÁÖ¾î¾ß ÇÑ´Ù.
 		private static UserDAO instance;
 		
-		private UserDAO() {  }  // ê¸°ë³¸ ìƒì„±ìž
+		private UserDAO() {  }  // ±âº» »ý¼ºÀÚ
 		
 		
-		// 3ë‹¨ê³„ : ê¸°ë³¸ ìƒì„±ìž ëŒ€ì‹ ì— ì‹±ê¸€í„´ ê°ì²´ë¥¼ return í•´ ì£¼ëŠ”
-		//        getInstance() ë¼ëŠ” ë©”ì„œë“œë¥¼ ë§Œë“¤ì–´ì„œ í•´ë‹¹
-		//        getInstance() ë¼ëŠ” ë©”ì„œë“œë¥¼ ì™¸ë¶€ì—ì„œ ì ‘ê·¼í•  ìˆ˜
-		//        ìžˆë„ë¡ í•´ ì£¼ë©´ ë¨.
+		// 3´Ü°è : ±âº» »ý¼ºÀÚ ´ë½Å¿¡ ½Ì±ÛÅÏ °´Ã¼¸¦ return ÇØ ÁÖ´Â
+		//        getInstance() ¶ó´Â ¸Þ¼­µå¸¦ ¸¸µé¾î¼­ ÇØ´ç
+		//        getInstance() ¶ó´Â ¸Þ¼­µå¸¦ ¿ÜºÎ¿¡¼­ Á¢±ÙÇÒ ¼ö
+		//        ÀÖµµ·Ï ÇØ ÁÖ¸é µÊ.
 		public static UserDAO getInstance() {
 			
 			if(instance == null) {
@@ -51,20 +51,20 @@ public class UserDAO {
 		}
 		
 		
-		// DBë¥¼ ì—°ë™í•˜ëŠ” ìž‘ì—…ì„ ì§„í–‰í•˜ëŠ” ë©”ì„œë“œ.
+		// DB¸¦ ¿¬µ¿ÇÏ´Â ÀÛ¾÷À» ÁøÇàÇÏ´Â ¸Þ¼­µå.
 		public void openConn() {
 			
 			try {
-				// 1ë‹¨ê³„ : JNDI ì„œë²„ ê°ì²´ ìƒì„±
+				// 1´Ü°è : JNDI ¼­¹ö °´Ã¼ »ý¼º
 				Context ctx = new InitialContext();
 				
-				// 2ë‹¨ê³„ : lookup() ë©”ì„œë“œë¥¼ ì´ìš©í•˜ì—¬ ë§¤ì¹­ë˜ëŠ”
-				//        ì»¤ë„¥ì…˜ì„ ì°¾ëŠ”ë‹¤.
+				// 2´Ü°è : lookup() ¸Þ¼­µå¸¦ ÀÌ¿ëÇÏ¿© ¸ÅÄªµÇ´Â
+				//        Ä¿³Ø¼ÇÀ» Ã£´Â´Ù.
 				DataSource ds =
 					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
 				
-				// 3ë‹¨ê³„ : DataSource ê°ì²´ë¥¼ ì´ìš©í•˜ì—¬
-				//        ì»¤ë„¥ì…˜ì„ í•˜ë‚˜ ê°€ì ¸ì˜¨ë‹¤.
+				// 3´Ü°è : DataSource °´Ã¼¸¦ ÀÌ¿ëÇÏ¿©
+				//        Ä¿³Ø¼ÇÀ» ÇÏ³ª °¡Á®¿Â´Ù.
 				con = ds.getConnection();
 				
 			} catch (Exception e) {
@@ -73,10 +73,10 @@ public class UserDAO {
 			}
 			
 			
-		}  // openConn() ë©”ì„œë“œ end
+		}  // openConn() ¸Þ¼­µå end
 		
 		
-		// DBì— ì—°ê²°ëœ ìžì› ì¢…ë£Œí•˜ëŠ” ë©”ì„œë“œ.
+		// DB¿¡ ¿¬°áµÈ ÀÚ¿ø Á¾·áÇÏ´Â ¸Þ¼­µå.
 		public void closeConn(ResultSet rs,
 				PreparedStatement pstmt, Connection con) {
 			
@@ -90,9 +90,9 @@ public class UserDAO {
 				e.printStackTrace();
 			}
 			
-		}  // closeConn() ë©”ì„œë“œ end
+		}  // closeConn() ¸Þ¼­µå end
 		
-		// ìœ ì € ë¡œê·¸ì¸ ì •ë³´ë¥¼ ì¡°íšŒí•˜ëŠ” ë©”ì„œë“œ
+		// À¯Àú ·Î±×ÀÎ Á¤º¸¸¦ Á¶È¸ÇÏ´Â ¸Þ¼­µå
 		public int UserSelect(String id) {
 			
 			int result = 0;
@@ -108,13 +108,13 @@ public class UserDAO {
 				
 				rs = pstmt.executeQuery();
 				
-				if(rs.next()) {	// DBì— ì •ë³´ê°€ ì¡´ìž¬í•  ë•Œ
+				if(rs.next()) {	// DB¿¡ Á¤º¸°¡ Á¸ÀçÇÒ ¶§
 					
 					if(id.equals(rs.getString("user_id"))) {
 						
 					result = -1;		
 					}
-				}else if(!rs.next()) {	// DBì— ì •ë³´ê°€ ì¡´ìž¬í•˜ì§€ ì•Šì„ ë•Œ
+				}else if(!rs.next()) {	// DB¿¡ Á¤º¸°¡ Á¸ÀçÇÏÁö ¾ÊÀ» ¶§
 					
 					result = 1;
 				}
@@ -130,12 +130,12 @@ public class UserDAO {
 			
 		}
 		
-		// ìœ ì € ë¡œê·¸ì¸ ì •ë³´ë¥¼ DBì— ì €ìž¥í•˜ëŠ” ë©”ì„œë“œ
-		public void UserInsert(String id, String name) {
-			
-			openConn();
+		// À¯Àú ·Î±×ÀÎ Á¤º¸¸¦ DB¿¡ ÀúÀåÇÏ´Â ¸Þ¼­µå
+		public void snsUserInsert(String id, String name) {
 			
 			try {
+				openConn();
+				
 				sql = "insert into user_member values(?, ?, sysdate, '', '', '')";
 				
 				pstmt = con.prepareStatement(sql);
@@ -154,9 +154,9 @@ public class UserDAO {
 			
 			
 			
-		}	// UserInsert() ë©”ì„œë“œ end
+		}	// UserInsert() ¸Þ¼­µå end
 		
-		// ìœ ì € ì•„ì´ë””ê°€ ì¤‘ë³µì¸ì§€ ì•„ë‹Œì§€ í™•ì¸í•˜ëŠ” ë©”ì„œë“œ.
+		// À¯Àú ¾ÆÀÌµð°¡ Áßº¹ÀÎÁö ¾Æ´ÑÁö È®ÀÎÇÏ´Â ¸Þ¼­µå.
 		public int checkUserId(String id) {
 			
 			int result = 0;
@@ -171,6 +171,8 @@ public class UserDAO {
 				pstmt.setString(1, id);
 				
 				rs = pstmt.executeQuery();
+				
+				System.out.println("rs °ª >>> " + rs);
 				
 				if(rs.next()) {
 					
@@ -189,5 +191,76 @@ public class UserDAO {
 			
 			
 			
-		}	// checkUserId() ë©”ì„œë“œ end
+		}	// checkUserId() ¸Þ¼­µå end
+		
+		// À¯Àú ·Î±×ÀÎ Á¤º¸¸¦ DB¿¡ ÀúÀåÇÏ´Â ¸Þ¼­µå
+		public int userInsert(UserDTO dto) {
+					
+			int result = 0;	
+				
+			try {
+				openConn();
+					
+				sql = "insert into user_member values(?, ?, sysdate, '', '', ?)";
+						
+				pstmt = con.prepareStatement(sql);
+						
+				pstmt.setString(1, dto.getUser_id());
+						
+				pstmt.setString(2, dto.getUser_name());
+					
+				pstmt.setString(3, dto.getUser_pwd());
+						
+				result = pstmt.executeUpdate();
+					
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+				
+			return result;
+					
+		}	// UserInsert() ¸Þ¼­µå end
+		
+		// À¯Àú ¾ÆÀÌµð¸¦ °Ë»öÇØ ºñ¹Ð¹øÈ£¸¦ Ã£¾ÆÁÖ´Â ¸Þ¼­µå
+		public UserDTO userPwdSearch(String id, String name) {
+			
+			UserDTO dto = null;
+			
+			try {
+				openConn();
+				
+				sql = "select * from user_member where user_id = ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, id);
+
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					
+					dto = new UserDTO();
+					
+					dto.setUser_id(rs.getString("user_id"));
+					
+					dto.setUser_name(rs.getString("user_name"));
+					
+					dto.setUser_pwd(rs.getString("user_pwd"));
+					
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				
+				closeConn(rs, pstmt, con);
+			}
+			
+			return dto;
+			
+			
+		}
 }

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공부 게시판 전체 리스트</title>
+<title>공부 게시판 검색 리스트</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
@@ -28,21 +28,21 @@
 }
 .study_view_left {
   flex: 1;
-  text-align-last: left;
-  flex-grow: 1;
 }
-
+.study_view_left2{
+  display: table-cell;
+  vertical-align: middle;
+  text-align: right;
+}
 .study_view_center {
   align-items: center;
   flex: 3;
   text-align: left;
   font-size: 1.2em;
-  flex-grow: 3;
 }
 .study_view_right {
   flex: 1;
   text-align: right;
-  flex-grow: 2;
 }
 .studyViewDate{
 font-size: 0.8em;
@@ -62,14 +62,7 @@ display: flex;
 margin: auto;
 justify-content: center;
 }
-
-.btn.btn-outline-primary{
-height: 37px;
-padding-top: 0px;
-padding-bottom: 0px;
-}
 </style>
-
 </head>
 <body>
 
@@ -82,7 +75,7 @@ padding-bottom: 0px;
 	</c:if>
 
 <div align="center">
-<h1>STUDY 할 사람 모여라</h1>
+<h1>STUDY 게시판 검색</h1>
 <br />
 
 
@@ -94,20 +87,19 @@ padding-bottom: 0px;
 
 				<div id="studyListContainer" class="border-bottom">
 					<div class="study_view_left">
-						<div><i class="fa-regular fa-eye"></i> &nbsp;${dto.getStudy_hit() }</div>
-						<div><i class="fa-regular fa-pen-to-square"></i> &nbsp;${dto.getStudy_reply() }</div>
+						<div>${dto.getStudy_hit() }</div>
+						<div>${dto.getStudy_hit() }</div>
 					</div>
 					
-<!-- 					<div class="study_view_left2" class="align-middle"> -->
-<!-- 						<button type="button" class="btn btn-outline-primary" style="height: 48px;">모집중</button>					 -->
-<!-- 					</div> -->
+					<div class="study_view_left2" class="align-middle">
+						<button type="button" class="btn btn-outline-primary" style="height: 48px;">모집중</button>					
+					</div>
 
-					<div class="study_view_center"><a class="study_view_aTag" href="<%=request.getContextPath()%>/studyBoard_content.do?no=${dto.study_num }"
-							style="display: block;">
-					<button type="button" class="btn btn-outline-primary">${dto.study_status }</button>
-						&nbsp;${dto.getStudy_title() }
+					<div class="study_view_center">
+						<a class="study_view_aTag" href="<%=request.getContextPath()%>/studyBoard_content.do?no=${dto.study_num }"
+							style="display: block;"> &nbsp;${dto.getStudy_title() }</a>
 							<!-- a태그에 style="display: block;" 하면 제목있는 부분 전체가 링크가 된다 -->
-					</a></div>
+					</div>
 					
 					<div class="study_view_right">
 					<div class="studyViewWriter">${dto.getStudy_writer() }</div>
@@ -122,7 +114,7 @@ padding-bottom: 0px;
 			</c:if>
 
 			<c:if test="${empty list }">
-				<h3>게시글이 없음</h3>
+				<h3>검색 결과가 없음</h3>
 			</c:if>
 			
 			
@@ -185,7 +177,8 @@ padding-bottom: 0px;
 				</span>
 			</form>
 			<%-- 검색 기능 처리 end--%>
-
+			
+			
 			&nbsp;&nbsp;
 			<div class="study_search_right" class="col-12 text-right">
 				<button id="studyWrite_btn" class="btn btn-success">
@@ -194,11 +187,8 @@ padding-bottom: 0px;
 			</div>
 		</div>
 		<%-- class="studySearchWrite" end--%>
-
-	</div>
-	<br />
-	
-	<jsp:include page="../include/bottom.jsp" />
+			
+<jsp:include page="../include/bottom.jsp" />
 <script type="text/javascript">
 	$("#studyWrite_btn").click(function(){
 		if(${empty userId}) {
@@ -207,7 +197,16 @@ padding-bottom: 0px;
 			location.href = '<%=request.getContextPath()%>/studyBoard_insert.do';
 		}
 	});
+	
+	function nonSearch(){
+        if(${empty list }){
+            $('.pagination').hide();
+            }
+        };
+        nonSearch();
+        
 </script>
 <script src="https://kit.fontawesome.com/7703fd875c.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
 </body>
 </html>

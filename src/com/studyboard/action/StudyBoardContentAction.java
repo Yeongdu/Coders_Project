@@ -14,17 +14,20 @@ public class StudyBoardContentAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// getë°©ì‹ìœ¼ë¡œ ë„˜ì–´ì˜¨ ê¸€ë²ˆí˜¸ì— í•´ë‹¹í•˜ëŠ” ê²Œì‹œê¸€ì˜ ìƒì„¸ë‚´ì—­ì„ DBì—ì„œ ì¡°íšŒí•˜ëŠ” ë¡œì§.
+		// get¹æ½ÄÀ¸·Î ³Ñ¾î¿Â ±Û¹øÈ£¿¡ ÇØ´çÇÏ´Â °Ô½Ã±ÛÀÇ »ó¼¼³»¿ªÀ» DB¿¡¼­ Á¶È¸ÇÏ´Â ·ÎÁ÷.
+		
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		
 		int studyBoard_no = Integer.parseInt(request.getParameter("no").trim());
 		
 		StudyBoardDAO dao = StudyBoardDAO.getInstance();
 		
-		//ê²Œì‹œê¸€ ì¡°íšŒìˆ˜ë¥¼ ì¦ê°€ì‹œí‚¤ëŠ” ë©”ì„œë“œ í˜¸ì¶œ.
+		//°Ô½Ã±Û Á¶È¸¼ö¸¦ Áõ°¡½ÃÅ°´Â ¸Ş¼­µå È£Ãâ.
 		dao.StudyBoardHit(studyBoard_no);
 		
 		
-		//ê¸€ë²ˆí˜¸ì— í•´ë‹¹í•˜ëŠ” ìƒì„¸ë‚´ì—­ì„ ì¡°íšŒí•˜ëŠ” ë©”ì„œë“œ
+		//±Û¹øÈ£¿¡ ÇØ´çÇÏ´Â »ó¼¼³»¿ªÀ» Á¶È¸ÇÏ´Â ¸Ş¼­µå
 	   StudyBoardDTO content = dao.StudyboardContent(studyBoard_no);
 	   
 	   request.setAttribute("Cont", content);

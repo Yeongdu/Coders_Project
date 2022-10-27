@@ -21,4 +21,4 @@
 	
 	<jsp:include page="./include/bottom.jsp" />
 </body>
-</html>
+</html>	

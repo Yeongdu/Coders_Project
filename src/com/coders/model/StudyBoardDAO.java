@@ -118,13 +118,16 @@ public class StudyBoardDAO {
 	// 스터디 게시판의 전체 글을 조회하는 메서드
 	public List<StudyBoardDTO> getStudyBoardList(int page, int rowsize) {
 		List<StudyBoardDTO> list = new ArrayList<StudyBoardDTO>();
-		
-		int startNo = (page * rowsize) - (rowsize -1);
-		
+
+		int startNo = (page * rowsize) - (rowsize - 1);
+
 		int endNo = (page * rowsize);
 		try {
 			openConn();
-			sql = "select * from (select row_number() over(order by study_num desc) snum, s.* from study_group s) where study_num >=? and study_num <= ?";
+			sql = "select * from( "
+					+ "select row_number() over(order by study_group.study_date desc) as snum, study_group.*, "
+					+ "(select count(*) from study_comment where study_group.study_num = study_comment.study_num) "
+					+ "as commentCnt " + "from study_group)where snum >=? and snum <= ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startNo);
 			pstmt.setInt(2, endNo);
@@ -143,9 +146,12 @@ public class StudyBoardDAO {
 				dto.setStudy_end(rs.getString("study_end"));
 				dto.setStudy_file(rs.getString("study_file"));
 				dto.setStudy_hit(rs.getInt("study_hit"));
+				dto.setStudy_reply(rs.getInt("commentCnt"));
 
 				list.add(dto);
 			}
+			pstmt = con.prepareStatement(sql);
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -154,6 +160,107 @@ public class StudyBoardDAO {
 		}
 		return list;
 	}
+	
+	
+	
+	
+	//검색어에 해당하는 게시물의 수를 조회하는 메서드
+		public int searchStudyListCount(String field, String keyword) {
+			int count = 0;
+
+			try {
+				openConn();
+				String searchSql = "";
+				if (field != null && keyword != null) {
+					if (field.equals("title")) {
+						searchSql = " where study_title like '%" + keyword + "%'";
+					} else if (field.equals("cont")) {
+						searchSql = " where study_cont like '%" + keyword + "%'";
+					} else if (field.equals("title_cont")) {
+						searchSql = " where (study_title like '%" + keyword + "%') or (study_cont like '%" + keyword
+								+ "%')";
+					} else if (field.equals("writer")) {
+						searchSql = " where board_writer like '%" + keyword + "%'";
+					}
+				}
+
+				sql = "select count(*) from study_group" + searchSql;
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				if (rs.next())
+					count = rs.getInt(1);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+			return count;
+		}
+			
+		
+		
+		public List<StudyBoardDTO> searchStudyList(String field, String keyword, int page, int rowsize) {
+		    List<StudyBoardDTO> list = new ArrayList<StudyBoardDTO>();
+
+		    // 해당 페이지에서 시작번호
+		    int startNo = (page * rowsize) - (rowsize - 1);
+
+		    // 해당 페이지에서 끝번호
+		    int endNo = (page * rowsize);
+
+		    openConn();
+
+		    try {
+		        String searchSql = "";
+		        if(field != null && keyword != null){
+		            if(field.equals("title")){
+		                searchSql = " where study_title like '%" + keyword + "%'";
+		            }else if(field.equals("cont")){
+		                searchSql = " where study_cont like '%" + keyword + "%'";
+		            }else if(field.equals("title_cont")){
+		                searchSql = " where (study_title like '%" + keyword + "%') or (study_cont like '%" + keyword + "%')";
+		            }else if(field.equals("writer")){
+		                searchSql = " where study_writer like '%" + keyword + "%'";
+		            }
+		        }
+
+		        sql = "select * from"
+		            + "(select row_number() over(order by study_num desc) snum, s.* from study_group s "+searchSql+")"
+		            + "where snum >= ? and snum <= ?";
+		        pstmt = con.prepareStatement(sql);
+		        pstmt.setInt(1, startNo);
+		        pstmt.setInt(2, endNo);
+		        rs = pstmt.executeQuery();
+
+		        while(rs.next()){
+		        	StudyBoardDTO dto = new StudyBoardDTO();
+
+		        	dto.setStudy_num(rs.getInt("study_num"));
+					dto.setStudy_writer(rs.getString("study_writer"));
+					dto.setStudy_title(rs.getString("study_title"));
+					dto.setStudy_cont(rs.getString("study_cont"));
+					dto.setStudy_date(rs.getString("study_date"));
+					dto.setStudy_update(rs.getString("study_update"));
+					dto.setStudy_people(rs.getInt("study_people"));
+					dto.setStudy_status(rs.getString("study_status"));
+					dto.setStudy_start(rs.getString("study_start"));
+					dto.setStudy_end(rs.getString("study_end"));
+					dto.setStudy_file(rs.getString("study_file"));
+					dto.setStudy_hit(rs.getInt("study_hit"));
+
+		            list.add(dto);
+		        }
+		    } catch(Exception e) {
+		        e.printStackTrace();
+
+		    } finally {
+		        closeConn(rs, pstmt, con);
+		    }
+		    return list;
+		}
+	
+	
 	
 	
 	//Study 게시판 글쓰기 메서드
@@ -295,6 +402,30 @@ public class StudyBoardDAO {
 		}
 		return result;
 	}// modifyStudyboard()메서드 end
+	
+	
+	public int modifyStudyStatus(int no) {
+		int result = 0;
+		
+		try {
+			openConn();
+			sql ="update study_group set study_status='모집완료' where study_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+
+			result = pstmt.executeUpdate();
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	}
+	
+	
+	
 
 	// 글번호에 해당하는 studyboard 게시글을 삭제하는 메서드.
 	public int deleteStudyboard(int no) {

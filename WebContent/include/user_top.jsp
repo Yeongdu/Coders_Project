@@ -62,7 +62,7 @@
 								${userId }
 							</a>
 							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="#">프로필 보기</a></li>
+								<li><a class="dropdown-item" href="<%=request.getContextPath()%>/profile.do">프로필 보기</a></li>
 								<c:if test="${token == 'kakao' }">
 									<li><a class="dropdown-item" href="javascript:kakaoLogout();">로그아웃</a></li>
 								</c:if>

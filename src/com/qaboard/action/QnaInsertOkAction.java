@@ -20,23 +20,23 @@ public class QnaInsertOkAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		// ÀÚ·á½Ç Æû ÆäÀÌÁö¿¡¼­ ³Ñ¾î¿Â µ¥ÀÌÅÍµéÀ» DB¿¡ ÀúÀåÇÏ´Â ºñÁö´Ï½º ·ÎÁ÷
+		// ï¿½Ú·ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			QnaDTO dto = new QnaDTO();
 			
-			// 	1. ÆÄÀÏ ÀúÀå °æ·Î ÁöÁ¤
-			String qnaBoardWriteFolder = "C:\\Users\\user1\\git\\Coders_Project\\Coders_Project\\Project\\WebContent\\qnaBoardWriteFolder";
+			// 	1. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			String qnaBoardWriteFolder = "D:\\git\\Project\\WebContent\\qnaBoardWriteFolder";
 			
-			//	2. Ã·ºÎ ÆÄÀÏ Å©±â ÁöÁ¤
+			//	2. Ã·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			int fileSize = 10 * 1024 * 1024; 
 			
-			//	3. MultipartRequest °´Ã¼ »ý¼º
-			// 		==> ÆÄÀÏ ¾÷·Îµå¸¦ ÁøÇàÇÏ±â À§ÇÑ °´Ã¼ »ý¼º
+			//	3. MultipartRequest ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
+			// 		==> ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµå¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 			MultipartRequest multi = new MultipartRequest(
-					request,  		// ÀÏ¹ÝÀûÀÎ request °´Ã¼
-					qnaBoardWriteFolder, 	// Ã·ºÎÆÄÀÏÀÌ ÀúÀåµÉ °æ·Î
-					fileSize, 		// ¾÷·ÎµåÇÒ Ã·ºÎÆÄÀÏÀÇ ÃÖ´ë Å©±â
-					"UTF-8",		// ¹®ÀÚ ÀÎÄÚµù ¹æ½Ä
-					new DefaultFileRenamePolicy());		// ÆÄÀÏÀÇ ÀÌ¸§ÀÌ °°Àº °æ¿ì Áßº¹ÀÌ ¾ÈµÇ°Ô ¼³Á¤ÇÏ´Â »ý¼ºÀÚ 
+					request,  		// ï¿½Ï¹ï¿½ï¿½ï¿½ï¿½ï¿½ request ï¿½ï¿½Ã¼
+					qnaBoardWriteFolder, 	// Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+					fileSize, 		// ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Å©ï¿½ï¿½
+					"UTF-8",		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½
+					new DefaultFileRenamePolicy());		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ßºï¿½ï¿½ï¿½ ï¿½ÈµÇ°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 			
 			
 			String userId = multi.getParameter("userId").trim();
@@ -45,15 +45,15 @@ public class QnaInsertOkAction implements Action {
 			String qna_content = multi.getParameter("qna_content").trim();
 			String qna_code = multi.getParameter("qna_code").trim();
 			
-			// ÀÚ·á½Ç ÆûÆäÀÌÁö¿¡¼­ type = "file"·Î µÇ¾î ÀÖÀ¸¸é getFile() ¸Þ¼­µå·Î µ¥ÀÌÅÍ¸¦ ¹Þ¾Æ¾ßÇÑ´Ù.
-			File file = multi.getFile("qna_file"); // java.io ÆÐÅ°ÁöÀÇ File Å¬·¡½º·Î ¹ÝÈ¯
+			// ï¿½Ú·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ type = "file"ï¿½ï¿½ ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ getFile() ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Þ¾Æ¾ï¿½ï¿½Ñ´ï¿½.
+			File file = multi.getFile("qna_file"); // java.io ï¿½ï¿½Å°ï¿½ï¿½ï¿½ï¿½ File Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 
-			if(file != null) { // Ã·ºÎÆÄÀÏÀÌ Á¸ÀçÇÏ´Â °æ¿ì
-				// ¿ì¼±Àº Ã·ºÎÆÄÀÏÀÇ ÀÌ¸§À» ¾Ë¾Æ¾ßÇÑ´Ù.
-				// getName() ¸Þ¼­µå »ç¿ë
+			if(file != null) { // Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½
+				// ï¿½ì¼±ï¿½ï¿½ Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ë¾Æ¾ï¿½ï¿½Ñ´ï¿½.
+				// getName() ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				String fileName = file.getName();
 				
-				// ³¯Â¥ °´Ã¼ »ý¼º
+				// ï¿½ï¿½Â¥ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 				Calendar cal = Calendar.getInstance();
 				int year = cal.get(Calendar.YEAR);
 				int month = cal.get(Calendar.MONTH) + 1;
@@ -62,21 +62,21 @@ public class QnaInsertOkAction implements Action {
 				// ..../Qna/2022-10-11
 				String homedir = qnaBoardWriteFolder+"/"+year+"-"+month+"-"+day;
 				
-				// ³¯Â¥ Æú´õ ¸¸µé±â
+				// ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 				File path1 = new File(homedir);
 				
-				if(!path1.exists()) { // Æú´õ°¡ Á¸ÀçÇÏÁö ¾Ê´Â °æ¿ì
-					path1.mkdir(); // ½ÇÁ¦ Æú´õ¸¦ ¸¸µé¾îÁÖ´Â ¸Þ¼­µå
+				if(!path1.exists()) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½
+					path1.mkdir(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 				}
 				
-				// ÆÄÀÏ ¸¸µé±â ==> ¿¹) È«±æµ¿_ÆÄÀÏ¸í
-				// ...../Qna/2022-10-11/È«±æµ¿_ÆÄÀÏ¸í
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ==> ï¿½ï¿½) È«ï¿½æµ¿_ï¿½ï¿½ï¿½Ï¸ï¿½
+				// ...../Qna/2022-10-11/È«ï¿½æµ¿_ï¿½ï¿½ï¿½Ï¸ï¿½
 				String reFileName = userId + "_" + fileName;
 				
-				file.renameTo(new File(homedir + "/" + reFileName)); // ÆÄÀÏÀÇ ÀÌ¸§ º¯°æ
+				file.renameTo(new File(homedir + "/" + reFileName)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 				
-				// ½ÇÁ¦·Î DB¿¡ ÀúÀåµÇ´Â ÆÄÀÏ ÀÌ¸§
-				// "/2022-10-11/È«±æµ¿_ÆÄÀÏ¸í"À¸·Î ÀúÀåÇÒ ¿¹Á¤
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+				// "/2022-10-11/È«ï¿½æµ¿_ï¿½ï¿½ï¿½Ï¸ï¿½"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				String fileDBName = "/" + year + "-" + month + "-" + day + "/" + reFileName;
 				dto.setQna_file(fileDBName);
 				
@@ -103,7 +103,7 @@ public class QnaInsertOkAction implements Action {
 			forward.setPath("qna_list.do");
 		}else {
 			out.println("<script>");
-			out.println("alert('°Ô½Ã±ÛÀ» µî·ÏÇÏÁö ¸øÇÏ¿´½À´Ï´Ù.')");
+			out.println("alert('ï¿½Ô½Ã±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.')");
 			out.println("history.back()");
 			out.println("</script>");
 		}

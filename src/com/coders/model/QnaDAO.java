@@ -455,6 +455,7 @@ public class QnaDAO {
 					dto.setQna_cont(rs.getString("qna_cont"));
 					dto.setQna_date(rs.getString("qna_date"));
 					dto.setQna_update(rs.getString("qna_update"));
+					dto.setQna_file(rs.getString("qna_file"));
 					dto.setQna_hit(rs.getInt("qna_hit"));
 					dto.setQna_tag(rs.getString("qna_tag"));
 					dto.setQna_code(rs.getString("qna_code"));
@@ -490,7 +491,7 @@ public class QnaDAO {
 				 
 				if(rs.next()) {
 					
-					sql = "update qna set qna_writer = ?, qna_title = ?, qna_cont = ?, qna_update = sysdate, qna_file = ?, qna_tag = ? where qna_num = ?";
+					sql = "update qna set qna_writer = ?, qna_title = ?, qna_cont = ?, qna_update = sysdate, qna_file = ?, qna_tag = ?, qna_code = ? where qna_num = ?";
 					pstmt = con.prepareStatement(sql);
 					
 					pstmt.setString(1, dto.getQna_writer());
@@ -498,7 +499,8 @@ public class QnaDAO {
 					pstmt.setString(3, dto.getQna_cont());
 					pstmt.setString(4, dto.getQna_file());
 					pstmt.setString(5, dto.getQna_tag());
-					pstmt.setInt(6, dto.getQna_num());
+					pstmt.setString(6, dto.getQna_code());
+					pstmt.setInt(7, dto.getQna_num());
 					
 					result = pstmt.executeUpdate();
 					
@@ -573,7 +575,7 @@ public class QnaDAO {
 		 
 		 
 		 
-	//-----------------------------------------------------------------------------------------------------	 
+	//--------------------------------------------------------------------------------------------------------------------------------------------------
 		 
 	
 		 //페이지에 해당하는 댓글 리스트를 조회하는 메소드
@@ -688,7 +690,7 @@ public class QnaDAO {
 		 
 		 
 		//좋아요 버튼 
-		 public int goodQnaComment(int no) {
+		 public int goodQnaComment(int no, String id) {
 			 
 			 int result = 0;
 			 
@@ -696,13 +698,15 @@ public class QnaDAO {
 		
 				openConn();
 				 
-				sql = "update qna_comment set qcomment_good = qcomment_good + 1 where qcomment_num = ?";
+				sql = "update qna_comment set qcomment_good = qcomment_good + 1, user_id = ? where qcomment_num = ?";
 				 
 				pstmt = con.prepareStatement(sql);
 
 				pstmt.setInt(1, no);
+				pstmt.setString(2, id);
 				
 				result = pstmt.executeUpdate();
+				
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

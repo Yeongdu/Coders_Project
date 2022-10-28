@@ -19,6 +19,27 @@ li {
 		list-style: none;
 	}
 	
+textarea {
+
+	resize: none;
+}
+	.top_wrab {
+		display : flex;
+	}
+	
+	.tag_wrab {
+		  flex-grow: 0.3;
+		  padding: 0;
+	}
+	
+	.space{
+		flex-grow: 0.2;
+	}
+	
+	.title_wrab {
+	  flex-grow: 6;
+		}
+	
 	
 </style>
 
@@ -54,48 +75,10 @@ li {
 		<input type="hidden" name = "qna_date" value = "${dto.qna_date }">
 		<input type="hidden" name = "qna_hit" value = "${dto.qna_hit }">
 		
-		
-		<h4 class="card-title mb-3"><input name="qna_title" class="form-control" value= "${dto.qna_title }" ></h4>
-		
-			<h6 class="card-subtitle text-muted mb-4" readonly align="left">
-					<i class="fa-regular fa-user"></i>  &nbsp; ${dto.qna_writer } &nbsp;
-					<i class="fa-regular fa-clock"></i> ${dto.qna_date } &nbsp;
-					<i class="fa-regular fa-eye"></i> ${dto.qna_hit }            
-			</h6>
-		<br>
-		<br>
-		
-		
-		<div>
-			<h5 class="card-title mb-3" align="center"> 코드 내용  </h5>
-				<div class="col-sm-10">
-					<textarea class="form-control" rows="7" cols="35" name="qna_code">${dto.qna_code }</textarea>
-				</div>
-		</div>
-		
-		<br>
-			
-		<div>
-			<h5 class="card-title mb-3" align="center"> 본문 내용  </h5>
-				<div class="col-sm-10">
-					<textarea class="form-control" rows="7" cols="35" name="qna_content">${dto.qna_cont }</textarea>
-				</div>
-		</div>
-			
-		<br>
-			
-		<div class="mb-3 row">
-			<label for="exampleFormControlInput1"
-				class="col-sm-2 col-form-label">파일 첨부</label>
-			<div class="col-sm-10">
-				<input class="form-control" type="file" name="qna_file">
-			</div>
-		</div>
-			
-			<ul>
+		<div class = "top_wrab">
+		<div class = "tag_wrab">
+			<ul style=" padding-left: 0px;">
 			 <li>
-				<label for="exampleFormControlInput1" class="form-label">프로그래밍 언어</label>
-		
 				<select class="form-select" aria-label="Default select example" name = "qna_tag" id = "qna_tag">
                         <option value = "NONE" 
                         	<c:if test="${dto.qna_tag == 'none' }"> selected </c:if>>::: 언어 선택 :::</option>
@@ -130,6 +113,48 @@ li {
             	</select>
 			</li>
 		</ul>     
+		</div>
+		
+		<div class = "space">&nbsp;</div>
+		<div class = "title_wrab">
+			<h4 class="card-title mb-3"><input name="qna_title" class="form-control" value= "${dto.qna_title }" ></h4>
+		</div>
+		</div>
+		
+			<h6 class="card-subtitle text-muted mb-4" readonly align="left">
+					<i class="fa-regular fa-user"></i> ${dto.qna_writer } &nbsp;
+					<i class="fa-regular fa-clock"></i> ${dto.qna_date } &nbsp;
+					<i class="fa-regular fa-eye"></i> ${dto.qna_hit }            
+			</h6>
+		<br>
+		<br>
+		
+		
+		<div>
+			<h5 class="card-title mb-3" align="center"> 코드 내용  </h5>
+				<div class="card-body">
+					<textarea class="form-control" name="qna_code">${dto.qna_code }</textarea>
+				</div>
+		</div>
+		
+		<br>
+			
+		<div>
+			<h5 class="card-title mb-3" align="center"> 본문 내용  </h5>
+				<div class="card-body">
+					<textarea class="form-control" name="qna_content" id = "qna_content">${dto.qna_cont }</textarea>
+				</div>
+		</div>
+			
+		<br>
+			
+		<div class="mb-3 row">
+			<div class="card-body">
+				<input class="form-control" type="file" name="qna_file">
+			</div>
+		</div>
+			
+			
 
 
 			
@@ -158,4 +183,31 @@ li {
 	<jsp:include page="../include/bottom.jsp" />
 
 </body>
+<script type="text/javascript">
+
+	function adjustHeight() {
+		  var textEle = $('textarea');
+		  textEle[0].style.height = 'auto';
+		  var textEleHeight = textEle.prop('scrollHeight');
+		  textEle.css('height', textEleHeight+8);
+		  textEle.css('resize', 'none');
+		  
+		};
+	
+	adjustHeight();
+	
+	function adjustHeight2() {
+		  var textEle = $('#qna_content');
+		  textEle[0].style.height = 'auto';
+		  var textEleHeight = textEle.prop('scrollHeight');
+		  textEle.css('height', textEleHeight+8);
+		  textEle.css('resize', 'none');
+		  
+		};
+	
+	adjustHeight2();
+	
+	qna_content
+
+</script>
 </html>

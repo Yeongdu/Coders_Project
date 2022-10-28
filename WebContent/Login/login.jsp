@@ -202,7 +202,7 @@
 				datatype : "jsp",
 				success : function(data){
 					if(data == -1){		// DB에 아이디가 존재하는 경우
-						let warningTxt = '<font color="red" size="2em">중복된 이메일입니다.</font>';
+						let warningTxt = '<font color="red" size="1.5em">중복된 이메일입니다.</font>';
 						
 						$("#idcheck").text('');		// span 태그 영역 초기화
 							
@@ -212,7 +212,7 @@
 							
 						
 				 	}else if(data == 1){
-						let warningTxt = '<font color="red" size="2em">이메일을 제대로 입력하세요.</font>';
+						let warningTxt = '<font color="red" size="1.5em">이메일을 제대로 입력하세요.</font>';
 						
 						$("#idcheck").text('');		// span 태그 영역 초기화
 						
@@ -222,7 +222,7 @@
 						
 						
 					}else {
-						let warningTxt = '<font color="blue" size="2em">사용 가능한 아이디입니다.</font>';
+						let warningTxt = '<font color="blue" size="1.5em">사용 가능한 아이디입니다.</font>';
 						
 						$("#idcheck").text('');		// span 태그 영역 초기화
 						
@@ -249,7 +249,7 @@
 
 			if(pwd.length < 8 || pwd.length > 20){
 
-				let warningTxt = '<font color="red" size="2em">8자리 ~ 20자리 이내로 입력해주세요.</font>';
+				let warningTxt = '<font color="red" size="1.5em">8자리 ~ 20자리 이내로 입력해주세요.</font>';
 				
 				$("#pwdcheck").text('');		// span 태그 영역 초기화
 				
@@ -260,7 +260,7 @@
 				
 			 }else if(num < 0 || eng < 0 || spe < 0 ){
 				 
-			  	let warningTxt = '<font color="red" size="2em">영문, 숫자, 특수문자를 혼합하여 입력해주세요.</font>';
+			  	let warningTxt = '<font color="red" size="1.5em">영문, 숫자, 특수문자를 혼합하여 입력해주세요.</font>';
 				
 				$("#pwdcheck").text('');		// span 태그 영역 초기화
 				
@@ -271,7 +271,7 @@
 				
 			 }else {
 				 
-				let warningTxt = '<font color="blue" size="2em">사용 가능한 비밀번호 입니다.</font>';
+				let warningTxt = '<font color="blue" size="1.5em">사용 가능한 비밀번호 입니다.</font>';
 					
 				$("#pwdcheck").text('');		// span 태그 영역 초기화
 					
@@ -287,7 +287,7 @@
 			
 			if(pwd == pwdck){
 				
-				let warningTxt = '<font color="blue" size="2em">비밀번호가 일치합니다.</font>';
+				let warningTxt = '<font color="blue" size="1.5em">비밀번호가 일치합니다.</font>';
 				
 				$("#pwdcheck_ck").text('');		// span 태그 영역 초기화
 				
@@ -297,7 +297,7 @@
 				
 			}else {
 				
-				let warningTxt = '<font color="red" size="2em">비밀번호가 일치하지 않습니다.</font>';
+				let warningTxt = '<font color="red" size="1.5em">비밀번호가 일치하지 않습니다.</font>';
 				
 				$("#pwdcheck_ck").text('');		// span 태그 영역 초기화
 				

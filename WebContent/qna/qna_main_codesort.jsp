@@ -54,7 +54,7 @@
 				<li class = "qna_language_sort" onchange = "goSortCode()">
 					<select class="form-select" aria-label="Default select example" name = "code" id = "code">
 					  	<option value = "NONE">::: 언어 선택 :::</option>
-						<option value = "JAVA">JAVA</option>
+					  	<option value = "JAVA">JAVA</option>
 						<option value = "HTML">HTML</option>
 						<option value = "CSS">CSS</option>
 						<option value = "JAVASCRIPT">JAVASCRIPT</option>
@@ -81,16 +81,15 @@
 					<div id="container" class="border-top" class="border-bottom">
 						<div class="qna_view_left">
 							<div>
-								<i class="fa-solid fa-eye"></i>
+								<i class="fa-regular fa-eye"></i>
 								${dto.getQna_hit() }
 							</div>
 							
 							<div>
-								<i class="fa-solid fa-pen-to-square"></i>
+								<i class="fa-regular fa-pen-to-square"></i>
 								${dto.getQna_reply() }
 							</div> <%-- 답변 수 값 --%>
 						</div>
-	
 						<div class="qna_view_center">
 							<a href="<%=request.getContextPath()%>/qna_content.do?no=${dto.getQna_num() }"
 								style="display: block; text-decoration: none;">

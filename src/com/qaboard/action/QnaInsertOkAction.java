@@ -81,9 +81,14 @@ public class QnaInsertOkAction implements Action {
 				dto.setQna_file(fileDBName);
 				
 			}
+			
 		dto.setQna_writer(userId);
 		dto.setQna_title(qna_title);
 		dto.setQna_cont(qna_content);
+		/*
+		 * dto.setQna_cont(qna_content.replaceAll(
+		 * "<(/)?([a-zA-Z]*)(\\\\s[a-zA-Z]*=[^>]*)?(\\\\s)*(/)?>",""));
+		 */
 		dto.setQna_tag(code);
 		dto.setQna_code(qna_code);
 		

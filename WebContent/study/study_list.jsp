@@ -119,10 +119,19 @@ padding-bottom: 0px;
 								<c:if test="${dto.study_status eq '모집완료'}" >
 					
 					</c:if>
+
 								disabled>${dto.study_status }</button>
 							&nbsp;${dto.getStudy_title() }
 							<!-- a태그에 style="display: block;" 하면 제목있는 부분 전체가 링크가 된다 -->
 					</a></div>
+					
+					<c:if test="${dto.study_status eq '모집중' }">
+						<button class="btn2" disabled>${dto.study_status }</button>
+					</c:if>
+					
+					<c:if test="${dto.study_status eq '모집완료' }">
+						<button class="btn btn-outline-primary" disabled>${dto.study_status }</button>
+					</c:if>
 					
 					<div class="study_view_right">
 					<div class="studyViewWriter">${dto.getStudy_writer() }</div>

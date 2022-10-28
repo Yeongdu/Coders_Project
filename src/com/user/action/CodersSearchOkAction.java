@@ -21,11 +21,9 @@ public class CodersSearchOkAction implements Action {
 		
 		UserDAO dao = UserDAO.getInstance();
 		
-		UserDTO dto = dao.userPwdSearch(id, name);
+		UserDTO dto = dao.userContentSearch(id);
 		
 		PrintWriter out = response.getWriter();
-		
-		System.out.println("비밀번호 값 >>> " + dto.getUser_pwd());
 		
 		if(dto.getUser_name().equals(name)) {
 			

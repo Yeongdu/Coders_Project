@@ -80,12 +80,12 @@
 					<div id="container" class="border-top" class="border-bottom">
 						<div class="qna_view_left">
 							<div>
-								<i class="fa-solid fa-eye"></i>
+								<i class="fa-regular fa-eye"></i>
 								${dto.getQna_hit() }
 							</div>
 							
 							<div>
-								<i class="fa-solid fa-pen-to-square"></i>
+								<i class="fa-regular fa-pen-to-square"></i>
 								${dto.getQna_reply() }
 							</div> <%-- 답변 수 값 --%>
 						</div>

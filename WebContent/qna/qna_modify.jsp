@@ -203,7 +203,5 @@ textarea {
 	
 	adjustHeight2();
 	
-	qna_content
-
 </script>
 </html>

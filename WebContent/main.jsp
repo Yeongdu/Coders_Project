@@ -88,7 +88,7 @@
 	
 	<div align="center" id ="main">
 		<div id="head">
-		<h1>Q&A Board</h1>
+		<h1>Q&A Board 테스트</h1>
 		</div>
 		
 		<br>

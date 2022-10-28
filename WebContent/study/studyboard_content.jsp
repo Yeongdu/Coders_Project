@@ -147,7 +147,7 @@
 	      <table class="list" cellspacing="0" width="400">
 	         
 	       <tr class="line">
-	            <td>댓글내용</td> <td>작성일자</td> <input type="hidden" value="${userId }" name="scomment_writer" id="scomment_writer">
+	            <td>댓글내용</td> <td>작성일자1</td> <input type="hidden" value="${userId }" name="scomment_writer" id="scomment_writer">
 	         </tr>
 	     </table>
 	  </div>

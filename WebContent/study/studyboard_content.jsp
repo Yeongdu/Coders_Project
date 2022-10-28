@@ -22,6 +22,8 @@
 <style type="text/css">
 
 
+
+
  .container col-md-6{
  margin: auto;
  }
@@ -48,16 +50,41 @@
   text-shadow: 1px 2px 2px gray;
  }
  
- .replyRap{
- margin: auto;
- width: 600px;
- display: flex;
- margin: auto;
+ 
+ .ReCount{
+    
+    font-size: 22px;
+    width: 600px;
+    justify-content: center;
  }
  
+ .replyRap textarea {
+    font-family: inherit;
+    padding: 1rem 1rem 1.5rem;
+    outline: none;
+    border: 1px solid #bebebe;
+    border-radius: 16px;
+    width: 100%;
+    min-height: 100px;
+    margin-bottom: 10px;
+    resize: none;
+}
+ 
+ 
  #re_content{
- width: 502px;
+ width: 600px;
  }
+ 
+ .button{
+
+    outline: none;
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+   
+    
+
+}
  
  .btn.btn-outline-secondary{
  font-size: 1em;
@@ -65,17 +92,61 @@
  padding-right: 10px;
  }
  
- .btn.btn-outline-primary{
-    padding-top: 3px;
-    padding-bottom: 3px;
-    border-top-width: 1px;
-	font-size: 1.1rem;
- }
+
+    
+ .commentInput_buttonWrapper{
  
+     display: flex;
+    justify-content: flex-end;
+    margin: 16px 0 24px;
+    width: 600px;
+}
+
+
+.commentInput_buttonComplete{
+padding: 10px 30px;
+    min-width: 120px;
+    height: 40px;
+    background: #646464;;
+    border-radius: 50px;
+    font-weight: 700;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+
+
+}
+
+
+
+ 
+.modifyBtn{
+ color: black;
+  background-color: transparent;
+  border: 0;
+}
+
+.deleteBtn{
+   color: black;
+    background-color: transparent;
+    border: 0;
+}
  .contBottomWrab{
  display: flex;
  justify-content: space-between;
  }
+ 
+ .scommentDate{
+ font-size:0.8em;
+ }
+ 
+ .scommentwriter{
+ font-weight: 600;
+ }
+
+
 
 </style>
 	
@@ -136,18 +207,22 @@
 	
 	<%-- 댓글 폼 영역입니다. --%>
 	
-	<div class="replyRap">
-	<input class="form-control re_cont" name="re_content" id="re_content">
+	 <div align="center" class="ReCount">${dto.study_reply} 개의 댓글이 있습니다.</div>
+	 <div class="replyRap" align="center">
+    <textarea class="commentInput" placeholder="댓글을 입력하세요" id="re_content"></textarea>
 	&nbsp;&nbsp;
-	<span class="btn btn-outline-secondary" id="replyBtn">댓글쓰기</span>
+	
+	<div class="commentInput_buttonWrapper">
+	<button class="commentInput_buttonComplete" id="replyBtn">댓글쓰기</button>
+	</div>
 	</div>
 	
 	
 	 <div align="center">
-	      <table class="list" cellspacing="0" width="400">
+	      <table class="list" class="table" style="width: 600px">
 	         
 	       <tr class="line">
-	            <td>댓글내용</td> <td>작성일자1</td> <input type="hidden" value="${userId }" name="scomment_writer" id="scomment_writer">
+	           <input type="hidden" value="${userId }" name="scomment_writer" id="scomment_writer">
 	         </tr>
 	     </table>
 	  </div>
@@ -170,6 +245,9 @@
 	});
 	
 	
+
+
+
 	// TBL_REPLY 테이블의 모든 데이터를 가져오는 함수
 	function getList() {
 		
@@ -186,28 +264,44 @@
 				
                  $(data).find("reply").each(function() {
 					
-					table += "<tr>";
-					
-					table += "<td><span>" + $(this).find("scomment_cont").text() + "</span>";
-					table += "<input id = 'modifyOK' style='display:none;' type='text' value='"+$(this).find("scomment_cont").text()+"'/></td>";
-					table += "<td>" + $(this).find("scomment_date").text() + "</td>";
-					table += "</tr>";
-					
-					table += "<tr>";
-					table += "<td colspan='5' align = 'right'>" + 
-                    "<input type = 'button' value = '수정' id ='modifyBtn' class= 'btn btn-primary'>" + "&nbsp &nbsp"+
-                    "<input type = 'button' value = '삭제' id ='deleteBtn' class='btn btn-outline-primary'>";
-                     table += "</td>";
-                     table += "<td id = 'reSnum' style='display:none;'><span>" + $(this).find("scomment_num").text() + "</span>";
-                     table += "</tr>";
-					
-					table += "<tr>";
-					table += "<td colspan='2'>&nbsp;</td>";
-					table += "</tr>";
+                	//1행 작성자, 수정, 삭제, 번호(hidden)
+
+                	 table += "<tr>";
+                	 table += "<td class='scommentwriter'><i class='fa-regular fa-user'>"+ "</i>" + $(this).find("scomment_writer").text() + "</td>";
+                	 table += "<td colspan='5' align = 'right'";
+                	 if('${userId}' == $(this).find("scomment_writer").text()){
+                	 table += " style='display: block;'>";
+                	 }else {
+                	 table += " style='display: none;'>";
+                	 }
+                	 table +="<button value = '수정' id ='modifyBtn' class= 'modifyBtn'>" + '수정' + "</button>" + "&nbsp &nbsp"+ '| &nbsp' +
+                	 "<button value = '삭제' id ='deleteBtn' class='deleteBtn'>" + '삭제' + "</button>";
+                	 table += "</td>";
+                	 table += "<td id = 'reSnum' style='display:none;'><span>" + $(this).find("scomment_num").text() + "</span>";
+                	 table += "</tr>";
+
+
+                	 //2행 작성일자
+                	 table += "<tr>";
+                	 table += "<td class='scommentDate'>" + $(this).find("scomment_date").text() + "</td>";
+                	 table += "</tr>";
+
+                	 // 3행 내용
+                	 table += "<tr>";
+                	 table += "<td><span>" + $(this).find("scomment_cont").text() + "</span>";
+                	 table += "<input id = 'modifyOK' style='display:none;' type='text' value='"+$(this).find("scomment_cont").text()+"'/></td>";
+                	 table += "</tr>";
+
+
+                	 table += "<tr>";
+                	 table += "<td colspan='2'>&nbsp;</td>";
+                	 table += "</tr>";
+
 				});
 				
 				//테이블의 첫번째 행의 아래에 table를 추가
 				$(".list tr:eq(0)").after(table);
+				//onlyReWriter();
 			},
 			
 			
@@ -217,6 +311,10 @@
 		
 		});
 		
+		
+		
+		    
+		
 	   
 		
 	}  // getList() 함수 end
@@ -225,6 +323,7 @@
 	
 	// 댓글 작성 버튼을 클릭했을 때 DB에 추가로 저장.
 	$("#replyBtn").on("click", function() {
+		if(${!empty userId}){
 		
 		$.ajax({
 			url : "/Project/studyboard_reply_insert.do",
@@ -261,10 +360,14 @@
 				alert('데이터 통신 오류입니다.');
 			}
 		});
+		
+	} else{
+		alert('로그인한 이용자만 이용할 수 있습니다.');
+	}
 	});  // 댓글 등록하기 end
 
 	// 수정버튼 클릭 시 댓글 수정.
-    $(document).on("click", "#modifyBtn", function(){
+   /*  $(document).on("click", "#modifyBtn", function(){
 
     
 		console.log('성공');
@@ -274,6 +377,7 @@
 		
          //수정 버튼 클릭 시 input태그의 숨김 속성을 해제하는 코드 (this는 modifyBtn )
          this.parentNode.parentNode.previousSibling.childNodes[0].childNodes[1].style.display = 'block';
+         
 
          //수정 버튼 클릭 시 span태그를 숨기는 코드 (this는 modifyBtn )	
          this.parentNode.parentNode.previousSibling.childNodes[0].childNodes[0].hidden = true;
@@ -304,8 +408,8 @@
 				url : "/Project/studyboard_reply_modify.do",
 				datatype : "text",
 				data : {
-					content : this.parentNode.parentNode.previousSibling.childNodes[0].childNodes[1].value,
-					scomment_num : this.parentNode.nextSibling.childNodes[0].textContent
+					content : this.parentNode.parentNode.previousSibling.childNodes[0].childNodes[1].value,  //input태그 value
+					scomment_num : this.parentNode.nextSibling.childNodes[0].textContent   //scomment_num 
 					    },
 					    
 			   success : function(data){
@@ -351,7 +455,7 @@
 			  url : "/Project/studyboard_reply_delete.do",
 			  datatype:"text",
 			  data:{
-				  scomment_num : this.parentNode.nextSibling.childNodes[0].textContent
+				  scomment_num : this.parentNode.nextSibling.childNodes[0].textContent    //scomment_num 
 				  
 			  },
 			  
@@ -410,7 +514,7 @@
 	  
   });//삭제버튼 클릭 이벤트
 	
-	
+	 */
 	
 	
 	function adjustHeight() {

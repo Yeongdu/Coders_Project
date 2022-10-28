@@ -22,7 +22,7 @@ public class StudyBoardInsertAction implements Action {
 		StudyBoardDTO dto = new StudyBoardDTO();
 
 		// 1. �뙆�씪 ���옣 寃쎈줈 �꽕�젙
-		String saveFolder = "D:\\git\\project\\WebContent\\study_upload";
+		String saveFolder = "D:\\git\\Coders_Project\\WebContent\\study_upload";
 
 		// 2. 泥⑤� �뙆�씪 �겕湲� 吏��젙
 		int fileSize = 20 * 1024 * 1024; // 20MB

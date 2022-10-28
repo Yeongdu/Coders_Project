@@ -220,7 +220,8 @@ table {
 							<div class="mb-3 row">
 								<label for="exampleFormControlInput1"
 									class="col-sm-2 col-form-label"><i
-									class="fa-regular fa-user"></i> 작성자 </label>
+									class="fa-regular fa-user
+									"></i> 작성자 </label>
 								<div class="col-sm-10">
 									<input class="form-control" type="text" name="co_writer"
 										id="co_writer" value=${userId  } size="10" readonly>

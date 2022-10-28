@@ -27,10 +27,8 @@
 				/* callback 페이지가 분리되었을 경우에 callback 페이지에서는 callback처리를 해줄수 있도록 설정합니다. */
 			}
 		);
-
 		/* (3) 네아로 로그인 정보를 초기화하기 위하여 init을 호출 */
 		naverLogin.init();
-
 		/* (4) Callback의 처리. 정상적으로 Callback 처리가 완료될 경우 main page로 redirect(또는 Popup close) */
 		window.addEventListener('load', function () {
 			naverLogin.getLoginStatus(function (status) {
@@ -49,37 +47,12 @@
 						naverLogin.reprompt();
 						return;
 					}
-
 					window.location.replace("http://" + window.location.hostname + ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/Project/social_login_ok.do?id="+id+"&nickname="+nickname+"&token=user");
 				} else {
 					console.log("callback 처리에 실패하였습니다.");
 				}
 			});
 		});
-
 	</script>
-	 <!-- // url로 넘기면서 정보도 같이 담아서 갖고가기
-	function post_to_url(path, params, method='post'){
-			// body 에 form 태그 추가
-			const form = document.createElement('form');
-			form.method = method;
-			form.action = pate;
-			
-			// 정보 hidden으로 form태그 안에 추가하기
-			for(const key in params){
-				if(params.hasOwnProperty(key)){
-					const hiddenField = document.createElement('input');
-					hiddenField.type = 'hidden';
-					hiddenField.name = key;
-					hiddenField.value = param[key];
-					form.appendChild(hiddenField);
-				}
-			}
-			// form태그 닫기
-			document.body.appendChild(from);
-			
-			// submit으로 전송
-			form.submit();
-	} -->
 </body>
 </html>

@@ -161,6 +161,52 @@ public class StudyBoardDAO {
 		return list;
 	}
 	
+	//스터디 게시판 모집중인 글만 조회하는 메서드
+	public List<StudyBoardDTO> getStudyStatusList(int page, int rowsize) {
+		List<StudyBoardDTO> list = new ArrayList<StudyBoardDTO>();
+		int startNo = (page * rowsize) - (rowsize - 1);
+
+		int endNo = (page * rowsize);
+		try {
+			openConn();
+			sql = "select * from( "
+					+ "select row_number() over(order by study_group.study_date desc) as snum, study_group.*, "
+					+ "(select count(*) from study_comment where study_group.study_num = study_comment.study_num) "
+					+ "as commentCnt " + "from study_group where study_status='모집중')where snum >=? and snum <= ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startNo);
+			pstmt.setInt(2, endNo);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				StudyBoardDTO dto = new StudyBoardDTO();
+				dto.setStudy_num(rs.getInt("study_num"));
+				dto.setStudy_writer(rs.getString("study_writer"));
+				dto.setStudy_title(rs.getString("study_title"));
+				dto.setStudy_cont(rs.getString("study_cont"));
+				dto.setStudy_date(rs.getString("study_date"));
+				dto.setStudy_update(rs.getString("study_update"));
+				dto.setStudy_people(rs.getInt("study_people"));
+				dto.setStudy_status(rs.getString("study_status"));
+				dto.setStudy_start(rs.getString("study_start"));
+				dto.setStudy_end(rs.getString("study_end"));
+				dto.setStudy_file(rs.getString("study_file"));
+				dto.setStudy_hit(rs.getInt("study_hit"));
+				dto.setStudy_reply(rs.getInt("commentCnt"));
+
+				list.add(dto);
+			}
+			pstmt = con.prepareStatement(sql);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+		
+		
+	}
 	
 	
 	
@@ -453,6 +499,7 @@ public class StudyBoardDAO {
 	
 	
 	
+
 	// 글번호에 해당하는 댓글리스트를 조회하는 메서드.
 	public String getReplyList(int no) {
 
@@ -541,5 +588,79 @@ public class StudyBoardDAO {
 		return result;
 
 	}// replyInsert() 메서드 end
+	
+	//댓글 수정하는 메서드.
+	
+		public int replyModify(StudyBoardCommentDTO dto) {
+			
+			int result = 0;
+			
+			
+	  
+			try {
+
+				openConn();
+
+
+				sql="update study_comment set scomment_cont = ?, "
+						+ "scomment_update = sysdate where scomment_num = ?";
+
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, dto.getScomment_cont());
+				
+				pstmt.setInt(2, dto.getScomment_num());
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				
+				closeConn(rs, pstmt, con);
+			}
+
+			return result;
+		}//replyModify() 메서드 end
+		
+		
+		// 댓글번호를 넘겨받아 댓글을 삭제하는 메서드
+		public int replyDelete(int no) {
+			
+			int result = 0;
+			
+			
+			try {
+				
+				openConn();
+				
+				sql="delete from study_comment where scomment_num = ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, no);
+				
+				result = pstmt.executeUpdate();
+				
+				sql="update study_comment set scomment_num = scomment_num - 1 where scomment_num > ?";
+				
+				pstmt.setInt(1, no);
+				
+				pstmt.executeUpdate();
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}
+			
+			return result;
+			
+		}//replyDelete() 메서드 end
+
+	
 
 }

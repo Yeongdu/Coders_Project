@@ -18,59 +18,59 @@ public class StudySearchAction implements Action {
 		String search_field = request.getParameter("search_field").trim();
 		String search_keyword = request.getParameter("search_keyword").trim();
 
-		// í˜ì´ì§• ì²˜ë¦¬ ì‘ì—… ì§„í–‰
+		// ÆäÀÌÂ¡ Ã³¸® ÀÛ¾÷ ÁøÇà
 
-		// í•œ í˜ì´ì§€ë‹¹ ë³´ì—¬ì§ˆ ê²Œì‹œë¬¼ì˜ ìˆ˜
-		int rowsize = 3;
+		// ÇÑ ÆäÀÌÁö´ç º¸¿©Áú °Ô½Ã¹°ÀÇ ¼ö
+		int rowsize = 10;
 
-		// ì•„ë˜ì— ë³´ì—¬ì§ˆ í˜ì´ì§€ì˜ ìµœëŒ€ ë¸”ëŸ­ ìˆ˜ - ì˜ˆ) [1][2][3] / [4][5][6]
-		int block = 3;
+		// ¾Æ·¡¿¡ º¸¿©Áú ÆäÀÌÁöÀÇ ÃÖ´ë ºí·° ¼ö - ¿¹) [1][2][3] / [4][5][6]
+		int block = 5;
 
-		// DB ê²Œì‹œë¬¼ì˜ ì „ì²´ ìˆ˜ (countí•¨ìˆ˜) -ì „ì²´ í˜ì´ì§€ ìˆ˜ ì²´í¬ë¥¼ ìœ„í•´ ì²´í¬
+		// DB °Ô½Ã¹°ÀÇ ÀüÃ¼ ¼ö (countÇÔ¼ö) -ÀüÃ¼ ÆäÀÌÁö ¼ö Ã¼Å©¸¦ À§ÇØ Ã¼Å©
 		int totalRecord = 0;
 
-		// ì „ì²´ í˜ì´ì§€ ìˆ˜ = í•œí˜ì´ì§€ë‹¹ ë³´ì—¬ì§ˆ ê²Œì‹œë¬¼ì˜ ìˆ˜ / ì „ì²´ ê²Œì‹œë¬¼ì˜ ìˆ˜
+		// ÀüÃ¼ ÆäÀÌÁö ¼ö = ÇÑÆäÀÌÁö´ç º¸¿©Áú °Ô½Ã¹°ÀÇ ¼ö / ÀüÃ¼ °Ô½Ã¹°ÀÇ ¼ö
 		int allPage = 0;
 
-		int page = 1; // í˜„ì¬í˜ì´ì§€ ë³€ìˆ˜
+		int page = 1; // ÇöÀçÆäÀÌÁö º¯¼ö
 
 		if (request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page").trim());
 		} else {
-			// ì²˜ìŒìœ¼ë¡œ "ì „ì²´ ê²Œì‹œë¬¼ ëª©ë¡" aíƒœê·¸ë¥¼ í´ë¦­í•œ ê²½ìš°
+			// Ã³À½À¸·Î "ÀüÃ¼ °Ô½Ã¹° ¸ñ·Ï" aÅÂ±×¸¦ Å¬¸¯ÇÑ °æ¿ì
 			page = 1;
 		}
 
-		// í•´ë‹¹ í˜ì´ì§€ì—ì„œ ì‹œì‘ë²ˆí˜¸
+		// ÇØ´ç ÆäÀÌÁö¿¡¼­ ½ÃÀÛ¹øÈ£
 		int startNo = (page * rowsize) - (rowsize - 1);
 
-		// í•´ë‹¹ í˜ì´ì§€ì—ì„œ ëë²ˆí˜¸
+		// ÇØ´ç ÆäÀÌÁö¿¡¼­ ³¡¹øÈ£
 		int endNo = (page * rowsize);
 
-		// í•´ë‹¹ í˜ì´ì§€ì—ì„œ ì‹œì‘ ë¸”ëŸ­
+		// ÇØ´ç ÆäÀÌÁö¿¡¼­ ½ÃÀÛ ºí·°
 		int startBlock = (((page - 1) / block) * block) + 1;
 
-		// í•´ë‹¹ í˜ì´ì§€ì—ì„œ ë ë¸”ëŸ­
+		// ÇØ´ç ÆäÀÌÁö¿¡¼­ ³¡ ºí·°
 		int endBlock = (((page - 1) / block) * block) + block;
 
 		StudyBoardDAO dao = StudyBoardDAO.getInstance();
 		
-		//DBìƒ ê²€ìƒ‰ ê²Œì‹œë¬¼ì˜ ìˆ˜ë¥¼ í™•ì¸í•˜ëŠ” ë©”ì„œë“œ
+		//DB»ó °Ë»ö °Ô½Ã¹°ÀÇ ¼ö¸¦ È®ÀÎÇÏ´Â ¸Ş¼­µå
 		
 		totalRecord = dao.searchStudyListCount(search_field, search_keyword);
 
-		// ì „ì²´ ê²Œì‹œë¬¼ì˜ ìˆ˜ë¥¼ í•œ í˜ì´ì§€ë‹¹ ë³´ì—¬ì§ˆ ê²Œì‹œë¬¼ì˜ ìˆ˜ë¡œ ë‚˜ëˆ„ì–´ ì£¼ë©´ ì „ì²´ í˜ì´ì§€ ìˆ˜ê°€ ë‚˜ì˜¤ê²Œ ëœë‹¤.
-		// ë‚˜ë¨¸ì§€ê°€ ìˆìœ¼ë©´ ë¬´ì¡°ê±´ í˜ì´ì§€ ìˆ˜ë¥¼ ì˜¬ë ¤ì£¼ì–´ì•¼ í•œë‹¤.
+		// ÀüÃ¼ °Ô½Ã¹°ÀÇ ¼ö¸¦ ÇÑ ÆäÀÌÁö´ç º¸¿©Áú °Ô½Ã¹°ÀÇ ¼ö·Î ³ª´©¾î ÁÖ¸é ÀüÃ¼ ÆäÀÌÁö ¼ö°¡ ³ª¿À°Ô µÈ´Ù.
+		// ³ª¸ÓÁö°¡ ÀÖÀ¸¸é ¹«Á¶°Ç ÆäÀÌÁö ¼ö¸¦ ¿Ã·ÁÁÖ¾î¾ß ÇÑ´Ù.
 		allPage = (int) Math.ceil(totalRecord / (double) rowsize);
 
 		if (endBlock > allPage) {
 			endBlock = allPage;
 		}
 
-		// í˜„ì¬í˜ì´ì§€ì— í•´ë‹¹í•˜ëŠ” ê²Œì‹œë¬¼ì„ ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ í˜¸ì¶œ
+		// ÇöÀçÆäÀÌÁö¿¡ ÇØ´çÇÏ´Â °Ô½Ã¹°À» °¡Á®¿À´Â ¸Ş¼­µå È£Ãâ
 		List<StudyBoardDTO> searchList = dao.searchStudyList(search_field, search_keyword, page, rowsize);
 
-		// ì§€ê¸ˆê¹Œì§€ í˜ì´ì§• ì²˜ë¦¬ ì‹œ ì‘ì—…í–ˆë˜ ëª¨ë“  ê°’ë“¤ì„ view pageë¡œ ì´ë™
+		// Áö±İ±îÁö ÆäÀÌÂ¡ Ã³¸® ½Ã ÀÛ¾÷Çß´ø ¸ğµç °ªµéÀ» view page·Î ÀÌµ¿
 		request.setAttribute("page", page);
 		request.setAttribute("rowsize", rowsize);
 		request.setAttribute("block", block);

@@ -11,18 +11,28 @@
 	
 	#container {
 	  display: flex;
-	  width: 55em;
+	  width: 50em;
+	  padding-top: 10px;
+	  padding-bottom: 10px;
+	  margin: auto;
 	}
 	.qna_view_left {
 	  flex: 1;
+	  text-align-last: left;
+	  flex-grow: 1;
 	}
+	
 	.qna_view_center {
+	  align-items: center;
 	  flex: 3;
 	  text-align: left;
+	  font-size: 1.2em;
+	  flex-grow: 5;
 	}
 	.qna_view_right {
 	  flex: 1;
 	  text-align: right;
+	  flex-grow: 2;
 	}
 	
 	.qna_sort {

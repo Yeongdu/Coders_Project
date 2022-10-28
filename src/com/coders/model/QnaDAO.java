@@ -684,7 +684,88 @@ public class QnaDAO {
 					closeConn(rs, pstmt, con);
 				}
 					return result;
-			 
 		 }
+		 
+		 
+		//좋아요 버튼 
+		 public int goodQnaComment(int no) {
+			 
+			 int result = 0;
+			 
+			 try {
+		
+				openConn();
+				 
+				sql = "update qna_comment set qcomment_good = qcomment_good + 1 where qcomment_num = ?";
+				 
+				pstmt = con.prepareStatement(sql);
+
+				pstmt.setInt(1, no);
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}
+			 return result;
+		 }//good comment end
+		 
+		 
+		 
+		// QnA 메인페이지 출력
+			public String getMainQnaList(int page, int rowsize) {
+					
+				String result = "";
+					
+				// 해당 페이지에서 시작 번호
+				int startNo = (page * rowsize) - (rowsize -1);
+							
+				// 해당 페이지에서 마지막 번호
+				int endNo = (page * rowsize);
+
+				try {
+					openConn();
+						
+					sql = "select * from (select row_number() over(order by qna_date desc) qnum, q.* from qna q) where qnum >=? and qnum <= ?";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setInt(1, startNo);
+					
+					pstmt.setInt(2, endNo);
+					
+					rs = pstmt.executeQuery();
+					
+					result += "<mains>";
+					while(rs.next()) {
+						result += "<main>";
+						result += "<num>" + rs.getInt("qna_num") + "</num>";
+						result += "<tag>" + rs.getString("qna_tag") + "</tag>";
+						result += "<hit>" + rs.getString("qna_hit") + "</hit>";
+						result += "<reply>" + rs.getString("qna_reply") + "</reply>";
+						result += "<title>" + rs.getString("qna_title") + "</title>";
+						result += "<writer>" + rs.getString("qna_writer") + "</writer>";
+						result += "<date>" + rs.getString("qna_date") + "</date>";
+						result += "</main>";
+					}
+					
+					result += "</mains>";
+						
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					closeConn(rs, pstmt, con);
+				}
+				return result;
+			}
+		 
+		 
+		 
+		 
+		 
 	
 }

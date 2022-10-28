@@ -35,8 +35,8 @@
  }
  
  .studyEditIcon:hover{
-  font-size: 1.1em;
-  color: black;
+  color: DarkBlue;
+  text-shadow: 1px 2px 2px gray;
  }
  
  .studyDeleteIcon{
@@ -44,8 +44,8 @@
  }
  
  .studyDeleteIcon:hover {
-  color: black;
-  font-size: 1.1em;	
+  color: DarkBlue;
+  text-shadow: 1px 2px 2px gray;
  }
  
  .replyRap{
@@ -71,6 +71,11 @@
     border-top-width: 1px;
 	font-size: 1.1rem;
  }
+ 
+ .contBottomWrab{
+ display: flex;
+ justify-content: space-between;
+ }
 
 </style>
 	
@@ -95,16 +100,14 @@
 				<div class="card-body">
 					<h4 class="card-title mb-3"><button type="button" class="btn btn-outline-primary" disabled>${dto.study_status }</button>&nbsp;${dto.getStudy_title() }</h4>
 					<h6 class="card-subtitle text-muted mb-4">
-						<input type = "hidden" id = "session_id" value = "${userId }"> 
-						<i class="fa-regular fa-user"></i>${dto.getStudy_writer() } &nbsp;
+						<i class="fa-regular fa-user"></i> ${dto.getStudy_writer() } &nbsp;
 						<i class="fa-regular fa-clock"></i> ${dto.getStudy_date()} &nbsp;
 						<i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }            
 					</h6>
-					<span id="studyEditDelete" class="studyEditDelete" style="display: none;"><a class="studyEditIcon"
-						href="studyboard_modify.do?no=${dto.getStudy_num() }"><i
-							class="fa-solid fa-scissors"></i></a>&nbsp; <a
-						class="studyDeleteIcon"
-						onclick="if(confirm('게시글을 삭제하시겠습니까?')) {location.href='studyboard_delete_ok.do?no=${dto.getStudy_num() }&study_writer=${dto.getStudy_writer() }'} else {return; }"><i
+					<span id="studyEditDelete" class="studyEditDelete" style="display: none;"><a id="studyEditIcon" class="studyEditIcon"
+						><i
+							class="fa-solid fa-scissors"></i></a>&nbsp; <a id="studyDeleteIcon"
+						class="studyDeleteIcon"><i
 							class="fa-solid fa-trash"></i></a></span> <br> <br>
 					<p>
 						<img class="card-img"
@@ -112,20 +115,26 @@
 							alt="" />
 					</p>
 					<p class="card-text"><textarea class="form-control" style="border:white;" readonly>${dto.getStudy_cont() }</textarea></p>
-					<br> <span class="btn btn-outline-dark"><i
+					<br> 
+					<div class="contBottomWrab">
+					<div><span class="btn btn-outline-dark"><i
 						class="fa-regular fa-calendar-days"></i>
 						${dto.study_start.substring(0, 10)} ~ ${dto.study_end.substring(0, 10) }</span>
 					&nbsp; <span class="btn btn-outline-dark"><i
-						class="fa-solid fa-person"></i> ${dto.study_people }</span>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						class="fa-solid fa-person"></i> ${dto.study_people }</span></div>
+						<div>
 						<span id="studyComplete" class="btn btn-outline-success" style="display: none;" 
-						onclick="if(confirm('게시글을 모집완료로 변경하시겠습니까?')) {location.href='study_statusChange.do?no=${dto.getStudy_num() }'} else {return; }"><i class="fa-solid fa-check"></i>&nbsp;모집완료</span>
+						><i class="fa-solid fa-check"></i>&nbsp;모집완료</span>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	
 	<br>
+	
+	<%-- 댓글 폼 영역입니다. --%>
 	
 	<div class="replyRap">
 	<input class="form-control re_cont" name="re_content" id="re_content">
@@ -137,11 +146,12 @@
 	 <div align="center">
 	      <table class="list" cellspacing="0" width="400">
 	         
-	         <tr class="line" align="center">
-	            <td>댓글내용</td> <td>작성일자</td>
+	       <tr class="line">
+	            <td>댓글내용</td> <td>작성일자</td> <input type="hidden" value="${userId }" name="scomment_writer" id="scomment_writer">
 	         </tr>
 	     </table>
 	  </div>
+	  
 	  
 	  
 	  
@@ -174,10 +184,12 @@
 				
 				let table = "";
 				
-				$(data).find("reply").each(function() {
+                 $(data).find("reply").each(function() {
 					
 					table += "<tr>";
-					table += "<td>" + $(this).find("scomment_cont").text() + "</td>";
+					
+					table += "<td><span>" + $(this).find("scomment_cont").text() + "</span>";
+					table += "<input id = 'modifyOK' style='display:none;' type='text' value='"+$(this).find("scomment_cont").text()+"'/></td>";
 					table += "<td>" + $(this).find("scomment_date").text() + "</td>";
 					table += "</tr>";
 					
@@ -186,6 +198,7 @@
                     "<input type = 'button' value = '수정' id ='modifyBtn' class= 'btn btn-primary'>" + "&nbsp &nbsp"+
                     "<input type = 'button' value = '삭제' id ='deleteBtn' class='btn btn-outline-primary'>";
                      table += "</td>";
+                     table += "<td id = 'reSnum' style='display:none;'><span>" + $(this).find("scomment_num").text() + "</span>";
                      table += "</tr>";
 					
 					table += "<tr>";
@@ -201,8 +214,13 @@
 			error : function() {
 				alert('데이터 통신 에러');
 			}
+		
 		});
+		
+	   
+		
 	}  // getList() 함수 end
+	
 	
 	
 	// 댓글 작성 버튼을 클릭했을 때 DB에 추가로 저장.
@@ -212,8 +230,11 @@
 			url : "/Project/studyboard_reply_insert.do",
 			datatype : "text",
 			data : {
-					content : $("#re_content").val(),
+					
+				    content : $("#re_content").val(),
+				    scomment_writer :$("#scomment_writer" ).val(),
 				    study_num : ${dto.study_num }
+				    
 					},
 			success : function(data) {
 					if(data > 0) {
@@ -227,7 +248,7 @@
 						
 						
 						// input 태그에 입력된 내용을 지워줌.
-						$("input[name=re_content]").each(function() {
+						$("#re_content").each(function() {
 							$(this).val("");  // 입력된 값 지우기
 						});
 					
@@ -241,8 +262,157 @@
 			}
 		});
 	});  // 댓글 등록하기 end
+
+	// 수정버튼 클릭 시 댓글 수정.
+    $(document).on("click", "#modifyBtn", function(){
+
+    
+		console.log('성공');
+		
+		if(this.getAttribute('value') == '수정'){
+			
+		
+         //수정 버튼 클릭 시 input태그의 숨김 속성을 해제하는 코드 (this는 modifyBtn )
+         this.parentNode.parentNode.previousSibling.childNodes[0].childNodes[1].style.display = 'block';
+
+         //수정 버튼 클릭 시 span태그를 숨기는 코드 (this는 modifyBtn )	
+         this.parentNode.parentNode.previousSibling.childNodes[0].childNodes[0].hidden = true;
+
+         console.log('if문 성공');
+         
+         //수정 버튼 클릭시 수정완료, 취소버튼으로 변경하는 코드
+         this.setAttribute('value', '수정완료');
+
+         this.nextSibling.nextSibling.setAttribute('value', '취소');
+         
+         
+         return;
+         
+         
+        }
+
+
+		
+		
+               
+         //수정완료 버튼을 눌렀을 때 수정한 글이 저장되는 코드.
+         if(this.getAttribute('value') == '수정완료' ){
+			 
+			console.log('if수정완료문 성공');
+			
+			$.ajax({
+				url : "/Project/studyboard_reply_modify.do",
+				datatype : "text",
+				data : {
+					content : this.parentNode.parentNode.previousSibling.childNodes[0].childNodes[1].value,
+					scomment_num : this.parentNode.nextSibling.childNodes[0].textContent
+					    },
+					    
+			   success : function(data){
+				       
+				   if(data > 0){
+					   alert('댓글 수정 완료');
+					   
+					// 댓글 작성 후 다시 전체 댓글 리스트를
+						// 화면에 뿌려주면 됨.
+						getList();
+					   
+				   }else{
+					   alert('댓글 수정 실패');
+				   }
+				   
+			   },
+			   
+			   error : function(){
+				   alert('데이터통신오류');
+			   }
+				
+				
+			});
+        	 
+			
+       
+      
+         }//수정완료 if문
+         
+  });//수정버튼 클릭 시 이벤트 end
+
+
+ 
+  //삭제버튼 클릭 시 이벤트
+  $(document).on("click", "#deleteBtn", function(){
+	  
+	  console.log('취소까지 옴');
+	  
+	  
+	  if(this.getAttribute('value') == '삭제'){
+	  if(confirm("해당 댓글을 삭제하시겠습니까?")){
+		  $.ajax({
+			  url : "/Project/studyboard_reply_delete.do",
+			  datatype:"text",
+			  data:{
+				  scomment_num : this.parentNode.nextSibling.childNodes[0].textContent
+				  
+			  },
+			  
+			  success : function(data){
+				  if(data > 0){
+					  alert('댓글이 삭제되었습니다.')
+					  getList();
+				  }else{
+					  alert('댓글 삭제에 실패했습니다.')
+				  }
+			  },
+			  
+			  error : function(){
+				  
+				  alert('데이터통신오류입니다.')
+			  }
+			  
+			  
+			  
+		  })
+	  }//삭제if문
+	        return;
+	  
+	  }//value가 삭제일 때 if문 end
+	  
+	  
+	  
+	  
+	  
+	  if(this.getAttribute('value') == '취소'){
+			
+			
+	         //취소 버튼 클릭 시 보이는 input태그의 숨김 속성을 다시 실행하는 코드 (this는 deleteBtn )
+	         this.parentNode.parentNode.previousSibling.childNodes[0].childNodes[1].style.display = 'none';
+
+	         //취소 버튼 클릭 시 숨겨져 있는 span태그를 다시 보이게 하는 코드  (this는 deleteBtn )	
+	         this.parentNode.parentNode.previousSibling.childNodes[0].childNodes[0].hidden = false;
+
+	         //input태그 안의 텍스트를 초기화하는 코드.
+	         this.parentNode.parentNode.previousSibling.childNodes[0].childNodes[1].value
+	         
+	      // input 태그에 입력된 내용을 지워줌.
+				this.parentNode.parentNode.previousSibling.childNodes[0].childNodes[1].value =
+					$(this.parentNode.parentNode.previousSibling.childNodes[0].childNodes[0]).text();
+	         
+	         console.log('if문 성공');
+	         
+	         //취소 버튼 클릭시 수정, 삭제버튼으로 변경하는 코드
+	         this.setAttribute('value', '삭제');
+
+	         this.previousSibling.previousSibling.setAttribute('value', '수정');
+	         
+	    }// value가 취소일 때 if문 end
+
+	     
+	  
+  });//삭제버튼 클릭 이벤트
 	
-	// 본문 글 textarea 높이 자동조절(높이 자동으로 스크롤 없이 맞추기)
+	
+	
+	
 	function adjustHeight() {
 		  var textEle = $('textarea');
 		  textEle[0].style.height = 'auto';
@@ -253,28 +423,57 @@
 	getList();  // 전체 리스트 함수 호출
 	adjustHeight();
 	
+	
+	
+	//글쓴 사람만 EditDelete 보이는 함수
 	// 글쓴 사람만 studyEditDelete studyComplete 보이는 함수, 
-	// 모집중인 상태에서만 studyComplete 보이는 함수
+	// 글쓴 사람만 수정, 삭제, 모집완료처리 할수 있다. 모집중인 상태에서만 모집완료 버튼 보인다.
     function onlyWriter(){
             if(${userId == dto.study_writer}){
                 $('.studyEditDelete').show();
-                if(${dto.study_status == '모집중'})
-                $('#studyComplete').show();
+                $('#studyDeleteIcon').on({
+                	  click: function () {
+                		  if(${userId == dto.study_writer}){
+                	    		 var result = confirm('게시글을 삭제하시겠습니까?');
+                	    	        if(result) {
+                	    	        	//yes
+                	    	        	location.href='studyboard_delete_ok.do?no=${dto.getStudy_num() }';
+                	    	        	} else {
+                	    	        		//no
+                	    	        		return;
+                	    	        		}
+                	    	        }
+                		  }
+                });
+                $('#studyEditIcon').on({
+                	click: function () {
+                		if(${userId == dto.study_writer}){
+                			location.href="studyboard_modify.do?no=${dto.getStudy_num() }";}
+                		}
+                });
                 }
-            };
-
+            }
     onlyWriter();
     
-    
-//     //모집중인 상태에서만 보이는 함수
-//     function onlyStatusIng(){
-//     	if(${dto.study_status == '모집중'}){
-//     		${'#studyComplete'}.show();
-//     	}
-//     };
-    
-//     onlyStatusIng();
-	
+    function onlyWriterStatus(){
+    	 if(${userId == dto.study_writer} && ${dto.study_status == '모집중'}){
+    		$('#studyComplete').show(); 
+         	$('#studyComplete').on({
+     		click: function () {
+     				var result = confirm('게시글을 모집완료로 변경하시겠습니까?');
+     				if(result) {
+     					//yes
+     					location.href='study_statusChange.do?no=${dto.getStudy_num() }';
+     					} else {
+     						//no
+     						return;
+     						}
+     				}
+         	});
+         	}
+    	 }
+    onlyWriterStatus();
+
 
 });
 </script>

@@ -85,8 +85,8 @@ padding-bottom: 0px;
 
 <br />
 <div align="right" style="width: 800px">
-<button class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/study_status_view.do'" >
-								<i class="fa fa-search"></i> 모집중인 글
+<button class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/studyBoard_list.do'" >
+								전체 글 보기
 							</button></div>
 		<input type="hidden" value="${userId }" name="study_writer">
 
@@ -225,26 +225,6 @@ $(function() {
 		}
 	});
 
-	
-	
-// 	function statusView(){
-// 		if(${dto.study_status eq '모집중'}){
-// 			$('.btn.btn-outline-primary').css({
-// 				'background-color': '#7194c9',
-// 				'bs-btn-color':'white'
-// 				});
-// 		}else{
-// 			$('.btn.btn-outline-primary').css({
-// 			'--bs-btn-border-color':'#a3bfe9',
-// 			'--bs-btn-color':'#1550a7',
-// 			'--bs-btn-hover-bg':'#7194c9',
-// 			'--bs-btn-hover-border-color':'#7194c9'
-// 			});
-			
-			
-// 		}
-// 	}
-// 		statusView();
 		
 });
 </script>

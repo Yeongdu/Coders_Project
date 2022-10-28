@@ -34,6 +34,8 @@
 </head>
 <body>
 
+	<%-- test용 --%>
+
 	<c:if test="${empty userId }">
 	<jsp:include page="../include/none_top.jsp" />
 	</c:if>

@@ -25,7 +25,7 @@ public class StudyBoardModifyOkAction implements Action {
 		
 		 //�뙆�씪 �뾽濡쒕뱶 �떆 �꽕�젙 �궡�슜
 	      //1.�뙆�씪 ���옣 寃쎈줈 吏��젙
-	      String saveFolder = "D:\\git\\project\\WebContent\\study_upload";
+	      String saveFolder = "D:\\git\\Coders_Project\\WebContent\\study_upload";
 	      
 	      
 	      

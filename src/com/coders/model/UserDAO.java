@@ -11,36 +11,36 @@ import javax.sql.DataSource;
 
 public class UserDAO {
 	
-		// DB¿Í ¿¬µ¿ÇÏ´Â °´Ã¼.
+		// DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Ã¼.
 		Connection con = null;
 		
-		// DB¿¡ SQL¹®À» Àü¼ÛÇÏ´Â °´Ã¼
+		// DBï¿½ï¿½ SQLï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Ã¼
 		PreparedStatement pstmt = null;
 		
-		// SQL¹®À» ½ÇÇàÇÑ ÈÄ¿¡ °á°ú °ªÀ» °¡Áö°í ÀÖ´Â °´Ã¼.
+		// SQLï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Ã¼.
 		ResultSet rs = null;
 		
-		// Äõ¸®¹®À» ÀúÀåÇÒ º¯¼ö
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		String sql = null;
 		
-		// UserDAO °´Ã¼¸¦ ½Ì±ÛÅÏ ¹æ½ÄÀ¸·Î ¸¸µé¾î º¸ÀÚ.
-		// 1´Ü°è : ½Ì±ÛÅÏ ¹æ½ÄÀ¸·Î °´Ã¼¸¦ ¸¸µé±â À§ÇØ¼­´Â ¿ì¼±ÀûÀ¸·Î
-		//        ±âº»»ı¼ºÀÚÀÇ Á¢±ÙÁ¦¾îÀÚ¸¦ publicÀÌ ¾Æ´Ñ private
-		//        À¸·Î ¹Ù²Ù¾î ÁÖ¾î¾ß ÇÑ´Ù.
-		//        Áï, ¿ÜºÎ¿¡¼­ Á÷Á¢ÀûÀ¸·Î ±âº»»ı¼ºÀÚ¸¦ È£ÃâÇÏÁö
-		//        ¸øÇÏ°Ô ÇÏ´Â ¹æ¹ıÀÌ´Ù.
+		// UserDAO ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+		// 1ï¿½Ü°ï¿½ : ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ ï¿½ì¼±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		//        ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ publicï¿½ï¿½ ï¿½Æ´ï¿½ private
+		//        ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²Ù¾ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½Ñ´ï¿½.
+		//        ï¿½ï¿½, ï¿½ÜºÎ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		//        ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 		
-		// 2´Ü°è : UserDAO °´Ã¼¸¦ Á¤Àû(static) ¸â¹ö·Î ¼±¾ğÀ» 
-		//        ÇØ ÁÖ¾î¾ß ÇÑ´Ù.
+		// 2ï¿½Ü°ï¿½ : UserDAO ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(static) ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+		//        ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½Ñ´ï¿½.
 		private static UserDAO instance;
 		
-		private UserDAO() {  }  // ±âº» »ı¼ºÀÚ
+		private UserDAO() {  }  // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
 		
-		// 3´Ü°è : ±âº» »ı¼ºÀÚ ´ë½Å¿¡ ½Ì±ÛÅÏ °´Ã¼¸¦ return ÇØ ÁÖ´Â
-		//        getInstance() ¶ó´Â ¸Ş¼­µå¸¦ ¸¸µé¾î¼­ ÇØ´ç
-		//        getInstance() ¶ó´Â ¸Ş¼­µå¸¦ ¿ÜºÎ¿¡¼­ Á¢±ÙÇÒ ¼ö
-		//        ÀÖµµ·Ï ÇØ ÁÖ¸é µÊ.
+		// 3ï¿½Ü°ï¿½ : ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¿ï¿½ ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ return ï¿½ï¿½ ï¿½Ö´ï¿½
+		//        getInstance() ï¿½ï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½î¼­ ï¿½Ø´ï¿½
+		//        getInstance() ï¿½ï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½å¸¦ ï¿½ÜºÎ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+		//        ï¿½Öµï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö¸ï¿½ ï¿½ï¿½.
 		public static UserDAO getInstance() {
 			
 			if(instance == null) {
@@ -51,20 +51,20 @@ public class UserDAO {
 		}
 		
 		
-		// DB¸¦ ¿¬µ¿ÇÏ´Â ÀÛ¾÷À» ÁøÇàÇÏ´Â ¸Ş¼­µå.
+		// DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½.
 		public void openConn() {
 			
 			try {
-				// 1´Ü°è : JNDI ¼­¹ö °´Ã¼ »ı¼º
+				// 1ï¿½Ü°ï¿½ : JNDI ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 				Context ctx = new InitialContext();
 				
-				// 2´Ü°è : lookup() ¸Ş¼­µå¸¦ ÀÌ¿ëÇÏ¿© ¸ÅÄªµÇ´Â
-				//        Ä¿³Ø¼ÇÀ» Ã£´Â´Ù.
+				// 2ï¿½Ü°ï¿½ : lookup() ï¿½Ş¼ï¿½ï¿½å¸¦ ï¿½Ì¿ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½Äªï¿½Ç´ï¿½
+				//        Ä¿ï¿½Ø¼ï¿½ï¿½ï¿½ Ã£ï¿½Â´ï¿½.
 				DataSource ds =
 					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
 				
-				// 3´Ü°è : DataSource °´Ã¼¸¦ ÀÌ¿ëÇÏ¿©
-				//        Ä¿³Ø¼ÇÀ» ÇÏ³ª °¡Á®¿Â´Ù.
+				// 3ï¿½Ü°ï¿½ : DataSource ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ï¿ï¿½
+				//        Ä¿ï¿½Ø¼ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
 				con = ds.getConnection();
 				
 			} catch (Exception e) {
@@ -73,10 +73,10 @@ public class UserDAO {
 			}
 			
 			
-		}  // openConn() ¸Ş¼­µå end
+		}  // openConn() ï¿½Ş¼ï¿½ï¿½ï¿½ end
 		
 		
-		// DB¿¡ ¿¬°áµÈ ÀÚ¿ø Á¾·áÇÏ´Â ¸Ş¼­µå.
+		// DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½.
 		public void closeConn(ResultSet rs,
 				PreparedStatement pstmt, Connection con) {
 			
@@ -90,9 +90,9 @@ public class UserDAO {
 				e.printStackTrace();
 			}
 			
-		}  // closeConn() ¸Ş¼­µå end
+		}  // closeConn() ï¿½Ş¼ï¿½ï¿½ï¿½ end
 		
-		// À¯Àú ·Î±×ÀÎ Á¤º¸¸¦ Á¶È¸ÇÏ´Â ¸Ş¼­µå
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ï´ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½
 		public int UserSelect(String id) {
 			
 			int result = 0;
@@ -108,13 +108,13 @@ public class UserDAO {
 				
 				rs = pstmt.executeQuery();
 				
-				if(rs.next()) {	// DB¿¡ Á¤º¸°¡ Á¸ÀçÇÒ ¶§
+				if(rs.next()) {	// DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					
 					if(id.equals(rs.getString("user_id"))) {
 						
 					result = -1;		
 					}
-				}else if(!rs.next()) {	// DB¿¡ Á¤º¸°¡ Á¸ÀçÇÏÁö ¾ÊÀ» ¶§
+				}else if(!rs.next()) {	// DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					
 					result = 1;
 				}
@@ -130,7 +130,7 @@ public class UserDAO {
 			
 		}
 		
-		// À¯Àú ·Î±×ÀÎ Á¤º¸¸¦ DB¿¡ ÀúÀåÇÏ´Â ¸Ş¼­µå
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½
 		public void snsUserInsert(String id, String name) {
 			
 			try {
@@ -154,9 +154,9 @@ public class UserDAO {
 			
 			
 			
-		}	// UserInsert() ¸Ş¼­µå end
+		}	// UserInsert() ï¿½Ş¼ï¿½ï¿½ï¿½ end
 		
-		// À¯Àú ¾ÆÀÌµğ°¡ Áßº¹ÀÎÁö ¾Æ´ÑÁö È®ÀÎÇÏ´Â ¸Ş¼­µå.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ßºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½.
 		public int checkUserId(String id) {
 			
 			int result = 0;
@@ -172,7 +172,7 @@ public class UserDAO {
 				
 				rs = pstmt.executeQuery();
 				
-				System.out.println("rs °ª >>> " + rs);
+				System.out.println("rs ï¿½ï¿½ >>> " + rs);
 				
 				if(rs.next()) {
 					
@@ -191,9 +191,9 @@ public class UserDAO {
 			
 			
 			
-		}	// checkUserId() ¸Ş¼­µå end
+		}	// checkUserId() ï¿½Ş¼ï¿½ï¿½ï¿½ end
 		
-		// À¯Àú ·Î±×ÀÎ Á¤º¸¸¦ DB¿¡ ÀúÀåÇÏ´Â ¸Ş¼­µå
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½
 		public int userInsert(UserDTO dto) {
 					
 			int result = 0;	
@@ -222,10 +222,10 @@ public class UserDAO {
 				
 			return result;
 					
-		}	// UserInsert() ¸Ş¼­µå end
+		}	// UserInsert() ï¿½Ş¼ï¿½ï¿½ï¿½ end
 		
-		// À¯Àú ¾ÆÀÌµğ¸¦ °Ë»öÇØ ºñ¹Ğ¹øÈ£¸¦ Ã£¾ÆÁÖ´Â ¸Ş¼­µå
-		public UserDTO userPwdSearch(String id, String name) {
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½Ğ¹ï¿½È£ï¿½ï¿½ Ã£ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½
+		public UserDTO userContentSearch(String id) {
 			
 			UserDTO dto = null;
 			
@@ -248,6 +248,12 @@ public class UserDAO {
 					
 					dto.setUser_name(rs.getString("user_name"));
 					
+					dto.setUser_date(rs.getString("user_date"));
+					
+					dto.setUser_profile(rs.getString("user_profile"));
+					
+					dto.setUser_homepage(rs.getString("user_homepage"));
+					
 					dto.setUser_pwd(rs.getString("user_pwd"));
 					
 				}
@@ -261,6 +267,62 @@ public class UserDAO {
 			
 			return dto;
 			
+				
+			}
+		
+		// ìœ ì €ê°€ ì‘ì„±í•œ QnA ê²Œì‹œíŒ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ
+		public String getUserQnaList(String id) {
 			
+			String result = "";
+			
+			int count = 0;
+			
+			try {
+				openConn();
+				
+				/*
+				 * sql = "select count(qna_writer) from qna where qna_writer = ?";
+				 * 
+				 * pstmt = con.prepareStatement(sql);
+				 * 
+				 * pstmt.setString(1, id);
+				 * 
+				 * rs = pstmt.executeQuery();
+				 * 
+				 * if(rs.next()) { count = rs.getInt(1); }
+				 */
+					
+				sql = "select * from qna where qna_writer = ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, id);
+				
+				rs = pstmt.executeQuery();
+				
+				result += "<mains>";
+				while(rs.next()) {
+					result += "<main>";
+					result += "<num>" + rs.getInt("qna_num") + "</num>";
+					result += "<tag>" + rs.getString("qna_tag") + "</tag>";
+					result += "<hit>" + rs.getString("qna_hit") + "</hit>";
+					result += "<reply>" + rs.getString("qna_reply") + "</reply>";
+					result += "<title>" + rs.getString("qna_title") + "</title>";
+					result += "<writer>" + rs.getString("qna_writer") + "</writer>";
+					result += "<date>" + rs.getString("qna_date") + "</date>";
+					result += "<count>" + count + "</count>";
+					result += "</main>";
+				}
+				
+				result += "</mains>";
+					
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}
+			return result;
 		}
+			
 }

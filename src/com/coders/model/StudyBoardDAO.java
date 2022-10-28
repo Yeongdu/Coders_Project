@@ -660,7 +660,54 @@ public class StudyBoardDAO {
 			return result;
 			
 		}//replyDelete() 메서드 end
+		
+		public String getMainstudyList(int page, int rowsize) {
+			String result = "";
+			
+			// �ش� ���������� ���� ��ȣ
+			int startNo = (page * rowsize) - (rowsize -1);
+						
+			// �ش� ���������� ������ ��ȣ
+			int endNo = (page * rowsize);
 
-	
+			try {
+				openConn();
+					
+				sql = "select * from( "
+						+ "select row_number() over(order by study_group.study_date desc) as snum, study_group.*, "
+						+ "(select count(*) from study_comment where study_group.study_num = study_comment.study_num) "
+						+ "as commentCnt " + "from study_group)where snum >=? and snum <= ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, startNo);
+				
+				pstmt.setInt(2, endNo);
+				
+				rs = pstmt.executeQuery();
+				
+				result += "<mains>";
+				while(rs.next()) {
+					result += "<main>";
+					result += "<num>" + rs.getInt("study_num") + "</num>";
+					result += "<hit>" + rs.getString("study_hit") + "</hit>";
+					result += "<reply>" + rs.getString("commentCnt") + "</reply>";
+					result += "<title>" + rs.getString("study_title") + "</title>";
+					result += "<writer>" + rs.getString("study_writer") + "</writer>";
+					result += "<date>" + rs.getString("study_end") + "</date>";
+					result += "<type>" + rs.getString("study_status") + "</date>";
+					result += "</main>";
+				}
+				
+				result += "</mains>";
+					
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}
+			return result;
+		}
 
 }

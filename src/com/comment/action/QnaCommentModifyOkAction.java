@@ -21,9 +21,7 @@ public class QnaCommentModifyOkAction implements Action {
 		System.out.println("cont >>> " + cont);
 		System.out.println("file >>> " + file);
 		
-		
-		
-		
+
 		return null;
 	}
 

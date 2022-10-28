@@ -24,7 +24,7 @@ public class QnaInsertOkAction implements Action {
 			QnaDTO dto = new QnaDTO();
 			
 			// 	1. 파일 저장 경로 지정
-			String qnaBoardWriteFolder = "C:\\Users\\user1\\git\\Coders_Project\\Coders_Project\\Project\\WebContent\\qnaBoardWriteFolder";
+			String qnaBoardWriteFolder = "D:\\git\\Coders_Project\\WebContent\\qnaBoardWriteFolder";
 			
 			//	2. 첨부 파일 크기 지정
 			int fileSize = 10 * 1024 * 1024; 
@@ -44,48 +44,44 @@ public class QnaInsertOkAction implements Action {
 			String qna_title = multi.getParameter("qna_title").trim();
 			String qna_content = multi.getParameter("qna_content").trim();
 			String qna_code = multi.getParameter("qna_code").trim();
+			String qna_file = multi.getFilesystemName("qna_file").trim();
 			
-			// 자료실 폼페이지에서 type = "file"로 되어 있으면 getFile() 메서드로 데이터를 받아야한다.
-			File file = multi.getFile("qna_file"); // java.io 패키지의 File 클래스로 반환
-
-			if(file != null) { // 첨부파일이 존재하는 경우
-				// 우선은 첨부파일의 이름을 알아야한다.
-				// getName() 메서드 사용
-				String fileName = file.getName();
-				
-				// 날짜 객체 생성
-				Calendar cal = Calendar.getInstance();
-				int year = cal.get(Calendar.YEAR);
-				int month = cal.get(Calendar.MONTH) + 1;
-				int day = cal.get(Calendar.DAY_OF_MONTH);
-				
-				// ..../Qna/2022-10-11
-				String homedir = qnaBoardWriteFolder+"/"+year+"-"+month+"-"+day;
-				
-				// 날짜 폴더 만들기
-				File path1 = new File(homedir);
-				
-				if(!path1.exists()) { // 폴더가 존재하지 않는 경우
-					path1.mkdir(); // 실제 폴더를 만들어주는 메서드
-				}
-				
-				// 파일 만들기 ==> 예) 홍길동_파일명
-				// ...../Qna/2022-10-11/홍길동_파일명
-				String reFileName = userId + "_" + fileName;
-				
-				file.renameTo(new File(homedir + "/" + reFileName)); // 파일의 이름 변경
-				
-				// 실제로 DB에 저장되는 파일 이름
-				// "/2022-10-11/홍길동_파일명"으로 저장할 예정
-				String fileDBName = "/" + year + "-" + month + "-" + day + "/" + reFileName;
-				dto.setQna_file(fileDBName);
-				
-			}
+			/*
+			 * // 자료실 폼페이지에서 type = "file"로 되어 있으면 getFile() 메서드로 데이터를 받아야한다. File file =
+			 * multi.getFile("qna_file"); // java.io 패키지의 File 클래스로 반환
+			 * 
+			 * if(file != null) { // 첨부파일이 존재하는 경우 // 우선은 첨부파일의 이름을 알아야한다. // getName() 메서드
+			 * 사용 String fileName = file.getName();
+			 * 
+			 * // 날짜 객체 생성 Calendar cal = Calendar.getInstance(); int year =
+			 * cal.get(Calendar.YEAR); int month = cal.get(Calendar.MONTH) + 1; int day =
+			 * cal.get(Calendar.DAY_OF_MONTH);
+			 * 
+			 * // ..../Qna/2022-10-11 String homedir =
+			 * qnaBoardWriteFolder+"/"+year+"-"+month+"-"+day;
+			 * 
+			 * // 날짜 폴더 만들기 File path1 = new File(homedir);
+			 * 
+			 * if(!path1.exists()) { // 폴더가 존재하지 않는 경우 path1.mkdir(); // 실제 폴더를 만들어주는 메서드 }
+			 * 
+			 * // 파일 만들기 ==> 예) 홍길동_파일명 // ...../Qna/2022-10-11/홍길동_파일명 String reFileName =
+			 * userId + "_" + fileName;
+			 * 
+			 * file.renameTo(new File(homedir + "/" + reFileName)); // 파일의 이름 변경
+			 * 
+			 * // 실제로 DB에 저장되는 파일 이름 // "/2022-10-11/홍길동_파일명"으로 저장할 예정 String fileDBName =
+			 * "/" + year + "-" + month + "-" + day + "/" + reFileName;
+			 * dto.setQna_file(fileDBName);
+			 * 
+			 * }
+			 */
+			
 		dto.setQna_writer(userId);
 		dto.setQna_title(qna_title);
 		dto.setQna_cont(qna_content);
 		dto.setQna_tag(code);
 		dto.setQna_code(qna_code);
+		dto.setQna_file(qna_file);
 		
 		QnaDAO dao = QnaDAO.getInstance();
 		int res = dao.insertQna(dto);

@@ -10,7 +10,7 @@
  		UserDAO dao = UserDAO.getInstance();
  		
  		// 현재 페이지에 해당하는 게시물을 가져오는 메서드 호출(최신순)
- 		String List = dao.getUserQnaBoardList(userId);
+ 		String List = dao.getUserQnaCommentList(userId);
  		
 		out.println(List);    
     %>

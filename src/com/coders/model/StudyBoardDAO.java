@@ -567,158 +567,158 @@ public class StudyBoardDAO {
 	}// replyInsert() 메서드 end
 
 	// 댓글 수정하는 메서드.
-
-	public int replyModify(StudyBoardCommentDTO dto) {
-
-		int result = 0;
-
-		try {
-
-			return result;
-		}//replyModify() 메서드 end
-		
-		
-		// 댓글번호를 넘겨받아 댓글을 삭제하는 메서드
-		public int replyDelete(int no) {
-			
-			int result = 0;
-			
-			
-			try {
-				
-				openConn();
-				
-				sql="delete from study_comment where scomment_num = ?";
-				
-				pstmt = con.prepareStatement(sql);
-				
-				pstmt.setInt(1, no);
-				
-				result = pstmt.executeUpdate();
-				
-				sql="update study_comment set scomment_num = scomment_num - 1 where scomment_num > ?";
-				
-				pstmt.setInt(1, no);
-				
-				pstmt.executeUpdate();
-				
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally {
-				closeConn(rs, pstmt, con);
-			}
-			
-			return result;
-			
-		}//replyDelete() 메서드 end
-		
-		public String getMainstudyList(int page, int rowsize) {
-			String result = "";
-			
-			// �ش� ���������� ���� ��ȣ
-			int startNo = (page * rowsize) - (rowsize -1);
-						
-			// �ش� ���������� ������ ��ȣ
-			int endNo = (page * rowsize);
-
-			try {
-				openConn();
-					
-				sql = "select * from( "
-						+ "select row_number() over(order by study_group.study_date desc) as snum, study_group.*, "
-						+ "(select count(*) from study_comment where study_group.study_num = study_comment.study_num) "
-						+ "as commentCnt " + "from study_group)where snum >=? and snum <= ?";
-				
-				pstmt = con.prepareStatement(sql);
-				
-				pstmt.setInt(1, startNo);
-				
-				pstmt.setInt(2, endNo);
-				
-				rs = pstmt.executeQuery();
-				
-				result += "<mains>";
-				while(rs.next()) {
-					result += "<main>";
-					result += "<num>" + rs.getInt("study_num") + "</num>";
-					result += "<hit>" + rs.getString("study_hit") + "</hit>";
-					result += "<reply>" + rs.getString("commentCnt") + "</reply>";
-					result += "<title>" + rs.getString("study_title") + "</title>";
-					result += "<writer>" + rs.getString("study_writer") + "</writer>";
-					result += "<date>" + rs.getString("study_end") + "</date>";
-					result += "<type>" + rs.getString("study_status") + "</date>";
-					result += "</main>";
-				}
-				
-				result += "</mains>";
-					
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally {
-				closeConn(rs, pstmt, con);
-			}
-			return result;
-		}
-
-			openConn();
-
-			sql = "update study_comment set scomment_cont = ?, " + "scomment_update = sysdate where scomment_num = ?";
-
-			pstmt = con.prepareStatement(sql);
-
-			pstmt.setString(1, dto.getScomment_cont());
-
-			pstmt.setInt(2, dto.getScomment_num());
-
-			result = pstmt.executeUpdate();
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-
-			closeConn(rs, pstmt, con);
-		}
-
-		return result;
-	}// replyModify() 메서드 end
-
-	// 댓글번호를 넘겨받아 댓글을 삭제하는 메서드
-	public int replyDelete(int no) {
-
-		int result = 0;
-
-		try {
-
-			openConn();
-
-			sql = "delete from study_comment where scomment_num = ?";
-
-			pstmt = con.prepareStatement(sql);
-
-			pstmt.setInt(1, no);
-
-			result = pstmt.executeUpdate();
-
-			sql = "update study_comment set scomment_num = scomment_num - 1 where scomment_num > ?";
-
-			pstmt.setInt(1, no);
-
-			pstmt.executeUpdate();
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			closeConn(rs, pstmt, con);
-		}
-
-		return result;
-
-	}// replyDelete() 메서드 end
+//
+//	public int replyModify(StudyBoardCommentDTO dto) {
+//
+//		int result = 0;
+//
+//		try {
+//
+//			return result;
+//		}//replyModify() 메서드 end
+//		
+//		
+//		// 댓글번호를 넘겨받아 댓글을 삭제하는 메서드
+//		public int replyDelete(int no) {
+//			
+//			int result = 0;
+//			
+//			
+//			try {
+//				
+//				openConn();
+//				
+//				sql="delete from study_comment where scomment_num = ?";
+//				
+//				pstmt = con.prepareStatement(sql);
+//				
+//				pstmt.setInt(1, no);
+//				
+//				result = pstmt.executeUpdate();
+//				
+//				sql="update study_comment set scomment_num = scomment_num - 1 where scomment_num > ?";
+//				
+//				pstmt.setInt(1, no);
+//				
+//				pstmt.executeUpdate();
+//				
+//				
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}finally {
+//				closeConn(rs, pstmt, con);
+//			}
+//			
+//			return result;
+//			
+//		}//replyDelete() 메서드 end
+//		
+//		public String getMainstudyList(int page, int rowsize) {
+//			String result = "";
+//			
+//			// �ش� ���������� ���� ��ȣ
+//			int startNo = (page * rowsize) - (rowsize -1);
+//						
+//			// �ش� ���������� ������ ��ȣ
+//			int endNo = (page * rowsize);
+//
+//			try {
+//				openConn();
+//					
+//				sql = "select * from( "
+//						+ "select row_number() over(order by study_group.study_date desc) as snum, study_group.*, "
+//						+ "(select count(*) from study_comment where study_group.study_num = study_comment.study_num) "
+//						+ "as commentCnt " + "from study_group)where snum >=? and snum <= ?";
+//				
+//				pstmt = con.prepareStatement(sql);
+//				
+//				pstmt.setInt(1, startNo);
+//				
+//				pstmt.setInt(2, endNo);
+//				
+//				rs = pstmt.executeQuery();
+//				
+//				result += "<mains>";
+//				while(rs.next()) {
+//					result += "<main>";
+//					result += "<num>" + rs.getInt("study_num") + "</num>";
+//					result += "<hit>" + rs.getString("study_hit") + "</hit>";
+//					result += "<reply>" + rs.getString("commentCnt") + "</reply>";
+//					result += "<title>" + rs.getString("study_title") + "</title>";
+//					result += "<writer>" + rs.getString("study_writer") + "</writer>";
+//					result += "<date>" + rs.getString("study_end") + "</date>";
+//					result += "<type>" + rs.getString("study_status") + "</date>";
+//					result += "</main>";
+//				}
+//				
+//				result += "</mains>";
+//					
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}finally {
+//				closeConn(rs, pstmt, con);
+//			}
+//			return result;
+//		}
+//
+//			openConn();
+//
+//			sql = "update study_comment set scomment_cont = ?, " + "scomment_update = sysdate where scomment_num = ?";
+//
+//			pstmt = con.prepareStatement(sql);
+//
+//			pstmt.setString(1, dto.getScomment_cont());
+//
+//			pstmt.setInt(2, dto.getScomment_num());
+//
+//			result = pstmt.executeUpdate();
+//
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//
+//			closeConn(rs, pstmt, con);
+//		}
+//
+//		return result;
+//	}// replyModify() 메서드 end
+//
+//	// 댓글번호를 넘겨받아 댓글을 삭제하는 메서드
+//	public int replyDelete(int no) {
+//
+//		int result = 0;
+//
+//		try {
+//
+//			openConn();
+//
+//			sql = "delete from study_comment where scomment_num = ?";
+//
+//			pstmt = con.prepareStatement(sql);
+//
+//			pstmt.setInt(1, no);
+//
+//			result = pstmt.executeUpdate();
+//
+//			sql = "update study_comment set scomment_num = scomment_num - 1 where scomment_num > ?";
+//
+//			pstmt.setInt(1, no);
+//
+//			pstmt.executeUpdate();
+//
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//			closeConn(rs, pstmt, con);
+//		}
+//
+//		return result;
+//
+//	}// replyDelete() 메서드 end
 
 
 }

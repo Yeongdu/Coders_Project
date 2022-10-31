@@ -25,7 +25,23 @@ public class CodersUserContentAction implements Action {
 		
 		UserDTO dto = dao.userContentSearch(userId);
 		
+		int qnaboardcount = dao.userQnaBoardCount(userId);
+		
+		int qnacommentcount = dao.userQnaCommentCount(userId);
+		
+		int studyboardcount = dao.userStudyBoardCount(userId);
+		
+		int studycomment = dao.userStudyCommentCount(userId);
+		
 		request.setAttribute("content", dto);
+		
+		request.setAttribute("qnaboardcount", qnaboardcount);
+		
+		request.setAttribute("qnacommentcount", qnacommentcount);
+		
+		request.setAttribute("studyboardcount", studyboardcount);
+		
+		request.setAttribute("studycomment", studycomment);
 		
 		ActionForward forward = new ActionForward();
 		

@@ -603,6 +603,7 @@ public class QnaDAO {
 					result += "<qcomment_date>" + rs.getString("qcomment_date") + "</qcomment_date>";
 					result += "<qcomment_update>" + rs.getString("qcomment_update") + "</qcomment_update>";
 					result += "<qcomment_good>" + rs.getInt("qcomment_good") + "</qcomment_good>";
+					result += "<qcomment_good>" + rs.getInt("qcomment_bad") + "</qcomment_bad>";
 					result += "<qcomment_file>" + rs.getString("qcomment_file") + "</qcomment_file>";
 					result += "</comment>";
 				}
@@ -637,7 +638,7 @@ public class QnaDAO {
 						count = rs.getInt(1) + 1;
 					}
 					
-					sql = "insert into qna_comment values(?, ?, ?, ?, sysdate, '', 0, ?)";
+					sql = "insert into qna_comment values(?, ?, ?, ?, sysdate, '', 0, ?, defalut, defalut)";
 					pstmt = con.prepareStatement(sql);
 					
 					pstmt.setInt(1, count);
@@ -767,9 +768,343 @@ public class QnaDAO {
 				return result;
 			}
 		 
-		 
-		 
-		 
-		 
+			
+//-----------------------------------------------------추천 관련 메소드 ----------------------------------------------------------------
+			
+			//유저 아이디 세션 아이디 조회 메소드
+			public int userIdSessionIdGood(String id, int no) {
+				
+				int result = 0;
+				
+				try {
+					openConn();
+					
+					sql = "select user_id from good where user_id = ? and qcomment_num = ?"; 
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, id);
+					pstmt.setInt(2, no);
+					
+					rs = pstmt.executeQuery();
+					
+					if(rs.next()) { //값이 없는 경우
+						result = 1;
+						
+						System.out.println("no result >>> " + result);
+						
+					}else { //값이 있는 경우
+						result = -1;
+						
+						System.out.println("yes result >>> " + result);
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+					return result;
+			}//compare end
+			
+				
+			//좋아요 증가 메소드
+			 public int upGoodQnaComment(int no, String id) {
+				 
+				 int result = 0, count = 0;
+				 
+				 try {
+			
+					openConn();					
+					 //qcomment 테이블의 좋아요 컬럼 증가 sql =
+					 sql = "update qna_comment set qcomment_good = qcomment_good + 1 where qcomment_num = ?";
+					  
+					  pstmt = con.prepareStatement(sql);
+					  pstmt.setInt(1, no);
+					  result = pstmt.executeUpdate();
+				
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					closeConn(rs, pstmt, con);
+				}
+				 return result;
+			 }//good comment end			
+			
+			 
+			 
+			//good_num 테이블 업데이트 메소드 (좋아요 추가 시)
+			public int updatePlusGood (int no, String id) {
+				
+				int result = 0, count = 0;
+				 
+				 try {
+			
+					openConn();
+					
+					//good_num 증가 메소드
+					sql = "select max(good_num) from good";
+					pstmt = con.prepareStatement(sql);
+					rs = pstmt.executeQuery();
+					
+					if(rs.next()) {
+						count = rs.getInt(1) + 1;
+					}
+					
+					//good 테이블 정보 업데이트 
+					sql = "insert into good values(?, ?, ?)";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setInt(1, count);
+					pstmt.setInt(2, no);
+					pstmt.setString(3, id);
+
+					result = pstmt.executeUpdate();
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					closeConn(rs, pstmt, con);
+				}
+				 return result;
+				
+			} //good update end
+			
+			 	
+			
+			//좋아요 취소 메소드 
+			public int downGoodQnaComment(int no, String id) {
+				
+				int result = 0, count = 0;
+				 
+				 try {
+			
+					openConn();					
+					 //qcomment 테이블의 좋아요 컬럼 증가 sql =
+					 sql = "update qna_comment set qcomment_good = qcomment_good - 1 where qcomment_num = ?";
+					  
+					  pstmt = con.prepareStatement(sql);
+					  pstmt.setInt(1, no);
+					  result = pstmt.executeUpdate();
+				
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					closeConn(rs, pstmt, con);
+				}
+				 return result;
+				
+			}//down end
+			
+			
+			
+			//good테이블 정보 삭제 메소드 (좋아요 취소 시)
+			public int updateMinusGood (int no, String id) {
+				
+				int result = 0;
+				
+				try {
+					openConn();
+					
+					sql = "delete from good where user_id = ? and qcomment_num = ?";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, id);
+					pstmt.setInt(2, no);
+					
+					result = pstmt.executeUpdate();
+					
+					/*
+					 * sql = "update good set good_num = good_num - 1 where good_num > ?";
+					 * pstmt = con.prepareStatement(sql);
+					 * pstmt.setInt(1, no);
+					 * pstmt.executeUpdate();
+					 */
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+				
+				return result;
+				
+			}//minus end
+			
+			
+//-----------------------------------------------------비추천 관련 메소드 ----------------------------------------------------------------
+			
+			//유저 아이디 세션 아이디 조회 메소드
+			public int userIdSessionIdBad(String id, int no) {
+				
+				int result = 0;
+				
+				try {
+					openConn();
+					
+					sql = "select user_id from bad where user_id = ? and qcomment_num = ?"; 
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, id);
+					pstmt.setInt(2, no);
+					
+					rs = pstmt.executeQuery();
+					
+					if(rs.next()) { //값이 없는 경우
+						result = 1;
+						
+						System.out.println("no result >>> " + result);
+						
+					}else { //값이 있는 경우
+						result = -1;
+						
+						System.out.println("yes result >>> " + result);
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+					return result;
+			}//compare end
+			
+				
+			//싫어요 증가 메소드
+			 public int upBadQnaComment(int no, String id) {
+				 
+				 int result = 0, count = 0;
+				 
+				 try {
+			
+					openConn();					
+					 //qcomment 테이블의 싫어요 컬럼 증가 
+					 sql = "update qna_comment set qcomment_bad = qcomment_bad - 1 where qcomment_num = ?";
+					  
+					  pstmt = con.prepareStatement(sql);
+					  pstmt.setInt(1, no);
+					  result = pstmt.executeUpdate();
+				
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					closeConn(rs, pstmt, con);
+				}
+				 return result;
+			 }//good comment end			
+			
+			 
+			 
+			//bad 테이블 업데이트 메소드 (비추천 추가 시)
+			public int updatePlusBad (int no, String id) {
+				
+				int result = 0, count = 0;
+				 
+				 try {
+			
+					openConn();
+					
+					//bad_num 증가 메소드
+					sql = "select max(bad_num) from bad";
+					pstmt = con.prepareStatement(sql);
+					rs = pstmt.executeQuery();
+					
+					if(rs.next()) {
+						count = rs.getInt(1) + 1;
+					}
+					
+					//bad 테이블 정보 업데이트 
+					sql = "insert into bad values(?, ?, ?)";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setInt(1, count);
+					pstmt.setInt(2, no);
+					pstmt.setString(3, id);
+
+					result = pstmt.executeUpdate();
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					closeConn(rs, pstmt, con);
+				}
+				 return result;
+				
+			} //good update end
+			
+			 	
+			
+			//비추천 취소 메소드 
+			public int downBadQnaComment(int no, String id) {
+				
+				int result = 0, count = 0;
+				 
+				 try {
+			
+					openConn();					
+					 //qcomment 테이블의 bad 컬럼 증가 
+					 sql = "update qna_comment set qcomment_bad = qcomment_bad + 1 where qcomment_num = ?";
+					  
+					  pstmt = con.prepareStatement(sql);
+					  pstmt.setInt(1, no);
+					  result = pstmt.executeUpdate();
+				
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					closeConn(rs, pstmt, con);
+				}
+				 return result;
+				
+			}//down end
+			
+			
+			
+			//good테이블 정보 삭제 메소드 (좋아요 취소 시)
+			public int updateMinusBad (int no, String id) {
+				
+				int result = 0;
+				
+				try {
+					openConn();
+					
+					sql = "delete from bad where user_id = ? and qcomment_num = ?";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, id);
+					pstmt.setInt(2, no);
+					
+					result = pstmt.executeUpdate();
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+				
+				return result;
+				
+			}//minus end
+			
+			
+			
+			
+			
+	 
 	
 }

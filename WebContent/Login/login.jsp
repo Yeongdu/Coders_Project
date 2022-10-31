@@ -59,6 +59,7 @@
 </script>
 </head>
 <body>
+
 	<div class="container">
 		<div class="wrap">
 			<form class="form" method="post" action="<%=request.getContextPath()%>/user_login_ok.do">
@@ -310,7 +311,8 @@
 		
 	});
 </script>
-
+	
+	<!-- 회원가입 start -->
 	<div class="container">
 	  <div class="modal fade" id="myModal2">
 	    <div class="modal-dialog">

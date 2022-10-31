@@ -17,8 +17,6 @@ public class CodersLoginOkAction implements Action {
 		String userId = request.getParameter("id").trim();
 		String token = request.getParameter("token").trim();
 		
-		System.out.println("token >>> " + token);
-		
 		ActionForward forward = new ActionForward();
 		
 		HttpSession session = request.getSession();

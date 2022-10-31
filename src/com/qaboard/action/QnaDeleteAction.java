@@ -27,7 +27,7 @@ public class QnaDeleteAction implements Action {
 		if(check > 0) {
 			dao.updateQnaNum(qna_no);
 			forward.setRedirect(true);
-			forward.setPath("qna/qna_main.jsp");
+			forward.setPath("qna_list.do");
 		}else {
 			out.println("<script>");
 			out.println("alert('게시글 삭제에 실패하였습니다.')");

@@ -23,8 +23,10 @@ public class QnaInsertOkAction implements Action {
 		// �ڷ�� �� ���������� �Ѿ�� �����͵��� DB�� �����ϴ� �����Ͻ� ����
 			QnaDTO dto = new QnaDTO();
 			
-			// 	1. ���� ���� ��� ����
-			String qnaBoardWriteFolder = "D:\\git\\Project\\WebContent\\qnaBoardWriteFolder";
+
+			// 	1. ���� ���� ��� ���
+			String qnaBoardWriteFolder = "D:\\git\\Coders_Project\\WebContent\\qnaBoardWriteFolder";
+
 			
 			//	2. ÷�� ���� ũ�� ����
 			int fileSize = 10 * 1024 * 1024; 
@@ -44,48 +46,20 @@ public class QnaInsertOkAction implements Action {
 			String qna_title = multi.getParameter("qna_title").trim();
 			String qna_content = multi.getParameter("qna_content").trim();
 			String qna_code = multi.getParameter("qna_code").trim();
+			String qna_file = multi.getFilesystemName("qna_file").trim();
 			
-			// �ڷ�� ������������ type = "file"�� �Ǿ� ������ getFile() �޼���� �����͸� �޾ƾ��Ѵ�.
-			File file = multi.getFile("qna_file"); // java.io ��Ű���� File Ŭ������ ��ȯ
 
-			if(file != null) { // ÷�������� �����ϴ� ���
-				// �켱�� ÷�������� �̸��� �˾ƾ��Ѵ�.
-				// getName() �޼��� ���
-				String fileName = file.getName();
-				
-				// ��¥ ��ü ����
-				Calendar cal = Calendar.getInstance();
-				int year = cal.get(Calendar.YEAR);
-				int month = cal.get(Calendar.MONTH) + 1;
-				int day = cal.get(Calendar.DAY_OF_MONTH);
-				
-				// ..../Qna/2022-10-11
-				String homedir = qnaBoardWriteFolder+"/"+year+"-"+month+"-"+day;
-				
-				// ��¥ ���� �����
-				File path1 = new File(homedir);
-				
-				if(!path1.exists()) { // ������ �������� �ʴ� ���
-					path1.mkdir(); // ���� ������ ������ִ� �޼���
-				}
-				
-				// ���� ����� ==> ��) ȫ�浿_���ϸ�
-				// ...../Qna/2022-10-11/ȫ�浿_���ϸ�
-				String reFileName = userId + "_" + fileName;
-				
-				file.renameTo(new File(homedir + "/" + reFileName)); // ������ �̸� ����
-				
-				// ������ DB�� ����Ǵ� ���� �̸�
-				// "/2022-10-11/ȫ�浿_���ϸ�"���� ������ ����
-				String fileDBName = "/" + year + "-" + month + "-" + day + "/" + reFileName;
-				dto.setQna_file(fileDBName);
-				
-			}
+
 		dto.setQna_writer(userId);
 		dto.setQna_title(qna_title);
 		dto.setQna_cont(qna_content);
+		/*
+		 * dto.setQna_cont(qna_content.replaceAll(
+		 * "<(/)?([a-zA-Z]*)(\\\\s[a-zA-Z]*=[^>]*)?(\\\\s)*(/)?>",""));
+		 */
 		dto.setQna_tag(code);
 		dto.setQna_code(qna_code);
+		dto.setQna_file(qna_file);
 		
 		QnaDAO dao = QnaDAO.getInstance();
 		int res = dao.insertQna(dto);

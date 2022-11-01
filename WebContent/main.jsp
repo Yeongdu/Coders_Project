@@ -111,6 +111,7 @@
 		
 		$.ajax({
 			type : "post",
+			async: false,
 			url : "mainqna.jsp",
 			datatype : "xml",
 			success : function(data){
@@ -131,8 +132,6 @@
 						table += "<span class='badge text-bg-warning'>JAVASCRIPT</span>"
 					}else if($(this).find("tag").text() == "CSS"){
 						table += "<span class='badge text-bg-danger'>CSS</span>"
-					}else if($(this).find("tag").text() == "PYTHON"){
-						table += "<span class='badge text-bg-secondary'>PYTHON</span>"
 					}else if($(this).find("tag").text() == "JQUERY"){
 						table += "<span class='badge text-bg-success'>JQUERY</span>"
 					}else if($(this).find("tag").text() == "DATEBASE"){
@@ -140,9 +139,9 @@
 					}else if($(this).find("tag").text() == "JSP"){
 						table += "<span class='badge text-bg-dark'>JSP</span>"
 					}else if($(this).find("tag").text() == "ETC"){
-						table += "<span class='badge text-bg-dark'>ETC</span>"
+						table += "<span class='badge text-bg-light'>ETC</span>"
 					}else if($(this).find("tag").text() == "JAVA"){
-						table += "<span class='badge text-bg-warning'>JAVA</span>"
+						table += "<span class='badge text-bg-secondary'>JAVA</span>"
 					}
 					table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
 					
@@ -162,6 +161,7 @@
 		
 		$.ajax({
 			type : "post",
+			async: false,
 			url : "mainstudy.jsp",
 			datatype : "xml",
 			success : function(data){
@@ -195,6 +195,22 @@
 		});
 	});
 </script>
+<style type="text/css">
+	#main{
+		margin-top: 3rem;
+		margin-bottom: 3rem;
+	}
+	
+	#qna_head{
+		margin-top: 6rem;
+		margin-bottom: 6rem;
+	}
+	
+	#study_head{
+		margin-top: 6rem;
+		margin-bottom: 6rem;
+	}
+</style>
 </head>
 <body>
 	<c:if test="${empty userId }">
@@ -205,33 +221,17 @@
 	<jsp:include page="./include/user_top.jsp" />
 	</c:if>
 	
-	<br>
-	<br>
-	<br>
-	
 	<div align="center" id ="main">
 		<div id="qna_head">
 			<h1>Q&A Board</h1>
 		</div>
 		
-		<br>
-		<br>
-		<br>
-		
 		<div id ="qna_center">
 		</div>
-		
-		<br>
-		<br>
-		<br>
 		
 		<div id="study_head">
 			<h1>Study Board</h1>
 		</div>
-		
-		<br>
-		<br>
-		<br>
 		
 		<div id ="study_center">
 		</div>

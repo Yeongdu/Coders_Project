@@ -204,8 +204,13 @@
  width: 200px;
  }
  
+<<<<<<< HEAD
 .swriterwrap{
    width: 50px;
+=======
+button.btn.btn-outline-dark{
+ 	border-color:#b5b5b5;
+>>>>>>> refs/remotes/origin/master
 }
 
 
@@ -227,6 +232,9 @@
 	<br>
 
 	<c:set var="dto" value="${Cont }" />
+	
+	<input type="hidden" value="${dto.getStudy_writer() }" name="study_writer">
+	<input type="hidden" value="${userId }" name="session_id">
 
 	<div class="align-middle">
 		<div class="container col-md-6" style="width: 600px;">
@@ -236,7 +244,7 @@
 					<h6 class="card-subtitle text-muted mb-4">
 						<i class="fa-regular fa-user"></i> ${dto.getStudy_writer() } &nbsp;
 						<i class="fa-regular fa-clock"></i> ${dto.getStudy_date()} &nbsp;
-						<i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }            
+						<i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }
 					</h6>
 					<span id="studyEditDelete" class="studyEditDelete" style="display: none;"><a id="studyEditIcon" class="studyEditIcon"
 						><i
@@ -251,11 +259,11 @@
 					<p class="card-text"><textarea class="form-control" style="border:white;" readonly>${dto.getStudy_cont() }</textarea></p>
 					<br> 
 					<div class="contBottomWrab">
-					<div><span class="btn btn-outline-dark"><i
+					<div><button class="btn btn-outline-dark" disabled><i
 						class="fa-regular fa-calendar-days"></i>
-						${dto.study_start.substring(0, 10)} ~ ${dto.study_end.substring(0, 10) }</span>
-					&nbsp; <span class="btn btn-outline-dark"><i
-						class="fa-solid fa-person"></i> ${dto.study_people }</span></div>
+						${dto.study_start.substring(0, 10)} ~ ${dto.study_end.substring(0, 10) }</button>
+					&nbsp; <button class="btn btn-outline-dark" disabled><i
+						class="fa-solid fa-person"></i> ${dto.study_people }</button></div>
 						<div>
 						<span id="studyComplete" class="btn btn-outline-success" style="display: none;" 
 						><i class="fa-solid fa-check"></i>&nbsp;모집완료</span>

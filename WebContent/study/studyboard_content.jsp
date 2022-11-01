@@ -24,11 +24,7 @@
 	crossorigin="anonymous">
 	
 <style type="text/css">
-
-
-
-
- .container col-md-6{
+ .container col-md-6{
  margin: auto;
  }
  
@@ -54,12 +50,10 @@
   text-shadow: 1px 2px 2px gray;
  }
  
-
 .commentwrap{
     width: 600px;
     word-break: break-all;
 }
-
  
  td{
  width: 600px;
@@ -125,14 +119,12 @@
  }
  
  .button{
-
     outline: none;
     border: none;
     background-color: #fff;
     cursor: pointer;
    
     
-
 }
  
  .btn.btn-outline-secondary{
@@ -141,7 +133,6 @@
  padding-right: 10px;
  }
  
-
     
  .commentInput_buttonWrapper{
  
@@ -150,8 +141,6 @@
     margin: 16px 0 24px;
     width: 600px;
 }
-
-
 .commentInput_buttonComplete{
     padding: 10px 30px;
     min-width: 120px;
@@ -164,23 +153,16 @@
     outline: none;
     border: none;
     cursor: pointer;
-
-
 }
-
 .scomment_cont1{
    font-size: 18px;
-
 }
-
-
  
 .modifyBtn{
  color: black;
   background-color: transparent;
   border: 0;
 }
-
 .deleteBtn{
    color: black;
     background-color: transparent;
@@ -198,9 +180,6 @@
  .scommentwriter{
  font-weight: 600;
  }
-
-
-
 </style>
 
 
@@ -221,14 +200,14 @@
 	<c:set var="dto" value="${Cont }" />
 
 	<div class="align-middle">
-		<div class="container col-md-6" style="width: 600px;">
+		<div class="container col-md-6" style="width: 600px;">
 			<div class="card">
 				<div class="card-body">
-					<h4 class="card-title mb-3"><button type="button" class="btn btn-outline-primary" disabled>${dto.study_status }</button>&nbsp;${dto.getStudy_title() }</h4>
-					<h6 class="card-subtitle text-muted mb-4">
+					<h4 class="card-title mb-3"><button type="button" class="btn btn-outline-primary" disabled>${dto.study_status }</button>&nbsp;${dto.getStudy_title() }</h4>
+					<h6 class="card-subtitle text-muted mb-4">
 						<i class="fa-regular fa-user"></i> ${dto.getStudy_writer() } &nbsp;
-						<i class="fa-regular fa-clock"></i> ${dto.getStudy_date()} &nbsp;
-						<i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }            
+						<i class="fa-regular fa-clock"></i> ${dto.getStudy_date()} &nbsp;
+						<i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }            
 					</h6>
 					<span id="studyEditDelete" class="studyEditDelete" style="display: none;"><a id="studyEditIcon" class="studyEditIcon"
 						><i
@@ -295,7 +274,6 @@
 	
 	  
 	
-
      $(function() {
 	
 	// ajax에서 동일하게 사용되는 속성 설정
@@ -306,8 +284,6 @@
 	});
 	
 	 
-
-
 	// TBL_REPLY 테이블의 모든 데이터를 가져오는 함수
 	function getList() {
 		
@@ -325,7 +301,6 @@
                  $(data).find("reply").each(function() {
 					
                 	//1행 작성자, 수정, 삭제, 번호(hidden)
-
                 	 table += "<tr>";
                 	 table += "<td><p class='swriter' style='display:none;'>"+'작성자가 쓴 댓글입니다.' + "</p></td>";
                 	 table += "</tr>";
@@ -343,20 +318,15 @@
                 	 table += "</td>";
                 	 table += "<td id = 'reSnum' style='display:none;'><span>" + $(this).find("scomment_num").text() + "</span>";
                 	 table += "</tr>";
-
-
                 	 //2행 작성일자
                 	 table += "<tr>";
                 	 table += "<td class='scommentDate'>" + $(this).find("scomment_date").text() + "</td>";
                 	 table += "</tr>";
-
                 	 // 3행 내용
                 	 table += "<tr>";
                 	 table += "<td colspan='2' class='commentwrap'><div class='scomment_cont1'>" + $(this).find("scomment_cont").text() + "</div>";
                 	 table += "<textarea class= 'modifyOK' style='display:none;' type='text'>" + $(this).find("scomment_cont").text() + "</textarea></td>";
                 	 table += "</tr>";
-
-
                 	 table += "<tr class='borderbottom'>";
                 	 table += "<td colspan='2'>&nbsp;</td>";
                 	 table += "</tr>";
@@ -366,7 +336,6 @@
                 	 table += "</tr>";
                 	 
                 	 
-
 				});
 				
 				//테이블의 첫번째 행의 아래에 table를 추가
@@ -391,7 +360,6 @@
 	
 	
 	
-
 	// 댓글 작성 버튼을 클릭했을 때 DB에 추가로 저장.
 	$("#replyBtn").on("click", function() {
 		if(${!empty userId}){
@@ -439,10 +407,8 @@
 	
 	
 	
-
 	// 수정버튼 클릭 시 댓글 수정.
      $(document).on("click", "#modifyBtn", function(){
-
     	 
 		console.log('성공');
 		
@@ -453,12 +419,10 @@
          //수정 버튼 클릭 시 input태그의 숨김 속성을 해제하는 코드 (this는 modifyBtn )
          this.parentNode.parentNode.nextSibling.nextSibling.childNodes[0].childNodes[1].style.display = 'block';
          autosize($('.modifyOK'));
-
          //수정 버튼 클릭 시 span태그를 숨기는 코드 (this는 modifyBtn )	
          this.parentNode.parentNode.nextSibling.nextSibling.childNodes[0].childNodes[0].hidden = true;
          
          
-
          console.log('if문 성공');
          
        
@@ -480,7 +444,6 @@
         }
 		
 		 
-
 		
 		
                
@@ -525,9 +488,6 @@
          }//수정완료 if문
          
   });//수정버튼 클릭 시 이벤트 end
-
-
-
  
   //삭제버튼 클릭 시 이벤트
   $(document).on("click", "#deleteBtn", function(){
@@ -576,10 +536,8 @@
 			
 	         //취소 버튼 클릭 시 보이는 input태그의 숨김 속성을 다시 실행하는 코드 (this는 deleteBtn )
 	         this.parentNode.parentNode.nextSibling.nextSibling.childNodes[0].childNodes[1].style.display = 'none';
-
 	         //취소 버튼 클릭 시 숨겨져 있는 span태그를 다시 보이게 하는 코드  (this는 deleteBtn )	
 	         this.parentNode.parentNode.nextSibling.nextSibling.childNodes[0].childNodes[0].hidden = false;
-
 	         //input태그 안의 텍스트를 초기화하는 코드.
 	         this.parentNode.parentNode.nextSibling.nextSibling.childNodes[0].childNodes[1].value
 	         
@@ -593,11 +551,9 @@
 	         
 	         //취소 버튼 클릭시 수정, 삭제버튼으로 변경하는 코드
 	         $(this).html('삭제');
-
 	         $(this.previousSibling.previousSibling).html('수정');
 	         
 	    }// value가 취소일 때 if문 end
-
 	     
 	  
   });//삭제버튼 클릭 이벤트
@@ -610,7 +566,6 @@
 		  var textEleHeight = textEle.prop('scrollHeight');
 		  textEle.css('height', textEleHeight+8);
 		};
-
 	getList();  // 전체 리스트 함수 호출
 	adjustHeight();
 	
@@ -677,8 +632,6 @@
     
     
     
-
-
 });
 </script>
 

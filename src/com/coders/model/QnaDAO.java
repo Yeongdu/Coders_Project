@@ -237,7 +237,7 @@ public class QnaDAO {
 		try {
 			openConn();
 			
-			sql = "select count(*) from where qna_tag = ?";
+			sql = "select count(*) from qna where qna_tag = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, code);
 			rs = pstmt.executeQuery();
@@ -595,6 +595,7 @@ public class QnaDAO {
 				result += "<comments>";
 				
 				while (rs.next()) {
+					result += 
 					result += "<comment>";
 					result += "<qcomment_num>" + rs.getInt("qcomment_num") + "</qcomment_num>";
 					result += "<qna_num>" + rs.getInt("qna_num") + "</qna_num>";
@@ -603,7 +604,7 @@ public class QnaDAO {
 					result += "<qcomment_date>" + rs.getString("qcomment_date") + "</qcomment_date>";
 					result += "<qcomment_update>" + rs.getString("qcomment_update") + "</qcomment_update>";
 					result += "<qcomment_good>" + rs.getInt("qcomment_good") + "</qcomment_good>";
-					result += "<qcomment_good>" + rs.getInt("qcomment_bad") + "</qcomment_bad>";
+					result += "<qcomment_bad>" + rs.getInt("qcomment_bad") + "</qcomment_bad>";
 					result += "<qcomment_file>" + rs.getString("qcomment_file") + "</qcomment_file>";
 					result += "</comment>";
 				}

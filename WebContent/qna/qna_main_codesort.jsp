@@ -92,7 +92,7 @@
 						</div>
 						<div class="qna_view_center">
 							<a href="<%=request.getContextPath()%>/qna_content.do?no=${dto.getQna_num() }"
-								style="display: block; text-decoration: none;">
+								style="display: block; text-decoration: none;" class = "etc">
 								<c:set var = "tag" value = "${dto.getQna_tag() }" />
 								<c:if test="${tag == 'JAVA'}">
 									<span class="badge text-bg-secondary">JAVA</span>

@@ -151,12 +151,12 @@
 					</div>
 								
 					<div class="login_input">
-						<h4><b>*</b> E-mail</h4>
+						<h5><b>*</b> E-mail</h5>
 						<input type="email" class="form-control" name="id" placeholder="Email" required>
 					</div>
 					            
 					<div class="login_input">
-						<h4><b>*</b> Password</h4>
+						<h5><b>*</b> Password</h5>
 						<input type="password" class="form-control" name="pwd" placeholder="Password" required>
 					</div>
 					            
@@ -323,22 +323,22 @@
 					<div class="login1">
 					<p class="font">SignUp</p>
 						<div class="login_input1">
-							<h4><b>*</b> E-mail&nbsp;&nbsp;<span id="idcheck"></span></h4>
+							<h5><b>*</b> E-mail&nbsp;&nbsp;<span id="idcheck"></span></h5>
 							<input type="email" id="id_input" class="form-control" name="id" placeholder="Email" required>
 						</div>
 				            
 						<div class="login_input1">
-							<h4><b>*</b> Password&nbsp;&nbsp;<span id="pwdcheck"></span></h4>
+							<h5><b>*</b> Password&nbsp;&nbsp;<span id="pwdcheck"></span></h5>
 							<input type="password" id="pwd_input" class="form-control" name="pwd" placeholder="Password" required>
 						</div>
 						
 						<div class="login_input1">
-							<h4><b>*</b> Password Check&nbsp;&nbsp;<span id="pwdcheck_ck"></span></h4>
+							<h5><b>*</b> Password Check&nbsp;&nbsp;<span id="pwdcheck_ck"></span></h5>
 							<input type="password" id="pwd_ck_input" class="form-control" placeholder="Password Check" required>
 						</div>
 						
 						<div class="login_input1">
-							<h4><b>*</b> Name&nbsp;&nbsp;</h4>
+							<h5><b>*</b> Name&nbsp;&nbsp;</h5>
 							<input type="text" name="name" class="form-control" placeholder="Name" required>
 						</div>
 				            
@@ -368,12 +368,12 @@
 					<div class="login1">
 					<p class="font">Search</p>
 						<div class="login_input1">
-							<h4><b>*</b> E-mail</h4>
+							<h5><b>*</b> E-mail</h5>
 							<input type="email" id="id_input" name="id" class="form-control" placeholder="Email" required>
 						</div>
 								            
 						<div class="login_input1">
-							<h4><b>*</b> Name</h4>
+							<h5><b>*</b> Name</h5>
 							<input type="text" name="name" class="form-control" placeholder="Name" required>
 						</div>
 								            

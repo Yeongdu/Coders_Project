@@ -17,43 +17,43 @@ public class StudyBoardStatusViewAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// TODO Auto-generated method stub
 		
-		// ÆäÀÌÂ¡ Ã³¸® ÀÛ¾÷ ÁøÇà
+		// ï¿½ï¿½ï¿½ï¿½Â¡ Ã³ï¿½ï¿½ ï¿½Û¾ï¿½ ï¿½ï¿½ï¿½ï¿½
 		
-				// ÇÑ ÆäÀÌÁö´ç º¸¿©Áú °Ô½Ã¹°ÀÇ ¼ö
+				// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½
 				int rowsize = 10;
 				
-				// ¾Æ·¡¿¡ º¸¿©Áú ÆäÀÌÁöÀÇ ÃÖ´ë ºí·° ¼ö - ¿¹) [1][2][3] / [4][5][6]
+				// ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½ï¿½ - ï¿½ï¿½) [1][2][3] / [4][5][6]
 				int block = 5;
 				
-				// DB °Ô½Ã¹°ÀÇ ÀüÃ¼ ¼ö (countÇÔ¼ö) -ÀüÃ¼ ÆäÀÌÁö ¼ö Ã¼Å©¸¦ À§ÇØ Ã¼Å©
+				// DB ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ (countï¿½Ô¼ï¿½) -ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¼Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 				int totalRecord = 0;
 				
-				//ÀüÃ¼ ÆäÀÌÁö ¼ö = ÇÑÆäÀÌÁö´ç º¸¿©Áú °Ô½Ã¹°ÀÇ ¼ö / ÀüÃ¼ °Ô½Ã¹°ÀÇ ¼ö
+				//ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½ / ï¿½ï¿½Ã¼ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½
 				int allPage = 0;
 				
-				int page = 0; //ÇöÀçÆäÀÌÁö º¯¼ö
+				int page = 0; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				
 				if(request.getParameter("page") != null) {
 					page = Integer.parseInt(request.getParameter("page").trim());
 				}else {
-					//Ã³À½À¸·Î "ÀüÃ¼ °Ô½Ã¹° ¸ñ·Ï" aÅÂ±×¸¦ Å¬¸¯ÇÑ °æ¿ì
+					//Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "ï¿½ï¿½Ã¼ ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ï¿½" aï¿½Â±×¸ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					page = 1;
 				}
 				
-				//ÇØ´ç ÆäÀÌÁö¿¡¼­ ½ÃÀÛ¹øÈ£
+				//ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Û¹ï¿½È£
 				int startNo = (page * rowsize) - (rowsize - 1);
 						
-				//ÇØ´ç ÆäÀÌÁö¿¡¼­ ³¡¹øÈ£
+				//ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È£
 				int endNo = (page * rowsize);
 						
-				//ÇØ´ç ÆäÀÌÁö¿¡¼­ ½ÃÀÛ ºí·°
+				//ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				int startBlock = (((page - 1) / block) * block) + 1;
 						
-				//ÇØ´ç ÆäÀÌÁö¿¡¼­ ³¡ ºí·°
+				//ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½
 				int endBlock = (((page - 1) / block) * block) + block;
 		
 		StudyBoardDAO dao = StudyBoardDAO.getInstance();
-		totalRecord = dao.getStudyCount();
+		totalRecord = dao.getStudyIngCount();
 		
 allPage = (int)Math.ceil(totalRecord/(double)rowsize);
 		
@@ -62,7 +62,7 @@ allPage = (int)Math.ceil(totalRecord/(double)rowsize);
 		}
 		List<StudyBoardDTO> pageList = dao.getStudyStatusList(page,rowsize);
 		
-		//Áö±Ý±îÁö ÆäÀÌÂ¡ Ã³¸® ½Ã ÀÛ¾÷Çß´ø ¸ðµç °ªµéÀ» view page·Î ÀÌµ¿
+		//ï¿½ï¿½ï¿½Ý±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Â¡ Ã³ï¿½ï¿½ ï¿½ï¿½ ï¿½Û¾ï¿½ï¿½ß´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ view pageï¿½ï¿½ ï¿½Ìµï¿½
 				request.setAttribute("page", page);
 				request.setAttribute("rowsize", rowsize);
 				request.setAttribute("block", block);

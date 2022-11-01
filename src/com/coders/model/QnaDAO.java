@@ -13,37 +13,37 @@ import javax.sql.DataSource;
 
 public class QnaDAO {
 	
-	Connection con = null;  // DB¿Í ¿¬µ¿ÇÏ´Â °´Ã¼
-	PreparedStatement pstmt = null;  // DB¿¡ SQL¹®À» Àü¼ÛÇÏ´Â °´Ã¼ 
-	ResultSet rs = null;  // SQL¹®À» ½ÇÇàÇÑ ÈÄ¿¡ °á°ú °ªÀ» °¡Áö°í ÀÖ´Â °´Ã¼
-	String sql = null;  // Query¹®À» ÀúÀåÇÒ º¯¼ö
+	Connection con = null;  // DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Ã¼
+	PreparedStatement pstmt = null;  // DBï¿½ï¿½ SQLï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Ã¼ 
+	ResultSet rs = null;  // SQLï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Ã¼
+	String sql = null;  // Queryï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	
 	private static QnaDAO instance;
 	
-	private QnaDAO() {} // ±âº» »ý¼ºÀÚ
+	private QnaDAO() {} // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
-	// 3´Ü°è : ±âº» »ý¼ºÀÚ ´ë½Å ½Ì±ÛÅÏ °´Ã¼¸¦ return ÇØÁÖ´Â getInstance()¶ó´Â ¸Þ¼­µå¸¦ »ý¼ºÇØ
-	//		  ÇØ´ç getInstance()¶ó´Â ¸Þ¼­µå¸¦ ¿ÜºÎ¿¡¼­ Á¢±ÙÇÒ ¼ö ÀÖµµ·Ï ¸¸µç´Ù.
+	// 3ï¿½Ü°ï¿½ : ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ return ï¿½ï¿½ï¿½Ö´ï¿½ getInstance()ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//		  ï¿½Ø´ï¿½ getInstance()ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½å¸¦ ï¿½ÜºÎ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 	
 	public static QnaDAO getInstance() {
 		if(instance == null) {
 			instance = new QnaDAO();
 		}
 		
-		return instance; // ÁÖ¼Ò°ªÀ» ¹ÝÈ¯
+		return instance; // ï¿½Ö¼Ò°ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 	}
 	
 	public void openConn() {
 	
 		try {
 			
-			// 1´Ü°è : JNDI ¼­¹ö °´Ã¼ »ý¼º
-			Context ctx = new InitialContext(); //java.namingÀÇ context
+			// 1ï¿½Ü°ï¿½ : JNDI ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
+			Context ctx = new InitialContext(); //java.namingï¿½ï¿½ context
 			
-			// 2´Ü°è : lookup() ¸Þ¼­µå¸¦ ÀÌ¿ëÇÏ¿© ¸ÅÄªµÇ´Â Ä¿³Ø¼Ç Ã£±â 
+			// 2ï¿½Ü°ï¿½ : lookup() ï¿½Þ¼ï¿½ï¿½å¸¦ ï¿½Ì¿ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½Äªï¿½Ç´ï¿½ Ä¿ï¿½Ø¼ï¿½ Ã£ï¿½ï¿½ 
 			DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/myoracle"); 
-												// "java:comp.env/context.xml¿¡¼­ ¼±¾ðÇÑ name"
-			// 3´Ü°è : DataSource °´Ã¼¸¦ ÀÌ¿ëÇÏ¿© Ä¿³Ø¼ÇÀ» ÇÏ³ª °¡Á®¿Â´Ù.
+												// "java:comp.env/context.xmlï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ name"
+			// 3ï¿½Ü°ï¿½ : DataSource ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ï¿ï¿½ Ä¿ï¿½Ø¼ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
 			con = ds.getConnection();
 			
 		} catch (Exception e) {
@@ -51,9 +51,9 @@ public class QnaDAO {
 			e.printStackTrace();
 		} 
 			
-	}// openConn()¸Þ¼­µåÀÇ end
+	}// openConn()ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ end
 	
-	// DB¿¡ ¿¬°áµÈ ÀÚ¿øÀ» Á¾·áÇÏ´Â ¸Þ¼­µå
+	// DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 	public void closeConn(ResultSet rs, PreparedStatement pstmt, Connection con) {
 		try {
 			if(rs != null) rs.close();
@@ -62,11 +62,11 @@ public class QnaDAO {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-	} // closeConn()¸Þ¼­µåÀÇ end
+	} // closeConn()ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ end
 	
 	
 	
-	// ÆäÀÌÂ¡ Ã³¸®
+	// ï¿½ï¿½ï¿½ï¿½Â¡ Ã³ï¿½ï¿½
 		public int getQnaCount() {
 		
 			int count = 0;
@@ -87,19 +87,19 @@ public class QnaDAO {
 				closeConn(rs, pstmt, con);
 			}
 			return count;
-		} // getBoardCount()¸Þ¼­µåÀÇ end
+		} // getBoardCount()ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ end
 
 		
 	
-	// QnA ¸ÞÀÎÆäÀÌÁö Ãâ·Â
+	// QnA ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	public List<QnaDTO> getQnaList(int page, int rowsize) {
 		
 		List<QnaDTO> list = new ArrayList<QnaDTO>();
 		
-		// ÇØ´ç ÆäÀÌÁö¿¡¼­ ½ÃÀÛ ¹øÈ£
+		// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 		int startNo = (page * rowsize) - (rowsize -1);
 				
-		// ÇØ´ç ÆäÀÌÁö¿¡¼­ ¸¶Áö¸· ¹øÈ£
+		// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 		int endNo = (page * rowsize);
 
 		try {
@@ -138,15 +138,15 @@ public class QnaDAO {
 	
 	
 	
-	// Á¶È¸¼ö¼øÀ¸·Î Á¤·ÄÇÏ´Â ¸Þ¼­µå
+	// ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 	public List<QnaDTO> getQnaViewList(int page, int rowsize) {
 		
 		List<QnaDTO> list = new ArrayList<QnaDTO>();
 		
-		// ÇØ´ç ÆäÀÌÁö¿¡¼­ ½ÃÀÛ ¹øÈ£
+		// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 		int startNo = (page * rowsize) - (rowsize -1);
 				
-		// ÇØ´ç ÆäÀÌÁö¿¡¼­ ¸¶Áö¸· ¹øÈ£
+		// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 		int endNo = (page * rowsize);
 
 		try {
@@ -184,15 +184,15 @@ public class QnaDAO {
 	}
 	
 	
-	// qna°Ô½ÃÆÇÀ» ´äº¯¼ö´ë·Î Á¤·ÄÇÏ´Â ¸Þ¼­µå
+	// qnaï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½äº¯ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 	public List<QnaDTO> qnaCList(int page, int rowsize){
 		
 		List<QnaDTO> list = new ArrayList<QnaDTO>();
 		
-		// ÇØ´ç ÆäÀÌÁö¿¡¼­ ½ÃÀÛ ¹øÈ£
+		// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 		int startNo = (page * rowsize) - (rowsize -1);
 				
-		// ÇØ´ç ÆäÀÌÁö¿¡¼­ ¸¶Áö¸· ¹øÈ£
+		// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 		int endNo = (page * rowsize);
 
 		try {
@@ -229,7 +229,7 @@ public class QnaDAO {
 		return list;
 	}
 	
-	// ¼±ÅÃÇÑ ÄÚµå ¾ð¾îÀÇ ÀüÃ¼ °Ô½Ã¹° °¹¼ö¸¦ Ã£´Â ¸Þ¼­µå
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 	public int getQnaCodeSortCount(String code) {
 		
 		int count = 0;
@@ -254,15 +254,15 @@ public class QnaDAO {
 	}
 	
 	
-	// qna°Ô½ÃÆÇ¿¡¼­ ¼±ÅÃÇÑ ÄÚµå ¾ð¾î°¡ µé¾î°¡´Â ÅÂ±×¸¸ Ãâ·ÂÇÏ´Â ¸Þ¼­µå
+	// qnaï¿½Ô½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½î°¡ ï¿½ï¿½î°¡ï¿½ï¿½ ï¿½Â±×¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 	public List<QnaDTO> codeSortList(int page, int rowsize, String codeName) {
 		
 		List<QnaDTO> list = new ArrayList<QnaDTO>();
 		
-		// ÇØ´ç ÆäÀÌÁö¿¡¼­ ½ÃÀÛ ¹øÈ£
+		// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 		int startNo = (page * rowsize) - (rowsize -1);
 				
-		// ÇØ´ç ÆäÀÌÁö¿¡¼­ ¸¶Áö¸· ¹øÈ£
+		// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 		int endNo = (page * rowsize);
 		
 		try {
@@ -300,7 +300,7 @@ public class QnaDAO {
 	}
 	
 	
-	// qna °Ô½ÃÆÇ¿¡ ±Û ¾²±â ÇÏ´Â ¸Þ¼­µå
+	// qna ï¿½Ô½ï¿½ï¿½Ç¿ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 	public int insertQna(QnaDTO dto) {
 		
 		int result = 0, count = 0;
@@ -339,7 +339,7 @@ public class QnaDAO {
 	
 	
 	
-	// qna°Ô½ÃÆÇ¿¡¼­ °Ë»öµÈ °Ô½Ã¹°ÀÇ ¼ö
+	// qnaï¿½Ô½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½
 	public int searchListCount(String keyword) {
 		
 		int count = 0;
@@ -365,15 +365,15 @@ public class QnaDAO {
 	}
 	
 	
-	// qna °Ô½ÃÆÇ¿¡¼­ °Ë»öµÈ °Ô½Ã±ÛÀ» Ãâ·ÂÇÏ´Â ¸Þ¼­µå
+	// qna ï¿½Ô½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 	public List<QnaDTO> searchQnaList(String keyword, int page, int rowsize){
 		
 			List<QnaDTO> list = new ArrayList<QnaDTO>();
 			
-			// ÇØ´ç ÆäÀÌÁö¿¡¼­ ½ÃÀÛ ¹øÈ£
+			// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 			int startNo = (page * rowsize) - (rowsize -1);
 			
-			// ÇØ´ç ÆäÀÌÁö¿¡¼­ ¸¶Áö¸· ¹øÈ£
+			// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 			int endNo = (page * rowsize);
 			
 			openConn();
@@ -413,7 +413,7 @@ public class QnaDAO {
 				return list;
 	}
 	
-	// Á¶È¸¼ö Áõ°¡ ¸Þ¼­µå
+	// ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 	public void updateHit(int no) {
 	
 		try {
@@ -432,7 +432,7 @@ public class QnaDAO {
 	}
 		
 	
-	// qna ¼¼ºÎÁ¤º¸ Á¶È¸ ¸Þ¼Òµå
+	// qna ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ ï¿½Þ¼Òµï¿½
 		 public QnaDTO getQnaContent(int no) {
 			 
 			 QnaDTO dto = null;
@@ -474,7 +474,7 @@ public class QnaDAO {
 
 		
 		 
-		 //qna °Ô½Ã±Û ¾÷µ¥ÀÌÆ® ¸Þ¼Òµå
+		 //qna ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Þ¼Òµï¿½
 		 public int updateQna(QnaDTO dto) {
 			 
 			 int result = 0;
@@ -520,7 +520,7 @@ public class QnaDAO {
 		 } //updateqna end
 		 
 		 
-		//qna°Ô½Ã±Û »èÁ¦ ¸Þ¼Òµå
+		//qnaï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 		 public int deleteQna(int no){
 			 
 			 int result = 0;
@@ -551,7 +551,7 @@ public class QnaDAO {
 		 }//delete end
 		 
 
-		//°Ô½Ã±Û »èÁ¦½Ã ¹øÈ£ ÀçÀÛ¾÷
+		//ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½Û¾ï¿½
 			
 			 public void updateQnaNum(int no){
 				
@@ -578,7 +578,7 @@ public class QnaDAO {
 	//--------------------------------------------------------------------------------------------------------------------------------------------------
 		 
 	
-		 //ÆäÀÌÁö¿¡ ÇØ´çÇÏ´Â ´ñ±Û ¸®½ºÆ®¸¦ Á¶È¸ÇÏ´Â ¸Þ¼Òµå
+		 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
 		 public String getQnacommentList (int no){
 			 
 			 String result = "";
@@ -606,6 +606,7 @@ public class QnaDAO {
 					result += "<qcomment_good>" + rs.getInt("qcomment_good") + "</qcomment_good>";
 					result += "<qcomment_bad>" + rs.getInt("qcomment_bad") + "</qcomment_bad>";
 					result += "<qcomment_file>" + rs.getString("qcomment_file") + "</qcomment_file>";
+					result += "<qcomment_code>" + rs.getString("qcomment_code") + "</qcomment_code>";
 					result += "</comment>";
 				}
 				
@@ -622,7 +623,7 @@ public class QnaDAO {
 		 
 		 
 
-		 //´ñ±Û µî·Ï ¸Þ¼Òµå
+		 //ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 		 public int commentInsert(QnaCommentDTO dto) {
 			 
 			 int result = 0, count = 0; 
@@ -639,7 +640,7 @@ public class QnaDAO {
 						count = rs.getInt(1) + 1;
 					}
 					
-					sql = "insert into qna_comment values(?, ?, ?, ?, sysdate, '', 0, ?, defalut, defalut)";
+					sql = "insert into qna_comment values(?, ?, ?, ?, sysdate, '', 0, ?, 0, 0, ?)";
 					pstmt = con.prepareStatement(sql);
 					
 					pstmt.setInt(1, count);
@@ -647,6 +648,7 @@ public class QnaDAO {
 					pstmt.setString(3, dto.getQcomment_writer());
 					pstmt.setString(4, dto.getQcomment_cont());
 					pstmt.setString(5, dto.getQcommnet_file());
+					pstmt.setString(6, dto.getQcomment_code());
 
 					result = pstmt.executeUpdate();
 					
@@ -691,7 +693,7 @@ public class QnaDAO {
 		 }
 		 
 		 
-		//ÁÁ¾Æ¿ä ¹öÆ° 
+		//ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½Æ° 
 		 public int goodQnaComment(int no, String id) {
 			 
 			 int result = 0;
@@ -721,15 +723,15 @@ public class QnaDAO {
 		 
 		 
 		 
-		// QnA ¸ÞÀÎÆäÀÌÁö Ãâ·Â
+		// QnA ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			public String getMainQnaList(int page, int rowsize) {
 					
 				String result = "";
 					
-				// ÇØ´ç ÆäÀÌÁö¿¡¼­ ½ÃÀÛ ¹øÈ£
+				// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 				int startNo = (page * rowsize) - (rowsize -1);
 							
-				// ÇØ´ç ÆäÀÌÁö¿¡¼­ ¸¶Áö¸· ¹øÈ£
+				// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 				int endNo = (page * rowsize);
 
 				try {
@@ -755,6 +757,7 @@ public class QnaDAO {
 						result += "<title>" + rs.getString("qna_title") + "</title>";
 						result += "<writer>" + rs.getString("qna_writer") + "</writer>";
 						result += "<date>" + rs.getString("qna_date") + "</date>";
+						result += "<update>" + rs.getString("qna_update") + "</update>";
 						result += "</main>";
 					}
 					
@@ -770,9 +773,9 @@ public class QnaDAO {
 			}
 		 
 			
-//-----------------------------------------------------ÃßÃµ °ü·Ã ¸Þ¼Òµå ----------------------------------------------------------------
+//-----------------------------------------------------ï¿½ï¿½Ãµ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ ----------------------------------------------------------------
 			
-			//À¯Àú ¾ÆÀÌµð ¼¼¼Ç ¾ÆÀÌµð Á¶È¸ ¸Þ¼Òµå
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½È¸ ï¿½Þ¼Òµï¿½
 			public int userIdSessionIdGood(String id, int no) {
 				
 				int result = 0;
@@ -789,12 +792,12 @@ public class QnaDAO {
 					
 					rs = pstmt.executeQuery();
 					
-					if(rs.next()) { //°ªÀÌ ¾ø´Â °æ¿ì
+					if(rs.next()) { //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						result = 1;
 						
 						System.out.println("no result >>> " + result);
 						
-					}else { //°ªÀÌ ÀÖ´Â °æ¿ì
+					}else { //ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½
 						result = -1;
 						
 						System.out.println("yes result >>> " + result);
@@ -810,7 +813,7 @@ public class QnaDAO {
 			}//compare end
 			
 				
-			//ÁÁ¾Æ¿ä Áõ°¡ ¸Þ¼Òµå
+			//ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 			 public int upGoodQnaComment(int no, String id) {
 				 
 				 int result = 0, count = 0;
@@ -818,7 +821,7 @@ public class QnaDAO {
 				 try {
 			
 					openConn();					
-					 //qcomment Å×ÀÌºíÀÇ ÁÁ¾Æ¿ä ÄÃ·³ Áõ°¡ sql =
+					 //qcomment ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ sql =
 					 sql = "update qna_comment set qcomment_good = qcomment_good + 1 where qcomment_num = ?";
 					  
 					  pstmt = con.prepareStatement(sql);
@@ -836,7 +839,7 @@ public class QnaDAO {
 			
 			 
 			 
-			//good_num Å×ÀÌºí ¾÷µ¥ÀÌÆ® ¸Þ¼Òµå (ÁÁ¾Æ¿ä Ãß°¡ ½Ã)
+			//good_num ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Þ¼Òµï¿½ (ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½)
 			public int updatePlusGood (int no, String id) {
 				
 				int result = 0, count = 0;
@@ -845,7 +848,7 @@ public class QnaDAO {
 			
 					openConn();
 					
-					//good_num Áõ°¡ ¸Þ¼Òµå
+					//good_num ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 					sql = "select max(good_num) from good";
 					pstmt = con.prepareStatement(sql);
 					rs = pstmt.executeQuery();
@@ -854,7 +857,7 @@ public class QnaDAO {
 						count = rs.getInt(1) + 1;
 					}
 					
-					//good Å×ÀÌºí Á¤º¸ ¾÷µ¥ÀÌÆ® 
+					//good ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® 
 					sql = "insert into good values(?, ?, ?)";
 					
 					pstmt = con.prepareStatement(sql);
@@ -877,7 +880,7 @@ public class QnaDAO {
 			
 			 	
 			
-			//ÁÁ¾Æ¿ä Ãë¼Ò ¸Þ¼Òµå 
+			//ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ 
 			public int downGoodQnaComment(int no, String id) {
 				
 				int result = 0, count = 0;
@@ -885,7 +888,7 @@ public class QnaDAO {
 				 try {
 			
 					openConn();					
-					 //qcomment Å×ÀÌºíÀÇ ÁÁ¾Æ¿ä ÄÃ·³ Áõ°¡ sql =
+					 //qcomment ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ sql =
 					 sql = "update qna_comment set qcomment_good = qcomment_good - 1 where qcomment_num = ?";
 					  
 					  pstmt = con.prepareStatement(sql);
@@ -904,7 +907,7 @@ public class QnaDAO {
 			
 			
 			
-			//goodÅ×ÀÌºí Á¤º¸ »èÁ¦ ¸Þ¼Òµå (ÁÁ¾Æ¿ä Ãë¼Ò ½Ã)
+			//goodï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ (ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½)
 			public int updateMinusGood (int no, String id) {
 				
 				int result = 0;
@@ -940,9 +943,9 @@ public class QnaDAO {
 			}//minus end
 			
 			
-//-----------------------------------------------------ºñÃßÃµ °ü·Ã ¸Þ¼Òµå ----------------------------------------------------------------
+//-----------------------------------------------------ï¿½ï¿½ï¿½ï¿½Ãµ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ ----------------------------------------------------------------
 			
-			//À¯Àú ¾ÆÀÌµð ¼¼¼Ç ¾ÆÀÌµð Á¶È¸ ¸Þ¼Òµå
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½È¸ ï¿½Þ¼Òµï¿½
 			public int userIdSessionIdBad(String id, int no) {
 				
 				int result = 0;
@@ -959,12 +962,12 @@ public class QnaDAO {
 					
 					rs = pstmt.executeQuery();
 					
-					if(rs.next()) { //°ªÀÌ ¾ø´Â °æ¿ì
+					if(rs.next()) { //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						result = 1;
 						
 						System.out.println("no result >>> " + result);
 						
-					}else { //°ªÀÌ ÀÖ´Â °æ¿ì
+					}else { //ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½
 						result = -1;
 						
 						System.out.println("yes result >>> " + result);
@@ -980,7 +983,7 @@ public class QnaDAO {
 			}//compare end
 			
 				
-			//½È¾î¿ä Áõ°¡ ¸Þ¼Òµå
+			//ï¿½È¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 			 public int upBadQnaComment(int no, String id) {
 				 
 				 int result = 0, count = 0;
@@ -988,7 +991,7 @@ public class QnaDAO {
 				 try {
 			
 					openConn();					
-					 //qcomment Å×ÀÌºíÀÇ ½È¾î¿ä ÄÃ·³ Áõ°¡ 
+					 //qcomment ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½È¾ï¿½ï¿½ ï¿½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 					 sql = "update qna_comment set qcomment_bad = qcomment_bad - 1 where qcomment_num = ?";
 					  
 					  pstmt = con.prepareStatement(sql);
@@ -1006,7 +1009,7 @@ public class QnaDAO {
 			
 			 
 			 
-			//bad Å×ÀÌºí ¾÷µ¥ÀÌÆ® ¸Þ¼Òµå (ºñÃßÃµ Ãß°¡ ½Ã)
+			//bad ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Þ¼Òµï¿½ (ï¿½ï¿½ï¿½ï¿½Ãµ ï¿½ß°ï¿½ ï¿½ï¿½)
 			public int updatePlusBad (int no, String id) {
 				
 				int result = 0, count = 0;
@@ -1015,7 +1018,7 @@ public class QnaDAO {
 			
 					openConn();
 					
-					//bad_num Áõ°¡ ¸Þ¼Òµå
+					//bad_num ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 					sql = "select max(bad_num) from bad";
 					pstmt = con.prepareStatement(sql);
 					rs = pstmt.executeQuery();
@@ -1024,7 +1027,7 @@ public class QnaDAO {
 						count = rs.getInt(1) + 1;
 					}
 					
-					//bad Å×ÀÌºí Á¤º¸ ¾÷µ¥ÀÌÆ® 
+					//bad ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® 
 					sql = "insert into bad values(?, ?, ?)";
 					
 					pstmt = con.prepareStatement(sql);
@@ -1047,7 +1050,7 @@ public class QnaDAO {
 			
 			 	
 			
-			//ºñÃßÃµ Ãë¼Ò ¸Þ¼Òµå 
+			//ï¿½ï¿½ï¿½ï¿½Ãµ ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ 
 			public int downBadQnaComment(int no, String id) {
 				
 				int result = 0, count = 0;
@@ -1055,7 +1058,7 @@ public class QnaDAO {
 				 try {
 			
 					openConn();					
-					 //qcomment Å×ÀÌºíÀÇ bad ÄÃ·³ Áõ°¡ 
+					 //qcomment ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ bad ï¿½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 					 sql = "update qna_comment set qcomment_bad = qcomment_bad + 1 where qcomment_num = ?";
 					  
 					  pstmt = con.prepareStatement(sql);
@@ -1074,7 +1077,7 @@ public class QnaDAO {
 			
 			
 			
-			//goodÅ×ÀÌºí Á¤º¸ »èÁ¦ ¸Þ¼Òµå (ÁÁ¾Æ¿ä Ãë¼Ò ½Ã)
+			//goodï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ (ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½)
 			public int updateMinusBad (int no, String id) {
 				
 				int result = 0;

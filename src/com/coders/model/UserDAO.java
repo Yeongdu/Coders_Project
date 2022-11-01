@@ -254,6 +254,8 @@ public class UserDAO {
 					
 					dto.setUser_pwd(rs.getString("user_pwd"));
 					
+					dto.setUser_file(rs.getString("user_file"));
+					
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -653,6 +655,35 @@ public class UserDAO {
 				pstmt = con.prepareStatement(sql);
 				
 				pstmt.setString(1, homepage);
+				
+				pstmt.setString(2, id);
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				
+				closeConn(rs, pstmt, con);
+				
+			}
+			
+			return result;
+			
+		}	// userNameModify 메서드 end
+		
+		// 유저 ID에 해당하는 file의 정보를 변경하는 메서드.
+		public int userFileUpload(String id, String file) {
+			int result = 0;
+			
+			try {
+				openConn();
+				
+				sql = "update user_member set user_file = ? where user_id = ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, file);
 				
 				pstmt.setString(2, id);
 				

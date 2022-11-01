@@ -1,68 +1,70 @@
--- À¯Àú Å×ÀÌºí
+-- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
     create table user_member(
-        user_id varchar2(30) primary key,           -- À¯Àú ¾ÆÀÌµð
-        user_name varchar2(30),                     -- À¯Àú ´Ð³×ÀÓ
-        user_date date,                             -- À¯Àú °¡ÀÔÀÏÀÚ
-        user_profile varchar2(1000),                -- À¯Àú ÀÚ±â¼Ò°³
-        user_homepage varchar2(200)                 -- À¯Àú È¨ÆäÀÌÁö url
+        user_id varchar2(30) primary key,           -- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
+        user_name varchar2(30),                     -- ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½
+        user_date date,                             -- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        user_profile varchar2(1000),                -- ï¿½ï¿½ï¿½ï¿½ ï¿½Ú±ï¿½Ò°ï¿½
+        user_homepage varchar2(200),                 -- ï¿½ï¿½ï¿½ï¿½ È¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ url
+        user_pwd varchar2(1000),
+        user_file varchar2(300)
     );
 
--- Q&A °Ô½ÃÆÇ Å×ÀÌºí  
+-- Q&A ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½  
     create table qna (
-        qna_num number(5) primary key,      -- qna °Ô½ÃÆÇ ¹øÈ£
-        qna_writer references user_member(user_id) on delete cascade,   -- qna °Ô½ÃÆÇ ÀÛ¼ºÀÚ
-        qna_title varchar2(200) not null,   -- qna °Ô½ÃÆÇ Á¦¸ñ
-        qna_cont varchar2(1000) not null,   -- qna °Ô½ÃÆÇ ³»¿ë
-        qna_date date,                      -- qna °Ô½ÃÆÇ ÀÛ¼ºÀÏÀÚ
-        qna_update date,                    -- qna °Ô½ÃÆÇ ¼öÁ¤ÀÏÀÚ
-        qna_file varchar2(300),             -- qna °Ô½ÃÆÇ Ã·ºÎÆÄÀÏ
-        qna_hit number(5),                  -- qna °Ô½ÃÆÇ Á¶È¸¼ö
-        qna_tag varchar2(20)                -- qna °Ô½ÃÆÇ ÅÂ±×(¸»¸Ó¸®)
+        qna_num number(5) primary key,      -- qna ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+        qna_writer references user_member(user_id) on delete cascade,   -- qna ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½
+        qna_title varchar2(200) not null,   -- qna ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        qna_cont varchar2(1000) not null,   -- qna ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        qna_date date,                      -- qna ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½
+        qna_update date,                    -- qna ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        qna_file varchar2(300),             -- qna ï¿½Ô½ï¿½ï¿½ï¿½ Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        qna_hit number(5),                  -- qna ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½
+        qna_tag varchar2(20)                -- qna ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½Â±ï¿½(ï¿½ï¿½ï¿½Ó¸ï¿½)
     );
 
--- ½ºÅÍµð ¸ðÀÓ °Ô½ÃÆÇ Å×ÀÌºí
+-- ï¿½ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
     create table study_group(
-        study_num number(5) primary key,        -- ½ºÅÍµð °Ô½Ã±Û ¹øÈ£  
-        study_writer references user_member(user_id) on delete cascade,   -- ½ºÅÍµð °Ô½Ã±Û ÀÛ¼ºÀÚ
-        study_title varchar2(200) not null,     -- ½ºÅÍµð °Ô½Ã±Û Á¦¸ñ
-        study_cont varchar2(1000) not null,     -- ½ºÅÍµð °Ô½Ã±Û ³»¿ë
-        study_date date,                        -- ½ºÅÍµð °Ô½Ã±Û ÀÛ¼ºÀÏÀÚ
-        study_update date,                      -- ½ºÅÍµð °Ô½Ã±Û ¼öÁ¤ÀÏÀÚ
-        study_people number(2),                 -- ½ºÅÍµð °Ô½Ã±Û ¸ðÁýÀÎ¿ø
-        study_status varchar2(20),              -- ½ºÅÍµð °Ô½Ã±Û ¸ðÁýÇöÈ²
-        study_start date,                       -- ½ºÅÍµð ¸ðÁý ½ÃÀÛ ÀÏÀÚ
-        study_end date,                         -- ½ºÅÍµð ¸ðÁý Á¾·á ÀÏÀÚ
-        study_file varchar2(300),               -- ½ºÅÍµð °Ô½Ã±Û Ã·ºÎÆÄÀÏ
-        study_hit number(5)                     -- ½ºÅÍµð °Ô½Ã±Û Á¶È¸¼ö
+        study_num number(5) primary key,        -- ï¿½ï¿½ï¿½Íµï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½È£  
+        study_writer references user_member(user_id) on delete cascade,   -- ï¿½ï¿½ï¿½Íµï¿½ ï¿½Ô½Ã±ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½
+        study_title varchar2(200) not null,     -- ï¿½ï¿½ï¿½Íµï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½
+        study_cont varchar2(1000) not null,     -- ï¿½ï¿½ï¿½Íµï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½
+        study_date date,                        -- ï¿½ï¿½ï¿½Íµï¿½ ï¿½Ô½Ã±ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½
+        study_update date,                      -- ï¿½ï¿½ï¿½Íµï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        study_people number(2),                 -- ï¿½ï¿½ï¿½Íµï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Î¿ï¿½
+        study_status varchar2(20),              -- ï¿½ï¿½ï¿½Íµï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È²
+        study_start date,                       -- ï¿½ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        study_end date,                         -- ï¿½ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        study_file varchar2(300),               -- ï¿½ï¿½ï¿½Íµï¿½ ï¿½Ô½Ã±ï¿½ Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        study_hit number(5)                     -- ï¿½ï¿½ï¿½Íµï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½È¸ï¿½ï¿½
     );
 
--- Q&A ´äº¯ Å×ÀÌºí (
+-- Q&A ï¿½äº¯ ï¿½ï¿½ï¿½Ìºï¿½ (
     create table qna_comment(
-        qcomment_num number(5) primary key,      -- qna ´ñ±Û ¹øÈ£
-        qna_num references qna(qna_num) on delete cascade,  -- qna °Ô½Ã±Û ¹øÈ£
-        qcomment_writer references user_member(user_id) on delete cascade,    -- qna ´ñ±Û ÀÛ¼ºÀÚ
-        qcomment_cont varchar2(1000) not null,   -- qna ´ñ±Û ³»¿ë
-        qcomment_date date,                      -- qna ´ñ±Û ÀÛ¼ºÀÏÀÚ
-        qcomment_update date,                    -- qna ´ñ±Û ¼öÁ¤ÀÏÀÚ
-        qcomment_good number(5),                 -- qna ´ñ±Û ÁÁ¾Æ¿ä °¹¼ö
-        qcommnet_file varchar2(300)              -- qna ´ñ±Û Ã·ºÎÆÄÀÏ
+        qcomment_num number(5) primary key,      -- qna ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+        qna_num references qna(qna_num) on delete cascade,  -- qna ï¿½Ô½Ã±ï¿½ ï¿½ï¿½È£
+        qcomment_writer references user_member(user_id) on delete cascade,    -- qna ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½
+        qcomment_cont varchar2(1000) not null,   -- qna ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        qcomment_date date,                      -- qna ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½
+        qcomment_update date,                    -- qna ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        qcomment_good number(5),                 -- qna ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½
+        qcommnet_file varchar2(300)              -- qna ï¿½ï¿½ï¿½ Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 );
 
 
 
--- ½ºÅÍµð ¸ðÀÓ ´äº¯ Å×ÀÌºí
+-- ï¿½ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½äº¯ ï¿½ï¿½ï¿½Ìºï¿½
     create table study_comment(
-        scomment_num number(5) primary key,     -- ½ºÅÍµð ´ñ±Û ¹øÈ£
-        study_num references study_group(study_num) on delete cascade,    -- ½ºÅÍµð °Ô½Ã±Û ¹øÈ£
-        scomment_writer references user_member(user_id) on delete cascade, -- ½ºÅÍµð ´ñ±Û ÀÛ¼ºÀÚ
-        scomment_cont varchar2(1000) not null,      -- ½ºÅÍµð °Ô½Ã±Û ³»¿ë
-        scomment_date date,                         -- ½ºÅÍµð °Ô½Ã±Û ÀÛ¼ºÀÏÀÚ
-        scomment_update date                        -- ½ºÅÍµð °Ô½Ã±Û ¼öÁ¤ÀÏÀÚ
+        scomment_num number(5) primary key,     -- ï¿½ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+        study_num references study_group(study_num) on delete cascade,    -- ï¿½ï¿½ï¿½Íµï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½È£
+        scomment_writer references user_member(user_id) on delete cascade, -- ï¿½ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½
+        scomment_cont varchar2(1000) not null,      -- ï¿½ï¿½ï¿½Íµï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½
+        scomment_date date,                         -- ï¿½ï¿½ï¿½Íµï¿½ ï¿½Ô½Ã±ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½
+        scomment_update date                        -- ï¿½ï¿½ï¿½Íµï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     );
     
--- ÁÁ¾Æ¿ä Å×ÀÌºí
+-- ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
    create table good(
-        good_num number(5) primary key,             -- ÁÁ¾Æ¿ä ¹øÈ£
-        qna_num references qna(qna_num) on delete cascade,   -- qna ´äº¯ ¹øÈ£
-        user_id references user_member(user_id) on delete cascade	-- À¯Àú ¾ÆÀÌµð
+        good_num number(5) primary key,             -- ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½È£
+        qna_num references qna(qna_num) on delete cascade,   -- qna ï¿½äº¯ ï¿½ï¿½È£
+        user_id references user_member(user_id) on delete cascade	-- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
     );

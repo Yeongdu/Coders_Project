@@ -61,7 +61,7 @@ public class FrontController extends HttpServlet {
     			 */
     			
     			FileInputStream fis = 
-    				new FileInputStream("D:\\git\\Project\\src\\com\\coders\\controller\\mapping.properties");
+    				new FileInputStream("D:\\git\\Coders_Project\\src\\com\\coders\\controller\\mapping.properties");
     			
     			pro.load(fis);
     			
@@ -142,6 +142,3 @@ public class FrontController extends HttpServlet {
     			}
     			
     		}  // service() 메서드 end
-
-
-	}

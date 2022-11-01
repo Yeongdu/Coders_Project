@@ -114,6 +114,28 @@ public class StudyBoardDAO {
 		}
 		return count;
 	} // getStudyCount() end
+	
+	// 스터디 게시판 모집중인 글 수 세는 메서드
+		public int getStudyIngCount() {
+			int count = 0;
+			try {
+				openConn();
+				sql = "select count(*) from study_group where study_status='모집중'";
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					count = rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+			return count;
+		} // getStudyCount() end
+	
 
 	// 스터디 게시판의 전체 글을 조회하는 메서드
 	public List<StudyBoardDTO> getStudyBoardList(int page, int rowsize) {

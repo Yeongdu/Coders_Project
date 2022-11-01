@@ -1,7 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import = "java.util.Calendar" %>
+
+
+<%
+  String Date = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+  String Today = new java.text.SimpleDateFormat("yyyyMMdd").format(new java.util.Date());
+%>
+
+
+
 <c:set var="list" value="${List }" />
+
 
 <!DOCTYPE html>
 <html>
@@ -15,6 +28,13 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 
 <style type="text/css">
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap');
+
+	body {
+	font-family: 'Noto Sans KR' !important;
+	}
+
 .study_view_aTag{
   text-decoration: none;
   line-height: 48px;
@@ -26,24 +46,35 @@
   padding-top: 10px;
   padding-bottom: 10px;
   margin: auto;
+  align-items: center;
 }
 .study_view_left {
   flex: 1;
   text-align-last: left;
   flex-grow: 1;
+  padding-left: 15px;
 }
 
 .study_view_center {
-  align-items: center;
   flex: 3;
+  flex-grow: 7;
   text-align: left;
-  font-size: 1.2em;
-  flex-grow: 5;
+  font-size: 1em;
+  align-items: center;
+  min-width: 0;
+  
+  width: 460px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .study_view_right {
   flex: 1;
   text-align: right;
   flex-grow: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 .studyViewDate{
 font-size: 0.8em;
@@ -69,6 +100,52 @@ height: 37px;
 padding-top: 0px;
 padding-bottom: 0px;
 }
+
+#studyListContainer:hover {
+	background-color: #f7f7f7;
+}
+
+button.btn.btn-outline-dark{
+ 	border-color:#ffffff00;
+ 	width: 70px;
+ 	padding-right:20px;
+}
+
+.studyEndTxt{
+	color: 
+}
+
+.studyIngTxt{
+	border-bottom: 7px solid #dcf1fb;
+	padding: 0.2em 0 0 0.2em;
+}
+
+.btn.btn-outline-secondary{
+    width: 86px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.btn.btn-primary{
+
+    width: 86px;
+    padding-left: 5px;
+    padding-right: 5px;
+	background-color: DarkCyan;
+	padding-bottom: 7px;
+	border: 0px;
+}
+
+#StudylistBtn{
+
+    padding-left: 6px;
+    padding-right: 6px;
+	color: #dc3545;
+	border-color: #dc3545;
+}
+
+.studyTitle{ 
+
+}
 </style>
 
 </head>
@@ -89,6 +166,7 @@ padding-bottom: 0px;
 <button class="btn btn-outline-primary" onclick="location.href='<%=request.getContextPath()%>/study_status_view.do'" >
 								<i class="fa fa-search"></i> 모집중인 글
 							</button></div>
+		<br>
 		<input type="hidden" value="${userId }" name="study_writer">
 
 			<c:if test="${!empty list }">
@@ -100,42 +178,71 @@ padding-bottom: 0px;
 						<div><i class="fa-regular fa-eye"></i> &nbsp;${dto.getStudy_hit() }</div>
 						<div><i class="fa-regular fa-pen-to-square"></i> &nbsp;${dto.getStudy_reply() }</div>
 					</div>
-					
-<!-- 					<div class="study_view_left2" class="align-middle"> -->
-<!-- 						<button type="button" class="btn btn-outline-primary" style="height: 48px;">모집중</button>					 -->
-<!-- 					</div> -->
 
-					<div class="study_view_center"><a class="study_view_aTag" href="<%=request.getContextPath()%>/studyBoard_content.do?no=${dto.study_num }"
+					<div class="study_view_center"  class="align-middle"><a class="study_view_aTag" href="<%=request.getContextPath()%>/studyBoard_content.do?no=${dto.study_num }"
 							style="display: block;">
-					<button class="btn btn-outline-primary"
-								<c:if test="${dto.study_status eq '모집중'}" >
-					style="
-					background-color: #3468b7;
-				bs-btn-color:white;
-				color:white;
-				border-color:#3468b7;
-				"
-					</c:if>
-								<c:if test="${dto.study_status eq '모집완료'}" >
-					
-					</c:if>
+							
+							
+						<c:if test="${dto.study_status eq '모집중' }">
+							<button type="button" class="btn btn-primary">${dto.study_status }</button>
+						</c:if>
+						
+						<c:if test="${dto.study_status eq '모집완료' }">
+							<button type="button" class="btn btn-outline-secondary" disabled>${dto.study_status }</button>
+						</c:if>
+							
 
-								disabled>${dto.study_status }</button>
-							&nbsp;${dto.getStudy_title() }
-							<!-- a태그에 style="display: block;" 하면 제목있는 부분 전체가 링크가 된다 -->
+							&nbsp;<span class="studyTitle">${dto.getStudy_title() }</span>
+							
 					</a></div>
 					
-					<c:if test="${dto.study_status eq '모집중' }">
-						<button class="btn2" disabled>${dto.study_status }</button>
-					</c:if>
-					
-					<c:if test="${dto.study_status eq '모집완료' }">
-						<button class="btn btn-outline-primary" disabled>${dto.study_status }</button>
-					</c:if>
+
 					
 					<div class="study_view_right">
-					<div class="studyViewWriter">${dto.getStudy_writer() }</div>
-					<div class="studyViewDate">${dto.getStudy_date() }</div>
+				
+					<%-- 디데이 기능 --%>
+					<c:set value="<%=Date%>" var="today" />
+					<fmt:parseDate var="endDate_D" value="${dto.study_end.substring(0, 10)}" pattern="yyyy-MM-dd"/>
+					<fmt:parseNumber var="endTime_N" value="${endDate_D.time / (1000*60*60*24)}" integerOnly="true" />
+					
+					<fmt:parseDate var="stDate_D" value="${today}" pattern="yyyy-MM-dd"/>
+					<fmt:parseNumber var="stTime_N" value="${stDate_D.time / (1000*60*60*24)}" integerOnly="true" />
+					
+					
+					<c:if test= "${!empty endDate_D}">
+					
+						<c:if test= "${endTime_N - stTime_N gt 0}" >
+							<c:if test="${dto.study_status eq '모집완료' }">
+							<span class="studyEndTxt">마감</span>
+							</c:if>
+							<c:if test="${dto.study_status eq '모집중' }">
+								<span class="studyIngTxt">D - ${endTime_N - stTime_N}</span>
+							</c:if>
+						</c:if>
+						
+						<c:if test= "${endTime_N - stTime_N eq 0}" >
+							<c:if test="${dto.study_status eq '모집완료' }">
+							<span class="studyEndTxt">마감</span>
+							</c:if>
+							<c:if test="${dto.study_status eq '모집중' }">
+								<button class="btn btn-outline-primary" id="StudylistBtn" disabled>오늘마감</button>
+							</c:if>
+						</c:if>
+						
+						<c:if test= "${endTime_N - stTime_N lt 0}" >
+						<span class="studyEndTxt">마감</span>
+						</c:if>
+						
+					</c:if>
+					
+					<c:if test="${empty endDate_D}">
+					<span> </span>
+					</c:if>
+					<%-- 디데이 기능 end --%>
+					
+						<button type="button" class="btn btn-outline-dark" disabled><i
+						class="fa-solid fa-person"></i> ${dto.study_people }</button>
+
 					</div>
 
 				</div>   <!-- id="studyListContainer" end -->
@@ -237,25 +344,6 @@ $(function() {
 
 	
 	
-// 	function statusView(){
-// 		if(${dto.study_status eq '모집중'}){
-// 			$('.btn.btn-outline-primary').css({
-// 				'background-color': '#7194c9',
-// 				'bs-btn-color':'white'
-// 				});
-// 		}else{
-// 			$('.btn.btn-outline-primary').css({
-// 			'--bs-btn-border-color':'#a3bfe9',
-// 			'--bs-btn-color':'#1550a7',
-// 			'--bs-btn-hover-bg':'#7194c9',
-// 			'--bs-btn-hover-border-color':'#7194c9'
-// 			});
-			
-			
-// 		}
-// 	}
-// 		statusView();
-		
 });
 </script>
 <script src="https://kit.fontawesome.com/7703fd875c.js" crossorigin="anonymous"></script>

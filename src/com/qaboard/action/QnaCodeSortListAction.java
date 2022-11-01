@@ -77,6 +77,8 @@ public class QnaCodeSortListAction implements Action {
 		request.setAttribute("endNo", endNo);
 		request.setAttribute("startBlock", startBlock);
 		request.setAttribute("endBlock", endBlock);
+		request.setAttribute("codeName", codeName);
+		
 		if(codeName.equals("NONE")) {
 			request.setAttribute("List", codelist);
 		}else {

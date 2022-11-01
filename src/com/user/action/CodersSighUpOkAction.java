@@ -38,13 +38,13 @@ public class CodersSighUpOkAction implements Action {
 		if(check > 0) {
 			
 			out.println("<script>");
-			out.println("alert('È¸¿ø °èÁ¤ »ı¼º¿¡ ¼º°øÇÏ¿´½À´Ï´Ù.')");
+			out.println("alert('íšŒì› ê³„ì • ìƒì„±ì— ì„±ê³µí•˜ì˜€ìŠµë‹ˆë‹¤.')");
 			out.println("location.href='user_login.do'");
 			out.println("</script>");
 
 		}else {
 			out.println("<script>");
-			out.println("alert('È¸¿ø °èÁ¤ »ı¼º¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.')");
+			out.println("alert('íšŒì› ê³„ì • ìƒì„±ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.')");
 			out.println("history.back()");
 			out.println("</script>");
 			

@@ -1,6 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import = "java.util.Calendar" %>
+
+
+<%
+  String Date = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+  String Today = new java.text.SimpleDateFormat("yyyyMMdd").format(new java.util.Date());
+%>
+
+
+
 <c:set var="list" value="${List }" />
 
 <!DOCTYPE html>
@@ -14,59 +26,135 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 
 <style type="text/css">
-.study_view_aTag{
-  text-decoration: none;
-  line-height: 48px;
-  color: gray;
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap')
+	;
+
+body {
+	font-family: 'Noto Sans KR' !important;
 }
+
+.study_view_aTag {
+	text-decoration: none;
+	line-height: 48px;
+	color: gray;
+}
+
 #studyListContainer {
-  display: flex;
-  width: 50em;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin: auto;
+	display: flex;
+	width: 50em;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin: auto;
+	align-items: center;
 }
+
 .study_view_left {
-  flex: 1;
-  text-align-last: left;
-  flex-grow: 1;
+	flex: 1;
+	text-align-last: left;
+	flex-grow: 1;
+	padding-left: 15px;
 }
 
 .study_view_center {
-  align-items: center;
-  flex: 3;
-  text-align: left;
-  font-size: 1.2em;
-  flex-grow: 5;
-}
-.study_view_right {
-  flex: 1;
-  text-align: right;
-  flex-grow: 2;
-}
-.studyViewDate{
-font-size: 0.8em;
-}
-.studyViewWriter{
-font-size: 1.1em;
-}
-.pagination{
-justify-content: center;
-}
-.input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3), .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-control, .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-select, .input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating) {
-border-start-start-radius: 7px;
-border-end-start-radius: 7px;
-}
-.studySearchWrite{
-display: flex;
-margin: auto;
-justify-content: center;
+	flex: 3;
+	flex-grow: 7;
+	text-align: left;
+	font-size: 1em;
+	align-items: center;
 }
 
-.btn.btn-outline-primary{
-height: 37px;
-padding-top: 0px;
-padding-bottom: 0px;
+.study_view_right {
+	flex: 1;
+	text-align: right;
+	flex-grow: 2;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.studyViewDate {
+	font-size: 0.8em;
+}
+
+.studyViewWriter {
+	font-size: 1.1em;
+}
+
+.pagination {
+	justify-content: center;
+}
+
+.input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3),
+	.input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-control,
+	.input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-select,
+	.input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating)
+	{
+	border-start-start-radius: 7px;
+	border-end-start-radius: 7px;
+}
+
+.studySearchWrite {
+	display: flex;
+	margin: auto;
+	justify-content: center;
+}
+
+.btn.btn-outline-primary {
+	height: 37px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+#studyListContainer:hover {
+	background-color: #f7f7f7;
+}
+
+button.btn.btn-outline-dark {
+	border-color: #ffffff00;
+	width: 70px;
+	padding-right: 20px;
+	font-weight: bold;
+}
+
+.studyEndTxt {
+	font-weight: bold;
+}
+
+.studyIngTxt {
+	border-bottom: 7px solid #dcf1fb;
+	padding: 0.2em 0 0 0.2em;
+	font-weight: bold;
+}
+
+.btn.btn-outline-secondary {
+	width: 86px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.btn.btn-primary {
+	width: 86px;
+	padding-left: 5px;
+	padding-right: 5px;
+	background-color: DarkCyan;
+	padding-bottom: 7px;
+	border: 0px;
+}
+
+#StudylistBtn {
+	padding-left: 6px;
+	padding-right: 6px;
+	color: #dc3545;
+	border-color: #dc3545;
+	font-weight: bold;
+}
+
+.study_view_aTag {
+	width: 560px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 </style>
 
@@ -90,7 +178,7 @@ padding-bottom: 0px;
 							</button></div>
 		<input type="hidden" value="${userId }" name="study_writer">
 
-			<c:if test="${!empty list }">
+		<c:if test="${!empty list }">
 				<c:forEach items="${list }" var="dto">
 
 
@@ -99,33 +187,71 @@ padding-bottom: 0px;
 						<div><i class="fa-regular fa-eye"></i> &nbsp;${dto.getStudy_hit() }</div>
 						<div><i class="fa-regular fa-pen-to-square"></i> &nbsp;${dto.getStudy_reply() }</div>
 					</div>
-					
-<!-- 					<div class="study_view_left2" class="align-middle"> -->
-<!-- 						<button type="button" class="btn btn-outline-primary" style="height: 48px;">모집중</button>					 -->
-<!-- 					</div> -->
 
-					<div class="study_view_center"><a class="study_view_aTag" href="<%=request.getContextPath()%>/studyBoard_content.do?no=${dto.study_num }"
+					<div class="study_view_center"  class="align-middle"><a class="study_view_aTag" href="<%=request.getContextPath()%>/studyBoard_content.do?no=${dto.study_num }"
 							style="display: block;">
-					<button class="btn btn-outline-primary"
-								<c:if test="${dto.study_status eq '모집중'}" >
-					style="
-					background-color: #3468b7;
-				bs-btn-color:white;
-				color:white;
-				border-color:#3468b7;
-				"
-					</c:if>
-								<c:if test="${dto.study_status eq '모집완료'}" >
-					
-					</c:if>
-								disabled>${dto.study_status }</button>
-							&nbsp;${dto.getStudy_title() }
-							<!-- a태그에 style="display: block;" 하면 제목있는 부분 전체가 링크가 된다 -->
+							
+							
+						<c:if test="${dto.study_status eq '모집중' }">
+							<button type="button" class="btn btn-primary">${dto.study_status }</button>
+						</c:if>
+						
+						<c:if test="${dto.study_status eq '모집완료' }">
+							<button type="button" class="btn btn-outline-secondary" disabled>${dto.study_status }</button>
+						</c:if>
+							
+
+							&nbsp;<span class="studyTitle">${dto.getStudy_title() }</span>
+							
 					</a></div>
 					
+
+					
 					<div class="study_view_right">
-					<div class="studyViewWriter">${dto.getStudy_writer() }</div>
-					<div class="studyViewDate">${dto.getStudy_date() }</div>
+				
+					<%-- 디데이 기능 --%>
+					<c:set value="<%=Date%>" var="today" />
+					<fmt:parseDate var="endDate_D" value="${dto.study_end.substring(0, 10)}" pattern="yyyy-MM-dd"/>
+					<fmt:parseNumber var="endTime_N" value="${endDate_D.time / (1000*60*60*24)}" integerOnly="true" />
+					
+					<fmt:parseDate var="stDate_D" value="${today}" pattern="yyyy-MM-dd"/>
+					<fmt:parseNumber var="stTime_N" value="${stDate_D.time / (1000*60*60*24)}" integerOnly="true" />
+					
+					
+					<c:if test= "${!empty endDate_D}">
+					
+						<c:if test= "${endTime_N - stTime_N gt 0}" >
+							<c:if test="${dto.study_status eq '모집완료' }">
+							<span class="studyEndTxt">마감</span>
+							</c:if>
+							<c:if test="${dto.study_status eq '모집중' }">
+								<span class="studyIngTxt">D - ${endTime_N - stTime_N}</span>
+							</c:if>
+						</c:if>
+						
+						<c:if test= "${endTime_N - stTime_N eq 0}" >
+							<c:if test="${dto.study_status eq '모집완료' }">
+							<span class="studyEndTxt">마감</span>
+							</c:if>
+							<c:if test="${dto.study_status eq '모집중' }">
+								<button class="btn btn-outline-primary" id="StudylistBtn" disabled>오늘마감</button>
+							</c:if>
+						</c:if>
+						
+						<c:if test= "${endTime_N - stTime_N lt 0}" >
+						<span class="studyEndTxt">마감</span>
+						</c:if>
+						
+					</c:if>
+					
+					<c:if test="${empty endDate_D}">
+					<span> </span>
+					</c:if>
+					<%-- 디데이 기능 end --%>
+					
+						<button type="button" class="btn btn-outline-dark" disabled><i
+						class="fa-solid fa-person"></i> ${dto.study_people }</button>
+
 					</div>
 
 				</div>   <!-- id="studyListContainer" end -->
@@ -144,31 +270,31 @@ padding-bottom: 0px;
 		<nav>
           <ul class="pagination">
             <li class="page-item">
-              <a class="page-link" href="studyBoard_list.do?page=1">First</a></li>
+              <a class="page-link" href="study_status_view.do?page=1">First</a></li>
             <c:choose>
                 <c:when test="${ (page - 1) == 0}">
-                    <li><a class="page-link" href="studyBoard_list.do?page=1">Previous</a></li>
+                    <li><a class="page-link" href="study_status_view.do?page=1">Previous</a></li>
                 </c:when>
                 <c:otherwise>
-                    <li><a class="page-link" href="studyBoard_list.do?page=${ page - 1 }">Previous</a></li>
+                    <li><a class="page-link" href="study_status_view.do?page=${ page - 1 }">Previous</a></li>
                 </c:otherwise>
             </c:choose>
             <c:forEach begin="${ startBlock }" end="${ endBlock }" var="i">
                 <c:if test="${ i==page }">
                     <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="studyBoard_list.do?page=${i }">${i }</a></li>
+                    <a class="page-link" href="study_status_view.do?page=${i }">${i }</a></li>
                 </c:if>
                 <c:if test="${ i!=page }">
                     <li class="page-item">
-                    <a class="page-link" href="studyBoard_list.do?page=${i }">${i }</a></li>
+                    <a class="page-link" href="study_status_view.do?page=${i }">${i }</a></li>
                 </c:if>
             </c:forEach>
            <c:if test="${ page < allPage }">
                 <li class="page-item">
-                <a class="page-link" href="studyBoard_list.do?page=${ page + 1 }">Next</a>
+                <a class="page-link" href="study_status_view.do?page=${ page + 1 }">Next</a>
                 </li>
                 <li class="page-item">
-                <a class="page-link" href="studyBoard_list.do?page=${ allPage }">End</a>
+                <a class="page-link" href="study_status_view.do?page=${ allPage }">End</a>
                 </li>
             </c:if>
           </ul>
@@ -180,7 +306,7 @@ padding-bottom: 0px;
 		<%-- 검색 기능 처리 --%>
 		<div class="studySearchWrite">
 			<form name="search_form" method="post"
-				action="<%=request.getContextPath()%>/study_search.do">
+				action="<%=request.getContextPath()%>/study_status_search.do">
 				<span class="study_search_left" style="width: 28em"> <span
 					class="col-lg"> <span
 						class="input-group list-search-form w-70"> <select

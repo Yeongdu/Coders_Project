@@ -18,33 +18,26 @@ public class QnaCommentInsertOkAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
+		
+		String comment_writer = request.getParameter("qcomment_writer").trim();
+		String comment_content = request.getParameter("qcomment_cont").trim();
+		int comment_no = Integer.parseInt(request.getParameter("qcomment_num").trim());
+		String comment_file = request.getParameter("qcomment_file").trim();
+		String comment_code = request.getParameter("qcomment_code").trim();
+		
+		System.out.println("글쓴이 >>>" + comment_writer);
+		System.out.println("내용 >>>" + comment_content);
+		System.out.println("글 번호 >>>" + comment_no);
+		System.out.println("파일 >>>" + comment_file);
+		System.out.println("코드 >>>" + comment_code);
+		
 		QnaCommentDTO dto = new QnaCommentDTO();
-		
-		String qnaBoardWriteFolder = "D:\\git\\Coders_Project\\WebContent\\qnaBoardWriteFolder";
-		
-		int fileSize = 10 * 1024 * 1024;
-		
-		MultipartRequest multi = new MultipartRequest(
-				request,  		// 일반적인 request 객체
-				qnaBoardWriteFolder, 	// 첨부파일이 저장될 경로
-				fileSize, 		// 업로드할 첨부파일의 최대 크기
-				"UTF-8",		// 문자 인코딩 방식
-				new DefaultFileRenamePolicy());	
-		
-		String comment_writer = multi.getParameter("qcomment_writer").trim();
-		String comment_content = multi.getParameter("qcomment_cont").trim();
-		int comment_no = Integer.parseInt(multi.getParameter("qcomment_num").trim());
-		String comment_file = multi.getFilesystemName("qcomment_file").trim();
-		
-		System.out.println(comment_writer);
-		System.out.println(comment_content);
-		System.out.println(comment_no);
-		System.out.println(comment_file);
 		
 		dto.setQcomment_writer(comment_writer);
 		dto.setQcomment_cont(comment_content);
 		dto.setQna_num(comment_no);
 		dto.setQcommnet_file(comment_file);
+		dto.setQcomment_code(comment_code);
 		
 		QnaDAO dao = QnaDAO.getInstance();
 		

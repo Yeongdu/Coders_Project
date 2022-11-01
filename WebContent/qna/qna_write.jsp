@@ -56,6 +56,44 @@
 	.mb3 {
 		margin-bottom: 40px;
 	}
+	
+	#modalOpen {
+		margin-left: 95%;
+	}
+	
+	#modal {
+		position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        display: none;
+
+        background-color: rgba(0, 0, 0, 0.4);
+	}
+	
+	.modal_body {
+	  position: absolute;
+	  top: 50%;
+	  left: 50%;
+	
+	  width: 800px;
+	  height: 600px;
+	
+	  padding: 40px;
+	
+	  text-align: center;
+	
+	  background-color: rgb(255, 255, 255);
+	  border-radius: 10px;
+	  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+	
+	  transform: translateX(-50%) translateY(-50%);
+	}
+	
+	
 </style>
 </head>
 <body>
@@ -94,6 +132,8 @@
 				<ul>
 					<li id = "qna_write_code">
 						<div class="mb-3" style = "width:40em;">
+							<a id="modalOpen" class="modalOpen"><i class="fa-solid fa-question"></i></a>
+							<script src="https://kit.fontawesome.com/c85ddd0cc6.js" crossorigin="anonymous"></script>
 						  <textarea class="form-control" id="qna_code" rows="8" name = "qna_code" placeholder = "코드를 입력하세요."></textarea>
 						</div><%-- 코드 영역의 end --%>
 					</li>
@@ -117,6 +157,23 @@
 			</div><%--버튼의 end --%>
 	
 	</form>
+	
+		<div id = "modal">
+			<div class = "modal_body">
+				<h3>CODE 작성 방법</h3>
+				<br>
+				<img src = "./upload/codeInfo.gif">
+				<br>
+				<div class = "code_info">
+				<br>
+				<p style = "margin-bottom:0;">1. 말머리에서 선택한 언어와 질문하고자 하는 언어의 형식이 같아야합니다.</p>
+				<p style = "font-size:13px; margin-top:0; color:tomato;">*형식이 달라도 코드 출력은 되지만 에디터 형식으로 출력되지 않습니다.</p>
+				<p>2. 프로그램에서 코드를 복사해 붙여넣으세요.</p>
+				</div> 
+				
+				<input type = "button" class = "modalClose" value = "확 인">
+			</div>
+		</div>
 		
   </div><%-- qna_write_main의 end --%>
   
@@ -146,6 +203,21 @@
 		};
 	
 	adjustHeight2();
+</script>
+
+
+<%-- code 입력 방법을 설명하는 모달창 --%>
+<script type="text/javascript">
+	$("#modalOpen").on("click", function(){
+		$("#modal").css('display', 'block');
+		$("#modal").css('overflow','hidden');
+	});
+	
+	$(".modalClose").on("click",function(){
+		$("#modal").css('display', 'none');
+		$("#modal").css('overflow','auto');
+	});
+
 </script>
 
 </body>

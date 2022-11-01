@@ -1,6 +1,8 @@
+<%@page import="java.util.StringTokenizer"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,7 +97,7 @@
 	
 						<div class="qna_view_center">
 							<a href="<%=request.getContextPath()%>/qna_content.do?no=${dto.getQna_num() }"
-								style="display: block; text-decoration: none;">
+								style="display: block; text-decoration: none;" class = "etc">
 								<c:set var = "tag" value = "${dto.getQna_tag() }" />
 								<c:if test="${tag == 'JAVA'}">
 									<span class="badge text-bg-secondary">JAVA</span>
@@ -122,12 +124,16 @@
 									<span class="badge text-bg-light">ETC</span>
 								</c:if>								
 								<%-- 표시할 프로그래밍 언어 다 표시하기 --%>
-								&nbsp;&nbsp;&nbsp;${dto.getQna_title() }</a>
+								&nbsp;&nbsp;&nbsp;
+								${dto.getQna_title() }</a>
+								
 						</div>
 						
 						<div class="qna_view_right">
 							<div id = "qna_view_writer">
-								<i class="fa-regular fa-user"></i>&nbsp;${dto.getQna_writer() }
+								<i class="fa-regular fa-user"></i>&nbsp;
+								 <c:set var="text" value="${fn:split(dto.qna_writer,'@')}" />
+								 ${text[0] }
 							</div>
 							<div id = "qna_view_date">
 								<c:if test="${empty dto.getQna_update() }">

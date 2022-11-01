@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,7 +74,18 @@
     min-width: 85.7142857143rem;
     border-radius: 0.2142857143rem;
 	}
-
+	
+	.upload {
+    position: absolute;
+    width: 15.7142857143rem;
+    height: 2.7142857143rem;
+    line-height: 2.7142857143rem;
+    top: 13.4285714286rem;
+    background-color: rgba(0,0,0,0.7);
+    color: white;
+	text-align: center;
+	}
+	
 	.users-show .info {
 	border-bottom: 4px solid #0275d8;
     display: inline-block;
@@ -83,7 +93,7 @@
     margin-bottom: 2.8571428571rem;
     padding: 1.5rem;
     color: #90A4AE;
-}
+	}
 	
 	.users-show .info {
     display: inline-block;
@@ -140,40 +150,44 @@
     display: block;
 	}
 	
-	.qnatab {
-	margin-top: 100px;
-	margin-bottom: 100px;
-	}
-	
-	.studytab {
-	margin-top: 100px;
-	margin-bottom: 100px;
-	}
-	
 	#container {
 	  display: flex;
 	  width: 100%;
+	  height: 60px;
 	  padding-top: 10px;
 	  padding-bottom: 10px;
 	  margin: auto;
 	}
-	.qna_view_left {
-	  flex: 1;
-	  text-align-last: left;
-	  flex-grow: 1;
+	
+	.tab {
+		display: flex;
 	}
 	
+	.qnatab {
+		margin-top: 100px;
+		margin-bottom: 100px;
+		margin-right: 30px;
+		flex: 0.6;
+	}
+	
+	.studytab {
+		margin-left: 30px;
+		margin-top: 100px;
+		margin-bottom: 100px;
+		flex: 0.6;
+	}
 	.qna_view_center {
 	  align-items: center;
-	  flex: 3;
+	  flex: 5;
 	  text-align: left;
 	  font-size: 1.2em;
 	  flex-grow: 5;
 	}
 	.qna_view_right {
+	  align-items: center;
 	  flex: 1;
 	  text-align: right;
-	  flex-grow: 2;
+	  flex-grow: 3;
 	}
 	
 	.qna_view_center{
@@ -193,27 +207,24 @@
 	#studyListContainer {
 	  display: flex;
 	  width: 100%;
+	  height: 60px;
 	  padding-top: 10px;
 	  padding-bottom: 10px;
 	  margin: auto;
 	}
-	.study_view_left {
-	  flex: 1;
-	  text-align-last: left;
-	  flex-grow: 1;
-	}
 	
 	.study_view_center {
 	  align-items: center;
-	  flex: 3;
+	  flex: 5;
 	  text-align: left;
 	  font-size: 1.2em;
 	  flex-grow: 5;
 	}
 	.study_view_right {
+	  align-items: center;
 	  flex: 1;
 	  text-align: right;
-	  flex-grow: 2;
+	  flex-grow: 3;
 	}
 	
 	.study_view_center {
@@ -324,7 +335,6 @@
 	$(function(){
 		
 		var id = '<%=(String)session.getAttribute("userId")%>';
-		var qnaboardcount;
 		
 		$.ajaxSetup({
 			ContentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -342,10 +352,7 @@
 				
 				let table = "";
 				$(data).find("main").each(function(){
-					table += "<div id='container' class='border-bottom' >"
-					table += "<div class='qna_view_left'>"
-					table += "<div><i class='fa-regular fa-eye'></i> &nbsp;"+$(this).find("hit").text()+"</div>"
-					table += "<div><i class='fa-regular fa-pen-to-square'></i> &nbsp;"+$(this).find("reply").text()+"</div></div>"
+					table += "<div id='container' class='border-bottom'>"
 					table += "<div class='qna_view_center'>"
 					table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' display='block;' style='text-decoration: none;'>"
 					if($(this).find("tag").text() == "HTML"){
@@ -367,7 +374,6 @@
 					}
 					table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
 					table += "<div class='qna_view_right'>"
-					table += "<div>"+$(this).find("writer").text()+"</div>"
 					table += "<div>"+$(this).find("date").text()+"</div></div></div>"
 						
 						
@@ -393,11 +399,9 @@
 			success : function(data){
 				
 				let table = "";
+					
 				$(data).find("main").each(function(){
-					table += "<div id='container' class='border-bottom' >"
-					table += "<div class='qna_view_left'>"
-					table += "<div><i class='fa-regular fa-eye'></i> &nbsp;"+$(this).find("hit").text()+"</div>"
-					table += "<div><i class='fa-regular fa-pen-to-square'></i> &nbsp;"+$(this).find("reply").text()+"</div></div>"
+					table += "<div id='container' class='border-bottom'>"
 					table += "<div class='qna_view_center'>"
 					table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' display='block;' style='text-decoration: none;'>"
 					if($(this).find("tag").text() == "HTML"){
@@ -419,9 +423,7 @@
 					}
 					table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
 					table += "<div class='qna_view_right'>"
-					table += "<div>"+$(this).find("writer").text()+"</div>"
 					table += "<div>"+$(this).find("date").text()+"</div></div></div>"
-						
 						
 				});
 				
@@ -448,9 +450,6 @@
 				
 				$(data).find("main").each(function(){
 					table += "<div id='studyListContainer' class='border-bottom'>"
-					table += "<div class='study_view_left'>"
-					table += "<div><i class='fa-regular fa-eye'></i> &nbsp;"+$(this).find("hit").text()+"</div>"
-					table += "<div><i class='fa-regular fa-pen-to-square'></i> &nbsp;"+$(this).find("reply").text()+"</div></div>"
 					table += "<div class='study_view_center'>"
 					table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' display='block;' style='text-decoration: none;'>"
 					if($(this).find("type").text() == "모집중"){
@@ -458,10 +457,9 @@
 					}else if($(this).find("type").text() == "모집완료"){
 						table += "<button class='btn btn-outline-primary' disabled>"+$(this).find("type").text() +"</button>"
 					}
-					table += "&nbsp;"+$(this).find("title").text()+"</a></div>"
+					table += "&nbsp;&nbsp;&nbsp;"+$(this).find("title").text()+"</a></div>"
 					table += "<div class='study_title_right'>"
-					table += "<div class='studyViewWriter'>"+$(this).find("writer").text()+"</div>"
-					table += "<div class='studyViewData'>"+$(this).find("date").text()+"</div></div></div>"
+					table += "<div class='studyViewData'>"+$(this).find("date").text()+"</div></div></div></div>"
 						
 				});				
 				
@@ -486,9 +484,6 @@
 				
 				$(data).find("main").each(function(){
 					table += "<div id='studyListContainer' class='border-bottom'>"
-					table += "<div class='study_view_left'>"
-					table += "<div><i class='fa-regular fa-eye'></i> &nbsp;"+$(this).find("hit").text()+"</div>"
-					table += "<div><i class='fa-regular fa-pen-to-square'></i> &nbsp;"+$(this).find("reply").text()+"</div></div>"
 					table += "<div class='study_view_center'>"
 					table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' display='block;' style='text-decoration: none;'>"
 					if($(this).find("type").text() == "모집중"){
@@ -496,12 +491,11 @@
 					}else if($(this).find("type").text() == "모집완료"){
 						table += "<button class='btn btn-outline-primary' disabled>"+$(this).find("type").text() +"</button>"
 					}
-					table += "&nbsp;"+$(this).find("title").text()+"</a></div>"
+					table += "&nbsp;&nbsp;&nbsp;"+$(this).find("title").text()+"</a></div>"
 					table += "<div class='study_title_right'>"
-					table += "<div class='studyViewWriter'>"+$(this).find("writer").text()+"</div>"
-					table += "<div class='studyViewData'>"+$(this).find("date").text()+"</div></div></div>"
+					table += "<div class='studyViewData'>"+$(this).find("date").text()+"</div></div></div></div>"
 						
-				});				
+				});	
 				
 				$("#studycomment").append(table);
 			},
@@ -509,7 +503,76 @@
 			error : function(data){
 				alert("데이터 통신 오류입니다.");
 			}
-		});		
+		});	
+		
+		$("#input-file").on("change", function(){
+			
+			var form = document.getElementById("form");
+
+			var formData = new FormData(form);
+			
+			formData.append("file", $("#input-file"));
+			
+			$.ajax({
+				
+				type : "post",
+				async: false,
+				url : "<%=request.getContextPath()%>/profile_file_upload.do",
+				processData: false,
+				contentType: false,
+				data : formData,
+				datatype : "xml",
+				success : function(data){
+					
+					test();
+					
+				},
+				
+				error : function(data){
+					alert("데이터 통신 오류입니다.");
+				}
+			});
+			
+		});
+		
+		function test() {    
+			LoadingWithMask();    
+		} 
+		
+		function LoadingWithMask() {    
+			//화면의 높이와 너비를 구합니다.    
+			var maskHeight = $(document).height();    
+			var maskWidth  = window.document.body.clientWidth;         
+			
+			//화면에 출력할 마스크를 설정해줍니다.    
+			var mask       = "<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'></div>";    
+			var loadingImg = "<div id='loadingImg' class='spinner-border text-primary' role='status'><span class='visually-hidden'>Loading...</span></div>>";  
+			
+			//화면에 레이어 추가    
+			$("body").append(mask)     
+			$("#mask").append(loadingImg)     
+			
+			//마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채웁니다.    
+			$("#mask").css({            
+				"width" : maskWidth,            
+				"height": maskHeight,            
+				"opacity" : "0.3"    
+			});
+			
+			
+			//마스크 표시    
+			$("#mask").show();      
+			
+			//로딩중 이미지 표시    
+			$("#loadingImg").show();
+			
+		} 
+			
+		function closeLoadingWithMask() {    
+				$("#mask, #loadingImg").hide();    
+				$("#mask, #loadingImg").empty();  
+		}
+			
 		
 	});
 </script>
@@ -525,7 +588,19 @@
 				<!-- 유저 인포 -->
 				<div class="info">
 					<div id="preview" class="preview m-b-10 car">
-						<img class="profile-iamge" src="upload/userprofileicon.png">
+						<c:if test="${empty dto.user_file }">
+							<img class="profile-image" src="upload/userprofileicon.png">
+						</c:if>
+						
+						<c:if test="${!empty dto.user_file }">
+							<img class="profile-image" src="<%=request.getContextPath() %>/upload/${dto.user_file}">
+						</c:if>
+						<form id="form" method="post" enctype="multipart/form-data" action="">
+							<h5 class="upload">
+								<label class="uploadbtn" for="input-file"><i class="bi bi-camera"></i> 사진 업로드</label>
+								<input type="file" id="input-file" name="file" style="display: none;"/>
+							</h5>
+						</form>
 					</div>
 					<div class="name-edit">
 						<h1 class="name">${dto.user_name }</h1>
@@ -563,72 +638,74 @@
 				</div>
 				<!-- 유저 인포 -->
 				
-				<!-- qna 탭 -->
-				<div class="qnatab">
-					<header>
-						<h1>Q&A</h1>
-					</header>
-					<!-- 탭 타이틀 -->
-					<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-					  	<li class="nav-item" role="presentation">
-					   		<a class="nav-link active" id="pills-qna-questions-tab" data-bs-toggle="pill" data-bs-target="#pills-qna-questions" type="button" role="tab" aria-controls="pills-qna-questions" aria-selected="true">질문 ${qnaboardcount }</a>
-					 	</li>
-					  	<li class="nav-item" role="presentation">
-					    	<a class="nav-link" id="pills-qna-answers-tab" data-bs-toggle="pill" data-bs-target="#pills-qna-answers" type="button" role="tab" aria-controls="pills-qna-answers" aria-selected="false">답변 ${qnacommentcount }</a>
-					  	</li>
-					</ul>
-			
-					<!-- 탭 타이틀 -->
 				
+				<div class="tab">
+					<!-- qna 탭 -->
+					<div class="qnatab">
+						<header>
+							<h1>Q&A</h1>
+						</header>
+						<!-- 탭 타이틀 -->
+						<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+						  	<li class="nav-item" role="presentation">
+						   		<a class="nav-link active" id="pills-qna-questions-tab" data-bs-toggle="pill" data-bs-target="#pills-qna-questions" type="button" role="tab" aria-controls="pills-qna-questions" aria-selected="true">질문 ${qnaboardcount }</a>
+						 	</li>
+						  	<li class="nav-item" role="presentation">
+						    	<a class="nav-link" id="pills-qna-answers-tab" data-bs-toggle="pill" data-bs-target="#pills-qna-answers" type="button" role="tab" aria-controls="pills-qna-answers" aria-selected="false">답변 ${qnacommentcount }</a>
+						  	</li>
+						</ul>
 				
-					<!-- 탭 내용 -->
-					<div class="tab-content" id="pills-tabContent">
-						<div id="pills-qna-questions" class="tab-pane fade show active" role="tabpanel" aria-labelledby="pills-qna-questions-tab" tabindex="0">
-							<ul class="question-list questions" id="qnacontent" style="padding-left: 0px">
-							</ul>
-						</div>
-						
-						<div id="pills-qna-answers" class="tab-pane fade" role="tabpanel" aria-labelledby="pills-qna-answers-tab" tabindex="0">
-							<ul class="question-list answers" id="qnacomment" style="padding-left: 0px">
-							</ul>
-						</div>
-					</div>
-					<!-- 탭 내용 -->
-				</div>
-				<!-- qna 탭 -->
-				
-				<!-- study 탭 -->
-				<div class="studytab">
-					<!-- 탭 타이틀 -->
-					<header>
-						<h1>Study</h1>
-					</header>
-					<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-					  	<li class="nav-item" role="presentation">
-					   		<a class="nav-link active" id="pills-study-questions-tab" data-bs-toggle="pill" data-bs-target="#pills-study-questions" type="button" role="tab" aria-controls="pills-study-questions" aria-selected="true">질문 ${studyboardcount }</a>
-					 	</li>
-					  	<li class="nav-item" role="presentation">
-					    	<a class="nav-link" id="pills-study-answers-tab" data-bs-toggle="pill" data-bs-target="#pills-study-answers" type="button" role="tab" aria-controls="pills-study-answers" aria-selected="false">답변 ${studycomment }</a>
-					  	</li>
-					</ul>
-					<!-- 탭 타이틀 -->
+						<!-- 탭 타이틀 -->
 					
-					<!-- 탭 내용 -->
-					<div class="tab-content" id="pills-tabContent">
-						<div id="pills-study-questions" class="tab-pane fade show active" role="tabpanel" aria-labelledby="pills-study-questions-tab" tabindex="0">
-							<ul class="question-list" id="studycontent" style="padding-left: 0px">
-							</ul>
+					
+						<!-- 탭 내용 -->
+						<div class="tab-content" id="pills-tabContent">
+							<div id="pills-qna-questions" class="tab-pane fade show active" role="tabpanel" aria-labelledby="pills-qna-questions-tab" tabindex="0">
+								<ul class="question-list questions" id="qnacontent" style="padding-left: 0px">
+								</ul>
+							</div>
+							
+							<div id="pills-qna-answers" class="tab-pane fade" role="tabpanel" aria-labelledby="pills-qna-answers-tab" tabindex="0">
+								<ul class="question-list answers" id="qnacomment" style="padding-left: 0px">
+								</ul>
+							</div>
 						</div>
-						
-						<div id="pills-study-answers" class="tab-pane fade" role="tabpanel" aria-labelledby="pills-study-answers-tab" tabindex="0">
-							<ul class="question-list" id="studycomment" style="padding-left: 0px">
-							</ul>
-						</div>
+						<!-- 탭 내용 -->
 					</div>
-					<!-- 탭 내용 -->
-				<div>
-				<!-- study 탭 -->
-				<!-- 탭 내용 -->
+					<!-- qna 탭 -->
+					
+					<!-- study 탭 -->
+					<div class="studytab">
+						<!-- 탭 타이틀 -->
+						<header>
+							<h1>Study</h1>
+						</header>
+						<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+						  	<li class="nav-item" role="presentation">
+						   		<a class="nav-link active" id="pills-study-questions-tab" data-bs-toggle="pill" data-bs-target="#pills-study-questions" type="button" role="tab" aria-controls="pills-study-questions" aria-selected="true">질문 ${studyboardcount }</a>
+						 	</li>
+						  	<li class="nav-item" role="presentation">
+						    	<a class="nav-link" id="pills-study-answers-tab" data-bs-toggle="pill" data-bs-target="#pills-study-answers" type="button" role="tab" aria-controls="pills-study-answers" aria-selected="false">답변 ${studycomment }</a>
+						  	</li>
+						</ul>
+						<!-- 탭 타이틀 -->
+						
+						<!-- 탭 내용 -->
+						<div class="tab-content" id="pills-tabContent">
+							<div id="pills-study-questions" class="tab-pane fade show active" role="tabpanel" aria-labelledby="pills-study-questions-tab" tabindex="0">
+								<ul class="question-list" id="studycontent" style="padding-left: 0px">
+								</ul>
+							</div>
+							
+							<div id="pills-study-answers" class="tab-pane fade" role="tabpanel" aria-labelledby="pills-study-answers-tab" tabindex="0">
+								<ul class="question-list" id="studycomment" style="padding-left: 0px">
+								</ul>
+							</div>
+						</div>
+						<!-- 탭 내용 -->
+					<div>
+					<!-- study 탭 -->
+				</div>
 			</div>
 		</div>
 	</div>
@@ -714,6 +791,8 @@
 	      </div>
 	    </div>
 	  </div>
+	</div>
+	</div>
 	</div>
 	<!-- 홈페이지 수정 end -->
 	

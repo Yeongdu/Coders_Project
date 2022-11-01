@@ -6,6 +6,7 @@ encoding//WebContent/sql/coders.sql=UTF-8
 encoding//src/com/coders/controller/FrontController.java=UTF-8
 encoding//src/com/coders/controller/mapping.properties=UTF-8
 encoding//src/com/coders/model/StudyBoardDAO.java=UTF-8
+encoding//src/com/qaboard/action/QnaInsertOkAction.java=UTF-8
 encoding//src/com/studyboard/action/StudyBoardInsertAction.java=UTF-8
 encoding//src/com/studyboard/action/StudyBoardModifyOkAction.java=UTF-8
 encoding//src/com/user/action/CodersSearchOkAction.java=UTF-8

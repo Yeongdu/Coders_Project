@@ -237,7 +237,7 @@ public class QnaDAO {
 		try {
 			openConn();
 			
-			sql = "select count(*) from where qna_tag = ?";
+			sql = "select count(*) from qna where qna_tag = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, code);
 			rs = pstmt.executeQuery();
@@ -595,6 +595,7 @@ public class QnaDAO {
 				result += "<comments>";
 				
 				while (rs.next()) {
+					result += 
 					result += "<comment>";
 					result += "<qcomment_num>" + rs.getInt("qcomment_num") + "</qcomment_num>";
 					result += "<qna_num>" + rs.getInt("qna_num") + "</qna_num>";

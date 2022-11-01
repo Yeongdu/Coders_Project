@@ -16,22 +16,16 @@ public class StudyBoardDeleteOkAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// »èÁ¦¹öÆ° Å¬¸¯½Ã ³Ñ¾î¿Â ±Û¹øÈ£È­ ºñ¹Ð¹øÈ£¸¦ °¡Áö°í DB¿¡¼­ °Ô½Ã±ÛÀ» »èÁ¦ÇÏ´Â ºñÁö´Ï½º ·ÎÁ÷.
-		
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ° Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ ï¿½Û¹ï¿½È£È­ ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DBï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		int studyboard_no = 
 			    Integer.parseInt(request.getParameter("no").trim());
-		String study_writer = request.getParameter("study_writer").trim();
-		String session_id = request.getParameter("session_id").trim();
 		
 		StudyBoardDAO dao = StudyBoardDAO.getInstance();
 		
 		StudyBoardDTO dto = dao.StudyboardContent(studyboard_no);
 		
 		String upload = 
-			    "C:\\NCS\\workspace(jsp)\\SemiProject\\WebContent\\study_upload";
-		
-		
-		//DTO¿¡¼­ ¾÷·ÎµåµÈ ÆÄÀÏ °¡Á®¿À±â.
+			    "D:\\git\\Coders_Project\\WebContent\\study_upload";
 		
 	    String fileName = dto.getStudy_file();
 	    
@@ -43,34 +37,24 @@ public class StudyBoardDeleteOkAction implements Action {
 	    
 	    
 	    
-	    if(fileName != null) {//Ã·ºÎÆÄÀÏÀÌ Á¸ÀçÇÏ´Â °æ¿ì
+	    if(fileName != null) {
     		
     		File file = new File(upload + fileName);
     		
-    		file.delete();  //ÆÄÀÏÀ» Á¦°ÅÇÏ´Â ¸Þ¼­µå.
+    		file.delete();
     		
     	}
 	    
-	    if(res > 0) {
-	    	if(study_writer.equals(session_id)) {
-	    		forward.setRedirect(true);
-		    	forward.setPath("studyBoard_list.do");
-		    	System.out.println("session_id >>> " + session_id);
-		    	System.out.println("study_writer >>> " + study_writer);
-	    	}else {
-	    		out.println("<script>");
-		    	out.println("alert('»èÁ¦¸¦ ÁøÇàÇÒ ¼ö ¾ø½À´Ï´Ù.')");
-		    	out.println("history.back()");
-		    	out.println("</script>");
-	    	}
-	    	
-	    }else {    	
-	    	out.println("<script>");
-	    	out.println("alert('°Ô½Ã¹° »èÁ¦ ½ÇÆÐ.')");
-	    	out.println("history.back()");
-	    	out.println("</script>");	    	
-	    }
-
+		if (res > 0) {
+			dao.updateStudyNum(studyboard_no);
+			forward.setRedirect(true);
+			forward.setPath("studyBoard_list.do");
+		} else {
+			out.println("<script>");
+			out.println("alert('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
 		return forward;
 	}
 

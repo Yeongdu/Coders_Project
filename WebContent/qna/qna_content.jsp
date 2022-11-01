@@ -31,35 +31,6 @@
 	
 <script type="text/javascript">
 
-<<<<<<< HEAD
-	$(document).ready(function(){
-		$("#commentOn").click(function(){
-			if($("#commentView").is(":visible")){
-				$("#commentView").css("display", "none");
-				
-			}else {
-				
-				$("#commentView").css("display", "block");	
-			}
-		});
-		
-	});
-
-	$(document).ready(function(){
-		$("#cancelBtn").click(function(){
-			if($("#commentView").is(":visible")){
-				$("#commentView").css("display", "none");
-				
-			}else {
-				
-				$("#commentView").css("display", "block");	
-			}
-		});
-		
-	});
-	
-	
-=======
 	//댓글창 폼 
 	$(document).ready(function(){
 		$("#commentOn").click(function(){
@@ -125,45 +96,6 @@ table {
 	display: none;
 }
 
-<<<<<<< HEAD
-#commentView{
-
-	display: none;
-}
-
-h6{
-	text-align: left;
-}
-
-h5{
-	margin: auto;
-}
-
-#codeCont{
-	margin-left: 16px;
-}
-
-pre {
-	white-space: pre-line;
-}
-
-#noBlank {
-	padding: 0px;
-}
-
-#code{
-	padding-top: 0px;
-}
-
-#qna_title{
-	border: 2px solid #0d6efd;
-	background-color: #0d6efd;
-	border-radius: 15px;
-	width: 400px;
-	color: white;
-	font-weight:lighter;
-}
-
 h6{
 	text-align: left;
 }
@@ -206,8 +138,16 @@ pre {
  }
  
  #replylForm{
- 	width : 500px;
+ 	width : 800px;
  }
+
+#codecss{
+	background-color: black;
+	color: white;
+	border: 2px solid;
+	padding-left: 5px;
+}
+
 
 </style>
 
@@ -331,7 +271,7 @@ pre {
 			
 			<br>
 			
-			<!-- 댓글 폼 영역 -->
+	<!-- 댓글 폼 영역 -->
 	<form method="post" enctype="multipart/form-data">
 			<div class="align-middle" id = "commentView" > <!-- 댓글폼 창 아이디 -->
 				<div class="container col-md-6" style="width: 800px;">
@@ -354,9 +294,19 @@ pre {
 							<div>
 								<div class="col-sm-10">
 									<textarea class="form-control" id="co_content"
-										name="co_content" rows="7" cols="40" placeholder="내용을 입력해주세요."></textarea>
+										name="co_content" rows="10" cols="40" placeholder="내용을 입력해주세요."></textarea>
 								</div>
 							</div>
+							
+							<br> 
+							
+							<div>
+								<div class="col-sm-10">
+									<textarea class="form-control" id="co_code"
+										name="co_content" rows="10" cols="40" placeholder="코드를 입력해주세요."></textarea>
+								</div>
+							</div>
+							
 
 							<br>
 
@@ -383,7 +333,8 @@ pre {
 							</div>
 						</div>
 					</div>
-				</div>
+
+			</div>
 
 			</div>
 			<!-- 댓글폼 end -->
@@ -397,19 +348,11 @@ pre {
 				<br>
 				<table class="list" cellspacing="0" width="400">
 					<tr class="line">
-						<td colspan="3"></td>
-					</tr>
-
-					<tr class="line">
 						<td colspan="7"></td>
 					</tr>
 
 					<tr class="line">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+					
 					</tr>
 
 				</table>
@@ -427,9 +370,20 @@ pre {
 		<br>
 		
 
-		<script type="text/javascript">
+	<script type="text/javascript">
 		
 		var qment = 0;
+		
+		function adjustHeight() {
+			  var textEle = $('textarea');
+			  textEle[0].style.height = 'auto';
+			  var textEleHeight = textEle.prop('scrollHeight');
+			  textEle.css('height', textEleHeight+8);
+			};
+
+		adjustHeight();
+		
+		
 
 	$(function() {
 		
@@ -446,7 +400,7 @@ pre {
 			$.ajax({
 				url : "/Project/qna/qna_comment.jsp",
 				data : { qcomment_num : ${dto.qna_num } },
-				datatype : "json",    // 결과 데이터 타입
+				datatype : "xml",    // 결과 데이터 타입
 				success : function(data) {
 					// 테이블 태그의 타이틀태그를 제외한 댓글 목록을 지우는 명령어.
 					$(".list tr:gt(0)").remove();
@@ -458,66 +412,88 @@ pre {
 						
 						table += "<tr>";
 						table += "<td colspan='2' class = 'qnaCommentwriter'> <i class='fa-regular fa-user'>"+ "</i>" + "&nbsp;"+ $(this).find("qcomment_writer").text() +"</td>";
-						table += "</tr>";
-						table += "<tr>";
-						table += "<td id='reNum'>" + $(this).find("qcomment_num").text() + "</td>";
-						table += "<td>" + "내용: " + $(this).find("qcomment_cont").text() + "</td>";
-						table += "<td>" + "작성일자: " + $(this).find("qcomment_date").text() + "</td>";
-						table += "<td>" + $(this).find("qcomment_file").text() + "</td>";
-						table += "<td>" + $(this).find("qcomment_cont").text() + "</td>";
-						table += "<td class='qnaCommentDate'>" + "작성일자: " + $(this).find("qcomment_date").text() + "</td>";
-						table += "<td style='display:none;'>" + $(this).find("qcomment_file").text() + "</td>";
-						table += "<td>" + $(this).find("qcomment_good").text() + "</td>";
-						table += "<td>" + $(this).find("qcomment_bad").text() + "</td>";
-						table += "</tr>";
-						table += "<tr>";
-						table += "<td colspan='5' align = 'right' id ='tdInput'> <input type = 'button' value = '수정' class = 'btn btn-primary'" +
-									"id = 'input' num = '"+$(this).find("qcomment_num").text()+"' cont ='"+$(this).find("qcomment_cont").text()+"' file = '"+$(this).find("qcomment_file").text()+"'></td>";
-						table += "<td colspan='5' align = 'right' id ='tdDel'> <input type = 'button' value = '삭제' class='btn btn-outline-primary'" +
-							" id = 'del' num = '" +$(this).find("qcomment_num").text()+"'></td>"; 
-							
-						table += "<td colspan='5' align = 'right' id ='tdGood'> <input type = 'image' src = './qna_icon/emptyheart.png' " +
-											"id = 'good' num = '" +$(this).find("qcomment_num").text()+"'>" + "</td>"; 
-						table += "</tr>";
 						
 						//답글 버튼
-						table += "<td colspan='5' align = 'right' id ='tdReply'> <input type = 'button' value = '답글' class = 'btn btn-primary'" +
-									" id = 'reply' num = '" +$(this).find("qcomment_num").text()+"'></td>"; 
-						
+						table += "<td colspan='5' align = 'right' id ='tdReply'> <input type = 'button' value ='답글' " +
+									" class = 'reply' num = '" + $(this).find("qcomment_num").text()+"'>" + "&nbsp"+
+												
 						//수정 버튼
-						table += "<td colspan='5' align = 'left' id ='tdInput'> <input type = 'button' value = '수정' class = 'btn btn-outline-primary'" +
-									"id = 'modify' num = '"+$(this).find("qcomment_num").text()+"' cont ='"+$(this).find("qcomment_cont").text()+"' file = '"+$(this).find("qcomment_file").text()+"'></td>";
-						
+						 "<input type = 'button' value ='수정' " +
+									"class = 'modify' num = '"+$(this).find("qcomment_num").text()+"' cont ='"+$(this).find("qcomment_cont").text()+"' file = '"+$(this).find("qcomment_file").text()+"'>" + "&nbsp"+					
+									
 						//삭제 버튼
-						table += "<td colspan='5' align = 'left' id ='tdDel'> <input type = 'button' value = '삭제' class= 'btn btn-outline-secondary'" +
+						"<input type = 'button' value = '삭제' class= 'btn btn-outline-secondary'" +
 									" id = 'del' num = '" +$(this).find("qcomment_num").text()+"'></td>"; 
 						
+						table += "</tr>";
+						
+						//게시판 번호  + 작성일자
+						table += "<tr>";
+						table += "<td id='reNum' style='display:none;'>" + $(this).find("qcomment_num").text() + "</td>";
+						table += "<td class='qnaCommentDate'>" + "작성일자: " + $(this).find("qcomment_date").text() + "</td>";
+										
+						//내용 
+						table += "<tr>";
+						table += "<td><span>" + $(this).find("qcomment_cont").text() + "</span>" + "</td>";
+						table += "</tr>";
+						
 						//추천 버튼
-						table += "<td colspan='5' align = 'left' id ='tdGoodEmpty'> <input type = 'image' src = './qna_icon/up.png' " +
-									"id = 'goodUp' num = '" +$(this).find("qcomment_num").text()+"'>" + "</td>"; 
-						
+						table += "<tr>";
+						table += "<td colspan='5' id ='tdGoodBad' align = 'right'> <input type = 'image' src = './qna_icon/thumbs-up.png' " +
+									"id = 'goodUp' num = '" +$(this).find("qcomment_num").text()+"'>" + "&nbsp &nbsp" + 
+										
 						//비추천 버튼
-						table += "<td colspan='5' align = 'left' id ='tdGoodFull'> <input type = 'image' src = './qna_icon/down.png' " +
-									"id = 'goodDown' num = '" +$(this).find("qcomment_num").text()+"'>" + "</td>"; 
+								"<input type = 'image' src = './qna_icon/thumbs-down.png' " +
+									"id = 'goodDown' num = '" +$(this).find("qcomment_num").text()+"'></td>"; 
+													
+						table += "</tr>";
 						
-						//답글 폼 
-				      	table += "<tr class = 'replyForm' style='display:none;'>";
-				      	table += "<td colspan='7'>";
-                	 	table += "<textarea class='form-control' id = 'replyArea' type='text' num = '" +$(this).find("qcomment_num").text()+"' >" + "</textarea>" + "</td>";
+						//추천, 비추천 수치
+						table += "<tr>";
+						table += "<td></td>"; table += "<td></td>"; table += "<td></td>";
+						table += "<td align = 'right'>" + $(this).find("qcomment_good").text() + "&nbsp; &nbsp; &nbsp; &nbsp;" + $(this).find("qcomment_bad").text() + "&nbsp;" + "</td>"
+						table += "</tr>";
+						
+						//코드 소스 
+						table += "<tr id = 'codecss'>";
+						table += "<td conlspan = '10'>" + "<pre>" +"<code class = 'CSS'>" + $(this).find("qcomment_code").text() + "</code>" + "</pre>" + "</td>";						
+						table += "</tr>";
+						
+						//수정 폼 창 
+						table += "<tr class = 'modifyForm'>";
+				      	table += "<td>";
+                	 	table += "<textarea class='form-control' id = 'modifyArea' type='text' num = '" +$(this).find("qcomment_cont").text()+"' >" + "</textarea>" + 
                 	 	
-                	 	//답글 등록 버튼
-                	 	table += "<td colspan='5' align = 'left' id ='rpInput'> <input type = 'button' value = '등록' class= 'btn btn-outline-primary'" +
-								" id = 'replyInsert' num = '" +$(this).find("qcomment_num").text()+"'></td>";
-			
-						//답글 등록 취소 버튼
-						table += "<td colspan='5' align = 'left' id ='rpReset'> <input type = 'button' value = '취소'' class= 'btn btn-outline-secondary'" +
-								" id = 'replyCancel' num = '" +$(this).find("qcomment_num").text()+"'></td>";
-                	 	
+                	 				 "<textarea class='form-control' id = 'modifyCodeArea' type='text' num = '" +$(this).find("qcomment_cont").text()+"' >" + "</textarea>" +
+                	 				 
+                	 				 //답글 등록
+                	 				 "<input type = 'button' value = '등록'' class= 'btn btn-outline-secondary'" +
+    										" id = 'modifyOn' num = '" +$(this).find("qcomment_num").text()+"'>" + 
+    								
+    								//답글 등록 취소
+    								"<input type = 'button' value = '취소'' class= 'btn btn-outline-secondary'" +
+    										" id = 'modifyOff' num = '" +$(this).find("qcomment_num").text()+"'>" + "</td>";
                 	 	
                 	 	table += "</tr>";
 						
-				
-						table += "<tr>";
+						//답글 폼 
+				      	table += "<tr class = 'replyForm' style='display:none;'>";
+				      	table += "<td>";
+                	 	table += "<textarea class='form-control' id = 'replyArea' type='text' num = '" +$(this).find("qcomment_num").text()+"' >" + "</textarea>" + 
+                	 	
+                	 				 "<textarea class='form-control' id = 'replyCodeArea' type='text' num = '" +$(this).find("qcomment_num").text()+"' >" + "</textarea>" +
+                	 				 
+                	 				 //답글 등록
+                	 				 "<input type = 'button' value = '등록'' class= 'btn btn-outline-secondary'" +
+    										" id = 'replyOn' num = '" +$(this).find("qcomment_num").text()+"'>" + 
+    								
+    								//답글 등록 취소
+    								"<input type = 'button' value = '취소'' class= 'btn btn-outline-secondary'" +
+    										" id = 'replyOff' num = '" +$(this).find("qcomment_num").text()+"'>" + "</td>";
+                	 	
+                	 	table += "</tr>";
+						
+	                   	table += "<tr>";
 						table += "<td colspan='2'>&nbsp;</td>";
 						table += "</tr>";
 					});
@@ -537,21 +513,18 @@ pre {
 		// 댓글 작성 버튼을 클릭했을 때 DB에 추가로 저장.
 		
 	
-		$(document).on("click", "#commentBtn", function(){
 	// 댓글 작성 버튼을 클릭했을 때 DB에 추가로 저장.
 		$("#commentBtn").on("click", function() {
 			
 			$.ajax({
 				url : "/Project/qna_comment_insert_ok.do",
 				datatype : "text",
-				contentType : false,
-				processData : false,
- 				enctype: "multipart/form-data",
 				data : {
 						qcomment_num : ${dto.qna_num },
 						qcomment_writer : $("#co_writer").val(),
 						qcomment_cont : $("#co_content").val(),
-						qcomment_file : $("#co_file").val()
+						qcomment_file : $("#co_file").val(),
+						qcomment_code : $("#co_code").val()
 						},
 				success : function(data) {
 						if(data > 0) {
@@ -560,8 +533,13 @@ pre {
 							// 댓글 작성 후 다시 전체 댓글 리스트를 화면에 출력.
 							getList();
 							
+							//입력된 내용을 지워줌.
 							$("#co_content").each(function() {
-								$(this).val("");  // 입력된 값 지우기
+								$(this).val("");
+							});
+							
+							$("#co_code").each(function() {
+								$(this).val("");
 							});
 						
 						
@@ -576,48 +554,12 @@ pre {
 			});
 		});  // 댓글 등록하기 end
 		
+
+		 
+
 		
-		
-		/* // 댓글 수정
+/* 		//수정 버튼 클릭 
 		$("table").on("click", "#modify", function() {
-			$.ajax({
-				url : "/Project/qna_modify.jsp",
-				data : {
-						no : $(this).attr("num"),
-						cont : $(this).attr("cont"),
-						file : $(this).attr("file")
-				},
-				datatype : "text",
-				success : function(data) {
-					if(data > 0) {
-						alert('댓글이 삭제되었습니다.');
-						
-						getList();
-					}else {
-						alert('댓글이 삭제되지 않았습니다.');
-					}
-				},
-				
-				error : function() {
-					alert('데이터 통신 오류입니다.~~~');
-				}
-			});
-		});
-		 */
-		 
-		/* 
-		if($("#replyForm").is("none")){
-			$("#replyForm").css("display", "visible");
-				
-			}else {
-				$("#replyForm").css("display", "block");	
-			}	
-			 */
-		 
-		 
-		
-		//답글 버튼 클릭 
-		$("table").on("click", "#reply", function() {
 			
 			$.ajax({
 				url : "/Project/qna_comment_reply_open.do",
@@ -629,11 +571,12 @@ pre {
 						alert('로그인이 필요한 기능입니다.');
 						
 					}else {
-						if($(".replyForm").is("none")){
-							$(".replyForm").css("display", "visible");
+						
+						if($(".modifyForm").is("none")){
+							$(".modifyForm").css("display", "visible");
 								
 							}else {
-								$(".replyForm").css("display", "block");	
+								$(".modifyForm").css("display", "block");	
 							}
 					}
 					
@@ -645,10 +588,37 @@ pre {
 						
 			});
 		
-		});
+		});  
+		  */
+		
+	
+		 //답글 버튼 클릭 
+		$(document).on("click", ".reply", function(){
+
+		    
+			console.log('성공');
+			
+			if(this.getAttribute('value') == '답글'){
+				
+	         //수정 버튼 클릭 시 input태그의 숨김 속성을 해제하는 코드 (this는 modifyBtn )
+	         /* $(this).parent().parent().next().siblings()[7].style.display = 'block'; */
+	         this.parentNode.parentNode.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.style.display = 'block';        
+	         
+	         /* this.nextSibling.nextSibling.setAttribute('value', '취소'); */
+	         
+	         return;
+	         
+	        } // value 답글 end
+			
+			//확인버튼 누르면 답글 등록 
+			
+				
+				
+		
 			 
-			 
-			 	
+	 	});
+
+
 		//답글 취소 버튼
 		$("table").on("click", "#replyCancel", function() {
 			
@@ -671,6 +641,7 @@ pre {
 			});
 					
 		});
+		
 							
 		 	
 		// 댓글 삭제
@@ -700,93 +671,75 @@ pre {
 		getList();  // 전체 리스트 함수 호출
 			 	
 	
-	//좋아요 버튼 누르기 
-	$(document).on("click", "#good", function(){
-	//추천 버튼 누르기 
-	$(document).on("click", "#goodUp", function(){
-		
-		$.ajax({
-			url : "/Project/qna_comment_good_ok.do",
-			datatype : "text",
-			data : {
-				
-				
-			},
-			data : "no="+$(this).attr("num"),
-				
-			success : function(data){
-				if(data>0){
+		//추천 버튼 누르기 
+		$(document).on("click", "#goodUp", function(){
+			
+			$.ajax({
+				url : "/Project/qna_comment_good_ok.do",
+				datatype : "text",
+				data : "no="+$(this).attr("num"),
 					
-						if(${empty userId}) {
-							alert('로그인이 필요한 기능입니다.');
-							
-						}else{
-							
-							/* alert("좋아요를 누르셨습니다.")
-							getList(); */
+				success : function(data){
+					if(data>0){
+						
+							if(${empty userId }) {
+								alert('로그인이 필요한 기능입니다.');
+								
+							}else{
+								
+								/* alert("좋아요를 누르셨습니다.")
+								getList(); */
 
-						}	
-				}else {
-					
-					getList();
+							}	
+					}else {
+						
+						getList();
+					}
+				}, 
+				
+				error : function(){
+					alert("데이터 통신 오류입니다.")
 				}
-			}, 
+				
+			})
 			
-			error : function(){
-				alert("데이터 통신 오류입니다.")
-			}
-			
-		})
-		
-	});
+		});
 		
 	
-		
-	//비추천 버튼 누르기 
-	$(document).on("click", "#goodDown", function(){
-		
-		$.ajax({
-			url : "/Project/qna_comment_bad_ok.do",
-			datatype : "text",
-			data : "no="+$(this).attr("num"),
+		//비추천 버튼 누르기 
+		$(document).on("click", "#goodDown", function(){
+			
+			$.ajax({
+				url : "/Project/qna_comment_bad_ok.do",
+				datatype : "text",
+				data : "no="+$(this).attr("num"),
+					
+				success : function(data){
+					if(data>0){
+						
+							if(${empty userId}) {
+								alert('로그인이 필요한 기능입니다.');
+								
+							}else{
+								
+								/* alert("좋아요를 누르셨습니다.")
+								getList(); */
+
+							}	
+					}else {
+						
+						getList();
+					}
+				}, 
 				
-			success : function(data){
-				if(data>0){
-					
-						if(${empty userId}) {
-							alert('로그인이 필요한 기능입니다.');
-							
-						}else{
-							
-							/* alert("좋아요를 누르셨습니다.")
-							getList(); */
-
-						}	
-				}else {
-					
-					getList();
+				error : function(){
+					alert("데이터 통신 오류입니다.")
 				}
-			}, 
+				
+			})
 			
-			error : function(){
-				alert("데이터 통신 오류입니다.")
-			}
-			
-		})
+		});
 		
-	});
-		
-		
-	
-		
-	function adjustHeight() {
-		  var textEle = $('textarea');
-		  textEle[0].style.height = 'auto';
-		  var textEleHeight = textEle.prop('scrollHeight');
-		  textEle.css('height', textEleHeight+8);
-		};
-
-	adjustHeight();
 	
 	
 	//// 글쓴 사람만 studyEditDelete studyComplete 보이는 함수, 

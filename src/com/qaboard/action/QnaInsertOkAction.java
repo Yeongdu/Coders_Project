@@ -20,23 +20,25 @@ public class QnaInsertOkAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		// ÀÚ·á½Ç Æû ÆäÀÌÁö¿¡¼­ ³Ñ¾î¿Â µ¥ÀÌÅÍµéÀ» DB¿¡ ÀúÀåÇÏ´Â ºñÁö´Ï½º ·ÎÁ÷
+		// ï¿½Ú·ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			QnaDTO dto = new QnaDTO();
 			
-			// 	1. ÆÄÀÏ ÀúÀå °æ·Î ÁöÁ¤
-			String qnaBoardWriteFolder = "C:\\Users\\user1\\git\\Coders_Project\\Coders_Project\\Project\\WebContent\\qnaBoardWriteFolder";
+
+			// 	1. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+			String qnaBoardWriteFolder = "D:\\git\\Coders_Project\\WebContent\\qnaBoardWriteFolder";
+
 			
-			//	2. Ã·ºÎ ÆÄÀÏ Å©±â ÁöÁ¤
+			//	2. Ã·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			int fileSize = 10 * 1024 * 1024; 
 			
-			//	3. MultipartRequest °´Ã¼ »ı¼º
-			// 		==> ÆÄÀÏ ¾÷·Îµå¸¦ ÁøÇàÇÏ±â À§ÇÑ °´Ã¼ »ı¼º
+			//	3. MultipartRequest ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
+			// 		==> ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµå¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 			MultipartRequest multi = new MultipartRequest(
-					request,  		// ÀÏ¹İÀûÀÎ request °´Ã¼
-					qnaBoardWriteFolder, 	// Ã·ºÎÆÄÀÏÀÌ ÀúÀåµÉ °æ·Î
-					fileSize, 		// ¾÷·ÎµåÇÒ Ã·ºÎÆÄÀÏÀÇ ÃÖ´ë Å©±â
-					"UTF-8",		// ¹®ÀÚ ÀÎÄÚµù ¹æ½Ä
-					new DefaultFileRenamePolicy());		// ÆÄÀÏÀÇ ÀÌ¸§ÀÌ °°Àº °æ¿ì Áßº¹ÀÌ ¾ÈµÇ°Ô ¼³Á¤ÇÏ´Â »ı¼ºÀÚ 
+					request,  		// ï¿½Ï¹ï¿½ï¿½ï¿½ï¿½ï¿½ request ï¿½ï¿½Ã¼
+					qnaBoardWriteFolder, 	// Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+					fileSize, 		// ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Å©ï¿½ï¿½
+					"UTF-8",		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½
+					new DefaultFileRenamePolicy());		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ßºï¿½ï¿½ï¿½ ï¿½ÈµÇ°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 			
 			
 			String userId = multi.getParameter("userId").trim();
@@ -44,48 +46,20 @@ public class QnaInsertOkAction implements Action {
 			String qna_title = multi.getParameter("qna_title").trim();
 			String qna_content = multi.getParameter("qna_content").trim();
 			String qna_code = multi.getParameter("qna_code").trim();
+			String qna_file = multi.getFilesystemName("qna_file").trim();
 			
-			// ÀÚ·á½Ç ÆûÆäÀÌÁö¿¡¼­ type = "file"·Î µÇ¾î ÀÖÀ¸¸é getFile() ¸Ş¼­µå·Î µ¥ÀÌÅÍ¸¦ ¹Ş¾Æ¾ßÇÑ´Ù.
-			File file = multi.getFile("qna_file"); // java.io ÆĞÅ°ÁöÀÇ File Å¬·¡½º·Î ¹İÈ¯
 
-			if(file != null) { // Ã·ºÎÆÄÀÏÀÌ Á¸ÀçÇÏ´Â °æ¿ì
-				// ¿ì¼±Àº Ã·ºÎÆÄÀÏÀÇ ÀÌ¸§À» ¾Ë¾Æ¾ßÇÑ´Ù.
-				// getName() ¸Ş¼­µå »ç¿ë
-				String fileName = file.getName();
-				
-				// ³¯Â¥ °´Ã¼ »ı¼º
-				Calendar cal = Calendar.getInstance();
-				int year = cal.get(Calendar.YEAR);
-				int month = cal.get(Calendar.MONTH) + 1;
-				int day = cal.get(Calendar.DAY_OF_MONTH);
-				
-				// ..../Qna/2022-10-11
-				String homedir = qnaBoardWriteFolder+"/"+year+"-"+month+"-"+day;
-				
-				// ³¯Â¥ Æú´õ ¸¸µé±â
-				File path1 = new File(homedir);
-				
-				if(!path1.exists()) { // Æú´õ°¡ Á¸ÀçÇÏÁö ¾Ê´Â °æ¿ì
-					path1.mkdir(); // ½ÇÁ¦ Æú´õ¸¦ ¸¸µé¾îÁÖ´Â ¸Ş¼­µå
-				}
-				
-				// ÆÄÀÏ ¸¸µé±â ==> ¿¹) È«±æµ¿_ÆÄÀÏ¸í
-				// ...../Qna/2022-10-11/È«±æµ¿_ÆÄÀÏ¸í
-				String reFileName = userId + "_" + fileName;
-				
-				file.renameTo(new File(homedir + "/" + reFileName)); // ÆÄÀÏÀÇ ÀÌ¸§ º¯°æ
-				
-				// ½ÇÁ¦·Î DB¿¡ ÀúÀåµÇ´Â ÆÄÀÏ ÀÌ¸§
-				// "/2022-10-11/È«±æµ¿_ÆÄÀÏ¸í"À¸·Î ÀúÀåÇÒ ¿¹Á¤
-				String fileDBName = "/" + year + "-" + month + "-" + day + "/" + reFileName;
-				dto.setQna_file(fileDBName);
-				
-			}
+
 		dto.setQna_writer(userId);
 		dto.setQna_title(qna_title);
 		dto.setQna_cont(qna_content);
+		/*
+		 * dto.setQna_cont(qna_content.replaceAll(
+		 * "<(/)?([a-zA-Z]*)(\\\\s[a-zA-Z]*=[^>]*)?(\\\\s)*(/)?>",""));
+		 */
 		dto.setQna_tag(code);
 		dto.setQna_code(qna_code);
+		dto.setQna_file(qna_file);
 		
 		QnaDAO dao = QnaDAO.getInstance();
 		int res = dao.insertQna(dto);
@@ -98,7 +72,7 @@ public class QnaInsertOkAction implements Action {
 			forward.setPath("qna_list.do");
 		}else {
 			out.println("<script>");
-			out.println("alert('°Ô½Ã±ÛÀ» µî·ÏÇÏÁö ¸øÇÏ¿´½À´Ï´Ù.')");
+			out.println("alert('ï¿½Ô½Ã±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.')");
 			out.println("history.back()");
 			out.println("</script>");
 		}

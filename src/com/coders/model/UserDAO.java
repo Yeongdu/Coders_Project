@@ -11,88 +11,88 @@ import javax.sql.DataSource;
 
 public class UserDAO {
 	
-		// DB¿Í ¿¬µ¿ÇÏ´Â °´Ã¼.
+		// DBì™€ ì—°ë™í•˜ëŠ” ê°ì²´.
 		Connection con = null;
-		
-		// DB¿¡ SQL¹®À» Àü¼ÛÇÏ´Â °´Ã¼
-		PreparedStatement pstmt = null;
-		
-		// SQL¹®À» ½ÇÇàÇÑ ÈÄ¿¡ °á°ú °ªÀ» °¡Áö°í ÀÖ´Â °´Ã¼.
-		ResultSet rs = null;
-		
-		// Äõ¸®¹®À» ÀúÀåÇÒ º¯¼ö
-		String sql = null;
-		
-		// UserDAO °´Ã¼¸¦ ½Ì±ÛÅÏ ¹æ½ÄÀ¸·Î ¸¸µé¾î º¸ÀÚ.
-		// 1´Ü°è : ½Ì±ÛÅÏ ¹æ½ÄÀ¸·Î °´Ã¼¸¦ ¸¸µé±â À§ÇØ¼­´Â ¿ì¼±ÀûÀ¸·Î
-		//        ±âº»»ı¼ºÀÚÀÇ Á¢±ÙÁ¦¾îÀÚ¸¦ publicÀÌ ¾Æ´Ñ private
-		//        À¸·Î ¹Ù²Ù¾î ÁÖ¾î¾ß ÇÑ´Ù.
-		//        Áï, ¿ÜºÎ¿¡¼­ Á÷Á¢ÀûÀ¸·Î ±âº»»ı¼ºÀÚ¸¦ È£ÃâÇÏÁö
-		//        ¸øÇÏ°Ô ÇÏ´Â ¹æ¹ıÀÌ´Ù.
-		
-		// 2´Ü°è : UserDAO °´Ã¼¸¦ Á¤Àû(static) ¸â¹ö·Î ¼±¾ğÀ» 
-		//        ÇØ ÁÖ¾î¾ß ÇÑ´Ù.
-		private static UserDAO instance;
-		
-		private UserDAO() {  }  // ±âº» »ı¼ºÀÚ
-		
-		
-		// 3´Ü°è : ±âº» »ı¼ºÀÚ ´ë½Å¿¡ ½Ì±ÛÅÏ °´Ã¼¸¦ return ÇØ ÁÖ´Â
-		//        getInstance() ¶ó´Â ¸Ş¼­µå¸¦ ¸¸µé¾î¼­ ÇØ´ç
-		//        getInstance() ¶ó´Â ¸Ş¼­µå¸¦ ¿ÜºÎ¿¡¼­ Á¢±ÙÇÒ ¼ö
-		//        ÀÖµµ·Ï ÇØ ÁÖ¸é µÊ.
-		public static UserDAO getInstance() {
 			
+		// DBì— SQLë¬¸ì„ ì „ì†¡í•˜ëŠ” ê°ì²´
+		PreparedStatement pstmt = null;
+			
+		// SQLë¬¸ì„ ì‹¤í–‰í•œ í›„ì— ê²°ê³¼ ê°’ì„ ê°€ì§€ê³  ìˆëŠ” ê°ì²´.
+		ResultSet rs = null;
+			
+		// ì¿¼ë¦¬ë¬¸ì„ ì €ì¥í•  ë³€ìˆ˜
+		String sql = null;
+			
+		// UserDAO ê°ì²´ë¥¼ ì‹±ê¸€í„´ ë°©ì‹ìœ¼ë¡œ ë§Œë“¤ì–´ ë³´ì.
+		// 1ë‹¨ê³„ : ì‹±ê¸€í„´ ë°©ì‹ìœ¼ë¡œ ê°ì²´ë¥¼ ë§Œë“¤ê¸° ìœ„í•´ì„œëŠ” ìš°ì„ ì ìœ¼ë¡œ
+		//        ê¸°ë³¸ìƒì„±ìì˜ ì ‘ê·¼ì œì–´ìë¥¼ publicì´ ì•„ë‹Œ private
+		//        ìœ¼ë¡œ ë°”ê¾¸ì–´ ì£¼ì–´ì•¼ í•œë‹¤.
+		//        ì¦‰, ì™¸ë¶€ì—ì„œ ì§ì ‘ì ìœ¼ë¡œ ê¸°ë³¸ìƒì„±ìë¥¼ í˜¸ì¶œí•˜ì§€
+		//        ëª»í•˜ê²Œ í•˜ëŠ” ë°©ë²•ì´ë‹¤.
+			
+		// 2ë‹¨ê³„ : UserDAO ê°ì²´ë¥¼ ì •ì (static) ë©¤ë²„ë¡œ ì„ ì–¸ì„ 
+		//        í•´ ì£¼ì–´ì•¼ í•œë‹¤.
+		private static UserDAO instance;
+			
+		private UserDAO() {  }  // ê¸°ë³¸ ìƒì„±ì
+			
+			
+		// 3ë‹¨ê³„ : ê¸°ë³¸ ìƒì„±ì ëŒ€ì‹ ì— ì‹±ê¸€í„´ ê°ì²´ë¥¼ return í•´ ì£¼ëŠ”
+		//        getInstance() ë¼ëŠ” ë©”ì„œë“œë¥¼ ë§Œë“¤ì–´ì„œ í•´ë‹¹
+		//        getInstance() ë¼ëŠ” ë©”ì„œë“œë¥¼ ì™¸ë¶€ì—ì„œ ì ‘ê·¼í•  ìˆ˜
+		//        ìˆë„ë¡ í•´ ì£¼ë©´ ë¨.
+		public static UserDAO getInstance() {
+				
 			if(instance == null) {
 				instance = new UserDAO();
 			}
-			
+				
 			return instance;
 		}
-		
-		
-		// DB¸¦ ¿¬µ¿ÇÏ´Â ÀÛ¾÷À» ÁøÇàÇÏ´Â ¸Ş¼­µå.
-		public void openConn() {
 			
-			try {
-				// 1´Ü°è : JNDI ¼­¹ö °´Ã¼ »ı¼º
-				Context ctx = new InitialContext();
+			
+		// DBë¥¼ ì—°ë™í•˜ëŠ” ì‘ì—…ì„ ì§„í–‰í•˜ëŠ” ë©”ì„œë“œ.
+		public void openConn() {
 				
-				// 2´Ü°è : lookup() ¸Ş¼­µå¸¦ ÀÌ¿ëÇÏ¿© ¸ÅÄªµÇ´Â
-				//        Ä¿³Ø¼ÇÀ» Ã£´Â´Ù.
+			try {
+				// 1ë‹¨ê³„ : JNDI ì„œë²„ ê°ì²´ ìƒì„±
+				Context ctx = new InitialContext();
+					
+				// 2ë‹¨ê³„ : lookup() ë©”ì„œë“œë¥¼ ì´ìš©í•˜ì—¬ ë§¤ì¹­ë˜ëŠ”
+				//        ì»¤ë„¥ì…˜ì„ ì°¾ëŠ”ë‹¤.
 				DataSource ds =
 					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
-				
-				// 3´Ü°è : DataSource °´Ã¼¸¦ ÀÌ¿ëÇÏ¿©
-				//        Ä¿³Ø¼ÇÀ» ÇÏ³ª °¡Á®¿Â´Ù.
+					
+				// 3ë‹¨ê³„ : DataSource ê°ì²´ë¥¼ ì´ìš©í•˜ì—¬
+				//        ì»¤ë„¥ì…˜ì„ í•˜ë‚˜ ê°€ì ¸ì˜¨ë‹¤.
 				con = ds.getConnection();
-				
+					
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+				
+				
+		}  // openConn() ë©”ì„œë“œ end
 			
 			
-		}  // openConn() ¸Ş¼­µå end
-		
-		
-		// DB¿¡ ¿¬°áµÈ ÀÚ¿ø Á¾·áÇÏ´Â ¸Ş¼­µå.
+		// DBì— ì—°ê²°ëœ ìì› ì¢…ë£Œí•˜ëŠ” ë©”ì„œë“œ.
 		public void closeConn(ResultSet rs,
 				PreparedStatement pstmt, Connection con) {
-			
+				
 			try {
 				if(rs != null) rs.close();
-				
+					
 				if(pstmt != null) pstmt.close();
-				
+					
 				if(con != null) con.close();
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
+				
+		}  // closeConn() ë©”ì„œë“œ end
 			
-		}  // closeConn() ¸Ş¼­µå end
-		
-		// À¯Àú ·Î±×ÀÎ Á¤º¸¸¦ Á¶È¸ÇÏ´Â ¸Ş¼­µå
+		// ìœ ì € ë¡œê·¸ì¸ ì •ë³´ë¥¼ ì¡°íšŒí•˜ëŠ” ë©”ì„œë“œ
 		public int UserSelect(String id) {
 			
 			int result = 0;
@@ -108,13 +108,13 @@ public class UserDAO {
 				
 				rs = pstmt.executeQuery();
 				
-				if(rs.next()) {	// DB¿¡ Á¤º¸°¡ Á¸ÀçÇÒ ¶§
+				if(rs.next()) {	// DBì— ì •ë³´ê°€ ì¡´ì¬í•  ë•Œ
 					
 					if(id.equals(rs.getString("user_id"))) {
 						
 					result = -1;		
 					}
-				}else if(!rs.next()) {	// DB¿¡ Á¤º¸°¡ Á¸ÀçÇÏÁö ¾ÊÀ» ¶§
+				}else if(!rs.next()) {	// DBì— ì •ë³´ê°€ ì¡´ì¬í•˜ì§€ ì•Šì„ ë•Œ
 					
 					result = 1;
 				}
@@ -130,7 +130,7 @@ public class UserDAO {
 			
 		}
 		
-		// À¯Àú ·Î±×ÀÎ Á¤º¸¸¦ DB¿¡ ÀúÀåÇÏ´Â ¸Ş¼­µå
+		// ìœ ì € ë¡œê·¸ì¸ ì •ë³´ë¥¼ DBì— ì €ì¥í•˜ëŠ” ë©”ì„œë“œ
 		public void snsUserInsert(String id, String name) {
 			
 			try {
@@ -154,9 +154,9 @@ public class UserDAO {
 			
 			
 			
-		}	// UserInsert() ¸Ş¼­µå end
+		}	// UserInsert() ë©”ì„œë“œ end
 		
-		// À¯Àú ¾ÆÀÌµğ°¡ Áßº¹ÀÎÁö ¾Æ´ÑÁö È®ÀÎÇÏ´Â ¸Ş¼­µå.
+		// ìœ ì € ì•„ì´ë””ê°€ ì¤‘ë³µì¸ì§€ ì•„ë‹Œì§€ í™•ì¸í•˜ëŠ” ë©”ì„œë“œ.
 		public int checkUserId(String id) {
 			
 			int result = 0;
@@ -171,8 +171,6 @@ public class UserDAO {
 				pstmt.setString(1, id);
 				
 				rs = pstmt.executeQuery();
-				
-				System.out.println("rs °ª >>> " + rs);
 				
 				if(rs.next()) {
 					
@@ -191,9 +189,9 @@ public class UserDAO {
 			
 			
 			
-		}	// checkUserId() ¸Ş¼­µå end
+		}	// checkUserId() ë©”ì„œë“œ end
 		
-		// À¯Àú ·Î±×ÀÎ Á¤º¸¸¦ DB¿¡ ÀúÀåÇÏ´Â ¸Ş¼­µå
+		// ìœ ì € ë¡œê·¸ì¸ ì •ë³´ë¥¼ DBì— ì €ì¥í•˜ëŠ” ë©”ì„œë“œ
 		public int userInsert(UserDTO dto) {
 					
 			int result = 0;	
@@ -222,10 +220,10 @@ public class UserDAO {
 				
 			return result;
 					
-		}	// UserInsert() ¸Ş¼­µå end
+		}	// UserInsert() ë©”ì„œë“œ end
 		
-		// À¯Àú ¾ÆÀÌµğ¸¦ °Ë»öÇØ ºñ¹Ğ¹øÈ£¸¦ Ã£¾ÆÁÖ´Â ¸Ş¼­µå
-		public UserDTO userPwdSearch(String id, String name) {
+		// ìœ ì € IDì— í•´ë‹¹í•˜ëŠ” ìƒì„¸ì •ë³´ë¥¼ í™•ì¸í•˜ëŠ” ë©”ì„œë“œ
+		public UserDTO userContentSearch(String id) {
 			
 			UserDTO dto = null;
 			
@@ -248,6 +246,12 @@ public class UserDAO {
 					
 					dto.setUser_name(rs.getString("user_name"));
 					
+					dto.setUser_date(rs.getString("user_date"));
+					
+					dto.setUser_profile(rs.getString("user_profile"));
+					
+					dto.setUser_homepage(rs.getString("user_homepage"));
+					
 					dto.setUser_pwd(rs.getString("user_pwd"));
 					
 				}
@@ -261,6 +265,409 @@ public class UserDAO {
 			
 			return dto;
 			
+				
+			}
+		
+		// ìœ ì €ê°€ ì‘ì„±í•œ QnA ê²Œì‹œíŒ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ
+		public String getUserQnaBoardList(String id) {
+			
+			String result = "";
+			
+			
+			try {
+				openConn();
+			
+				sql = "select * from qna where qna_writer = ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, id);
+				
+				rs = pstmt.executeQuery();
+				
+				result += "<mains>";
+				
+				while(rs.next()) {
+					result += "<main>";
+					result += "<num>" + rs.getInt("qna_num") + "</num>";
+					result += "<tag>" + rs.getString("qna_tag") + "</tag>";
+					result += "<hit>" + rs.getString("qna_hit") + "</hit>";
+					result += "<reply>" + rs.getString("qna_reply") + "</reply>";
+					result += "<title>" + rs.getString("qna_title") + "</title>";
+					result += "<writer>" + rs.getString("qna_writer") + "</writer>";
+					result += "<date>" + rs.getString("qna_date") + "</date>";
+					result += "</main>";
+				}
+				
+				result += "</mains>";
+				
+					
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}
+			return result;
+		}
+		
+		// // ìœ ì €ê°€ ì‘ì„±í•œ QnA ëŒ“ê¸€ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ
+		public String getUserQnaCommentList(String id) {
+			
+			String result = "";
+			
+			try {
+				openConn();
+			
+				sql = "select * from qna where qna_num in (select qna_num from qna_comment where qcomment_writer = ?)";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, id);
+				
+				rs = pstmt.executeQuery();
+				
+				result += "<mains>";
+				
+				while(rs.next()) {
+					result += "<main>";
+					result += "<num>" + rs.getInt("qna_num") + "</num>";
+					result += "<tag>" + rs.getString("qna_tag") + "</tag>";
+					result += "<hit>" + rs.getString("qna_hit") + "</hit>";
+					result += "<reply>" + rs.getString("qna_reply") + "</reply>";
+					result += "<title>" + rs.getString("qna_title") + "</title>";
+					result += "<writer>" + rs.getString("qna_writer") + "</writer>";
+					result += "<date>" + rs.getString("qna_date") + "</date>";
+					result += "</main>";
+				}
+				
+				result += "</mains>";
+					
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}
+			
+			return result;
 			
 		}
+		
+		// ìœ ì €ê°€ ì‘ì„±í•œ QnA ê²Œì‹œê¸€ ê°œìˆ˜ë¥¼ ì¡°íšŒí•˜ëŠ” ë©”ì„œë“œ
+		public int userQnaBoardCount(String id) {
+					
+			int result = 0;
+					
+			try {
+				openConn();
+						
+				sql = "select count(qna_writer) from qna where qna_writer = ?";
+						
+				pstmt = con.prepareStatement(sql);
+						
+				pstmt.setString(1, id);
+
+				rs = pstmt.executeQuery();
+						
+				if(rs.next()) {
+							
+					result = rs.getInt(1);		
+				}else {
+					
+					result = 0;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+						
+				closeConn(rs, pstmt, con);
+			}
+					
+			return result;
+					
+						
+			}
+		
+		// ìœ ì €ê°€ ì‘ì„±í•œ QnA ëŒ“ê¸€ ê°œìˆ˜ë¥¼ ì¡°íšŒí•˜ëŠ” ë©”ì„œë“œ
+		public int userQnaCommentCount(String id) {
+							
+			int result = 0;
+							
+			try {
+				openConn();
+								
+				sql = "select count(qcomment_writer) from qna_comment where qcomment_writer = ?";
+								
+				pstmt = con.prepareStatement(sql);
+								
+				pstmt.setString(1, id);
+
+				rs = pstmt.executeQuery();
+								
+				if(rs.next()) {
+									
+					result = rs.getInt(1);		
+				}else {
+					
+					result = 0;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+								
+				closeConn(rs, pstmt, con);
+			}
+							
+			return result;
+							
+								
+			}
+		
+		// ìœ ì €ê°€ ì‘ì„±í•œ Study ê²Œì‹œê¸€ ê°œìˆ˜ë¥¼ ì¡°íšŒí•˜ëŠ” ë©”ì„œë“œ
+		public int userStudyBoardCount(String id) {
+					
+			int result = 0;
+					
+			try {
+				openConn();
+						
+				sql = "select count(study_writer) from study_group where study_writer = ?";
+						
+				pstmt = con.prepareStatement(sql);
+						
+				pstmt.setString(1, id);
+
+				rs = pstmt.executeQuery();
+						
+				if(rs.next()) {
+							
+					result = rs.getInt(1);
+					
+				}else {
+					
+					result = 0;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+						
+				closeConn(rs, pstmt, con);
+			}
+					
+			return result;
+					
+						
+			}	// userStudyBoardCount ë©”ì„œë“œ end
+		
+		// ìœ ì €ê°€ ì‘ì„±í•œ Study ëŒ“ê¸€ ê°œìˆ˜ë¥¼ ì¡°íšŒí•˜ëŠ” ë©”ì„œë“œ
+		public int userStudyCommentCount(String id) {
+							
+			int result = 0;
+							
+			try {
+				openConn();
+								
+				sql = "select count(scomment_writer) from study_comment where scomment_writer = ?";
+								
+				pstmt = con.prepareStatement(sql);
+								
+				pstmt.setString(1, id);
+
+				rs = pstmt.executeQuery();
+								
+				if(rs.next()) {
+									
+					result = rs.getInt(1);		
+				}else {
+					
+					result = 0;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+								
+				closeConn(rs, pstmt, con);
+			}
+							
+			return result;
+							
+								
+		}	// userStudyCommentCount ë©”ì„œë“œ end
+
+		// ìœ ì €ê°€ ì‘ì„±í•œ Study ê²Œì‹œíŒ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ		
+		public String getUserStudyBoardList(String id) {
+			
+			String result = "";
+			
+			
+			try {
+				openConn();
+			
+				sql = "select * from study_group where study_writer = ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, id);
+				
+				rs = pstmt.executeQuery();
+				
+				result += "<mains>";
+				
+				while(rs.next()) {
+					result += "<main>";
+					result += "<num>" + rs.getInt("study_num") + "</num>";
+					result += "<hit>" + rs.getString("study_hit") + "</hit>";
+					//result += "<reply>" + rs.getString("commentCnt") + "</reply>";
+					result += "<title>" + rs.getString("study_title") + "</title>";
+					result += "<writer>" + rs.getString("study_writer") + "</writer>";
+					result += "<date>" + rs.getString("study_end") + "</date>";
+					result += "<type>" + rs.getString("study_status") + "</date>";
+					result += "</main>";
+				}
+				
+				result += "</mains>";
+					
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}
+			return result;
+		}	// getUserStudyBoardList ë©”ì„œë“œ end
+		
+		// ìœ ì €ê°€ ì‘ì„±í•œ Study ëŒ“ê¸€ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ		
+		public String getUserStudyCommentList(String id) {
+			
+			String result = "";
+			
+			
+			try {
+				openConn();
+			
+				sql = "select * from study_group where study_num in (select study_num from study_comment where scomment_writer = ?)";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, id);
+				
+				rs = pstmt.executeQuery();
+				
+				result += "<mains>";
+				
+				while(rs.next()) {
+					result += "<main>";
+					result += "<num>" + rs.getInt("study_num") + "</num>";
+					result += "<hit>" + rs.getString("study_hit") + "</hit>";
+					//result += "<reply>" + rs.getString("commentCnt") + "</reply>";
+					result += "<title>" + rs.getString("study_title") + "</title>";
+					result += "<writer>" + rs.getString("study_writer") + "</writer>";
+					result += "<date>" + rs.getString("study_date") + "</date>";
+					result += "<type>" + rs.getString("study_status") + "</date>";
+					result += "</main>";
+				}
+				
+				result += "</mains>";
+					
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}
+			return result;
+		}	// getUserStudyCommentList ë©”ì„œë“œ end		
+		
+		// ìœ ì € IDì— í•´ë‹¹í•˜ëŠ” nameì˜ ì •ë³´ë¥¼ ë³€ê²½í•˜ëŠ” ë©”ì„œë“œ.
+		public int userNameModify(String id, String name) {
+			int result = 0;
+			
+			try {
+				openConn();
+				
+				sql = "update user_member set user_name = ? where user_id = ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, name);
+				
+				pstmt.setString(2, id);
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				
+				closeConn(rs, pstmt, con);
+				
+			}
+			
+			return result;
+			
+		}	// userNameModify ë©”ì„œë“œ end
+		
+		// ìœ ì € IDì— í•´ë‹¹í•˜ëŠ” profileì˜ ì •ë³´ë¥¼ ë³€ê²½í•˜ëŠ” ë©”ì„œë“œ.
+		public int userProfileModify(String id, String profile) {
+			int result = 0;
+			
+			try {
+				openConn();
+				
+				sql = "update user_member set user_profile = ? where user_id = ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, profile);
+				
+				pstmt.setString(2, id);
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				
+				closeConn(rs, pstmt, con);
+				
+			}
+			
+			return result;
+			
+		}	// userNameModify ë©”ì„œë“œ end
+		
+		// ìœ ì € IDì— í•´ë‹¹í•˜ëŠ” homepageì˜ ì •ë³´ë¥¼ ë³€ê²½í•˜ëŠ” ë©”ì„œë“œ.
+		public int userHomepageModify(String id, String homepage) {
+			int result = 0;
+			
+			try {
+				openConn();
+				
+				sql = "update user_member set user_homepage = ? where user_id = ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, homepage);
+				
+				pstmt.setString(2, id);
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				
+				closeConn(rs, pstmt, con);
+				
+			}
+			
+			return result;
+			
+		}	// userNameModify ë©”ì„œë“œ end
+			
 }

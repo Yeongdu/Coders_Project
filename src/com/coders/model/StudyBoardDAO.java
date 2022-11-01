@@ -72,6 +72,11 @@ public class StudyBoardDAO {
 
 	} // openConn() 메서드 end
 
+
+	
+	
+	
+	
 	public void closeConn(ResultSet rs, PreparedStatement pstmt, Connection con) {
 
 		try {
@@ -88,9 +93,8 @@ public class StudyBoardDAO {
 		}
 
 	} // closeConn() 메서드 end
-	
-	
-	//스터디 게시판 전체 글 수 세는 메서드
+
+	// 스터디 게시판 전체 글 수 세는 메서드
 	public int getStudyCount() {
 		int count = 0;
 		try {
@@ -98,22 +102,18 @@ public class StudyBoardDAO {
 			sql = "select count(*) from study_group";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				count = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			closeConn(rs, pstmt, con);
 		}
 		return count;
 	} // getStudyCount() end
-	
-	
-	
-	
 
 	// 스터디 게시판의 전체 글을 조회하는 메서드
 	public List<StudyBoardDTO> getStudyBoardList(int page, int rowsize) {
@@ -160,8 +160,8 @@ public class StudyBoardDAO {
 		}
 		return list;
 	}
-	
-	//스터디 게시판 모집중인 글만 조회하는 메서드
+
+	// 스터디 게시판 모집중인 글만 조회하는 메서드
 	public List<StudyBoardDTO> getStudyStatusList(int page, int rowsize) {
 		List<StudyBoardDTO> list = new ArrayList<StudyBoardDTO>();
 		int startNo = (page * rowsize) - (rowsize - 1);
@@ -204,112 +204,104 @@ public class StudyBoardDAO {
 			closeConn(rs, pstmt, con);
 		}
 		return list;
-		
-		
+
 	}
-	
-	
-	
-	//검색어에 해당하는 게시물의 수를 조회하는 메서드
-		public int searchStudyListCount(String field, String keyword) {
-			int count = 0;
 
-			try {
-				openConn();
-				String searchSql = "";
-				if (field != null && keyword != null) {
-					if (field.equals("title")) {
-						searchSql = " where study_title like '%" + keyword + "%'";
-					} else if (field.equals("cont")) {
-						searchSql = " where study_cont like '%" + keyword + "%'";
-					} else if (field.equals("title_cont")) {
-						searchSql = " where (study_title like '%" + keyword + "%') or (study_cont like '%" + keyword
-								+ "%')";
-					} else if (field.equals("writer")) {
-						searchSql = " where board_writer like '%" + keyword + "%'";
-					}
+	// 검색어에 해당하는 게시물의 수를 조회하는 메서드
+	public int searchStudyListCount(String field, String keyword) {
+		int count = 0;
+
+		try {
+			openConn();
+			String searchSql = "";
+			if (field != null && keyword != null) {
+				if (field.equals("title")) {
+					searchSql = " where study_title like '%" + keyword + "%'";
+				} else if (field.equals("cont")) {
+					searchSql = " where study_cont like '%" + keyword + "%'";
+				} else if (field.equals("title_cont")) {
+					searchSql = " where (study_title like '%" + keyword + "%') or (study_cont like '%" + keyword
+							+ "%')";
+				} else if (field.equals("writer")) {
+					searchSql = " where board_writer like '%" + keyword + "%'";
 				}
-
-				sql = "select count(*) from study_group" + searchSql;
-				pstmt = con.prepareStatement(sql);
-				rs = pstmt.executeQuery();
-				if (rs.next())
-					count = rs.getInt(1);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				closeConn(rs, pstmt, con);
 			}
-			return count;
+
+			sql = "select count(*) from study_group" + searchSql;
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next())
+				count = rs.getInt(1);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
 		}
-			
-		
-		
-		public List<StudyBoardDTO> searchStudyList(String field, String keyword, int page, int rowsize) {
-		    List<StudyBoardDTO> list = new ArrayList<StudyBoardDTO>();
+		return count;
+	}
 
-		    // 해당 페이지에서 시작번호
-		    int startNo = (page * rowsize) - (rowsize - 1);
+	public List<StudyBoardDTO> searchStudyList(String field, String keyword, int page, int rowsize) {
+		List<StudyBoardDTO> list = new ArrayList<StudyBoardDTO>();
 
-		    // 해당 페이지에서 끝번호
-		    int endNo = (page * rowsize);
+		// 해당 페이지에서 시작번호
+		int startNo = (page * rowsize) - (rowsize - 1);
 
-		    openConn();
+		// 해당 페이지에서 끝번호
+		int endNo = (page * rowsize);
 
-		    try {
-		        String searchSql = "";
-		        if(field != null && keyword != null){
-		            if(field.equals("title")){
-		                searchSql = " where study_title like '%" + keyword + "%'";
-		            }else if(field.equals("cont")){
-		                searchSql = " where study_cont like '%" + keyword + "%'";
-		            }else if(field.equals("title_cont")){
-		                searchSql = " where (study_title like '%" + keyword + "%') or (study_cont like '%" + keyword + "%')";
-		            }else if(field.equals("writer")){
-		                searchSql = " where study_writer like '%" + keyword + "%'";
-		            }
-		        }
+		openConn();
 
-		        sql = "select * from"
-		            + "(select row_number() over(order by study_num desc) snum, s.* from study_group s "+searchSql+")"
-		            + "where snum >= ? and snum <= ?";
-		        pstmt = con.prepareStatement(sql);
-		        pstmt.setInt(1, startNo);
-		        pstmt.setInt(2, endNo);
-		        rs = pstmt.executeQuery();
+		try {
+			String searchSql = "";
+			if (field != null && keyword != null) {
+				if (field.equals("title")) {
+					searchSql = " where study_title like '%" + keyword + "%'";
+				} else if (field.equals("cont")) {
+					searchSql = " where study_cont like '%" + keyword + "%'";
+				} else if (field.equals("title_cont")) {
+					searchSql = " where (study_title like '%" + keyword + "%') or (study_cont like '%" + keyword
+							+ "%')";
+				} else if (field.equals("writer")) {
+					searchSql = " where study_writer like '%" + keyword + "%'";
+				}
+			}
 
-		        while(rs.next()){
-		        	StudyBoardDTO dto = new StudyBoardDTO();
+			sql = "select * from" + "(select row_number() over(order by study_num desc) snum, s.* from study_group s "
+					+ searchSql + ")" + "where snum >= ? and snum <= ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startNo);
+			pstmt.setInt(2, endNo);
+			rs = pstmt.executeQuery();
 
-		        	dto.setStudy_num(rs.getInt("study_num"));
-					dto.setStudy_writer(rs.getString("study_writer"));
-					dto.setStudy_title(rs.getString("study_title"));
-					dto.setStudy_cont(rs.getString("study_cont"));
-					dto.setStudy_date(rs.getString("study_date"));
-					dto.setStudy_update(rs.getString("study_update"));
-					dto.setStudy_people(rs.getInt("study_people"));
-					dto.setStudy_status(rs.getString("study_status"));
-					dto.setStudy_start(rs.getString("study_start"));
-					dto.setStudy_end(rs.getString("study_end"));
-					dto.setStudy_file(rs.getString("study_file"));
-					dto.setStudy_hit(rs.getInt("study_hit"));
+			while (rs.next()) {
+				StudyBoardDTO dto = new StudyBoardDTO();
 
-		            list.add(dto);
-		        }
-		    } catch(Exception e) {
-		        e.printStackTrace();
+				dto.setStudy_num(rs.getInt("study_num"));
+				dto.setStudy_writer(rs.getString("study_writer"));
+				dto.setStudy_title(rs.getString("study_title"));
+				dto.setStudy_cont(rs.getString("study_cont"));
+				dto.setStudy_date(rs.getString("study_date"));
+				dto.setStudy_update(rs.getString("study_update"));
+				dto.setStudy_people(rs.getInt("study_people"));
+				dto.setStudy_status(rs.getString("study_status"));
+				dto.setStudy_start(rs.getString("study_start"));
+				dto.setStudy_end(rs.getString("study_end"));
+				dto.setStudy_file(rs.getString("study_file"));
+				dto.setStudy_hit(rs.getInt("study_hit"));
 
-		    } finally {
-		        closeConn(rs, pstmt, con);
-		    }
-		    return list;
+				list.add(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			closeConn(rs, pstmt, con);
 		}
-	
-	
-	
-	
-	//Study 게시판 글쓰기 메서드
+		return list;
+	}
+
+	// Study 게시판 글쓰기 메서드
 	public int insertStudy(StudyBoardDTO dto) {
 
 		int result = 0, count = 0;
@@ -342,8 +334,6 @@ public class StudyBoardDAO {
 		return result;
 	}
 
-	
-	
 	// 게시글의 조회수를 증가시키는 메서드
 	public void StudyBoardHit(int no) {
 		try {
@@ -359,52 +349,52 @@ public class StudyBoardDAO {
 			closeConn(rs, pstmt, con);
 		}
 	}
-	
-	
+
 	// 글번호에 해당하는 스터디게시판 게시물의 상세내용을 조회하는 메서드.
-	public StudyBoardDTO StudyboardContent(int no) {
+		public StudyBoardDTO StudyboardContent(int no) {
 
-		StudyBoardDTO dto = null;
+			StudyBoardDTO dto = null;
 
-		try {
+			try {
 
-			openConn();
+				openConn();
 
-			sql = "select * from study_group where study_num = ?";
+				sql = "select study_group.*, (select count(*) from study_comment where study_group.study_num = study_comment.study_num) as commentCnt from study_group where study_num=?";
 
-			pstmt = con.prepareStatement(sql);
+				pstmt = con.prepareStatement(sql);
 
-			pstmt.setInt(1, no);
+				pstmt.setInt(1, no);
 
-			rs = pstmt.executeQuery();
+				rs = pstmt.executeQuery();
 
-			if (rs.next()) {
+				if (rs.next()) {
 
-				dto = new StudyBoardDTO();
+					dto = new StudyBoardDTO();
 
-				dto.setStudy_num(rs.getInt("study_num"));
-				dto.setStudy_writer(rs.getString("study_writer"));
-				dto.setStudy_title(rs.getString("study_title"));
-				dto.setStudy_cont(rs.getString("study_cont"));
-				dto.setStudy_date(rs.getString("study_date"));
-				dto.setStudy_update(rs.getString("study_update"));
-				dto.setStudy_people(rs.getInt("study_people"));
-				dto.setStudy_status(rs.getString("study_status"));
-				dto.setStudy_start(rs.getString("study_start"));
-				dto.setStudy_end(rs.getString("study_end"));
-				dto.setStudy_file(rs.getString("study_file"));
-				dto.setStudy_hit(rs.getInt("study_hit"));
+					dto.setStudy_num(rs.getInt("study_num"));
+					dto.setStudy_writer(rs.getString("study_writer"));
+					dto.setStudy_title(rs.getString("study_title"));
+					dto.setStudy_cont(rs.getString("study_cont"));
+					dto.setStudy_date(rs.getString("study_date"));
+					dto.setStudy_update(rs.getString("study_update"));
+					dto.setStudy_people(rs.getInt("study_people"));
+					dto.setStudy_status(rs.getString("study_status"));
+					dto.setStudy_start(rs.getString("study_start"));
+					dto.setStudy_end(rs.getString("study_end"));
+					dto.setStudy_file(rs.getString("study_file"));
+					dto.setStudy_hit(rs.getInt("study_hit"));
+					dto.setStudy_reply(rs.getInt("commentCnt"));
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
 			}
+			return dto;
+		}// StudyboardContent() 메서드 end
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			closeConn(rs, pstmt, con);
-		}
-		return dto;
-	}// StudyboardContent() 메서드 end
-	
 	// studyboard 테이블의 게시글을 수정하는 메서드.
 	public int modifyStudyboard(StudyBoardDTO dto) {
 		int result = 0;
@@ -448,19 +438,18 @@ public class StudyBoardDAO {
 		}
 		return result;
 	}// modifyStudyboard()메서드 end
-	
-	
+
 	public int modifyStudyStatus(int no) {
 		int result = 0;
-		
+
 		try {
 			openConn();
-			sql ="update study_group set study_status='모집완료' where study_num=?";
+			sql = "update study_group set study_status='모집완료' where study_num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, no);
 
 			result = pstmt.executeUpdate();
-				
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -469,9 +458,6 @@ public class StudyBoardDAO {
 		}
 		return result;
 	}
-	
-	
-	
 
 	// 글번호에 해당하는 studyboard 게시글을 삭제하는 메서드.
 	public int deleteStudyboard(int no) {
@@ -495,10 +481,6 @@ public class StudyBoardDAO {
 		}
 		return result;
 	}// deleteStudyboard()메서드 end
-	
-	
-	
-	
 
 	// 글번호에 해당하는 댓글리스트를 조회하는 메서드.
 	public String getReplyList(int no) {
@@ -588,79 +570,279 @@ public class StudyBoardDAO {
 		return result;
 
 	}// replyInsert() 메서드 end
+
 	
-	//댓글 수정하는 메서드.
-	
+	// 댓글 수정하는 메서드.
+
+
 		public int replyModify(StudyBoardCommentDTO dto) {
-			
+
 			int result = 0;
-			
-			
-	  
+
 			try {
 
 				openConn();
 
-
-				sql="update study_comment set scomment_cont = ?, "
-						+ "scomment_update = sysdate where scomment_num = ?";
+				sql = "update study_comment set scomment_cont = ?, " + "scomment_update = sysdate where scomment_num = ?";
 
 				pstmt = con.prepareStatement(sql);
-				
+
 				pstmt.setString(1, dto.getScomment_cont());
-				
+
 				pstmt.setInt(2, dto.getScomment_num());
-				
+
 				result = pstmt.executeUpdate();
-				
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}finally {
-				
+			} finally {
+
 				closeConn(rs, pstmt, con);
 			}
 
 			return result;
-		}//replyModify() 메서드 end
+		}// replyModify() 메서드 end
 		
 		
 		// 댓글번호를 넘겨받아 댓글을 삭제하는 메서드
 		public int replyDelete(int no) {
-			
+
 			int result = 0;
-			
-			
+
 			try {
-				
+
 				openConn();
-				
-				sql="delete from study_comment where scomment_num = ?";
+
+				sql = "delete from study_comment where scomment_num = ?";
+
+				pstmt = con.prepareStatement(sql);
+
+				pstmt.setInt(1, no);
+
+				result = pstmt.executeUpdate();
+
+				sql = "update study_comment set scomment_num = scomment_num - 1 where scomment_num > ?";
+
+				pstmt.setInt(1, no);
+
+				pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+
+			return result;
+
+		}// replyDelete() 메서드 end
+		
+		public String getMainstudyList(int page, int rowsize) {
+			String result = "";
+			
+			// �ش� ���������� ���� ��ȣ
+			int startNo = (page * rowsize) - (rowsize -1);
+						
+			// �ش� ���������� ������ ��ȣ
+			int endNo = (page * rowsize);
+
+			try {
+				openConn();
+					
+				sql = "select * from( "
+						+ "select row_number() over(order by study_group.study_date desc) as snum, study_group.*, "
+						+ "(select count(*) from study_comment where study_group.study_num = study_comment.study_num) "
+						+ "as commentCnt " + "from study_group)where snum >=? and snum <= ?";
 				
 				pstmt = con.prepareStatement(sql);
 				
-				pstmt.setInt(1, no);
+				pstmt.setInt(1, startNo);
 				
-				result = pstmt.executeUpdate();
+				pstmt.setInt(2, endNo);
 				
-				sql="update study_comment set scomment_num = scomment_num - 1 where scomment_num > ?";
+				rs = pstmt.executeQuery();
 				
-				pstmt.setInt(1, no);
+				result += "<mains>";
+				while(rs.next()) {
+					result += "<main>";
+					result += "<num>" + rs.getInt("study_num") + "</num>";
+					result += "<hit>" + rs.getString("study_hit") + "</hit>";
+					result += "<reply>" + rs.getString("commentCnt") + "</reply>";
+					result += "<title>" + rs.getString("study_title") + "</title>";
+					result += "<writer>" + rs.getString("study_writer") + "</writer>";
+					result += "<date>" + rs.getString("study_end") + "</date>";
+					result += "<type>" + rs.getString("study_status") + "</date>";
+					result += "</main>";
+				}
 				
-				pstmt.executeUpdate();
-				
-				
+				result += "</mains>";
+					
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}finally {
 				closeConn(rs, pstmt, con);
 			}
-			
 			return result;
-			
-		}//replyDelete() 메서드 end
+		}//getMainstudyList()메서드 end
 
-	
+		
+
+//
+//	public int replyModify(StudyBoardCommentDTO dto) {
+//
+//		int result = 0;
+//
+//		try {
+//
+//			return result;
+//		}//replyModify() 메서드 end
+//		
+//		
+//		// 댓글번호를 넘겨받아 댓글을 삭제하는 메서드
+//		public int replyDelete(int no) {
+//			
+//			int result = 0;
+//			
+//			
+//			try {
+//				
+//				openConn();
+//				
+//				sql="delete from study_comment where scomment_num = ?";
+//				
+//				pstmt = con.prepareStatement(sql);
+//				
+//				pstmt.setInt(1, no);
+//				
+//				result = pstmt.executeUpdate();
+//				
+//				sql="update study_comment set scomment_num = scomment_num - 1 where scomment_num > ?";
+//				
+//				pstmt.setInt(1, no);
+//				
+//				pstmt.executeUpdate();
+//				
+//				
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}finally {
+//				closeConn(rs, pstmt, con);
+//			}
+//			
+//			return result;
+//			
+//		}//replyDelete() 메서드 end
+//		
+//		public String getMainstudyList(int page, int rowsize) {
+//			String result = "";
+//			
+//			// �ش� ���������� ���� ��ȣ
+//			int startNo = (page * rowsize) - (rowsize -1);
+//						
+//			// �ش� ���������� ������ ��ȣ
+//			int endNo = (page * rowsize);
+//
+//			try {
+//				openConn();
+//					
+//				sql = "select * from( "
+//						+ "select row_number() over(order by study_group.study_date desc) as snum, study_group.*, "
+//						+ "(select count(*) from study_comment where study_group.study_num = study_comment.study_num) "
+//						+ "as commentCnt " + "from study_group)where snum >=? and snum <= ?";
+//				
+//				pstmt = con.prepareStatement(sql);
+//				
+//				pstmt.setInt(1, startNo);
+//				
+//				pstmt.setInt(2, endNo);
+//				
+//				rs = pstmt.executeQuery();
+//				
+//				result += "<mains>";
+//				while(rs.next()) {
+//					result += "<main>";
+//					result += "<num>" + rs.getInt("study_num") + "</num>";
+//					result += "<hit>" + rs.getString("study_hit") + "</hit>";
+//					result += "<reply>" + rs.getString("commentCnt") + "</reply>";
+//					result += "<title>" + rs.getString("study_title") + "</title>";
+//					result += "<writer>" + rs.getString("study_writer") + "</writer>";
+//					result += "<date>" + rs.getString("study_end") + "</date>";
+//					result += "<type>" + rs.getString("study_status") + "</date>";
+//					result += "</main>";
+//				}
+//				
+//				result += "</mains>";
+//					
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}finally {
+//				closeConn(rs, pstmt, con);
+//			}
+//			return result;
+//		}
+//
+//			openConn();
+//
+//			sql = "update study_comment set scomment_cont = ?, " + "scomment_update = sysdate where scomment_num = ?";
+//
+//			pstmt = con.prepareStatement(sql);
+//
+//			pstmt.setString(1, dto.getScomment_cont());
+//
+//			pstmt.setInt(2, dto.getScomment_num());
+//
+//			result = pstmt.executeUpdate();
+//
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//
+//			closeConn(rs, pstmt, con);
+//		}
+//
+//		return result;
+//	}// replyModify() 메서드 end
+//
+//	// 댓글번호를 넘겨받아 댓글을 삭제하는 메서드
+//	public int replyDelete(int no) {
+//
+//		int result = 0;
+//
+//		try {
+//
+//			openConn();
+//
+//			sql = "delete from study_comment where scomment_num = ?";
+//
+//			pstmt = con.prepareStatement(sql);
+//
+//			pstmt.setInt(1, no);
+//
+//			result = pstmt.executeUpdate();
+//
+//			sql = "update study_comment set scomment_num = scomment_num - 1 where scomment_num > ?";
+//
+//			pstmt.setInt(1, no);
+//
+//			pstmt.executeUpdate();
+//
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//			closeConn(rs, pstmt, con);
+//		}
+//
+//		return result;
+//
+//	}// replyDelete() 메서드 end
+
+
 
 }

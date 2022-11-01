@@ -34,7 +34,7 @@ public class CodersSocialLoginOkAction implements Action {
 
 		HttpSession session = request.getSession();
 
-		if(check == 1) {	// DB�뿉 �젙蹂닿� 議댁옱�븯吏� �븡�쓣 �븣
+		if(check == 1) {	// DB에 정보가 존재하지 않을 때
 		  
 		  dao.snsUserInsert(userId, userNickname);
 		  
@@ -46,7 +46,7 @@ public class CodersSocialLoginOkAction implements Action {
 		  
 		  forward.setPath("main.jsp");
 		  
-		}else if(check == -1){	// DB�뿉 �젙蹂닿� 議댁옱�븷 �븣
+		}else if(check == -1){	// DB에 정보가 존재할 때
 		  
 		  session.setAttribute("userId", userId); 
 		  session.setAttribute("userNickname", userNickname);

@@ -155,15 +155,11 @@ textarea {
 		</div>
 			
 			
-
-
-			
 		<div>	
 			<input type="submit" value="게시글 수정" class= "btn btn-primary"> &nbsp;&nbsp;
 			<input type="reset" value="다시 작성" class="btn btn-outline-primary"> &nbsp;&nbsp;
 			<input type="button" value="뒤로 가기" class="btn btn-outline-secondary" onclick="history.back()">
 		</div>
-		
 		
 		
 	</form>
@@ -207,7 +203,5 @@ textarea {
 	
 	adjustHeight2();
 	
-	qna_content
-
 </script>
 </html>

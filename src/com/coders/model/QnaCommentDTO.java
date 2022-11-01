@@ -10,6 +10,7 @@ public class QnaCommentDTO {
 	private String qcomment_update;
 	private int qcomment_good;
 	private String qcommnet_file;
+	private int qcomment_bad;
 	
 	public int getQcomment_num() {
 		return qcomment_num;
@@ -58,6 +59,12 @@ public class QnaCommentDTO {
 	}
 	public void setQcommnet_file(String qcommnet_file) {
 		this.qcommnet_file = qcommnet_file;
+	}
+	public int getQcomment_bad() {
+		return qcomment_bad;
+	}
+	public void setQcomment_bad(int qcomment_bad) {
+		this.qcomment_bad = qcomment_bad;
 	}
 	
 

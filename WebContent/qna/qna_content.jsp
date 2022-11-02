@@ -178,17 +178,42 @@ pre {
 			<div class="container col-md-6" style="width: 800px;">
 				<div class="card">
 					<div class="card-body">
+					
+						<div class="qna_view_center" style = "display: flex; margin-bottom: 15px;">
+								<c:set var = "tag" value = "${dto.getQna_tag() }" />
+								<c:if test="${tag == 'JAVA'}">
+									<span class="badge text-bg-secondary" style = "padding-top: 10px;">JAVA</span>
+								</c:if>
+								<c:if test="${tag == 'HTML'}">
+									<span class="badge text-bg-primary" style = "padding-top: 10px;">HTML</span>
+								</c:if>
+								<c:if test="${tag == 'JAVASCRIPT'}">
+									<span class="badge text-bg-warning" style = "padding-top: 10px;">JAVASCRIPT</span>
+								</c:if>
+								<c:if test="${tag == 'CSS'}">
+									<span class="badge text-bg-danger" style = "padding-top: 10px;">CSS</span>
+								</c:if>
+								<c:if test="${tag == 'JQUERY'}">
+									<span class="badge text-bg-success" style = "padding-top: 10px;">JQUERY</span>
+								</c:if>
+								<c:if test="${tag == 'DATABASE'}">
+									<span class="badge text-bg-info" style = "padding-top: 10px;">DataBase</span>
+								</c:if>
+								<c:if test="${tag == 'JSP'}">
+									<span class="badge text-bg-dark" style = "padding-top: 10px;">JSP</span>
+								</c:if>
+								<c:if test="${tag == 'ETC'}">
+									<span class="badge text-bg-light" style = "padding-top: 10px;">ETC</span>
+								</c:if>								
+								&nbsp;&nbsp;
+								<span style = "font-size: 1.3em;">${dto.getQna_title() }</span>
+						</div>
 
-						<div>
-							<h4 class="card-title mb-3" align="left">${dto.qna_title }</h4>
-
+						<div style = "margin-left: 15px;">
 							<h6 class="card-subtitle text-muted mb-4" align="left">
-								<i class="fa-regular fa-user"></i> &nbsp; ${dto.qna_writer }
-							</h6>
-
-							<h6 class="card-subtitle text-muted mb-4" align="left">
-								<i class="fa-regular fa-clock"></i> &nbsp; ${dto.qna_date }
-								&nbsp; <i class="fa-regular fa-eye"></i> &nbsp; ${dto.qna_hit  } 
+								<i class="fa-regular fa-user"></i> &nbsp;${dto.qna_writer }&nbsp;&nbsp;
+								<i class="fa-regular fa-clock"></i> &nbsp;${dto.qna_date }&nbsp;
+								&nbsp; <i class="fa-regular fa-eye"></i> &nbsp;${dto.qna_hit  } 
 							</h6>
 							
 							
@@ -212,8 +237,7 @@ pre {
 								<label></label>
 							</c:if>
 							<c:if test="${!empty dto.qna_code }">
-									<div class="card-body" align="left" id = "noBlank">
-									<pre>					
+									<div class="card-body" align="left" id = "noBlank"><pre>					
 										<code class="${dto.qna_tag }"><textarea class="form-control" id="qna_code" name="qna_code" readonly>${dto.qna_code }</textarea>
 										</code>
 									</pre>
@@ -226,38 +250,19 @@ pre {
 						<div class="card-body">
 							<h6 class="card-title mb-3" align="center" id = "textCont">
 								<i class="fa-solid fa-angle-right"></i> 본문</h6>
+								<p> 
+									<img class="card-img" name="qna_file"
+										src="<%=request.getContextPath() %>/qnaBoardWriteFolder/${dto.getQna_file()}"
+										alt="" />
+									</p>
 								<p class="card-text"><textarea class="form-control" style="border:white;" id="qna_cont" name="qna_cont" readonly>${dto.getQna_cont() }</textarea></p>
 						</div>
 
 
 						<br> 
 						
-						<p> 
-						<img class="card-img" name="qna_file"
-							src="<%=request.getContextPath() %>/qnaBoardWriteFolder/${dto.getQna_file()}"
-							alt="" />
-						</p>
 						
-
-					<!-- 	<div class="mb-3 row">
-							<label for="exampleFormControlInput1"
-								class="col-sm-2 col-form-label">파일 첨부</label>
-							<div class="col-sm-10">
-								<input class="form-control" type="file" name="qna_file">
-							</div>
-						</div>
- 					-->
  
-						<div class="mb-3 row">
-							<label for="exampleFormControlInput1"
-								class="col-sm-2 col-form-label"> 태그 </label>
-							<div class="col-sm-10">
-								<input name="qna_tag" class="form-control"
-									value="${dto.qna_tag }" readonly="readonly">
-							</div>
-						</div>
-						
-						
 						<div>
 							<input class="btn btn-primary"  type="button"
 								value="댓글 작성" id = "commentOn">
@@ -402,6 +407,9 @@ pre {
 				data : { qcomment_num : ${dto.qna_num } },
 				datatype : "xml",    // 결과 데이터 타입
 				success : function(data) {
+					
+					console.log(data);
+					
 					// 테이블 태그의 타이틀태그를 제외한 댓글 목록을 지우는 명령어.
 					$(".list tr:gt(0)").remove();
 					
@@ -409,7 +417,6 @@ pre {
 					
 					
 					$(data).find("comment").each(function() {
-						
 						table += "<tr>";
 						table += "<td colspan='2' class = 'qnaCommentwriter'> <i class='fa-regular fa-user'>"+ "</i>" + "&nbsp;"+ $(this).find("qcomment_writer").text() +"</td>";
 						
@@ -494,7 +501,7 @@ pre {
                 	 	table += "</tr>";
 						
 	                   	table += "<tr>";
-						table += "<td colspan='2'>&nbsp;</td>";
+						table += "<td colspan='2'>&nbsp;</td>"; 
 						table += "</tr>";
 					});
 					
@@ -509,6 +516,7 @@ pre {
 				}
 			});
 		}  // getList() 함수 end
+		
 		
 		// 댓글 작성 버튼을 클릭했을 때 DB에 추가로 저장.
 		
@@ -668,7 +676,7 @@ pre {
 		});
 		
 		
-		getList();  // 전체 리스트 함수 호출
+	
 			 	
 	
 		//추천 버튼 누르기 
@@ -741,6 +749,16 @@ pre {
 		});
 		
 	
+		
+		// textarea 창 조정
+		function adjustHeight() {
+			  var textEle = $('textarea');
+			  textEle[0].style.height = 'auto';
+			  var textEleHeight = textEle.prop('scrollHeight');
+			  textEle.css('height', textEleHeight+8);
+			};
+
+		adjustHeight();
 	
 	//// 글쓴 사람만 studyEditDelete studyComplete 보이는 함수, 
 	// 글쓴 사람만 수정, 삭제, 모집완료처리 할수 있다. 모집중인 상태에서만 모집완료 버튼 보인다.
@@ -771,6 +789,7 @@ pre {
             }
     onlyWriter();
     
+    getList();  // 전체 리스트 함수 호출
 
 	}); //전체 end
 

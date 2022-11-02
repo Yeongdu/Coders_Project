@@ -268,11 +268,11 @@ public class QnaDAO {
 		try {
 			openConn();
 			sql = "select * from (select row_number() over(order by qna_date desc) qnum, "
-					+ "q.* from qna q) where qnum >=? and qnum <= ? and qna_tag = ?";
+					+ "q.* from qna q where qna_tag = ?) where qnum >=? and qnum <= ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, startNo);
-			pstmt.setInt(2, endNo);
-			pstmt.setString(3, codeName);
+			pstmt.setString(1, codeName);
+			pstmt.setInt(2, startNo);
+			pstmt.setInt(3, endNo);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -379,13 +379,13 @@ public class QnaDAO {
 			openConn();
 			
 				try {
-					sql = "select * from (select row_number() over(order by qna_date desc) qnum, q.* from qna q) where qnum >= ? and qnum <= ? and qna_title like ? or qna_cont like ?";
+					sql = "select * from (select row_number() over(order by qna_date desc) qnum, q.* from qna q where qna_title like ? or qna_cont like ?) where qnum >= ? and qnum <= ?";
 					
 					pstmt = con.prepareStatement(sql);
-					pstmt.setInt(1, startNo);
-					pstmt.setInt(2, endNo);
-					pstmt.setString(3, "%"+keyword+"%");
-					pstmt.setString(4, "%"+keyword+"%");
+					pstmt.setString(1, "%"+keyword+"%");
+					pstmt.setString(2, "%"+keyword+"%");
+					pstmt.setInt(3, startNo);
+					pstmt.setInt(4, endNo);
 					rs = pstmt.executeQuery();
 					
 					while(rs.next()) {
@@ -595,7 +595,6 @@ public class QnaDAO {
 				result += "<comments>";
 				
 				while (rs.next()) {
-					result += 
 					result += "<comment>";
 					result += "<qcomment_num>" + rs.getInt("qcomment_num") + "</qcomment_num>";
 					result += "<qna_num>" + rs.getInt("qna_num") + "</qna_num>";
@@ -678,7 +677,7 @@ public class QnaDAO {
 					result = pstmt.executeUpdate();
 					
 					sql = "update qna_comment set qcomment_num = qcomment_num-1 where qcomment_num > ?";
-					
+					pstmt = con.prepareStatement(sql);
 					pstmt.setInt(1, no);
 					
 					pstmt.executeUpdate();

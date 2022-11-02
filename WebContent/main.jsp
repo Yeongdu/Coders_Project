@@ -54,6 +54,18 @@
 		clear: both;
 	}
 	
+	#qna_view_writer { 
+		color : skyblue;
+		font-size: 14px;
+		margin-bottom: 5px;
+	}
+	
+	#qna_view_date {
+		color: gray;
+		font-size: 13px;
+		margin-bottom: 0;
+	}
+	
 	.study_view_aTag{
 	  text-decoration: none;
 	  line-height: 48px;
@@ -74,16 +86,20 @@
 	}
 	
 	.study_view_center {
-	  align-items: center;
-	  flex: 3;
-	  text-align: left;
-	  font-size: 1.2em;
-	  flex-grow: 5;
+		flex: 3;
+		flex-grow: 7;
+		text-align: left;
+		font-size: 1em;
+		align-items: center;
 	}
+	
 	.study_view_right {
-	  flex: 1;
-	  text-align: right;
-	  flex-grow: 2;
+		flex: 1;
+		text-align: right;
+		flex-grow: 2;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
 	}
 	
 	.study_view_center {
@@ -94,10 +110,53 @@
 		clear: both;
 	}
 	
-	.btn.btn-outline-primary{
+	.btn.btn-outline-primary {
 		height: 37px;
 		padding-top: 0px;
 		padding-bottom: 0px;
+	}
+	
+	#studyListContainer:hover {
+		background-color: #f7f7f7;
+	}
+	
+	button.btn.btn-outline-dark {
+		border-color: #ffffff00;
+		width: 70px;
+		padding-right: 20px;
+		font-weight: bold;
+	}
+	
+	.etc {
+		width: 560px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	
+	.btn.btn-outline-secondary {
+	width: 86px;
+	padding-left: 5px;
+	padding-right: 5px;
+	}
+	
+	.btn.btn-primary {
+		width: 86px;
+		padding-left: 5px;
+		padding-right: 5px;
+		background-color: DarkCyan;
+		padding-bottom: 7px;
+		border: 0px;
+	}
+	
+	.etc {
+		text-decoration: none;
+		line-height: 48px;
+		color: gray;
+		width: 400px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 	
 </style>
@@ -119,13 +178,18 @@
 				let table = "";
 				
 				$(data).find("main").each(function(){
+					
+					let writer = $(this).find("writer").text();
+					
+					let text = writer.split('@');
+					
 					table += "<div id='container' class='border-top' class='border-bottom'>"
 					table += "<div class='qna_view_left'>"
 					table += "<div><i class='fa-regular fa-eye'></i> &nbsp;"+$(this).find("hit").text()+"</div>"
 					table += "<div><i class='fa-regular fa-pen-to-square'></i> &nbsp;"+$(this).find("reply").text()+"</div></div>"
 					
 					table += "<div class='qna_view_center'>"
-					table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' display='block;' style='text-decoration: none;'>"
+					table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
 					if($(this).find("tag").text() == "HTML"){
 						table += "<span class='badge text-bg-primary'>HTML</span>"
 					}else if($(this).find("tag").text() == "JAVASCRIPT"){
@@ -146,8 +210,14 @@
 					table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
 					
 					table += "<div class='qna_view_right'>"
-					table += "<div>"+$(this).find("writer").text()+"</div>"
-					table += "<div>"+$(this).find("date").text()+"</div></div></div>"
+					table += "<div id = 'qna_view_writer'>"
+					table += "<i class='fa-regular fa-user'></i>&nbsp;"+text[0]+"</div>"
+					table += "<div id ='qna_view_date'>"
+					if($(this).find("update").text() == 'null'){
+						table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text()+"</div></div></div>"
+					}else {
+						table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text()+"</div></div></div>"
+					}
 					
 				});
 				
@@ -174,11 +244,11 @@
 					table += "<div><i class='fa-regular fa-eye'></i> &nbsp;"+$(this).find("hit").text()+"</div>"
 					table += "<div><i class='fa-regular fa-pen-to-square'></i> &nbsp;"+$(this).find("reply").text()+"</div></div>"
 					table += "<div class='study_view_center'>"
-					table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' display='block;' style='text-decoration: none;'>"
+					table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
 					if($(this).find("type").text() == "모집중"){
-						table += "<button class='btn btn-outline-primary' style='background-color: #3468b7; bs-btn-color:white; color:white; border-color:#3468b7;' disabled>"+$(this).find("type").text() +"</button>"	
+						table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
 					}else if($(this).find("type").text() == "모집완료"){
-						table += "<button class='btn btn-outline-primary' disabled>"+$(this).find("type").text() +"</button>"
+						table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
 					}
 					table += "&nbsp;"+$(this).find("title").text()+"</a></div>"
 					table += "<div class='study_title_right'>"
@@ -237,7 +307,8 @@
 		</div>
 	</div>
 	
-	<jsp:include page="./include/bottom.jsp" />
+	
+	
 	
 </body>
 </html>

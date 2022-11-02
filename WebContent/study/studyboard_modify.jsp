@@ -13,6 +13,12 @@
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.6.1.js"></script>
 	
+	
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+	
 <style type="text/css">
 
 
@@ -68,21 +74,41 @@
 				</div>
 			</div>
 			
-			<div class="mb-3 row">
-				<label for="exampleFormControlInput1"
-					class="col-sm-2 col-form-label">모집시작</label>
-				<div class="col-sm-10">
-					<input type="date" name="study_start" class="form-control" value="${dto.study_start.substring(0, 10)}">
-				</div>
-			</div>
+<!-- 			<div class="mb-3 row"> -->
+<!-- 				<label for="exampleFormControlInput1" -->
+<!-- 					class="col-sm-2 col-form-label">모집시작</label> -->
+<!-- 				<div class="col-sm-10"> -->
+<%-- 					<input type="date" name="study_start" class="form-control" value="${dto.study_start.substring(0, 10)}"> --%>
+<!-- 				</div> -->
+<!-- 			</div> -->
 			
+<!-- 			<div class="mb-3 row"> -->
+<!-- 				<label for="exampleFormControlInput1" -->
+<!-- 					class="col-sm-2 col-form-label">모집종료</label> -->
+<!-- 				<div class="col-sm-10"> -->
+<%-- 					<input type="date" name="study_end" class="form-control" value="${dto.study_end.substring(0, 10)}"> --%>
+<!-- 				</div> -->
+<!-- 			</div> -->
+
 			<div class="mb-3 row">
 				<label for="exampleFormControlInput1"
-					class="col-sm-2 col-form-label">모집종료</label>
+					class="col-sm-2 col-form-label">모집기간</label>
 				<div class="col-sm-10">
-					<input type="date" name="study_end" class="form-control" value="${dto.study_end.substring(0, 10)}">
+				
+				<input type="text" class="form-control" name="study_daterange"/>
+				<input type="hidden" name="study_start" id="study_start" title="시작일" maxlength="10" value="${dto.study_start.substring(0, 10) }">
+				<input type="hidden" name="study_end" id="study_end" title="종료일" maxlength="10" value="${dto.study_end.substring(0, 10) }">
+					
 				</div>
 			</div>
+
+
+
+
+
+
+			
+			
 			<div align="center">
 					<input class="btn btn-primary" type="submit" value="수정"> &nbsp;&nbsp; 
 					<input class="btn btn-outline-primary" type="reset" value="리셋"> &nbsp;&nbsp;
@@ -101,7 +127,7 @@
 	
 	
 	<script type="text/javascript">
-	
+	$(function(){
 	function adjustHeight() {
 		  var textEle = $('textarea');
 		  textEle[0].style.height = 'auto';
@@ -109,9 +135,65 @@
 		  textEle.css('height', textEleHeight+8);
 		};
 
-	getList();  // 전체 리스트 함수 호출
 	adjustHeight();
 	
+
+	  $('input[name="study_daterange"]').daterangepicker({
+		  
+		locale: {
+	            "separator": " ~ ",
+	            "format": 'YYYY-MM-DD',
+	            "applyLabel": "확인",
+	            "cancelLabel": "취소",
+	            "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
+	 	        "monthNames": ["01월", "02월", "03월", "04월", "05월", "06월", "07월", "08월", "09월", "10월", "11월", "12월"]
+	    },
+	    opens: 'left'
+	  }, function(start, end, label) {
+	    $("#study_start").val(start.format('YYYY-MM-DD'));
+	    $("#study_end").val(end.format('YYYY-MM-DD'));
+	  });
+	  
+// 	  let sdate = new Date('${dto.study_start.substring(0, 10) }');
+// 	  let edate = new Date('${dto.study_end.substring(0, 10) }');
+	  
+// 	  let startdate = sdate.format('YYYY-MM-DD');
+// 	  let enddate = edate.format('YYYY-MM-DD');
+	  
+// 	  var sdateYear = sdate.getFullYear();
+// 	  var sdateMonth = sdate.getMonth();
+// 	  var sdateDay = sdate.getDay();
+// 	  var startDateString = sdateYear + '/' + sdateMonth + '/' + sdateDay;
+	  
+// 	  var edateYear = edate.getFullYear();
+// 	  var edateMonth = edate.getMonth();
+// 	  var edateDay = edate.getDay();
+// 	  var endDateString = edateYear + '/' + edateMonth + '/' + edateDay;
+	  
+//  	  let sdate = ${dto.study_start.substring(0, 10) };
+//       let edate = ${dto.study_end.substring(0, 10) };
+	  
+	  
+// 	  console.log(sdate);
+	  
+// 	  $('input[name="study_daterange"]').daterangepicker('startDate': '${dto.study_start.substring(0, 10) }', 'endDate': '${dto.study_end.substring(0, 10) }');
+// 	  $('input[name="study_daterange"]').daterangepicker({ setStartDate: '${dto.study_start.substring(0, 10) }', setEndDate: '${dto.study_end.substring(0, 10) }' });
+	
+	$('input[name="study_daterange"]').val('${dto.study_start.substring(0, 10) }' +' ~ ' +'${dto.study_end.substring(0, 10) }');
+	
+	  $('input[name="study_daterange"]').on('show.daterangepicker', function(ev, picker) {
+		  //do something, like clearing an input
+		   $('input[name="study_daterange"]').val('${dto.study_start.substring(0, 10) }' +' ~ ' +'${dto.study_end.substring(0, 10) }');
+// 		   $(this).val(picker.startDate.${dto.study_start.substring(0, 10) } + ' - ' + picker.endDate.${dto.study_end.substring(0, 10) });
+// 		 $('input[name="study_daterange"]').data('daterangepicker').setStartDate((${dto.study_start.substring(0, 10) }));
+// 		 $('input[name="study_daterange"]').data('daterangepicker').setEndDate((${dto.study_end.substring(0, 10) }));
+		  
+		  
+		  
+		});
+	
+	
+	}); 
 	</script>
 
 

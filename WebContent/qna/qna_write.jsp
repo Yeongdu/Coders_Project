@@ -125,7 +125,7 @@
 					</div>
 					<div id = "space">&nbsp;</div>
 					<div class = "title_wrab">
-						  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="제목을 입력하세요." name = "qna_title" style = "width: 29.8em; margin: 0;">
+						  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="제목은 30자 까지만 입력할 수 있습니다." name = "qna_title" style = "width: 29.8em; margin: 0;" maxlength="30">
 					</div>
 			</div><%--top_wrab의 end --%>
 			<div id = "qna_write_cotent" align = "center">
@@ -158,7 +158,7 @@
 	
 	</form>
 	
-		<div id = "modal">
+		<div id = "modal" >
 			<div class = "modal_body">
 				<h3>CODE 작성 방법</h3>
 				<br>

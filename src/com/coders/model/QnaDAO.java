@@ -1,3 +1,4 @@
+
 package com.coders.model;
 
 import java.sql.Connection;
@@ -1101,11 +1102,6 @@ public class QnaDAO {
 				return result;
 				
 			}//minus end
-			
-			
-			
-			
-			
-	 
-	
+
 }
+

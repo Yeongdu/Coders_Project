@@ -161,6 +161,7 @@
 	
 	.tab {
 		display: flex;
+		align-items: stretch;
 	}
 	
 	.qnatab {
@@ -177,17 +178,24 @@
 		flex: 0.6;
 	}
 	.qna_view_center {
-	  align-items: center;
-	  flex: 5;
-	  text-align: left;
-	  font-size: 1.2em;
-	  flex-grow: 5;
+		flex: 3;
+		flex-grow: 7;
+		text-align: left;
+		font-size: 1em;
+		align-items: center;
 	}
 	.qna_view_right {
+		flex: 1;
+		text-align: right;
+		flex-grow: 2;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+	}
+	
+	div {
+	  display: block;
 	  align-items: center;
-	  flex: 1;
-	  text-align: right;
-	  flex-grow: 3;
 	}
 	
 	.qna_view_center{
@@ -197,13 +205,13 @@
 	#qna_center {
 		clear: both;
 	}
-
-	.study_view_aTag{
-	  text-decoration: none;
-	  line-height: 48px;
-	  color: gray;
-	}
 	
+	#qna_view_date {
+		color: gray;
+		font-size: 13px;
+		margin-bottom: 0;
+	}
+
 	#studyListContainer {
 	  display: flex;
 	  width: 100%;
@@ -214,17 +222,20 @@
 	}
 	
 	.study_view_center {
-	  align-items: center;
-	  flex: 5;
+	  flex: 3;
+	  flex-grow: 7;
 	  text-align: left;
-	  font-size: 1.2em;
-	  flex-grow: 5;
-	}
-	.study_view_right {
+	  font-size: 1em;
 	  align-items: center;
-	  flex: 1;
-	  text-align: right;
-	  flex-grow: 3;
+	}
+	
+	.study_view_right {
+		flex: 1;
+		text-align: right;
+		flex-grow: 2;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
 	}
 	
 	.study_view_center {
@@ -328,6 +339,52 @@
 	  justify-content: center;
 	}
 	
+	.etc {
+		text-decoration: none;
+		line-height: 48px;
+		color: gray;
+		width: 400px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	
+	.btn.btn-outline-primary {
+		height: 37px;
+		padding-top: 0px;
+		padding-bottom: 0px;
+	}
+	
+	#studyListContainer:hover {
+		background-color: #f7f7f7;
+	}
+	
+	button.btn.btn-outline-dark {
+		border-color: #ffffff00;
+		width: 70px;
+		padding-right: 20px;
+		font-weight: bold;
+	}
+	
+	.btn.btn-outline-secondary {
+	width: 86px;
+	padding-left: 5px;
+	padding-right: 5px;
+	}
+	
+	.btn.btn-primary {
+		width: 86px;
+		padding-left: 5px;
+		padding-right: 5px;
+		background-color: DarkCyan;
+		padding-bottom: 7px;
+		border: 0px;
+	}
+	
+	.modal-backdrop{
+		background-color: rgba(0,0,0, .15) !important;
+	}
+	
 	
 </style>
 <script type="text/javascript">
@@ -354,7 +411,7 @@
 				$(data).find("main").each(function(){
 					table += "<div id='container' class='border-bottom'>"
 					table += "<div class='qna_view_center'>"
-					table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' display='block;' style='text-decoration: none;'>"
+					table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
 					if($(this).find("tag").text() == "HTML"){
 						table += "<span class='badge text-bg-primary'>HTML</span>"
 					}else if($(this).find("tag").text() == "JAVASCRIPT"){
@@ -374,7 +431,12 @@
 					}
 					table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
 					table += "<div class='qna_view_right'>"
-					table += "<div>"+$(this).find("date").text()+"</div></div></div>"
+					table += "<div id ='qna_view_date'>"
+					if($(this).find("update").text() == 'null'){
+						table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text()+"</div></div></div>"
+					}else {
+						table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text()+"</div></div></div>"
+					}
 						
 						
 				});
@@ -403,7 +465,7 @@
 				$(data).find("main").each(function(){
 					table += "<div id='container' class='border-bottom'>"
 					table += "<div class='qna_view_center'>"
-					table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' display='block;' style='text-decoration: none;'>"
+					table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
 					if($(this).find("tag").text() == "HTML"){
 						table += "<span class='badge text-bg-primary'>HTML</span>"
 					}else if($(this).find("tag").text() == "JAVASCRIPT"){
@@ -423,8 +485,12 @@
 					}
 					table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
 					table += "<div class='qna_view_right'>"
-					table += "<div>"+$(this).find("date").text()+"</div></div></div>"
-						
+					table += "<div id ='qna_view_date'>"
+					if($(this).find("update").text() == 'null'){
+						table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text()+"</div></div></div>"
+					}else {
+						table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text()+"</div></div></div>"
+					}						
 				});
 				
 				$("#qnacomment").append(table);
@@ -451,11 +517,11 @@
 				$(data).find("main").each(function(){
 					table += "<div id='studyListContainer' class='border-bottom'>"
 					table += "<div class='study_view_center'>"
-					table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' display='block;' style='text-decoration: none;'>"
+					table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
 					if($(this).find("type").text() == "모집중"){
-						table += "<button class='btn btn-outline-primary' style='background-color: #3468b7; bs-btn-color:white; color:white; border-color:#3468b7;' disabled>"+$(this).find("type").text() +"</button>"	
+						table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
 					}else if($(this).find("type").text() == "모집완료"){
-						table += "<button class='btn btn-outline-primary' disabled>"+$(this).find("type").text() +"</button>"
+						table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
 					}
 					table += "&nbsp;&nbsp;&nbsp;"+$(this).find("title").text()+"</a></div>"
 					table += "<div class='study_title_right'>"
@@ -485,11 +551,11 @@
 				$(data).find("main").each(function(){
 					table += "<div id='studyListContainer' class='border-bottom'>"
 					table += "<div class='study_view_center'>"
-					table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' display='block;' style='text-decoration: none;'>"
+					table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
 					if($(this).find("type").text() == "모집중"){
-						table += "<button class='btn btn-outline-primary' style='background-color: #3468b7; bs-btn-color:white; color:white; border-color:#3468b7;' disabled>"+$(this).find("type").text() +"</button>"	
+						table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
 					}else if($(this).find("type").text() == "모집완료"){
-						table += "<button class='btn btn-outline-primary' disabled>"+$(this).find("type").text() +"</button>"
+						table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
 					}
 					table += "&nbsp;&nbsp;&nbsp;"+$(this).find("title").text()+"</a></div>"
 					table += "<div class='study_title_right'>"
@@ -536,7 +602,8 @@
 		});
 		
 		function test() {    
-			LoadingWithMask();    
+			LoadingWithMask();
+			setTimeout(closeLoadingWithMask, 3000);
 		} 
 		
 		function LoadingWithMask() {    
@@ -559,6 +626,11 @@
 				"opacity" : "0.3"    
 			});
 			
+			$("#loadingImg").css({
+				"margin-left" : "950px",
+				"margin-top" : "500px",
+			});
+			
 			
 			//마스크 표시    
 			$("#mask").show();      
@@ -570,7 +642,8 @@
 			
 		function closeLoadingWithMask() {    
 				$("#mask, #loadingImg").hide();    
-				$("#mask, #loadingImg").empty();  
+				$("#mask, #loadingImg").empty();
+				window.location.reload();  
 		}
 			
 		
@@ -654,7 +727,6 @@
 						    	<a class="nav-link" id="pills-qna-answers-tab" data-bs-toggle="pill" data-bs-target="#pills-qna-answers" type="button" role="tab" aria-controls="pills-qna-answers" aria-selected="false">답변 ${qnacommentcount }</a>
 						  	</li>
 						</ul>
-				
 						<!-- 탭 타이틀 -->
 					
 					

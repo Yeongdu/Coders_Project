@@ -136,7 +136,7 @@ public class UserDAO {
 			try {
 				openConn();
 				
-				sql = "insert into user_member values(?, ?, sysdate, '', '', '')";
+				sql = "insert into user_member values(?, ?, sysdate, '', '', '', '')";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -199,7 +199,7 @@ public class UserDAO {
 			try {
 				openConn();
 					
-				sql = "insert into user_member values(?, ?, sysdate, '', '', ?)";
+				sql = "insert into user_member values(?, ?, sysdate, '', '', ?, '')";
 						
 				pstmt = con.prepareStatement(sql);
 						
@@ -279,7 +279,7 @@ public class UserDAO {
 			try {
 				openConn();
 			
-				sql = "select * from qna where qna_writer = ?";
+				sql = "select * from qna where qna_writer = ? order by qna_date desc";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -294,10 +294,10 @@ public class UserDAO {
 					result += "<num>" + rs.getInt("qna_num") + "</num>";
 					result += "<tag>" + rs.getString("qna_tag") + "</tag>";
 					result += "<hit>" + rs.getString("qna_hit") + "</hit>";
-					result += "<reply>" + rs.getString("qna_reply") + "</reply>";
 					result += "<title>" + rs.getString("qna_title") + "</title>";
 					result += "<writer>" + rs.getString("qna_writer") + "</writer>";
 					result += "<date>" + rs.getString("qna_date") + "</date>";
+					result += "<update>" + rs.getString("qna_update") + "</update>";
 					result += "</main>";
 				}
 				
@@ -321,7 +321,7 @@ public class UserDAO {
 			try {
 				openConn();
 			
-				sql = "select * from qna where qna_num in (select qna_num from qna_comment where qcomment_writer = ?)";
+				sql = "select * from qna where qna_num in (select qna_num from qna_comment where qcomment_writer = ?) order by qna_date desc";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -336,10 +336,10 @@ public class UserDAO {
 					result += "<num>" + rs.getInt("qna_num") + "</num>";
 					result += "<tag>" + rs.getString("qna_tag") + "</tag>";
 					result += "<hit>" + rs.getString("qna_hit") + "</hit>";
-					result += "<reply>" + rs.getString("qna_reply") + "</reply>";
 					result += "<title>" + rs.getString("qna_title") + "</title>";
 					result += "<writer>" + rs.getString("qna_writer") + "</writer>";
 					result += "<date>" + rs.getString("qna_date") + "</date>";
+					result += "<update>" + rs.getString("qna_update") + "</update>";
 					result += "</main>";
 				}
 				
@@ -510,7 +510,7 @@ public class UserDAO {
 			try {
 				openConn();
 			
-				sql = "select * from study_group where study_writer = ?";
+				sql = "select * from study_group where study_writer = ? order by study_date desc";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -524,7 +524,6 @@ public class UserDAO {
 					result += "<main>";
 					result += "<num>" + rs.getInt("study_num") + "</num>";
 					result += "<hit>" + rs.getString("study_hit") + "</hit>";
-					//result += "<reply>" + rs.getString("commentCnt") + "</reply>";
 					result += "<title>" + rs.getString("study_title") + "</title>";
 					result += "<writer>" + rs.getString("study_writer") + "</writer>";
 					result += "<date>" + rs.getString("study_end") + "</date>";
@@ -552,7 +551,7 @@ public class UserDAO {
 			try {
 				openConn();
 			
-				sql = "select * from study_group where study_num in (select study_num from study_comment where scomment_writer = ?)";
+				sql = "select * from study_group where study_num in (select study_num from study_comment where scomment_writer = ?) order by study_date desc";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -566,7 +565,6 @@ public class UserDAO {
 					result += "<main>";
 					result += "<num>" + rs.getInt("study_num") + "</num>";
 					result += "<hit>" + rs.getString("study_hit") + "</hit>";
-					//result += "<reply>" + rs.getString("commentCnt") + "</reply>";
 					result += "<title>" + rs.getString("study_title") + "</title>";
 					result += "<writer>" + rs.getString("study_writer") + "</writer>";
 					result += "<date>" + rs.getString("study_date") + "</date>";

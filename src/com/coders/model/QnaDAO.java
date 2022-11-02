@@ -1,3 +1,4 @@
+
 package com.coders.model;
 
 import java.sql.Connection;
@@ -268,11 +269,11 @@ public class QnaDAO {
 		try {
 			openConn();
 			sql = "select * from (select row_number() over(order by qna_date desc) qnum, "
-					+ "q.* from qna q where qna_tag = ?) where qnum >=? and qnum <= ?";
+					+ "q.* from qna q) where qnum >=? and qnum <= ? and qna_tag = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, codeName);
-			pstmt.setInt(2, startNo);
-			pstmt.setInt(3, endNo);
+			pstmt.setInt(1, startNo);
+			pstmt.setInt(2, endNo);
+			pstmt.setString(3, codeName);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -379,13 +380,13 @@ public class QnaDAO {
 			openConn();
 			
 				try {
-					sql = "select * from (select row_number() over(order by qna_date desc) qnum, q.* from qna q where qna_title like ? or qna_cont like ?) where qnum >= ? and qnum <= ?";
+					sql = "select * from (select row_number() over(order by qna_date desc) qnum, q.* from qna q) where qnum >= ? and qnum <= ? and qna_title like ? or qna_cont like ?";
 					
 					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, "%"+keyword+"%");
-					pstmt.setString(2, "%"+keyword+"%");
-					pstmt.setInt(3, startNo);
-					pstmt.setInt(4, endNo);
+					pstmt.setInt(1, startNo);
+					pstmt.setInt(2, endNo);
+					pstmt.setString(3, "%"+keyword+"%");
+					pstmt.setString(4, "%"+keyword+"%");
 					rs = pstmt.executeQuery();
 					
 					while(rs.next()) {
@@ -604,7 +605,6 @@ public class QnaDAO {
 					result += "<qcomment_update>" + rs.getString("qcomment_update") + "</qcomment_update>";
 					result += "<qcomment_good>" + rs.getInt("qcomment_good") + "</qcomment_good>";
 					result += "<qcomment_bad>" + rs.getInt("qcomment_bad") + "</qcomment_bad>";
-					result += "<qcomment_file>" + rs.getString("qcomment_file") + "</qcomment_file>";
 					result += "<qcomment_code>" + rs.getString("qcomment_code") + "</qcomment_code>";
 					result += "</comment>";
 				}
@@ -639,15 +639,14 @@ public class QnaDAO {
 						count = rs.getInt(1) + 1;
 					}
 					
-					sql = "insert into qna_comment values(?, ?, ?, ?, sysdate, '', 0, ?, 0, 0, ?)";
+					sql = "insert into qna_comment values(?, ?, ?, ?, sysdate, '', 0, 0, 0, ?)";
 					pstmt = con.prepareStatement(sql);
 					
 					pstmt.setInt(1, count);
 					pstmt.setInt(2, dto.getQna_num());
 					pstmt.setString(3, dto.getQcomment_writer());
 					pstmt.setString(4, dto.getQcomment_cont());
-					pstmt.setString(5, dto.getQcommnet_file());
-					pstmt.setString(6, dto.getQcomment_code());
+					pstmt.setString(5, dto.getQcomment_code());
 
 					result = pstmt.executeUpdate();
 					
@@ -677,7 +676,7 @@ public class QnaDAO {
 					result = pstmt.executeUpdate();
 					
 					sql = "update qna_comment set qcomment_num = qcomment_num-1 where qcomment_num > ?";
-					pstmt = con.prepareStatement(sql);
+					
 					pstmt.setInt(1, no);
 					
 					pstmt.executeUpdate();
@@ -1103,11 +1102,6 @@ public class QnaDAO {
 				return result;
 				
 			}//minus end
-			
-			
-			
-			
-			
-	 
-	
+
 }
+

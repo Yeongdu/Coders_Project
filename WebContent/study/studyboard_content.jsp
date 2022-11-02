@@ -354,6 +354,7 @@ button.btn.btn-outline-dark{
                      table += "<p class='swriter'>"+'작성자' + "</p></td>";
                      table += "</tr>";
                      
+                     
                      table += "<td class='scommentwriter'><i class='fa-regular fa-user'>"+ "</i>" + $(this).find("scomment_writer").text() + "</td>";
                      table += "<td class='buttonwrap'colspan='5' align = 'right'";
                      if('${userId}' == $(this).find("scomment_writer").text()){

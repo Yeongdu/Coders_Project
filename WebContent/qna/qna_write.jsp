@@ -158,7 +158,7 @@
 	
 	</form>
 	
-		<div id = "modal">
+		<div id = "modal" >
 			<div class = "modal_body">
 				<h3>CODE 작성 방법</h3>
 				<br>

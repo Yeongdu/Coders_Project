@@ -7,6 +7,7 @@ public class UserDTO {
 	private String user_profile;
 	private String user_homepage;
 	private String user_pwd;
+	private String user_file;
 	
 	public String getUser_id() {
 		return user_id;
@@ -44,6 +45,13 @@ public class UserDTO {
 	public void setUser_pwd(String user_pwd) {
 		this.user_pwd = user_pwd;
 	}
+	public String getUser_file() {
+		return user_file;
+	}
+	public void setUser_file(String user_file) {
+		this.user_file = user_file;
+	}
+	
 	
 	
 	

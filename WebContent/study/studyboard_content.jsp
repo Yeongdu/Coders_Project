@@ -13,6 +13,9 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
 	crossorigin="anonymous"></script>
+	
+
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -50,12 +53,66 @@
   text-shadow: 1px 2px 2px gray;
  }
  
+
+.commentwrap{
+    width: 600px;
+    word-break: break-all;
+    
+}
+
+ 
+
+ 
+  .swriter{
+   
+    font-size: 0.8em;
+    color: red;
+    margin: 0;
+    border-style: solid;
+    width: 50px;
+    text-align: center;
+    border-width: 1px;
+    border-radius: 10px;
+    background-color: #FFE6E6;
+}
+     
+ .scomment_cont1{
+ font-size: 18px;
+}
+     
+     
+     
+  
+     
+     
+    
+ .modifyOK{
+ 
+    display: block;
+    width: 100%;
+    line-height: 32px;
+    border: 1px solid #d2d2d2;
+    border-radius: 8px;
+    white-space: pre-wrap;
+ }
+ 
+ 
+ .borderbottom{
+ 	border-bottom: 1px solid #bdbdbd;
+    padding: 10px;
+ 	
+ 	}
+ 
+
+ 
  
  .ReCount{
     
     font-size: 22px;
-    width: 600px;
-    justify-content: center;
+    width: 895px;
+    text-align: right;
+    padding-bottom: 30px;
+    font-weight: bold;
  }
  
  .replyRap textarea {
@@ -104,7 +161,7 @@
 
 
 .commentInput_buttonComplete{
-padding: 10px 30px;
+    padding: 10px 30px;
     min-width: 120px;
     height: 40px;
     background: #646464;;
@@ -144,11 +201,22 @@ padding: 10px 30px;
  
  .scommentwriter{
  font-weight: 600;
+ width: 200px;
  }
-
+ 
+<<<<<<< HEAD
+.swriterwrap{
+   width: 50px;
+=======
+button.btn.btn-outline-dark{
+ 	border-color:#b5b5b5;
+>>>>>>> refs/remotes/origin/master
+}
 
 
 </style>
+
+
 	
 	
 </head>
@@ -164,6 +232,9 @@ padding: 10px 30px;
 	<br>
 
 	<c:set var="dto" value="${Cont }" />
+	
+	<input type="hidden" value="${dto.getStudy_writer() }" name="study_writer">
+	<input type="hidden" value="${userId }" name="session_id">
 
 	<div class="align-middle">
 		<div class="container col-md-6" style="width: 600px;">
@@ -173,7 +244,7 @@ padding: 10px 30px;
 					<h6 class="card-subtitle text-muted mb-4">
 						<i class="fa-regular fa-user"></i> ${dto.getStudy_writer() } &nbsp;
 						<i class="fa-regular fa-clock"></i> ${dto.getStudy_date()} &nbsp;
-						<i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }            
+						<i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }
 					</h6>
 					<span id="studyEditDelete" class="studyEditDelete" style="display: none;"><a id="studyEditIcon" class="studyEditIcon"
 						><i
@@ -188,11 +259,11 @@ padding: 10px 30px;
 					<p class="card-text"><textarea class="form-control" style="border:white;" readonly>${dto.getStudy_cont() }</textarea></p>
 					<br> 
 					<div class="contBottomWrab">
-					<div><span class="btn btn-outline-dark"><i
+					<div><button class="btn btn-outline-dark" disabled><i
 						class="fa-regular fa-calendar-days"></i>
-						${dto.study_start.substring(0, 10)} ~ ${dto.study_end.substring(0, 10) }</span>
-					&nbsp; <span class="btn btn-outline-dark"><i
-						class="fa-solid fa-person"></i> ${dto.study_people }</span></div>
+						${dto.study_start.substring(0, 10)} ~ ${dto.study_end.substring(0, 10) }</button>
+					&nbsp; <button class="btn btn-outline-dark" disabled><i
+						class="fa-solid fa-person"></i> ${dto.study_people }</button></div>
 						<div>
 						<span id="studyComplete" class="btn btn-outline-success" style="display: none;" 
 						><i class="fa-solid fa-check"></i>&nbsp;모집완료</span>
@@ -219,10 +290,11 @@ padding: 10px 30px;
 	
 	
 	 <div align="center">
-	      <table class="list" class="table" style="width: 600px">
+	      <table class="list" width="600px">
 	         
 	       <tr class="line">
 	           <input type="hidden" value="${userId }" name="scomment_writer" id="scomment_writer">
+	           
 	         </tr>
 	     </table>
 	  </div>
@@ -235,6 +307,11 @@ padding: 10px 30px;
 
 
 	<script type="text/javascript">
+	
+	
+	  
+	
+
      $(function() {
 	
 	// ajax에서 동일하게 사용되는 속성 설정
@@ -244,14 +321,14 @@ padding: 10px 30px;
 		type : "post"
 	});
 	
-	
-
+	 
 
 
 	// TBL_REPLY 테이블의 모든 데이터를 가져오는 함수
 	function getList() {
 		
 		$.ajax({
+			async : false,
 			url : "/Project/study/studyboard_reply.jsp",
 			data : {scomment_num : ${dto.study_num } },
 			datatype : "xml",    // 결과 데이터 타입
@@ -264,51 +341,69 @@ padding: 10px 30px;
 				
                  $(data).find("reply").each(function() {
 					
-                	//1행 작성자, 수정, 삭제, 번호(hidden)
+                	  //1행 작성자, 수정, 삭제, 번호(hidden)
 
-                	 table += "<tr>";
-                	 table += "<td class='scommentwriter'><i class='fa-regular fa-user'>"+ "</i>" + $(this).find("scomment_writer").text() + "</td>";
-                	 table += "<td colspan='5' align = 'right'";
-                	 if('${userId}' == $(this).find("scomment_writer").text()){
-                	 table += " style='display: block;'>";
-                	 }else {
-                	 table += " style='display: none;'>";
-                	 }
-                	 table +="<button value = '수정' id ='modifyBtn' class= 'modifyBtn'>" + '수정' + "</button>" + "&nbsp &nbsp"+ '| &nbsp' +
-                	 "<button value = '삭제' id ='deleteBtn' class='deleteBtn'>" + '삭제' + "</button>";
-                	 table += "</td>";
-                	 table += "<td id = 'reSnum' style='display:none;'><span>" + $(this).find("scomment_num").text() + "</span>";
-                	 table += "</tr>";
+                     table += "<tr>";
+                     table += "<td";
+                     if('${dto.study_writer }' == $(this).find("scomment_writer").text()){
+                     table += " style='display: block;'>";
+                     }else{
+                     table += " style='display: none;'>";
+                     }
+                     table += "<p class='swriter'>"+'작성자' + "</p></td>";
+                     table += "</tr>";
+                     
+                     table += "<td class='scommentwriter'><i class='fa-regular fa-user'>"+ "</i>" + $(this).find("scomment_writer").text() + "</td>";
+                     table += "<td class='buttonwrap'colspan='5' align = 'right'";
+                     if('${userId}' == $(this).find("scomment_writer").text()){
+                     table += " style='display: block;'>";
+                     }else {
+                     table += " style='display: none;'>";
+                     }
+                     table +="<button value = '수정' id ='modifyBtn' class= 'modifyBtn'>" + '수정' + "</button>" + "&nbsp &nbsp"+ '| &nbsp' +
+                     "<button value = '삭제' id ='deleteBtn' class='deleteBtn'>" + '삭제' + "</button>";
+                     table += "</td>";
+                     table += "<td id = 'reSnum' style='display:none;'><span>" + $(this).find("scomment_num").text() + "</span>";
+                     table += "</tr>";
+                     
+                     
+                      //2행 작성일자
+                      table += "<tr>";
+                      table += "<td class='scommentDate'>" + $(this).find("scomment_date").text() + "</td>";
+                      table += "</tr>";
+
+                      // 3행 내용
+                      table += "<tr>";
+                      table += "<td colspan='2' class='commentwrap'><div class=''scomment_cont1' style='white-space : pre-wrap' >" + $(this).find("scomment_cont").text() + "</div>";
+                      table += "<textarea class= 'modifyOK' style='display:none;' type='text' wrap=on>" + $(this).find("scomment_cont").text() + "</textarea></td>";
+                      table += "</tr>";
 
 
-                	 //2행 작성일자
-                	 table += "<tr>";
-                	 table += "<td class='scommentDate'>" + $(this).find("scomment_date").text() + "</td>";
-                	 table += "</tr>";
-
-                	 // 3행 내용
-                	 table += "<tr>";
-                	 table += "<td><span>" + $(this).find("scomment_cont").text() + "</span>";
-                	 table += "<input id = 'modifyOK' style='display:none;' type='text' value='"+$(this).find("scomment_cont").text()+"'/></td>";
-                	 table += "</tr>";
-
-
-                	 table += "<tr>";
-                	 table += "<td colspan='2'>&nbsp;</td>";
-                	 table += "</tr>";
+                      table += "<tr class='borderbottom'>";
+                      table += "<td colspan='2'>&nbsp;</td>";
+                      table += "</tr>";
+                      
+                      table += "<tr>";
+                      table += "<td colspan='2'>&nbsp;</td>";
+                      table += "</tr>";
+                      
+                      
 
 				});
 				
 				//테이블의 첫번째 행의 아래에 table를 추가
 				$(".list tr:eq(0)").after(table);
-				//onlyReWriter();
+				
 			},
+			
 			
 			
 			error : function() {
 				alert('데이터 통신 에러');
 			}
-		
+			
+			
+			
 		});
 		
 		
@@ -321,6 +416,7 @@ padding: 10px 30px;
 	
 	
 	
+
 	// 댓글 작성 버튼을 클릭했을 때 DB에 추가로 저장.
 	$("#replyBtn").on("click", function() {
 		if(${!empty userId}){
@@ -365,42 +461,61 @@ padding: 10px 30px;
 		alert('로그인한 이용자만 이용할 수 있습니다.');
 	}
 	});  // 댓글 등록하기 end
+	
+	
+	
 
 	// 수정버튼 클릭 시 댓글 수정.
-   /*  $(document).on("click", "#modifyBtn", function(){
+     $(document).on("click", "#modifyBtn", function(){
 
-    
+    	 
 		console.log('성공');
 		
-		if(this.getAttribute('value') == '수정'){
+		if(this.textContent == '수정'){
 			
+			  
 		
-         //수정 버튼 클릭 시 input태그의 숨김 속성을 해제하는 코드 (this는 modifyBtn )
-         this.parentNode.parentNode.previousSibling.childNodes[0].childNodes[1].style.display = 'block';
+         //수정 버튼 클릭 시 textarea태그의 숨김 속성을 해제하는 코드 (this는 modifyBtn )
+         this.parentNode.parentNode.nextSibling.nextSibling.childNodes[0].childNodes[1].style.display = 'block';
+         
+         
+         
+         //autosize($('.modifyOK')); 숨겨진 textarea태그의 높이 자동조절
+         autoReplyHeight($(this.parentNode.parentNode.nextSibling.nextSibling).find('textarea'));
          
 
-         //수정 버튼 클릭 시 span태그를 숨기는 코드 (this는 modifyBtn )	
-         this.parentNode.parentNode.previousSibling.childNodes[0].childNodes[0].hidden = true;
+         //수정 버튼 클릭 시 div태그를 숨기는 코드 (this는 modifyBtn )	
+         this.parentNode.parentNode.nextSibling.nextSibling.childNodes[0].childNodes[0].hidden = true;
+         
+         
 
          console.log('if문 성공');
          
+       
+         
          //수정 버튼 클릭시 수정완료, 취소버튼으로 변경하는 코드
-         this.setAttribute('value', '수정완료');
-
-         this.nextSibling.nextSibling.setAttribute('value', '취소');
+         //this.setAttribute('value', '수정완료');
+         $(this).html('수정완료');
+         $(this.nextSibling.nextSibling).html('취소');
+         
+         
+         
          
          
          return;
          
          
+         
+         
         }
-
+		
+		 
 
 		
 		
                
          //수정완료 버튼을 눌렀을 때 수정한 글이 저장되는 코드.
-         if(this.getAttribute('value') == '수정완료' ){
+         if(this.textContent == '수정완료' ){
 			 
 			console.log('if수정완료문 성공');
 			
@@ -408,8 +523,8 @@ padding: 10px 30px;
 				url : "/Project/studyboard_reply_modify.do",
 				datatype : "text",
 				data : {
-					content : this.parentNode.parentNode.previousSibling.childNodes[0].childNodes[1].value,  //input태그 value
-					scomment_num : this.parentNode.nextSibling.childNodes[0].textContent   //scomment_num 
+					content : this.parentNode.parentNode.nextSibling.nextSibling.childNodes[0].childNodes[1].value,  //input태그 value
+					scomment_num : this.parentNode.parentNode.childNodes[2].childNodes[0].textContent   //scomment_num 
 					    },
 					    
 			   success : function(data){
@@ -442,6 +557,7 @@ padding: 10px 30px;
   });//수정버튼 클릭 시 이벤트 end
 
 
+
  
   //삭제버튼 클릭 시 이벤트
   $(document).on("click", "#deleteBtn", function(){
@@ -449,13 +565,13 @@ padding: 10px 30px;
 	  console.log('취소까지 옴');
 	  
 	  
-	  if(this.getAttribute('value') == '삭제'){
+	  if(this.textContent == '삭제'){
 	  if(confirm("해당 댓글을 삭제하시겠습니까?")){
 		  $.ajax({
 			  url : "/Project/studyboard_reply_delete.do",
 			  datatype:"text",
 			  data:{
-				  scomment_num : this.parentNode.nextSibling.childNodes[0].textContent    //scomment_num 
+				  scomment_num : this.parentNode.parentNode.childNodes[2].childNodes[0].textContent   //scomment_num 
 				  
 			  },
 			  
@@ -485,28 +601,30 @@ padding: 10px 30px;
 	  
 	  
 	  
-	  if(this.getAttribute('value') == '취소'){
+	  if(this.textContent == '취소'){
 			
 			
 	         //취소 버튼 클릭 시 보이는 input태그의 숨김 속성을 다시 실행하는 코드 (this는 deleteBtn )
-	         this.parentNode.parentNode.previousSibling.childNodes[0].childNodes[1].style.display = 'none';
+	         this.parentNode.parentNode.nextSibling.nextSibling.childNodes[0].childNodes[1].style.display = 'none';
 
 	         //취소 버튼 클릭 시 숨겨져 있는 span태그를 다시 보이게 하는 코드  (this는 deleteBtn )	
-	         this.parentNode.parentNode.previousSibling.childNodes[0].childNodes[0].hidden = false;
+	         this.parentNode.parentNode.nextSibling.nextSibling.childNodes[0].childNodes[0].hidden = false;
 
 	         //input태그 안의 텍스트를 초기화하는 코드.
-	         this.parentNode.parentNode.previousSibling.childNodes[0].childNodes[1].value
+	         this.parentNode.parentNode.nextSibling.nextSibling.childNodes[0].childNodes[1].value
 	         
 	      // input 태그에 입력된 내용을 지워줌.
-				this.parentNode.parentNode.previousSibling.childNodes[0].childNodes[1].value =
-					$(this.parentNode.parentNode.previousSibling.childNodes[0].childNodes[0]).text();
+				this.parentNode.parentNode.nextSibling.nextSibling.childNodes[0].childNodes[1].value =
+					$(this.parentNode.parentNode.nextSibling.nextSibling.childNodes[0].childNodes[0]).text();
+	         
+	       
 	         
 	         console.log('if문 성공');
 	         
 	         //취소 버튼 클릭시 수정, 삭제버튼으로 변경하는 코드
-	         this.setAttribute('value', '삭제');
+	         $(this).html('삭제');
 
-	         this.previousSibling.previousSibling.setAttribute('value', '수정');
+	         $(this.previousSibling.previousSibling).html('수정');
 	         
 	    }// value가 취소일 때 if문 end
 
@@ -514,7 +632,22 @@ padding: 10px 30px;
 	  
   });//삭제버튼 클릭 이벤트
 	
-	 */
+	//테이블내의 textarea class= 'modifyOK'의 높이 자동조절 함수
+  function autoReplyHeight(elemt) {
+	  var textEle = $(elemt);
+	  textEle[0].style.height = 'auto';
+	  var textEleHeight = textEle.prop('scrollHeight');
+	  textEle.css('height', textEleHeight+16);
+	};//autoReplyHeight end
+	
+	
+
+	
+	
+	
+		
+	
+	
 	
 	
 	function adjustHeight() {
@@ -526,6 +659,7 @@ padding: 10px 30px;
 
 	getList();  // 전체 리스트 함수 호출
 	adjustHeight();
+	
 	
 	
 	
@@ -577,6 +711,9 @@ padding: 10px 30px;
          	}
     	 }
     onlyWriterStatus();
+    
+    
+    
 
 
 });

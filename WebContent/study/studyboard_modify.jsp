@@ -99,7 +99,6 @@
 	
 	
 	
-	<jsp:include page="../include/bottom.jsp" />
 	
 	<script type="text/javascript">
 	
@@ -119,5 +118,6 @@
 	<script src="https://kit.fontawesome.com/7703fd875c.js" crossorigin="anonymous"></script>
 		
 
+	<jsp:include page="../include/bottom.jsp" />
 </body>
 </html>

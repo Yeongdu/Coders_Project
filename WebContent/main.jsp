@@ -307,7 +307,8 @@
 		</div>
 	</div>
 	
-	<jsp:include page="./include/bottom.jsp" />
+	
+	
 	
 </body>
 </html>

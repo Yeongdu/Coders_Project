@@ -603,9 +603,8 @@ public class QnaDAO {
 					result += "<qcomment_date>" + rs.getString("qcomment_date") + "</qcomment_date>";
 					result += "<qcomment_update>" + rs.getString("qcomment_update") + "</qcomment_update>";
 					result += "<qcomment_good>" + rs.getInt("qcomment_good") + "</qcomment_good>";
-					result += "<qcomment_bad>" + rs.getInt("qcomment_bad") + "</qcomment_bad>";
+					result += "<qcomment_good>" + rs.getInt("qcomment_bad") + "</qcomment_bad>";
 					result += "<qcomment_file>" + rs.getString("qcomment_file") + "</qcomment_file>";
-					result += "<qcomment_code>" + rs.getString("qcomment_code") + "</qcomment_code>";
 					result += "</comment>";
 				}
 				
@@ -639,7 +638,7 @@ public class QnaDAO {
 						count = rs.getInt(1) + 1;
 					}
 					
-					sql = "insert into qna_comment values(?, ?, ?, ?, sysdate, '', 0, ?, 0, 0, ?)";
+					sql = "insert into qna_comment values(?, ?, ?, ?, sysdate, '', 0, ?, defalut, defalut)";
 					pstmt = con.prepareStatement(sql);
 					
 					pstmt.setInt(1, count);
@@ -647,7 +646,6 @@ public class QnaDAO {
 					pstmt.setString(3, dto.getQcomment_writer());
 					pstmt.setString(4, dto.getQcomment_cont());
 					pstmt.setString(5, dto.getQcommnet_file());
-					pstmt.setString(6, dto.getQcomment_code());
 
 					result = pstmt.executeUpdate();
 					

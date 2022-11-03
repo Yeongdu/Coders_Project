@@ -381,9 +381,42 @@
 		border: 0px;
 	}
 	
+	.showbtn {
+		width: 80px;
+	  	height: 30px;
+		background: #0d6efd;;
+	  	color: white;
+	  	font-size: 1em;
+		border: 0;
+	  	outline: none;
+	  	border-radius: 10px;
+		float: right;
+		margin-top: 25px;
+	}
+	
 	.modal-backdrop{
 		background-color: rgba(0,0,0, .15) !important;
 	}
+	
+	#StudylistBtn {
+		padding-left: 6px;
+		padding-right: 6px;
+		color: #dc3545;
+		border-color: #dc3545;
+		font-weight: bold;
+		width: 80px;
+	}
+	
+	.studyEndTxt {
+	font-weight: bold;
+	}
+	
+	.studyIngTxt {
+		border-bottom: 7px solid #dcf1fb;
+		padding: 0.2em 0 0 0.2em;
+		font-weight: bold;
+	}
+	
 	
 	
 </style>
@@ -398,7 +431,7 @@
 			type : "post"
 		});
 		
-		// 프로필 페이지에 유저가 작성한 QnA 게시물을 불러오는 ajax
+		// qna 게시판에 유저가 작성한 최근 5개의 게시물을 불러오는 ajax
 		$.ajax({
 			type : "post",
 			async: false,
@@ -408,38 +441,59 @@
 			success : function(data){
 				
 				let table = "";
+				
+				let count = 0;
+				
+				let user_count = 0;				
+					
 				$(data).find("main").each(function(){
-					table += "<div id='container' class='border-bottom'>"
-					table += "<div class='qna_view_center'>"
-					table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
-					if($(this).find("tag").text() == "HTML"){
-						table += "<span class='badge text-bg-primary'>HTML</span>"
-					}else if($(this).find("tag").text() == "JAVASCRIPT"){
-						table += "<span class='badge text-bg-warning'>JAVASCRIPT</span>"
-					}else if($(this).find("tag").text() == "CSS"){
-						table += "<span class='badge text-bg-danger'>CSS</span>"
-					}else if($(this).find("tag").text() == "JQUERY"){
-						table += "<span class='badge text-bg-success'>JQUERY</span>"
-					}else if($(this).find("tag").text() == "DATEBASE"){
-						table += "<span class='badge text-bg-info'>DATABASE</span>"
-					}else if($(this).find("tag").text() == "JSP"){
-						table += "<span class='badge text-bg-dark'>JSP</span>"
-					}else if($(this).find("tag").text() == "ETC"){
-						table += "<span class='badge text-bg-light'>ETC</span>"
-					}else if($(this).find("tag").text() == "JAVA"){
-						table += "<span class='badge text-bg-secondary'>JAVA</span>"
-					}
-					table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
-					table += "<div class='qna_view_right'>"
-					table += "<div id ='qna_view_date'>"
-					if($(this).find("update").text() == 'null'){
-						table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text()+"</div></div></div>"
-					}else {
-						table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text()+"</div></div></div>"
-					}
+					
+					if(count < 5) {
 						
+						table += "<div id='container' class='border-bottom'>"
+						table += "<div class='qna_view_center'>"
+						table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
+						if($(this).find("tag").text() == "HTML"){
+							table += "<span class='badge text-bg-primary'>HTML</span>"
+						}else if($(this).find("tag").text() == "JAVASCRIPT"){
+							table += "<span class='badge text-bg-warning'>JAVASCRIPT</span>"
+						}else if($(this).find("tag").text() == "CSS"){
+							table += "<span class='badge text-bg-danger'>CSS</span>"
+						}else if($(this).find("tag").text() == "JQUERY"){
+							table += "<span class='badge text-bg-success'>JQUERY</span>"
+						}else if($(this).find("tag").text() == "DATEBASE"){
+							table += "<span class='badge text-bg-info'>DATABASE</span>"
+						}else if($(this).find("tag").text() == "JSP"){
+							table += "<span class='badge text-bg-dark'>JSP</span>"
+						}else if($(this).find("tag").text() == "ETC"){
+							table += "<span class='badge text-bg-light'>ETC</span>"
+						}else if($(this).find("tag").text() == "JAVA"){
+							table += "<span class='badge text-bg-secondary'>JAVA</span>"
+						}
+						table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
+						table += "<div class='qna_view_right'>"
+						table += "<div id ='qna_view_date'>"
+						if($(this).find("update").text() == 'null'){
+							table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text().substr(0,10)+"</div></div></div>"
+						}else {
+							table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text().substr(0,10)+"</div></div></div>"
+						}
+						count += 1;
 						
+					}
 				});
+				
+				$(data).find("maincount").each(function(){
+					
+					user_count = $(this).find("count").text()
+					
+				});
+				
+				if (user_count > 5){
+					table += "<button class='showbtn' id='qnabopenlist' type='button' >더 보기</button>"
+					
+				}
+				
 				
 				$("#qnacontent").append(table);
 				
@@ -451,7 +505,148 @@
 		});
 		
 		
-		// 프로필 페이지에 유저가 작성한 QnA 댓글을 불러오는 ajax
+		// 더보기 버튼을 눌렀을 때 qna 게시판에 유저가 작성한 모든 게시물을 불러오는 ajax
+		$(document).on("click", "#qnabopenlist", function(){
+			
+			$.ajax({
+				type : "post",
+				async: false,
+				url : "<%=request.getContextPath()%>/Login/profileqnaboardlist.jsp",
+				data : {userId : id},
+				datatype : "xml",
+				success : function(data){
+					
+					let table = "";
+					
+					$("#qnacontent").empty();
+					
+					$(data).find("main").each(function(){
+							
+							table += "<div id='container' class='border-bottom'>"
+							table += "<div class='qna_view_center'>"
+							table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
+							if($(this).find("tag").text() == "HTML"){
+								table += "<span class='badge text-bg-primary'>HTML</span>"
+							}else if($(this).find("tag").text() == "JAVASCRIPT"){
+								table += "<span class='badge text-bg-warning'>JAVASCRIPT</span>"
+							}else if($(this).find("tag").text() == "CSS"){
+								table += "<span class='badge text-bg-danger'>CSS</span>"
+							}else if($(this).find("tag").text() == "JQUERY"){
+								table += "<span class='badge text-bg-success'>JQUERY</span>"
+							}else if($(this).find("tag").text() == "DATEBASE"){
+								table += "<span class='badge text-bg-info'>DATABASE</span>"
+							}else if($(this).find("tag").text() == "JSP"){
+								table += "<span class='badge text-bg-dark'>JSP</span>"
+							}else if($(this).find("tag").text() == "ETC"){
+								table += "<span class='badge text-bg-light'>ETC</span>"
+							}else if($(this).find("tag").text() == "JAVA"){
+								table += "<span class='badge text-bg-secondary'>JAVA</span>"
+							}
+							table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
+							table += "<div class='qna_view_right'>"
+							table += "<div id ='qna_view_date'>"
+							if($(this).find("update").text() == 'null'){
+								table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text().substr(0,10)+"</div></div></div>"
+							}else {
+								table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text().substr(0,10)+"</div></div></div>"
+							}
+							
+					});
+					table += "<button class='showbtn' id='qnabcloselist' type='button' >닫 기</button>"
+					
+					$("#qnacontent").append(table);
+					
+				},
+				
+				error : function(data){
+					alert("데이터 통신 오류입니다.");
+				}
+			});
+			
+		});
+		
+		// 닫기 버튼을 눌렀을 때 qna 게시판에 유저가 작성한 최근 5개의 게시물을 불러오는 ajax
+		$(document).on("click", "#qnabcloselist", function(){
+			
+			$.ajax({
+				type : "post",
+				async: false,
+				url : "<%=request.getContextPath()%>/Login/profileqnaboardlist.jsp",
+				data : {userId : id},
+				datatype : "xml",
+				success : function(data){
+					
+					let table = "";
+					
+					let count = 0;
+					
+					let user_count = 0;	
+					
+					$("#qnacontent").empty();
+						
+					$(data).find("main").each(function(){
+						
+						if(count < 5) {
+							
+							table += "<div id='container' class='border-bottom'>"
+							table += "<div class='qna_view_center'>"
+							table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
+							if($(this).find("tag").text() == "HTML"){
+								table += "<span class='badge text-bg-primary'>HTML</span>"
+							}else if($(this).find("tag").text() == "JAVASCRIPT"){
+								table += "<span class='badge text-bg-warning'>JAVASCRIPT</span>"
+							}else if($(this).find("tag").text() == "CSS"){
+								table += "<span class='badge text-bg-danger'>CSS</span>"
+							}else if($(this).find("tag").text() == "JQUERY"){
+								table += "<span class='badge text-bg-success'>JQUERY</span>"
+							}else if($(this).find("tag").text() == "DATEBASE"){
+								table += "<span class='badge text-bg-info'>DATABASE</span>"
+							}else if($(this).find("tag").text() == "JSP"){
+								table += "<span class='badge text-bg-dark'>JSP</span>"
+							}else if($(this).find("tag").text() == "ETC"){
+								table += "<span class='badge text-bg-light'>ETC</span>"
+							}else if($(this).find("tag").text() == "JAVA"){
+								table += "<span class='badge text-bg-secondary'>JAVA</span>"
+							}
+							table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
+							table += "<div class='qna_view_right'>"
+							table += "<div id ='qna_view_date'>"
+							if($(this).find("update").text() == 'null'){
+								table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text().substr(0,10)+"</div></div></div>"
+							}else {
+								table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text().substr(0,10)+"</div></div></div>"
+							}
+							count += 1;
+							
+						}
+					});
+					
+					$(data).find("maincount").each(function(){
+						
+						user_count = $(this).find("count").text()
+						
+					});
+					
+					if (user_count > 5){
+						table += "<button class='showbtn' id='qnabopenlist' type='button' >더 보기</button>"
+						
+					}
+					
+					
+					$("#qnacontent").append(table);
+					
+				},
+				
+				error : function(data){
+					alert("데이터 통신 오류입니다.");
+				}
+			});
+			
+		});
+
+/*------------------------------------------------------------------------------------------------------------------------------------------------- */
+		
+		// qna 게시판에 유저가 댓글을 단 최근 5개의 게시물을 불러오는 ajax
 		$.ajax({
 			type : "post",
 			async: false,
@@ -462,36 +657,57 @@
 				
 				let table = "";
 					
+				let count = 0;
+				
+				let user_count = 0;
+				
 				$(data).find("main").each(function(){
-					table += "<div id='container' class='border-bottom'>"
-					table += "<div class='qna_view_center'>"
-					table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
-					if($(this).find("tag").text() == "HTML"){
-						table += "<span class='badge text-bg-primary'>HTML</span>"
-					}else if($(this).find("tag").text() == "JAVASCRIPT"){
-						table += "<span class='badge text-bg-warning'>JAVASCRIPT</span>"
-					}else if($(this).find("tag").text() == "CSS"){
-						table += "<span class='badge text-bg-danger'>CSS</span>"
-					}else if($(this).find("tag").text() == "JQUERY"){
-						table += "<span class='badge text-bg-success'>JQUERY</span>"
-					}else if($(this).find("tag").text() == "DATEBASE"){
-						table += "<span class='badge text-bg-info'>DATABASE</span>"
-					}else if($(this).find("tag").text() == "JSP"){
-						table += "<span class='badge text-bg-dark'>JSP</span>"
-					}else if($(this).find("tag").text() == "ETC"){
-						table += "<span class='badge text-bg-light'>ETC</span>"
-					}else if($(this).find("tag").text() == "JAVA"){
-						table += "<span class='badge text-bg-secondary'>JAVA</span>"
+					
+					if(count < 5) {
+						
+						table += "<div id='container' class='border-bottom'>"
+						table += "<div class='qna_view_center'>"
+						table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
+						if($(this).find("tag").text() == "HTML"){
+							table += "<span class='badge text-bg-primary'>HTML</span>"
+						}else if($(this).find("tag").text() == "JAVASCRIPT"){
+							table += "<span class='badge text-bg-warning'>JAVASCRIPT</span>"
+						}else if($(this).find("tag").text() == "CSS"){
+							table += "<span class='badge text-bg-danger'>CSS</span>"
+						}else if($(this).find("tag").text() == "JQUERY"){
+							table += "<span class='badge text-bg-success'>JQUERY</span>"
+						}else if($(this).find("tag").text() == "DATEBASE"){
+							table += "<span class='badge text-bg-info'>DATABASE</span>"
+						}else if($(this).find("tag").text() == "JSP"){
+							table += "<span class='badge text-bg-dark'>JSP</span>"
+						}else if($(this).find("tag").text() == "ETC"){
+							table += "<span class='badge text-bg-light'>ETC</span>"
+						}else if($(this).find("tag").text() == "JAVA"){
+							table += "<span class='badge text-bg-secondary'>JAVA</span>"
+						}
+						table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
+						table += "<div class='qna_view_right'>"
+						table += "<div id ='qna_view_date'>"
+						if($(this).find("update").text() == 'null'){
+							table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text().substr(0,10)+"</div></div></div>"
+						}else {
+							table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text().substr(0,10)+"</div></div></div>"
+						}
+						count += 1;
+						
 					}
-					table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
-					table += "<div class='qna_view_right'>"
-					table += "<div id ='qna_view_date'>"
-					if($(this).find("update").text() == 'null'){
-						table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text()+"</div></div></div>"
-					}else {
-						table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text()+"</div></div></div>"
-					}						
 				});
+				
+				$(data).find("maincount").each(function(){
+					
+					user_count = $(this).find("count").text()
+					
+				});
+				
+				if (user_count > 5){
+					table += "<button class='showbtn' id='cqnaopenlist' type='button' >더 보기</button>"
+					
+				}
 				
 				$("#qnacomment").append(table);
 				
@@ -502,8 +718,148 @@
 			}
 		});
 		
+		// 더보기 버튼을 눌렀을 때 qna 게시판에 유저가 댓글을 단 모든 게시물을 불러오는 ajax
+		$(document).on("click", "#cqnaopenlist", function(){
+			
+			$.ajax({
+				type : "post",
+				async: false,
+				url : "<%=request.getContextPath()%>/Login/profileqnacommentlist.jsp",
+				data : {userId : id},
+				datatype : "xml",
+				success : function(data){
+					
+					let table = "";
+					
+					$("#qnacomment").empty();
+					
+					$(data).find("main").each(function(){
+							
+							table += "<div id='container' class='border-bottom'>"
+							table += "<div class='qna_view_center'>"
+							table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
+							if($(this).find("tag").text() == "HTML"){
+								table += "<span class='badge text-bg-primary'>HTML</span>"
+							}else if($(this).find("tag").text() == "JAVASCRIPT"){
+								table += "<span class='badge text-bg-warning'>JAVASCRIPT</span>"
+							}else if($(this).find("tag").text() == "CSS"){
+								table += "<span class='badge text-bg-danger'>CSS</span>"
+							}else if($(this).find("tag").text() == "JQUERY"){
+								table += "<span class='badge text-bg-success'>JQUERY</span>"
+							}else if($(this).find("tag").text() == "DATEBASE"){
+								table += "<span class='badge text-bg-info'>DATABASE</span>"
+							}else if($(this).find("tag").text() == "JSP"){
+								table += "<span class='badge text-bg-dark'>JSP</span>"
+							}else if($(this).find("tag").text() == "ETC"){
+								table += "<span class='badge text-bg-light'>ETC</span>"
+							}else if($(this).find("tag").text() == "JAVA"){
+								table += "<span class='badge text-bg-secondary'>JAVA</span>"
+							}
+							table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
+							table += "<div class='qna_view_right'>"
+							table += "<div id ='qna_view_date'>"
+							if($(this).find("update").text() == 'null'){
+								table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text().substr(0,10)+"</div></div></div>"
+							}else {
+								table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text().substr(0,10)+"</div></div></div>"
+							}
+							
+					});
+					table += "<button class='showbtn' id='cqnacloselist' type='button' >닫 기</button>"
+					
+					$("#qnacomment").append(table);
+					
+				},
+				
+				error : function(data){
+					alert("데이터 통신 오류입니다.");
+				}
+			});
+			
+		});
 		
-		// 프로필 페이지에 유저가 작성한 Study 게시물을 불러오는 ajax
+		// 닫기 버튼을 눌렀을 때 qna 게시판에 유저가 댓글을 단 최근 5개의 게시물을 불러오는 ajax
+		$(document).on("click", "#cqnacloselist", function(){
+			
+			$.ajax({
+				type : "post",
+				async: false,
+				url : "<%=request.getContextPath()%>/Login/profileqnacommentlist.jsp",
+				data : {userId : id},
+				datatype : "xml",
+				success : function(data){
+					
+					let table = "";
+					
+					let count = 0;
+					
+					let user_count = 0;
+					
+					$("#qnacomment").empty();
+					
+					$(data).find("main").each(function(){
+						
+						if(count < 5) {
+							
+							table += "<div id='container' class='border-bottom'>"
+							table += "<div class='qna_view_center'>"
+							table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
+							if($(this).find("tag").text() == "HTML"){
+								table += "<span class='badge text-bg-primary'>HTML</span>"
+							}else if($(this).find("tag").text() == "JAVASCRIPT"){
+								table += "<span class='badge text-bg-warning'>JAVASCRIPT</span>"
+							}else if($(this).find("tag").text() == "CSS"){
+								table += "<span class='badge text-bg-danger'>CSS</span>"
+							}else if($(this).find("tag").text() == "JQUERY"){
+								table += "<span class='badge text-bg-success'>JQUERY</span>"
+							}else if($(this).find("tag").text() == "DATEBASE"){
+								table += "<span class='badge text-bg-info'>DATABASE</span>"
+							}else if($(this).find("tag").text() == "JSP"){
+								table += "<span class='badge text-bg-dark'>JSP</span>"
+							}else if($(this).find("tag").text() == "ETC"){
+								table += "<span class='badge text-bg-light'>ETC</span>"
+							}else if($(this).find("tag").text() == "JAVA"){
+								table += "<span class='badge text-bg-secondary'>JAVA</span>"
+							}
+							table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
+							table += "<div class='qna_view_right'>"
+							table += "<div id ='qna_view_date'>"
+							if($(this).find("update").text() == 'null'){
+								table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text().substr(0,10)+"</div></div></div>"
+							}else {
+								table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text().substr(0,10)+"</div></div></div>"
+							}
+							count += 1;
+							
+						}
+					});
+					
+					$(data).find("maincount").each(function(){
+						
+						user_count = $(this).find("count").text()
+						
+					});
+					
+					if (user_count > 5){
+						table += "<button class='showbtn' id='cqnaopenlist' type='button' >더 보기</button>"
+						
+					}
+					
+					
+					$("#qnacomment").append(table);
+					
+				},
+				
+				error : function(data){
+					alert("데이터 통신 오류입니다.");
+				}
+			});
+			
+		});
+		
+/*------------------------------------------------------------------------------------------------------------------------------------------------- */
+		
+		// study 게시판에 유저가 작성한 최근 5개의 게시물을 불러오는 ajax
 		$.ajax({
 			type : "post",
 			async: false,
@@ -514,20 +870,70 @@
 				
 				let table = "";
 				
+				let count = 0;
+				
+				let user_count = 0;
+				
 				$(data).find("main").each(function(){
-					table += "<div id='studyListContainer' class='border-bottom'>"
-					table += "<div class='study_view_center'>"
-					table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
-					if($(this).find("type").text() == "모집중"){
-						table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
-					}else if($(this).find("type").text() == "모집완료"){
-						table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
-					}
-					table += "&nbsp;&nbsp;&nbsp;"+$(this).find("title").text()+"</a></div>"
-					table += "<div class='study_title_right'>"
-					table += "<div class='studyViewData'>"+$(this).find("date").text()+"</div></div></div></div>"
+					
+					let today = new Date().getTime();
+					let today_n = Math.floor(today / (1000*60*60*24));
+					
+					let endDate = new Date($(this).find("date").text()).getTime();
+					let endDate_n = Math.floor(endDate / (1000*60*60*24));
+					
+					let day = endDate_n - today_n + 1;
+					
+					if(count < 5) {
 						
-				});				
+						table += "<div id='studyListContainer' class='border-bottom'>"
+						table += "<div class='study_view_center'>"
+						table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
+						if($(this).find("type").text() == "모집중"){
+							table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
+						}else if($(this).find("type").text() == "모집완료"){
+							table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
+						}
+						table += "&nbsp;&nbsp;&nbsp;"+$(this).find("title").text()+"</a></div>"
+						table += "<div class='study_view_right'>"
+							if($(this).find("date").text() == 'null'){
+								table += "<span></span>"
+							}else {
+								if(day > 0){
+									if($(this).find("type").text() == "모집완료"){
+										table += "<span class='studyEndTxt'>마감</span>"
+									}else if($(this).find("type").text() == "모집중"){
+										table += "<span class='studyIngTxt'>D - "+day+"</span>"
+									}
+									
+								}else if(day == 0){
+									if($(this).find("type").text() == "모집완료"){
+										table += "<span class='studyEndTxt'>마감</span>"
+									}else if($(this).find("type").text() == "모집중"){
+										table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>오늘마감</button>"
+									}
+									
+								}else if(day < 0){
+									table += "<span class='studyEndTxt'>마감</span>"
+								}
+							}
+						table += "<button type='button' class='btn btn-outline-dark' disabled>"
+						table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div>"
+						
+						count += 1;
+					}
+				});
+				
+				$(data).find("maincount").each(function(){
+				
+					user_count = $(this).find("count").text()
+					
+				});
+				
+				if (user_count > 5){
+					table += "<button class='showbtn' id='bstudyopenlist' type='button' >더 보기</button>"
+					
+				}
 				
 				$("#studycontent").append(table);
 			},
@@ -537,7 +943,172 @@
 			}
 		});
 		
-		// 프로필 페이지에 유저가 작성한 Study 댓글을 불러오는 ajax
+		// 더보기 버튼을 눌렀을 때 study 게시판에 유저가 작성한 모든 게시물을 불러오는 ajax
+		$(document).on("click", "#bstudyopenlist", function(){
+			
+			$.ajax({
+				type : "post",
+				async: false,
+				url : "<%=request.getContextPath()%>/Login/profilestudyboardlist.jsp",
+				data : {userId : id},
+				datatype : "xml",
+				success : function(data){
+					
+					let table = "";
+					
+					$("#studycontent").empty();
+					
+					$(data).find("main").each(function(){
+						
+						let today = new Date().getTime();
+						let today_n = Math.floor(today / (1000*60*60*24));
+						
+						let endDate = new Date($(this).find("date").text()).getTime();
+						let endDate_n = Math.floor(endDate / (1000*60*60*24));
+						
+						let day = endDate_n - today_n + 1;
+							
+						table += "<div id='studyListContainer' class='border-bottom'>"
+							table += "<div class='study_view_center'>"
+							table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
+							if($(this).find("type").text() == "모집중"){
+								table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
+							}else if($(this).find("type").text() == "모집완료"){
+								table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
+							}
+							table += "&nbsp;&nbsp;&nbsp;"+$(this).find("title").text()+"</a></div>"
+							table += "<div class='study_view_right'>"
+								if($(this).find("date").text() == 'null'){
+									table += "<span></span>"
+								}else {
+									if(day > 0){
+										if($(this).find("type").text() == "모집완료"){
+											table += "<span class='studyEndTxt'>마감</span>"
+										}else if($(this).find("type").text() == "모집중"){
+											table += "<span class='studyIngTxt'>D - "+day+"</span>"
+										}
+										
+									}else if(day == 0){
+										if($(this).find("type").text() == "모집완료"){
+											table += "<span class='studyEndTxt'>마감</span>"
+										}else if($(this).find("type").text() == "모집중"){
+											table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>오늘마감</button>"
+										}
+										
+									}else if(day < 0){
+										table += "<span class='studyEndTxt'>마감</span>"
+									}
+								}
+							table += "<button type='button' class='btn btn-outline-dark' disabled>"
+							table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div>"
+							
+					});
+					table += "<button class='showbtn' id='bstudycloselist' type='button' >닫 기</button>"
+					
+					$("#studycontent").append(table);
+					
+				},
+				
+				error : function(data){
+					alert("데이터 통신 오류입니다.");
+				}
+			});
+			
+		});
+		
+		// 닫기 버튼을 눌렀을 때 study 게시판에 유저가 작성한 최근 5개의 게시물을 불러오는 ajax
+		$(document).on("click", "#bstudycloselist", function(){
+			
+			$.ajax({
+				type : "post",
+				async: false,
+				url : "<%=request.getContextPath()%>/Login/profilestudyboardlist.jsp",
+				data : {userId : id},
+				datatype : "xml",
+				success : function(data){
+					
+					let table = "";
+					
+					let count = 0;
+					
+					let user_count = 0;
+					
+					$("#studycontent").empty();
+					
+					$(data).find("main").each(function(){
+						
+						let today = new Date().getTime();
+						let today_n = Math.floor(today / (1000*60*60*24));
+						
+						let endDate = new Date($(this).find("date").text()).getTime();
+						let endDate_n = Math.floor(endDate / (1000*60*60*24));
+						
+						let day = endDate_n - today_n + 1;
+						
+						if(count < 5) {
+							
+							table += "<div id='studyListContainer' class='border-bottom'>"
+							table += "<div class='study_view_center'>"
+							table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
+							if($(this).find("type").text() == "모집중"){
+								table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
+							}else if($(this).find("type").text() == "모집완료"){
+								table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
+							}
+							table += "&nbsp;&nbsp;&nbsp;"+$(this).find("title").text()+"</a></div>"
+							table += "<div class='study_view_right'>"
+								if($(this).find("date").text() == 'null'){
+									table += "<span></span>"
+								}else {
+									if(day > 0){
+										if($(this).find("type").text() == "모집완료"){
+											table += "<span class='studyEndTxt'>마감</span>"
+										}else if($(this).find("type").text() == "모집중"){
+											table += "<span class='studyIngTxt'>D - "+day+"</span>"
+										}
+										
+									}else if(day == 0){
+										if($(this).find("type").text() == "모집완료"){
+											table += "<span class='studyEndTxt'>마감</span>"
+										}else if($(this).find("type").text() == "모집중"){
+											table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>오늘마감</button>"
+										}
+										
+									}else if(day < 0){
+										table += "<span class='studyEndTxt'>마감</span>"
+									}
+								}
+							table += "<button type='button' class='btn btn-outline-dark' disabled>"
+							table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div>"
+							
+							count += 1;
+						}
+					});
+					
+					$(data).find("maincount").each(function(){
+					
+						user_count = $(this).find("count").text()
+						
+					});
+					
+					if (user_count > 5){
+						table += "<button class='showbtn' id='bstudyopenlist' type='button' >더 보기</button>"
+						
+					}
+					
+					$("#studycontent").append(table);
+				},
+				
+				error : function(data){
+					alert("데이터 통신 오류입니다.");
+				}
+			});
+			
+		});
+		
+/*------------------------------------------------------------------------------------------------------------------------------------------------- */
+		
+		// study 게시판에 유저가 댓글을 단 최근 5개의 게시물을 불러오는 ajax
 		$.ajax({
 			type : "post",
 			async: false,
@@ -548,20 +1119,70 @@
 				
 				let table = "";
 				
+				let count = 0;
+				
+				let user_count = 0;
+				
 				$(data).find("main").each(function(){
-					table += "<div id='studyListContainer' class='border-bottom'>"
-					table += "<div class='study_view_center'>"
-					table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
-					if($(this).find("type").text() == "모집중"){
-						table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
-					}else if($(this).find("type").text() == "모집완료"){
-						table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
-					}
-					table += "&nbsp;&nbsp;&nbsp;"+$(this).find("title").text()+"</a></div>"
-					table += "<div class='study_title_right'>"
-					table += "<div class='studyViewData'>"+$(this).find("date").text()+"</div></div></div></div>"
+					
+					if(count < 5) {
 						
-				});	
+						let today = new Date().getTime();
+						let today_n = Math.floor(today / (1000*60*60*24));
+						
+						let endDate = new Date($(this).find("date").text()).getTime();
+						let endDate_n = Math.floor(endDate / (1000*60*60*24));
+						
+						let day = endDate_n - today_n + 1;
+						
+						table += "<div id='studyListContainer' class='border-bottom'>"
+						table += "<div class='study_view_center'>"
+						table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
+						if($(this).find("type").text() == "모집중"){
+							table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
+						}else if($(this).find("type").text() == "모집완료"){
+							table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
+						}
+						table += "&nbsp;&nbsp;&nbsp;"+$(this).find("title").text()+"</a></div>"
+						table += "<div class='study_view_right'>"
+							if($(this).find("date").text() == 'null'){
+								table += "<span></span>"
+							}else {
+								if(day > 0){
+									if($(this).find("type").text() == "모집완료"){
+										table += "<span class='studyEndTxt'>마감</span>"
+									}else if($(this).find("type").text() == "모집중"){
+										table += "<span class='studyIngTxt'>D - "+day+"</span>"
+									}
+									
+								}else if(day == 0){
+									if($(this).find("type").text() == "모집완료"){
+										table += "<span class='studyEndTxt'>마감</span>"
+									}else if($(this).find("type").text() == "모집중"){
+										table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>오늘마감</button>"
+									}
+									
+								}else if(day < 0){
+									table += "<span class='studyEndTxt'>마감</span>"
+								}
+							}
+						table += "<button type='button' class='btn btn-outline-dark' disabled>"
+						table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div>"
+						
+						count += 1;
+					}
+				});
+				
+				$(data).find("maincount").each(function(){
+					
+					user_count = $(this).find("count").text()
+					
+				});
+				
+				if (user_count > 5){
+					table += "<button class='showbtn' id='cstudyopenlist' type='button' >더 보기</button>"
+					
+				}
 				
 				$("#studycomment").append(table);
 			},
@@ -569,12 +1190,174 @@
 			error : function(data){
 				alert("데이터 통신 오류입니다.");
 			}
-		});	
+		});
+		
+		// 더보기 버튼을 눌렀을 때 study 게시판에 유저가 댓글을 단 모든 게시물을 불러오는 ajax
+		$(document).on("click", "#cstudyopenlist", function(){
+			
+			$.ajax({
+				type : "post",
+				async: false,
+				url : "<%=request.getContextPath()%>/Login/profilestudycommentlist.jsp",
+				data : {userId : id},
+				datatype : "xml",
+				success : function(data){
+					
+					let table = "";
+					
+					$("#studycomment").empty();
+					
+					$(data).find("main").each(function(){
+						
+						let today = new Date().getTime();
+						let today_n = Math.floor(today / (1000*60*60*24));
+						
+						let endDate = new Date($(this).find("date").text()).getTime();
+						let endDate_n = Math.floor(endDate / (1000*60*60*24));
+						
+						let day = endDate_n - today_n + 1;
+							
+						table += "<div id='studyListContainer' class='border-bottom'>"
+							table += "<div class='study_view_center'>"
+							table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
+							if($(this).find("type").text() == "모집중"){
+								table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
+							}else if($(this).find("type").text() == "모집완료"){
+								table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
+							}
+							table += "&nbsp;&nbsp;&nbsp;"+$(this).find("title").text()+"</a></div>"
+							table += "<div class='study_view_right'>"
+								if($(this).find("date").text() == 'null'){
+									table += "<span></span>"
+								}else {
+									if(day > 0){
+										if($(this).find("type").text() == "모집완료"){
+											table += "<span class='studyEndTxt'>마감</span>"
+										}else if($(this).find("type").text() == "모집중"){
+											table += "<span class='studyIngTxt'>D - "+day+"</span>"
+										}
+										
+									}else if(day == 0){
+										if($(this).find("type").text() == "모집완료"){
+											table += "<span class='studyEndTxt'>마감</span>"
+										}else if($(this).find("type").text() == "모집중"){
+											table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>오늘마감</button>"
+										}
+										
+									}else if(day < 0){
+										table += "<span class='studyEndTxt'>마감</span>"
+									}
+								}
+							table += "<button type='button' class='btn btn-outline-dark' disabled>"
+							table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div>"
+							
+					});
+					table += "<button class='showbtn' id='cstudycloselist' type='button' >닫 기</button>"
+					
+					$("#studycomment").append(table);
+					
+				},
+				
+				error : function(data){
+					alert("데이터 통신 오류입니다.");
+				}
+			});
+			
+		});
+		
+		// 닫기 버튼을 눌렀을 때 study 게시판에 유저가 댓글을 단 최근 5개의 게시물을 불러오는 ajax
+		$(document).on("click", "#cstudycloselist", function(){
+			
+			$.ajax({
+				type : "post",
+				async: false,
+				url : "<%=request.getContextPath()%>/Login/profilestudycommentlist.jsp",
+				data : {userId : id},
+				datatype : "xml",
+				success : function(data){
+					
+					let table = "";
+					
+					let count = 0;
+					
+					let user_count = 0;
+					
+					$("#studycomment").empty();
+					
+					$(data).find("main").each(function(){
+						
+						let today = new Date().getTime();
+						let today_n = Math.floor(today / (1000*60*60*24));
+						
+						let endDate = new Date($(this).find("date").text()).getTime();
+						let endDate_n = Math.floor(endDate / (1000*60*60*24));
+						
+						let day = endDate_n - today_n + 1;
+						
+						if(count < 5) {
+							
+							table += "<div id='studyListContainer' class='border-bottom'>"
+							table += "<div class='study_view_center'>"
+							table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
+							if($(this).find("type").text() == "모집중"){
+								table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
+							}else if($(this).find("type").text() == "모집완료"){
+								table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
+							}
+							table += "&nbsp;&nbsp;&nbsp;"+$(this).find("title").text()+"</a></div>"
+							table += "<div class='study_view_right'>"
+								if($(this).find("date").text() == 'null'){
+									table += "<span></span>"
+								}else {
+									if(day > 0){
+										if($(this).find("type").text() == "모집완료"){
+											table += "<span class='studyEndTxt'>마감</span>"
+										}else if($(this).find("type").text() == "모집중"){
+											table += "<span class='studyIngTxt'>D - "+day+"</span>"
+										}
+										
+									}else if(day == 0){
+										if($(this).find("type").text() == "모집완료"){
+											table += "<span class='studyEndTxt'>마감</span>"
+										}else if($(this).find("type").text() == "모집중"){
+											table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>오늘마감</button>"
+										}
+										
+									}else if(day < 0){
+										table += "<span class='studyEndTxt'>마감</span>"
+									}
+								}
+							table += "<button type='button' class='btn btn-outline-dark' disabled>"
+							table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div>"
+							
+							count += 1;
+						}
+					});
+					
+					$(data).find("maincount").each(function(){
+						
+						user_count = $(this).find("count").text()
+						
+					});
+					
+					if (user_count > 5){
+						table += "<button class='showbtn' id='cstudyopenlist' type='button' >더 보기</button>"
+						
+					}
+					
+					$("#studycomment").append(table);
+				},
+				
+				error : function(data){
+					alert("데이터 통신 오류입니다.");
+				}
+			});
+			
+		});
 		
 		$("#input-file").on("change", function(){
 			
 			var form = document.getElementById("form");
-
 			var formData = new FormData(form);
 			
 			formData.append("file", $("#input-file"));
@@ -599,7 +1382,7 @@
 				}
 			});
 			
-		});
+		});		
 		
 		function test() {    
 			LoadingWithMask();

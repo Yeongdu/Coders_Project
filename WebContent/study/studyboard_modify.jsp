@@ -154,45 +154,9 @@
 	    $("#study_end").val(end.format('YYYY-MM-DD'));
 	  });
 	  
-// 	  let sdate = new Date('${dto.study_start.substring(0, 10) }');
-// 	  let edate = new Date('${dto.study_end.substring(0, 10) }');
+	  $('input[name="study_daterange"]').data('daterangepicker').setStartDate('${dto.study_start.substring(0, 10) }');
+	  $('input[name="study_daterange"]').data('daterangepicker').setEndDate('${dto.study_end.substring(0, 10) }');
 	  
-// 	  let startdate = sdate.format('YYYY-MM-DD');
-// 	  let enddate = edate.format('YYYY-MM-DD');
-	  
-// 	  var sdateYear = sdate.getFullYear();
-// 	  var sdateMonth = sdate.getMonth();
-// 	  var sdateDay = sdate.getDay();
-// 	  var startDateString = sdateYear + '/' + sdateMonth + '/' + sdateDay;
-	  
-// 	  var edateYear = edate.getFullYear();
-// 	  var edateMonth = edate.getMonth();
-// 	  var edateDay = edate.getDay();
-// 	  var endDateString = edateYear + '/' + edateMonth + '/' + edateDay;
-	  
-//  	  let sdate = ${dto.study_start.substring(0, 10) };
-//       let edate = ${dto.study_end.substring(0, 10) };
-	  
-	  
-// 	  console.log(sdate);
-	  
-// 	  $('input[name="study_daterange"]').daterangepicker('startDate': '${dto.study_start.substring(0, 10) }', 'endDate': '${dto.study_end.substring(0, 10) }');
-// 	  $('input[name="study_daterange"]').daterangepicker({ setStartDate: '${dto.study_start.substring(0, 10) }', setEndDate: '${dto.study_end.substring(0, 10) }' });
-	
-	$('input[name="study_daterange"]').val('${dto.study_start.substring(0, 10) }' +' ~ ' +'${dto.study_end.substring(0, 10) }');
-	
-	  $('input[name="study_daterange"]').on('show.daterangepicker', function(ev, picker) {
-		  //do something, like clearing an input
-		   $('input[name="study_daterange"]').val('${dto.study_start.substring(0, 10) }' +' ~ ' +'${dto.study_end.substring(0, 10) }');
-// 		   $(this).val(picker.startDate.${dto.study_start.substring(0, 10) } + ' - ' + picker.endDate.${dto.study_end.substring(0, 10) });
-// 		 $('input[name="study_daterange"]').data('daterangepicker').setStartDate((${dto.study_start.substring(0, 10) }));
-// 		 $('input[name="study_daterange"]').data('daterangepicker').setEndDate((${dto.study_end.substring(0, 10) }));
-		  
-		  
-		  
-		});
-	
-	
 	}); 
 	</script>
 

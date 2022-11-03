@@ -17,6 +17,9 @@ public class StudySearchAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String search_field = request.getParameter("search_field").trim();
 		String search_keyword = request.getParameter("search_keyword").trim();
+		
+		System.out.println("search_field >>>" + search_field);
+		System.out.println("search_keyword >>>" + search_keyword);
 
 		// ����¡ ó�� �۾� ����
 

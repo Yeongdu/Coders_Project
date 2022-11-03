@@ -21,6 +21,17 @@
 	
 <style type="text/css">
 
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap')
+	;
+
+body {
+	font-family: 'Noto Sans KR' !important;
+}
+
+ .study_subtitle {
+ font-size: 0.9rem;
+ }
 
  .container col-md-6{
  margin: auto;
@@ -52,7 +63,7 @@
 			<div class="card">
 				<div class="card-body">
 					<h4 class="card-title mb-3"><input name="study_title" class="form-control" value="${dto.getStudy_title() }" ></h4>
-					<h6 class="card-subtitle text-muted mb-4">
+					<h6 class="study_subtitle">
 						<i class="fa-regular fa-user"></i>${dto.getStudy_writer() } &nbsp;
 						<i class="fa-regular fa-clock"></i> ${dto.getStudy_date()} &nbsp;
 						<i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }            

@@ -228,6 +228,41 @@ public class StudyBoardDAO {
 		return list;
 
 	}
+	
+	//모집중이면서 검색어에 해당하는 게시물의 수를 조회하는 메서드
+	public int searchStudyStatusListCount(String field, String keyword) {
+		int count = 0;
+
+		try {
+			openConn();
+			String searchSql = "";
+			if (field != null && keyword != null) {
+				if (field.equals("title")) {
+					searchSql = " where study_title like '%" + keyword + "%'";
+				} else if (field.equals("cont")) {
+					searchSql = " where study_cont like '%" + keyword + "%'";
+				} else if (field.equals("title_cont")) {
+					searchSql = " where (study_title like '%" + keyword + "%') or (study_cont like '%" + keyword
+							+ "%')";
+				} else if (field.equals("writer")) {
+					searchSql = " where board_writer like '%" + keyword + "%'";
+				}
+			}
+
+			sql = "select count(*) from study_group" + searchSql + "and STUDY_STATUS='모집중'";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next())
+				count = rs.getInt(1);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return count;
+	}
+	
 
 	// 검색어에 해당하는 게시물의 수를 조회하는 메서드
 	public int searchStudyListCount(String field, String keyword) {
@@ -289,9 +324,12 @@ public class StudyBoardDAO {
 					searchSql = " where study_writer like '%" + keyword + "%'";
 				}
 			}
-
-			sql = "select * from" + "(select row_number() over(order by study_num desc) snum, s.* from study_group s "
-					+ searchSql + ")" + "where snum >= ? and snum <= ?";
+			sql="select * from" + "(select row_number() over(order by study_group.study_date desc) as snum, "
+					+ "study_group.*,(select count(*) from study_comment where study_group.study_num =study_comment.study_num) as commentCnt "
+					+ "from study_group " + searchSql +") where snum >=? and snum <= ?";
+					
+//			sql = "select * from" + "(select row_number() over(order by study_num desc) snum, s.* from study_group s "
+//					+ searchSql + ")" + "where snum >= ? and snum <= ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startNo);
 			pstmt.setInt(2, endNo);
@@ -312,7 +350,8 @@ public class StudyBoardDAO {
 				dto.setStudy_end(rs.getString("study_end"));
 				dto.setStudy_file(rs.getString("study_file"));
 				dto.setStudy_hit(rs.getInt("study_hit"));
-
+				dto.setStudy_reply(rs.getInt("commentCnt"));
+				
 				list.add(dto);
 			}
 		} catch (Exception e) {
@@ -323,6 +362,8 @@ public class StudyBoardDAO {
 		}
 		return list;
 	}
+	
+	
 	
 	//모집중인 게시글 검색
 	public List<StudyBoardDTO> searchStatusStudyList(String field, String keyword, int page, int rowsize) {
@@ -344,15 +385,16 @@ public class StudyBoardDAO {
 				} else if (field.equals("cont")) {
 					searchSql = " where study_cont like '%" + keyword + "%'";
 				} else if (field.equals("title_cont")) {
-					searchSql = " where (study_title like '%" + keyword + "%') or (study_cont like '%" + keyword
-							+ "%')";
+					searchSql = " where ((study_title like '%" + keyword + "%') or (study_cont like '%" + keyword + "%'))";
 				} else if (field.equals("writer")) {
 					searchSql = " where study_writer like '%" + keyword + "%'";
 				}
 			}
+			
+			sql = "select * from(select row_number() over(order by study_group.study_date desc) as snum, "
+					+ "study_group.*,(select count(*) from study_comment where study_group.study_num =study_comment.study_num) as commentCnt "
+					+ "from study_group "+ searchSql + "and STUDY_STATUS='모집중') where snum >= ? and snum <= ?";
 
-			sql = "select * from" + "(select row_number() over(order by study_num desc) snum, s.* from study_group s "
-					+ searchSql + "and STUDY_STATUS='모집중')" + "where snum >= ? and snum <= ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startNo);
 			pstmt.setInt(2, endNo);
@@ -373,6 +415,7 @@ public class StudyBoardDAO {
 				dto.setStudy_end(rs.getString("study_end"));
 				dto.setStudy_file(rs.getString("study_file"));
 				dto.setStudy_hit(rs.getInt("study_hit"));
+				dto.setStudy_reply(rs.getInt("commentCnt"));
 
 				list.add(dto);
 			}

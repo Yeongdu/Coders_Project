@@ -268,31 +268,31 @@ button.btn.btn-outline-dark {
 		<nav>
           <ul class="pagination">
             <li class="page-item">
-              <a class="page-link" href="studyBoard_list.do?page=1">First</a></li>
+              <a class="page-link" href="study_search.do?page=1&search_field=${field}&search_keyword=${keyword }">First</a></li>
             <c:choose>
                 <c:when test="${ (page - 1) == 0}">
-                    <li><a class="page-link" href="studyBoard_list.do?page=1">Previous</a></li>
+                    <li><a class="page-link" href="study_search.do?page=1&search_field=${field}&search_keyword=${keyword }">Previous</a></li>
                 </c:when>
                 <c:otherwise>
-                    <li><a class="page-link" href="studyBoard_list.do?page=${ page - 1 }">Previous</a></li>
+                    <li><a class="page-link" href="study_search.do?page=${ page - 1 }&search_field=${field}&search_keyword=${keyword }">Previous</a></li>
                 </c:otherwise>
             </c:choose>
             <c:forEach begin="${ startBlock }" end="${ endBlock }" var="i">
                 <c:if test="${ i==page }">
                     <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="studyBoard_list.do?page=${i }">${i }</a></li>
+                    <a class="page-link" href="study_search.do?page=${i }&search_field=${field}&search_keyword=${keyword }">${i }</a></li>
                 </c:if>
                 <c:if test="${ i!=page }">
                     <li class="page-item">
-                    <a class="page-link" href="studyBoard_list.do?page=${i }">${i }</a></li>
+                    <a class="page-link" href="study_search.do?page=${i }&search_field=${field}&search_keyword=${keyword }">${i }</a></li>
                 </c:if>
             </c:forEach>
            <c:if test="${ page < allPage }">
                 <li class="page-item">
-                <a class="page-link" href="studyBoard_list.do?page=${ page + 1 }">Next</a>
+                <a class="page-link" href="study_search.do?page=${ page + 1 }&search_field=${field}&search_keyword=${keyword }">Next</a>
                 </li>
                 <li class="page-item">
-                <a class="page-link" href="studyBoard_list.do?page=${ allPage }">End</a>
+                <a class="page-link" href="study_search.do?page=${ allPage }&search_field=${field}&search_keyword=${keyword }">End</a>
                 </li>
             </c:if>
           </ul>
@@ -304,16 +304,16 @@ button.btn.btn-outline-dark {
 		<%-- 검색 기능 처리 --%>
 		<div class="studySearchWrite">
 			<form name="search_form" method="post"
-				action="<%=request.getContextPath()%>/study_status_search.do">
+				action="<%=request.getContextPath()%>/study_search.do">
 				<span class="study_search_left" style="width: 28em"> <span
 					class="col-lg"> <span
 						class="input-group list-search-form w-70"> <select
-							name="search_field" class="custom-select col-sm-4">
-								<option value="title">제목</option>
-								<option value="cont">내용</option>
-								<option value="title_cont">제목+내용</option>
-								<option value="writer">작성자</option>
-						</select> <input type="text" name="search_keyword" value=""
+							name="search_field" class="custom-select col-sm-4" >
+								<option value="title" <c:if test="${field eq 'title'}">selected</c:if>>제목</option>
+								<option value="cont" <c:if test="${field eq 'cont'}">selected</c:if>>내용</option>
+								<option value="title_cont" <c:if test="${field eq 'title_cont'}">selected</c:if>>제목+내용</option>
+								<option value="writer" <c:if test="${field eq 'writer'}">selected</c:if>>작성자</option>
+						</select> <input type="text" name="search_keyword" value="${keyword }"
 							class="form-control" />
 							<button type="submit" class="btn btn-secondary ml-1">
 								<i class="fa fa-search"></i> 검색

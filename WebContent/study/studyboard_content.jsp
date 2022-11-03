@@ -256,7 +256,7 @@ button.btn.btn-outline-dark{
 							src="<%=request.getContextPath()%>/study_upload/${dto.getStudy_file()}"
 							alt="" />
 					</p>
-					<p class="card-text"><textarea class="form-control" style="border:white;" readonly>${dto.getStudy_cont() }</textarea></p>
+					<p class="card-text"><textarea class="form-control" style="border:white;" id="study_cont" readonly>${dto.getStudy_cont() }</textarea></p>
 					<br> 
 					<div class="contBottomWrab">
 					<div><button class="btn btn-outline-dark" disabled><i
@@ -653,7 +653,7 @@ button.btn.btn-outline-dark{
 	
 	
 	function adjustHeight() {
-		  var textEle = $('textarea');
+		  var textEle = $('#study_cont');
 		  textEle[0].style.height = 'auto';
 		  var textEleHeight = textEle.prop('scrollHeight');
 		  textEle.css('height', textEleHeight+8);

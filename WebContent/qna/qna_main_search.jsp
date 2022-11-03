@@ -52,7 +52,7 @@
 			<ul>
 				<li class = "qna_language_sort" onchange = "goSortCode()">
 					<select class="form-select" aria-label="Default select example" name = "code" id = "code">
-					  	<option value = "NONE">::: 언어 선택 :::</option>
+					  	<option selected>::: 언어 선택 :::</option>
 						<option value = "JAVA">JAVA</option>
 						<option value = "HTML">HTML</option>
 						<option value = "CSS">CSS</option>
@@ -60,7 +60,7 @@
 						<option value = "JSP">JSP</option>
 						<option value = "JQUERY">JQUERY</option>
 						<option value = "DATABASE">DATABASE</option>
-						<option value = "ETC">ETC</option>
+						<option>ETC</option>
 					</select>
 				</li>
 				<li class = "qna_sort">
@@ -117,7 +117,10 @@
 								</c:if>
 								<c:if test="${tag == 'ETC'}">
 									<span class="badge text-bg-light">ETC</span>
-								</c:if>								
+								</c:if>	
+								<c:if test="${tag == null}">
+									<span class="badge text-bg-light">ETC</span>
+								</c:if>									
 								<%-- 표시할 프로그래밍 언어 다 표시하기 --%>
 								&nbsp;&nbsp;&nbsp;${dto.getQna_title() }</a>
 						</div>

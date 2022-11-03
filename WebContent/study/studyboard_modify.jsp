@@ -106,7 +106,7 @@ body {
 					class="col-sm-2 col-form-label">모집기간</label>
 				<div class="col-sm-10">
 				
-				<input type="text" class="form-control" name="study_daterange"/>
+				<input type="text" class="form-control" name="study_daterange" />
 				<input type="hidden" name="study_start" id="study_start" title="시작일" maxlength="10" value="${dto.study_start.substring(0, 10) }">
 				<input type="hidden" name="study_end" id="study_end" title="종료일" maxlength="10" value="${dto.study_end.substring(0, 10) }">
 					
@@ -169,6 +169,12 @@ body {
 	  $('input[name="study_daterange"]').data('daterangepicker').setEndDate('${dto.study_end.substring(0, 10) }');
 	  
 	}); 
+	
+	
+	$('#daterange').data('daterangepicker').setStartDate('03/01/2014');
+	$('#daterange').data('daterangepicker').setEndDate('03/31/2014');
+	
+	
 	</script>
 
 

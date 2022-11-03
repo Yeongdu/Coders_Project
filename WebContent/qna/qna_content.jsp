@@ -14,11 +14,12 @@
 
 
 <link rel="stylesheet"
-	href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/github-dark-dimmed.min.css" />
+	href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/vs.min.css" />
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
 <script>
   hljs.highlightAll();
+  hljs.configure({ 'languages': ['html'] });
 </script>
 <!-- 코드 구현 스타일 -->
 
@@ -136,12 +137,6 @@ pre {
  	width : 800px;
  }
 
-#codecss{
-	background-color: black;
-	color: white;
-	border: 2px solid;
-	border-radius: 15px;
-}
 
   .qwriter{
    
@@ -299,16 +294,41 @@ pre {
 				<div class="card">
 					<div class="card-body">
 
-						<div>
-							<h4 class="card-title mb-3" align="left">${dto.qna_title }</h4>
+						<div class="qna_view_center" style = "display: flex; margin-bottom: 15px;">
+								<c:set var = "tag" value = "${dto.getQna_tag() }" />
+								<c:if test="${tag == 'JAVA'}">
+									<span class="badge text-bg-secondary" style = "padding-top: 10px;">JAVA</span>
+								</c:if>
+								<c:if test="${tag == 'HTML'}">
+									<span class="badge text-bg-primary" style = "padding-top: 10px;">HTML</span>
+								</c:if>
+								<c:if test="${tag == 'JAVASCRIPT'}">
+									<span class="badge text-bg-warning" style = "padding-top: 10px;">JAVASCRIPT</span>
+								</c:if>
+								<c:if test="${tag == 'CSS'}">
+									<span class="badge text-bg-danger" style = "padding-top: 10px;">CSS</span>
+								</c:if>
+								<c:if test="${tag == 'JQUERY'}">
+									<span class="badge text-bg-success" style = "padding-top: 10px;">JQUERY</span>
+								</c:if>
+								<c:if test="${tag == 'DATABASE'}">
+									<span class="badge text-bg-info" style = "padding-top: 10px;">DataBase</span>
+								</c:if>
+								<c:if test="${tag == 'JSP'}">
+									<span class="badge text-bg-dark" style = "padding-top: 10px;">JSP</span>
+								</c:if>
+								<c:if test="${tag == null}">
+									<span class="badge text-bg-light" style = "padding-top: 10px;">ETC</span>
+								</c:if>								
+								&nbsp;&nbsp;
+								<span style = "font-size: 1.3em;">${dto.getQna_title() }</span>
+						</div>
 
-							<h6 class="card-subtitle text-muted mb-4" align="left">
-								<i class="fa-regular fa-user"></i> &nbsp; ${dto.qna_writer }
-							</h6>
-
-							<h6 class="card-subtitle text-muted mb-4" align="left">
-								<i class="fa-regular fa-clock"></i> &nbsp; ${dto.qna_date }
-								&nbsp; <i class="fa-regular fa-eye"></i> &nbsp; ${dto.qna_hit  } 
+							<div style = "margin-left: 15px;">
+							<h6 class="card-subtitle text-muted mb-4" align="left">
+								<i class="fa-regular fa-user"></i> &nbsp;${dto.qna_writer }&nbsp;&nbsp;
+								<i class="fa-regular fa-clock"></i> &nbsp;${dto.qna_date }&nbsp;
+								&nbsp; <i class="fa-regular fa-eye"></i> &nbsp;${dto.qna_hit  } 
 							</h6>
 							
 							
@@ -368,16 +388,6 @@ pre {
 						</div>
  					-->
  
-						<div class="mb-3 row">
-							<label for="exampleFormControlInput1"
-								class="col-sm-2 col-form-label"> 태그 </label>
-							<div class="col-sm-10">
-								<input name="qna_tag" class="form-control"
-									value="${dto.qna_tag }" readonly="readonly">
-							</div>
-						</div>
-						
-						
 						<div>
 							<input class="btn btn-primary"  type="button"
 								value="댓글 작성" id = "commentOn">
@@ -540,6 +550,7 @@ pre {
 						table += "<tr>";
 						table += "<td class = 'qnaCommentwriter'> <i class='fa-regular fa-user'>"+ "</i>" + "&nbsp;"+ $(this).find("qcomment_writer").text() +"</td>";
 						
+						
 						//자기가 작성한 글에만 수정.삭제 버튼 띄우기 
 						table += "<td class='buttonwrap'colspan='6' align = 'left'";
 						
@@ -584,8 +595,7 @@ pre {
 						table +=  "<td align = 'left' class = 'goodBadCount'>" + "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + $(this).find("qcomment_good").text() + 
 									"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + $(this).find("qcomment_bad").text() + "&nbsp;" + "</td>"
 	                    table += "</tr>";
-						
-	                    
+					
 	   					 ////////////////5행 코드 소스 
 						table += "<tr id = 'codecss'>";
 						table += "<td";
@@ -597,9 +607,9 @@ pre {
 						}
 						
 						table += "<pre>" +"<code class = '{dto.getQna_tag() }'>" +"<textarea>" + $(this).find("qcomment_code").text() + "</textarea> " + "</code>" + "</pre>" + "</td>";						
+
 						table += "</tr>";
-						
-						
+							
 						/////////////////6행 수정 폼 창 
 						table += "<tr class = 'modifyForm' style='display: none;'>";
 				      	table += "<td align = 'left'>";
@@ -630,16 +640,16 @@ pre {
 				}
 			});
 			
-			$('pre > code').each(function() {
-                hljs.highlightBlock(this);
-           });
-			
+			// 코드 형식으로 변경하는 메서드
+		    $('pre > code').each(function() {
+		    	hljs.highlightBlock(this);
+			});
+
 			
 		}  // getList() 함수 end
 		
 		
 		getList(); 
-		
 		
 /*
 	----------------------------------------------------------------------------------------------------------------------------------------- 
@@ -894,11 +904,36 @@ pre {
                 }
             }
     onlyWriter();
-    
 
 	});
 
 	</script>
+	
+<script type="text/javascript">
+<%-- 클립보드에 내용을 복사하는 이벤트 --%>
+	
+	$(function () {
+	    $('.copyAlbumId').click(function () {
+	 
+	      var copyText = document.getElementById("copy_id");//클립보드에 복사할 텍스트 가져옴
+	      var textArea = document.createElement("textarea");//textarea 생성
+	      
+	      textArea.value = copyText.textContent;//textarea에 텍스트 입력
+	      document.body.appendChild(textArea);//body에 textarea 추가
+	      
+	      textArea.select();//선택
+	      document.execCommand("Copy");//복사
+	      textArea.remove();//생성한 textarea 삭제
+	      
+	      alert("복사되었습니다.");
+	      
+	    });
+	});
+
+</script>
+	
+	
+	
 		<br> <br> <br>
 
 		<jsp:include page="../include/bottom.jsp" />

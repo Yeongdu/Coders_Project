@@ -41,14 +41,13 @@ public class QnaModifyOkAction implements Action {
 		String qna_content = multi.getParameter("qna_content").trim();
 		String qna_code = multi.getParameter("qna_code").trim();
 		String qna_tag = multi.getParameter("qna_tag").trim();
-		String qna_file = multi.getFilesystemName("qna_file");	
 		
 		File file = multi.getFile("qna_file");
 
-		if(file != null) { // Ã·ºÎÆÄÀÏÀÌ Á¸ÀçÇÏ´Â °æ¿ì
+		if(file != null) { // Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½
 			String fileName = file.getName();
 			
-			// ³¯Â¥ °´Ã¼ »ý¼º
+			// ï¿½ï¿½Â¥ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 			Calendar cal = Calendar.getInstance();
 			int year = cal.get(Calendar.YEAR);
 			int month = cal.get(Calendar.MONTH) + 1;
@@ -57,21 +56,21 @@ public class QnaModifyOkAction implements Action {
 			// ..../upload/2022-10-11
 			String homedir = saveFolder+"/"+year+"-"+month+"-"+day;
 			
-			// ³¯Â¥ Æú´õ ¸¸µé±â
+			// ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 			File path1 = new File(homedir);
 			
-			if(!path1.exists()) { // Æú´õ°¡ Á¸ÀçÇÏÁö ¾Ê´Â °æ¿ì
-				path1.mkdir(); // ½ÇÁ¦ Æú´õ¸¦ ¸¸µé¾îÁÖ´Â ¸Þ¼­µå
+			if(!path1.exists()) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½
+				path1.mkdir(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 			}
 			
-			// ÆÄÀÏ ¸¸µé±â ==> ¿¹) È«±æµ¿_ÆÄÀÏ¸í
-			// ...../upload/2022-10-11/È«±æµ¿_ÆÄÀÏ¸í
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ==> ï¿½ï¿½) È«ï¿½æµ¿_ï¿½ï¿½ï¿½Ï¸ï¿½
+			// ...../upload/2022-10-11/È«ï¿½æµ¿_ï¿½ï¿½ï¿½Ï¸ï¿½
 			String reFileName = qna_writer + "_" + fileName;
 			
-			file.renameTo(new File(homedir + "/" + reFileName)); // ÆÄÀÏÀÇ ÀÌ¸§ º¯°æ
+			file.renameTo(new File(homedir + "/" + reFileName)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 			
-			// ½ÇÁ¦·Î DB¿¡ ÀúÀåµÇ´Â ÆÄÀÏ ÀÌ¸§
-			// "/2022-10-11/È«±æµ¿_ÆÄÀÏ¸í"À¸·Î ÀúÀåÇÒ ¿¹Á¤
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+			// "/2022-10-11/È«ï¿½æµ¿_ï¿½ï¿½ï¿½Ï¸ï¿½"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			String fileDBName = "/" + year + "-" + month + "-" + day + "/" + reFileName;
 			dto.setQna_file(fileDBName);
 		}
@@ -95,7 +94,7 @@ public class QnaModifyOkAction implements Action {
 			
 		} else {
 			out.println("<script>");
-			out.println("alert('°Ô½Ã±Û ¼öÁ¤¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù.')");
+			out.println("alert('ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.')");
 			out.println("history.back()");
 			out.println("</script>");
 		}

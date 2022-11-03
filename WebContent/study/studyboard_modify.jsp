@@ -21,6 +21,17 @@
 	
 <style type="text/css">
 
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap')
+	;
+
+body {
+	font-family: 'Noto Sans KR' !important;
+}
+
+ .study_subtitle {
+ font-size: 0.9rem;
+ }
 
  .container col-md-6{
  margin: auto;
@@ -52,7 +63,7 @@
 			<div class="card">
 				<div class="card-body">
 					<h4 class="card-title mb-3"><input name="study_title" class="form-control" value="${dto.getStudy_title() }" ></h4>
-					<h6 class="card-subtitle text-muted mb-4">
+					<h6 class="study_subtitle">
 						<i class="fa-regular fa-user"></i>${dto.getStudy_writer() } &nbsp;
 						<i class="fa-regular fa-clock"></i> ${dto.getStudy_date()} &nbsp;
 						<i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }            
@@ -154,45 +165,9 @@
 	    $("#study_end").val(end.format('YYYY-MM-DD'));
 	  });
 	  
-// 	  let sdate = new Date('${dto.study_start.substring(0, 10) }');
-// 	  let edate = new Date('${dto.study_end.substring(0, 10) }');
+	  $('input[name="study_daterange"]').data('daterangepicker').setStartDate('${dto.study_start.substring(0, 10) }');
+	  $('input[name="study_daterange"]').data('daterangepicker').setEndDate('${dto.study_end.substring(0, 10) }');
 	  
-// 	  let startdate = sdate.format('YYYY-MM-DD');
-// 	  let enddate = edate.format('YYYY-MM-DD');
-	  
-// 	  var sdateYear = sdate.getFullYear();
-// 	  var sdateMonth = sdate.getMonth();
-// 	  var sdateDay = sdate.getDay();
-// 	  var startDateString = sdateYear + '/' + sdateMonth + '/' + sdateDay;
-	  
-// 	  var edateYear = edate.getFullYear();
-// 	  var edateMonth = edate.getMonth();
-// 	  var edateDay = edate.getDay();
-// 	  var endDateString = edateYear + '/' + edateMonth + '/' + edateDay;
-	  
-//  	  let sdate = ${dto.study_start.substring(0, 10) };
-//       let edate = ${dto.study_end.substring(0, 10) };
-	  
-	  
-// 	  console.log(sdate);
-	  
-// 	  $('input[name="study_daterange"]').daterangepicker('startDate': '${dto.study_start.substring(0, 10) }', 'endDate': '${dto.study_end.substring(0, 10) }');
-// 	  $('input[name="study_daterange"]').daterangepicker({ setStartDate: '${dto.study_start.substring(0, 10) }', setEndDate: '${dto.study_end.substring(0, 10) }' });
-	
-	$('input[name="study_daterange"]').val('${dto.study_start.substring(0, 10) }' +' ~ ' +'${dto.study_end.substring(0, 10) }');
-	
-	  $('input[name="study_daterange"]').on('show.daterangepicker', function(ev, picker) {
-		  //do something, like clearing an input
-		   $('input[name="study_daterange"]').val('${dto.study_start.substring(0, 10) }' +' ~ ' +'${dto.study_end.substring(0, 10) }');
-// 		   $(this).val(picker.startDate.${dto.study_start.substring(0, 10) } + ' - ' + picker.endDate.${dto.study_end.substring(0, 10) });
-// 		 $('input[name="study_daterange"]').data('daterangepicker').setStartDate((${dto.study_start.substring(0, 10) }));
-// 		 $('input[name="study_daterange"]').data('daterangepicker').setEndDate((${dto.study_end.substring(0, 10) }));
-		  
-		  
-		  
-		});
-	
-	
 	}); 
 	</script>
 

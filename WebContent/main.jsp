@@ -127,6 +127,16 @@
 		font-weight: bold;
 	}
 	
+	.studyEndTxt {
+	font-weight: bold;
+	}
+	
+	.studyIngTxt {
+		border-bottom: 7px solid #dcf1fb;
+		padding: 0.2em 0 0 0.2em;
+		font-weight: bold;
+	}
+	
 	.etc {
 		width: 560px;
 		overflow: hidden;
@@ -147,6 +157,14 @@
 		background-color: DarkCyan;
 		padding-bottom: 7px;
 		border: 0px;
+	}
+	
+	#StudylistBtn {
+		padding-left: 6px;
+		padding-right: 6px;
+		color: #dc3545;
+		border-color: #dc3545;
+		font-weight: bold;
 	}
 	
 	.etc {
@@ -239,6 +257,14 @@
 				let table = "";
 				
 				$(data).find("main").each(function(){
+					let today = new Date().getTime();
+					let today_n = Math.floor(today / (1000*60*60*24));
+					
+					let endDate = new Date($(this).find("date").text()).getTime();
+					let endDate_n = Math.floor(endDate / (1000*60*60*24));
+					
+					let day = endDate_n - today_n + 1;
+					
 					table += "<div id='studyListContainer' class='border-top' class='border-bottom'>"
 					table += "<div class='study_view_left'>"
 					table += "<div><i class='fa-regular fa-eye'></i> &nbsp;"+$(this).find("hit").text()+"</div>"
@@ -251,9 +277,30 @@
 						table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
 					}
 					table += "&nbsp;"+$(this).find("title").text()+"</a></div>"
-					table += "<div class='study_title_right'>"
-					table += "<div class='studyViewWriter'>"+$(this).find("writer").text()+"</div>"
-					table += "<div class='studyViewData'>"+$(this).find("date").text()+"</div></div></div>"
+					table += "<div class='study_view_right'>"
+					if($(this).find("date").text() == 'null'){
+						table += "<span></span>"
+					}else {
+						if(day > 0){
+							if($(this).find("type").text() == "모집완료"){
+								table += "<span class='studyEndTxt'>마감</span>"
+							}else if($(this).find("type").text() == "모집중"){
+								table += "<span class='studyIngTxt'>D - "+day+"</span>"
+							}
+							
+						}else if(day == 0){
+							if($(this).find("type").text() == "모집완료"){
+								table += "<span class='studyEndTxt'>마감</span>"
+							}else if($(this).find("type").text() == "모집중"){
+								table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>오늘마감</button>"
+							}
+							
+						}else if(day < 0){
+							table += "<span class='studyEndTxt'>마감</span>"
+						}
+					}
+					table += "<button type='button' class='btn btn-outline-dark' disabled>"
+					table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div>"
 					
 				});				
 				$("#study_center").append(table);

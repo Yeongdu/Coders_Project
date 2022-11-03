@@ -48,7 +48,7 @@ public class StudyStatusSearchAction implements Action {
 		StudyBoardDAO dao = StudyBoardDAO.getInstance();
 		
 		
-		totalRecord = dao.searchStudyListCount(search_field, search_keyword);
+		totalRecord = dao.searchStudyStatusListCount(search_field, search_keyword);
 
 		allPage = (int) Math.ceil(totalRecord / (double) rowsize);
 

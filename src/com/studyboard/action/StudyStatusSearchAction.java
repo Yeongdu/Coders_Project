@@ -17,6 +17,9 @@ public class StudyStatusSearchAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String search_field = request.getParameter("search_field").trim();
 		String search_keyword = request.getParameter("search_keyword").trim();
+		
+		System.out.println("search_field >>>" +search_field);
+		System.out.println("search_keyword >>>" +search_keyword);
 		 
 		int rowsize = 10;
 
@@ -45,7 +48,7 @@ public class StudyStatusSearchAction implements Action {
 		StudyBoardDAO dao = StudyBoardDAO.getInstance();
 		
 		
-		totalRecord = dao.searchStudyListCount(search_field, search_keyword);
+		totalRecord = dao.searchStudyStatusListCount(search_field, search_keyword);
 
 		allPage = (int) Math.ceil(totalRecord / (double) rowsize);
 

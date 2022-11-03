@@ -24,11 +24,26 @@
 	
 <style type="text/css">
 
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap')
+	;
 
+body {
+	font-family: 'Noto Sans KR' !important;
+}
 
 
  .container col-md-6{
  margin: auto;
+ }
+ 
+ .study_title {
+ font-weight: bold;
+ 
+ }
+ 
+ .study_subtitle {
+ font-size: 0.9rem;
  }
  
  .studyEditDelete{
@@ -80,12 +95,6 @@
  font-size: 18px;
 }
      
-     
-     
-  
-     
-     
-    
  .modifyOK{
  
     display: block;
@@ -104,24 +113,38 @@
  	}
  
 
- 
+ .ReCount_wrap{
+ display: flex;
+ justify-content: center;
+ }
  
  .ReCount{
-    
-    font-size: 22px;
-    width: 895px;
-    text-align: right;
-    padding-bottom: 30px;
+    padding-left: 5px;
+    font-size: 20px;
+    width: 600px;
+    padding-bottom: 9px;
     font-weight: bold;
+ }
+ 
+ .replyRap1{
+ display: flex;
+ justify-content: center;
+ }
+ 
+ .replyRap{
+ width: 600px;
+ align-items: center;
+
+ 
  }
  
  .replyRap textarea {
     font-family: inherit;
-    padding: 1rem 1rem 1.5rem;
+    padding: 1rem;
     outline: none;
-    border: 1px solid #bebebe;
+    border: 0;
     border-radius: 16px;
-    width: 100%;
+    width: 580px;
     min-height: 100px;
     margin-bottom: 10px;
     resize: none;
@@ -138,8 +161,6 @@
     border: none;
     background-color: #fff;
     cursor: pointer;
-   
-    
 
 }
  
@@ -152,29 +173,30 @@
 
     
  .commentInput_buttonWrapper{
- 
-     display: flex;
-    justify-content: flex-end;
-    margin: 16px 0 24px;
-    width: 600px;
+    display: flex;
+    justify-content: center;
 }
 
-
-.commentInput_buttonComplete{
-    padding: 10px 30px;
-    min-width: 120px;
-    height: 40px;
-    background: #646464;;
-    border-radius: 50px;
-    font-weight: 700;
-    color: #fff;
-    font-size: 16px;
-    outline: none;
-    border: none;
-    cursor: pointer;
-
-
+.commentInput_button{
+text-align:right;
+width: 600px;
+padding-top: 7px;
+padding-bottom: 30px;
 }
+
+/* .commentInput_buttonComplete{ */
+/*     padding: 10px 30px; */
+/*     min-width: 120px; */
+/*     height: 40px; */
+/*     background: #646464;; */
+/*     border-radius: 50px; */
+/*     font-weight: 700; */
+/*     color: #fff; */
+/*     font-size: 16px; */
+/*     outline: none; */
+/*     border: none; */
+/*     cursor: pointer; */
+/* } */
 
 
 
@@ -204,13 +226,30 @@
  width: 200px;
  }
  
-<<<<<<< HEAD
 .swriterwrap{
    width: 50px;
-=======
+}
+
 button.btn.btn-outline-dark{
  	border-color:#b5b5b5;
->>>>>>> refs/remotes/origin/master
+
+}
+
+.btn.btn-outline-secondary {
+	width: 86px;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-bottom: 9px;
+}
+
+.btn.btn-primary {
+	width: 86px;
+	padding-left: 5px;
+	padding-right: 5px;
+	background-color: DarkCyan;
+	padding-bottom: 7px;
+	border: 0px;
+	margin-bottom: 9px;
 }
 
 
@@ -240,11 +279,22 @@ button.btn.btn-outline-dark{
 		<div class="container col-md-6" style="width: 600px;">
 			<div class="card">
 				<div class="card-body">
-					<h4 class="card-title mb-3"><button type="button" class="btn btn-outline-primary" disabled>${dto.study_status }</button>&nbsp;${dto.getStudy_title() }</h4>
-					<h6 class="card-subtitle text-muted mb-4">
+					<div class="card-title mb-3">
+						<c:if test="${dto.study_status eq '모집중' }">
+							<button type="button" class="btn btn-primary">${dto.study_status }</button>
+						</c:if>
+						
+						<c:if test="${dto.study_status eq '모집완료' }">
+							<button type="button" class="btn btn-outline-secondary" disabled>${dto.study_status }</button>
+						</c:if>
+						
+						&nbsp;<h4 class="study_title">${dto.getStudy_title() }</h4></div>
+					<h6 class="study_subtitle">
+
 						<i class="fa-regular fa-user"></i> ${dto.getStudy_writer() } &nbsp;
 						<i class="fa-regular fa-clock"></i> ${dto.getStudy_date()} &nbsp;
 						<i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }
+						
 					</h6>
 					<span id="studyEditDelete" class="studyEditDelete" style="display: none;"><a id="studyEditIcon" class="studyEditIcon"
 						><i
@@ -256,7 +306,7 @@ button.btn.btn-outline-dark{
 							src="<%=request.getContextPath()%>/study_upload/${dto.getStudy_file()}"
 							alt="" />
 					</p>
-					<p class="card-text"><textarea class="form-control" style="border:white;" readonly>${dto.getStudy_cont() }</textarea></p>
+					<p class="card-text"><textarea class="form-control" style="border:white;" id="study_cont" readonly>${dto.getStudy_cont() }</textarea></p>
 					<br> 
 					<div class="contBottomWrab">
 					<div><button class="btn btn-outline-dark" disabled><i
@@ -278,16 +328,16 @@ button.btn.btn-outline-dark{
 	
 	<%-- 댓글 폼 영역입니다. --%>
 	
+	 
 	 <div align="center" class="ReCount">${dto.study_reply} 개의 댓글이 있습니다.</div>
-	 <div class="replyRap" align="center">
+     <div class="replyRap" align="center">
     <textarea class="commentInput" placeholder="댓글을 입력하세요" id="re_content"></textarea>
-	&nbsp;&nbsp;
-	
-	<div class="commentInput_buttonWrapper">
-	<button class="commentInput_buttonComplete" id="replyBtn">댓글쓰기</button>
-	</div>
-	</div>
-	
+    &nbsp;&nbsp;
+
+    <div class="commentInput_buttonWrapper">
+    <button class="commentInput_buttonComplete" id="replyBtn" onclick="refreshPage();">댓글쓰기</button>
+    </div>
+    </div>
 	
 	 <div align="center">
 	      <table class="list" width="600px">
@@ -322,6 +372,18 @@ button.btn.btn-outline-dark{
 		type : "post"
 	});
 	
+	
+	//페이지 새로고침하는 함수(댓글 카운트 바로보기용도)
+	function refreshPage() {
+		
+	
+		window.location.reload();
+		
+	}
+		
+	
+		
+
 	 
 
 
@@ -355,7 +417,7 @@ button.btn.btn-outline-dark{
                      table += "</tr>";
                      
                      
-                     table += "<td class='scommentwriter'><i class='fa-regular fa-user'>"+ "</i>" + $(this).find("scomment_writer").text() + "</td>";
+                     table += "<td class='scommentwriter'><i class='fa-regular fa-user'>"+ "</i> " + $(this).find("scomment_writer").text() + "</td>";
                      table += "<td class='buttonwrap'colspan='5' align = 'right'";
                      if('${userId}' == $(this).find("scomment_writer").text()){
                      table += " style='display: block;'>";
@@ -432,15 +494,17 @@ button.btn.btn-outline-dark{
 				    scomment_writer :$("#scomment_writer" ).val(),
 				    study_num : ${dto.study_num }
 				    
+				    
 					},
 			success : function(data) {
 					if(data > 0) {
 						alert('댓글 작성 완료');
 						
-					
+						refreshPage();
 						// 댓글 작성 후 다시 전체 댓글 리스트를
 						// 화면에 뿌려주면 됨.
 						getList();
+						
 						
 						
 						
@@ -580,6 +644,7 @@ button.btn.btn-outline-dark{
 			  success : function(data){
 				  if(data > 0){
 					  alert('댓글이 삭제되었습니다.')
+					  refreshPage();
 					  getList();
 				  }else{
 					  alert('댓글 삭제에 실패했습니다.')
@@ -642,18 +707,8 @@ button.btn.btn-outline-dark{
 	  textEle.css('height', textEleHeight+16);
 	};//autoReplyHeight end
 	
-	
-
-	
-	
-	
-		
-	
-	
-	
-	
 	function adjustHeight() {
-		  var textEle = $('textarea');
+		  var textEle = $('#study_cont');
 		  textEle[0].style.height = 'auto';
 		  var textEleHeight = textEle.prop('scrollHeight');
 		  textEle.css('height', textEleHeight+8);

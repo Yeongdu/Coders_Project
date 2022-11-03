@@ -10,12 +10,13 @@ import com.coders.controller.Action;
 import com.coders.controller.ActionForward;
 import com.coders.model.StudyBoardCommentDTO;
 import com.coders.model.StudyBoardDAO;
+import com.coders.model.StudyBoardDTO;
 
 public class StudyBoardReplyInsertAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// ´äº¯±Û Æû¿¡¼­ ³Ñ¾î¿Â µ¥ÀÌÅÍµéÀ» °¡Áö°í DB¿¡ ÀúÀåÇÏ´Â ºñÁö´Ï½º ·ÎÁ÷.
+		// ï¿½äº¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		
 		int study_num = Integer.parseInt(request.getParameter("study_num").trim());
 
@@ -25,6 +26,7 @@ public class StudyBoardReplyInsertAction implements Action {
 		
 		String scomment_writer = request.getParameter("scomment_writer").trim();
 		
+		
 		System.out.println("reply_cont >>> " + reply_cont);
 		System.out.println("scomment_writer >>> " + scomment_writer);
 		
@@ -32,13 +34,17 @@ public class StudyBoardReplyInsertAction implements Action {
 		StudyBoardCommentDTO dto = new StudyBoardCommentDTO();
 		
 		
+		
+		
 		dto.setStudy_num(study_num);
 		
-	
+	      
 		
 		dto.setScomment_cont(reply_cont);
 		
 		dto.setScomment_writer(scomment_writer);
+		
+	
 		
 	
 		
@@ -53,7 +59,7 @@ public class StudyBoardReplyInsertAction implements Action {
 	    PrintWriter out = response.getWriter();
 	    
 	    
-	    //°á°ú°ªÀ» ajax¿¡ º¸³»ÁÜ
+	    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ajaxï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	    
 	    out.println(check);
 		

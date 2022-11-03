@@ -14,8 +14,9 @@ public class StudyBoardDTO {
 	private String study_end;
 	private String study_file;
 	private int study_hit;
-	
 	private int study_reply;
+	
+	
 	
 	public int getStudy_reply() {
 		return study_reply;

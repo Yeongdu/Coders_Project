@@ -663,6 +663,42 @@ public class QnaDAO {
 		 } //commentinsert end
 		 
 		 
+		 //댓글 수정 메소드 
+		 public int modifyQnaComment(QnaCommentDTO dto) {
+
+				int result = 0;
+
+				try {
+
+					openConn();
+
+					sql = "update qna_comment set qcomment_cont = ?, qcomment_update = sysdate, qcomment_code = ? where qcomment_num = ?";
+
+					pstmt = con.prepareStatement(sql);
+
+					pstmt.setString(1, dto.getQcomment_cont());
+
+					pstmt.setString(2, dto.getQcomment_code());
+					
+					pstmt.setInt(3, dto.getQcomment_num());
+
+					result = pstmt.executeUpdate();
+
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+
+					closeConn(rs, pstmt, con);
+				}
+
+				return result;
+			 
+		 }
+		 
+		 
+		 
+		 
 		 public int deleteQnaComment(int no) {
 			 
 			 

@@ -324,6 +324,7 @@ button.btn.btn-outline-dark{
 		</div>
 	</div>
 	
+	
 	<br>
 	
 	<%-- 댓글 폼 영역입니다. --%>

@@ -277,6 +277,8 @@ public class UserDAO {
 			
 			
 			try {
+				int count = userQnaBoardCount(id);
+				
 				openConn();
 			
 				sql = "select * from qna where qna_writer = ? order by qna_date desc";
@@ -301,6 +303,9 @@ public class UserDAO {
 					result += "</main>";
 				}
 				
+				result += "<maincount>";
+				result += "<count>" + count + "</count>";
+				result += "</maincount>";
 				result += "</mains>";
 				
 					
@@ -319,6 +324,8 @@ public class UserDAO {
 			String result = "";
 			
 			try {
+				int count = userQnaCommentCount(id);
+				
 				openConn();
 			
 				sql = "select * from qna where qna_num in (select qna_num from qna_comment where qcomment_writer = ?) order by qna_date desc";
@@ -343,6 +350,9 @@ public class UserDAO {
 					result += "</main>";
 				}
 				
+				result += "<maincount>";
+				result += "<count>" + count + "</count>";
+				result += "</maincount>";
 				result += "</mains>";
 					
 			} catch (SQLException e) {
@@ -506,8 +516,10 @@ public class UserDAO {
 			
 			String result = "";
 			
-			
 			try {
+				
+				int count = userStudyBoardCount(id);
+				
 				openConn();
 			
 				sql = "select * from study_group where study_writer = ? order by study_date desc";
@@ -522,6 +534,7 @@ public class UserDAO {
 				
 				while(rs.next()) {
 					result += "<main>";
+					result += "<people>" + rs.getInt("study_people") + "</people>";
 					result += "<num>" + rs.getInt("study_num") + "</num>";
 					result += "<hit>" + rs.getString("study_hit") + "</hit>";
 					result += "<title>" + rs.getString("study_title") + "</title>";
@@ -530,7 +543,9 @@ public class UserDAO {
 					result += "<type>" + rs.getString("study_status") + "</date>";
 					result += "</main>";
 				}
-				
+				result += "<maincount>";
+				result += "<count>" + count + "</count>";
+				result += "</maincount>";
 				result += "</mains>";
 					
 			} catch (SQLException e) {
@@ -549,6 +564,8 @@ public class UserDAO {
 			
 			
 			try {
+				int count = userStudyCommentCount(id);
+				
 				openConn();
 			
 				sql = "select * from study_group where study_num in (select study_num from study_comment where scomment_writer = ?) order by study_date desc";
@@ -563,6 +580,7 @@ public class UserDAO {
 				
 				while(rs.next()) {
 					result += "<main>";
+					result += "<people>" + rs.getInt("study_people") + "</people>";
 					result += "<num>" + rs.getInt("study_num") + "</num>";
 					result += "<hit>" + rs.getString("study_hit") + "</hit>";
 					result += "<title>" + rs.getString("study_title") + "</title>";
@@ -572,6 +590,9 @@ public class UserDAO {
 					result += "</main>";
 				}
 				
+				result += "<maincount>";
+				result += "<count>" + count + "</count>";
+				result += "</maincount>";
 				result += "</mains>";
 					
 			} catch (SQLException e) {

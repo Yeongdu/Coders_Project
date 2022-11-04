@@ -817,6 +817,7 @@ public class StudyBoardDAO {
 				result += "<mains>";
 				while(rs.next()) {
 					result += "<main>";
+					result += "<people>" + rs.getInt("study_people") + "</people>";
 					result += "<num>" + rs.getInt("study_num") + "</num>";
 					result += "<hit>" + rs.getString("study_hit") + "</hit>";
 					result += "<reply>" + rs.getString("commentCnt") + "</reply>";

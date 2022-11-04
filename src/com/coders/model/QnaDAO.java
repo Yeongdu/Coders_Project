@@ -269,11 +269,12 @@ public class QnaDAO {
 		try {
 			openConn();
 			sql = "select * from (select row_number() over(order by qna_date desc) qnum, "
-					+ "q.* from qna q) where qnum >=? and qnum <= ? and qna_tag = ?";
+					+ "q.* from qna q where qna_tag=?) where qnum >=? and qnum <= ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, startNo);
-			pstmt.setInt(2, endNo);
-			pstmt.setString(3, codeName);
+			pstmt.setString(1, codeName);
+			pstmt.setInt(2, startNo);
+			pstmt.setInt(3, endNo);
+			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -380,13 +381,14 @@ public class QnaDAO {
 			openConn();
 			
 				try {
-					sql = "select * from (select row_number() over(order by qna_date desc) qnum, q.* from qna q) where qnum >= ? and qnum <= ? and qna_title like ? or qna_cont like ?";
+					sql = "select * from (select row_number() over(order by qna_date desc) qnum, q.* from qna q where qna_title like ? or qna_cont like ?) where qnum >= ? and qnum <= ?";
 					
 					pstmt = con.prepareStatement(sql);
-					pstmt.setInt(1, startNo);
-					pstmt.setInt(2, endNo);
-					pstmt.setString(3, "%"+keyword+"%");
-					pstmt.setString(4, "%"+keyword+"%");
+					pstmt.setString(1, "%"+keyword+"%");
+					pstmt.setString(2, "%"+keyword+"%");
+					pstmt.setInt(3, startNo);
+					pstmt.setInt(4, endNo);
+					
 					rs = pstmt.executeQuery();
 					
 					while(rs.next()) {
@@ -659,6 +661,42 @@ public class QnaDAO {
 				}
 				return result;
 		 } //commentinsert end
+		 
+		 
+		 //댓글 수정 메소드 
+		 public int modifyQnaComment(QnaCommentDTO dto) {
+
+				int result = 0;
+
+				try {
+
+					openConn();
+
+					sql = "update qna_comment set qcomment_cont = ?, qcomment_update = sysdate, qcomment_code = ? where qcomment_num = ?";
+
+					pstmt = con.prepareStatement(sql);
+
+					pstmt.setString(1, dto.getQcomment_cont());
+
+					pstmt.setString(2, dto.getQcomment_code());
+					
+					pstmt.setInt(3, dto.getQcomment_num());
+
+					result = pstmt.executeUpdate();
+
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+
+					closeConn(rs, pstmt, con);
+				}
+
+				return result;
+			 
+		 }
+		 
+		 
 		 
 		 
 		 public int deleteQnaComment(int no) {

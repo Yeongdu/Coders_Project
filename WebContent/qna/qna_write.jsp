@@ -9,13 +9,7 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-<%-- summernote editor --%>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
 <style type="text/css">
 
@@ -82,7 +76,7 @@
 	  width: 800px;
 	  height: 600px;
 	
-	  padding: 40px;
+	  padding: 20px;
 	
 	  text-align: center;
 	
@@ -93,6 +87,11 @@
 	  transform: translateX(-50%) translateY(-50%);
 	}
 	
+	.modalClose {
+		color:white;
+		text-shadow:-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray;
+		font-size: 20px;
+	}
 	
 </style>
 </head>
@@ -112,7 +111,7 @@
 			  <div class = "top_wrab" align = "center" width = "40em">
 			  		<div class = "tag_wrab">
 						<select class="form-select" aria-label="Default select example" name = "code" id = "code" style = "width:10em; margin-left:15px;">
-							<option value = "NONE">언어 선택</option>
+							<option value = "">언어 선택</option>
 							<option value = "JAVA">JAVA</option>
 							<option value = "HTML">HTML</option>
 							<option value = "CSS">CSS</option>
@@ -120,7 +119,7 @@
 							<option value = "JSP">JSP</option>
 							<option value = "JQUERY">JQUERY</option>
 							<option value = "DATABASE">DATABASE</option>
-							<option value = "ETC">ETC</option>
+							<option value = "">ETC</option>
 						</select>
 					</div>
 					<div id = "space">&nbsp;</div>
@@ -132,7 +131,7 @@
 				<ul>
 					<li id = "qna_write_code">
 						<div class="mb-3" style = "width:40em;">
-							<a id="modalOpen" class="modalOpen"><i class="fa-solid fa-question"></i></a>
+							<a id="modalOpen" class="modalOpen"><i class="bi bi-question-circle"></i></a>
 							<script src="https://kit.fontawesome.com/c85ddd0cc6.js" crossorigin="anonymous"></script>
 						  <textarea class="form-control" id="qna_code" rows="8" name = "qna_code" placeholder = "코드를 입력하세요."></textarea>
 						</div><%-- 코드 영역의 end --%>
@@ -160,6 +159,7 @@
 	
 		<div id = "modal" >
 			<div class = "modal_body">
+				<div class = "modalClose" align = "right"><i class="bi bi-x-lg"></i></div>
 				<h3>CODE 작성 방법</h3>
 				<br>
 				<img src = "./upload/codeInfo.gif">
@@ -170,8 +170,6 @@
 				<p style = "font-size:13px; margin-top:0; color:tomato;">*형식이 달라도 코드 출력은 되지만 에디터 형식으로 출력되지 않습니다.</p>
 				<p>2. 프로그램에서 코드를 복사해 붙여넣으세요.</p>
 				</div> 
-				
-				<input type = "button" class = "modalClose" value = "확 인">
 			</div>
 		</div>
 		
@@ -205,9 +203,8 @@
 	adjustHeight2();
 </script>
 
-
-<%-- code 입력 방법을 설명하는 모달창 --%>
 <script type="text/javascript">
+<%-- code 입력 방법을 설명하는 모달창 --%>
 	$("#modalOpen").on("click", function(){
 		$("#modal").css('display', 'block');
 		$("#modal").css('overflow','hidden');
@@ -218,7 +215,53 @@
 		$("#modal").css('overflow','auto');
 	});
 
+	
+<%-- 아이콘 이미지 위로 마우스 올릴시 아이콘 변경 --%>
+	// 모달창 여는 ? 아이콘
+	$('.modalOpen').on('mouseover',function(){
+	    $('.bi-question-circle').attr('class','bi-question-circle-fill');
+	    $(this).css('cursor', 'pointer');
+	});
+	
+	$('.modalOpen').on('mouseout',function(){
+	    $('.bi-question-circle-fill').attr('class','bi-question-circle');
+	});
+	
+	// 모달창 닫는 x 아이콘
+	$('.modalClose').on('mouseover',function(){
+	    $('.bi-x-lg').css('color','gray');
+	    $('.bi-x-lg').css('text-shadow','-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray');
+	    $('.bi-x-lg').css('cursor','pointer');
+	    
+	});
+	
+	$('.modalClose').on('mouseout',function(){
+	    $('.bi-x-lg').css('color','white');
+	    $('.bi-x-lg').css('text-shadow','-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray');
+	});
 </script>
+
+
+<script type="text/javascript">
+<%-- 클립보드 붙여넣기 --%>
+
+function pasteFromClipboard(fieldId){
+	  const pasteTextarea = document.querySelector('#'+fieldId);
+	  pasteTextarea.focus();
+
+	  try {
+	    //프로미스 객체를 통해 클립보드에서 가져온 데이터를 입력 필드에 적용
+	    navigator.clipboard.readText().then(clipboardText => {
+	      pasteTextarea.value = clipboardText;
+	      pasteTextarea.select();
+	      console.log('클립보드에서 가져온 내용: ' + pasteTextarea.value);
+	    });
+	  } catch (err) {
+	    console.log('클립보드에서 가져올 수 없음!'+err);
+	  }
+
+</script>
+
 
 </body>
 </html>

@@ -12,6 +12,11 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script src="https://kit.fontawesome.com/c85ddd0cc6.js" crossorigin="anonymous"></script>
 <style type="text/css">
+
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap')
+	;
+
 	body {
 	font-family: 'Noto Sans KR' !important;
 	}
@@ -353,6 +358,8 @@
 		<div id ="study_center">
 		</div>
 	</div>
+	
+	<jsp:include page="./include/bottom.jsp" />
 	
 	
 	

@@ -342,8 +342,8 @@ button.btn.btn-outline-dark{
 	</div>
 	<div class="commentInput_buttonWrapper">
 	
-	<div class="commentInput_button"><button type="button" class="btn btn-outline-secondary" id="replyBtn">댓글쓰기</button></div>
-<!-- 	<div class="commentInput_button"><button class="commentInput_buttonComplete" id="replyBtn">댓글쓰기</button></div> -->
+	<div class="commentInput_button"><button type="button" class="btn btn-outline-secondary" id="replyBtn" onclick="refreshPage();">댓글쓰기</button></div>
+	
 	</div>
 	
 	
@@ -495,7 +495,7 @@ button.btn.btn-outline-dark{
 					if(data > 0) {
 						alert('댓글 작성 완료');
 						
-					
+						refreshPage();
 						// 댓글 작성 후 다시 전체 댓글 리스트를
 						// 화면에 뿌려주면 됨.
 						getList();
@@ -638,6 +638,7 @@ button.btn.btn-outline-dark{
 			  success : function(data){
 				  if(data > 0){
 					  alert('댓글이 삭제되었습니다.')
+					  refreshPage();
 					  getList();
 				  }else{
 					  alert('댓글 삭제에 실패했습니다.')

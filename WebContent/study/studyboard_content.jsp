@@ -95,6 +95,7 @@ body {
  font-size: 18px;
 }
      
+
  .modifyOK{
  
     display: block;
@@ -330,15 +331,21 @@ button.btn.btn-outline-dark{
 	<%-- 댓글 폼 영역입니다. --%>
 	
 	 
-	 <div align="center" class="ReCount">${dto.study_reply} 개의 댓글이 있습니다.</div>
-     <div class="replyRap" align="center">
-    <textarea class="commentInput" placeholder="댓글을 입력하세요" id="re_content"></textarea>
-    &nbsp;&nbsp;
-
-    <div class="commentInput_buttonWrapper">
-    <button class="commentInput_buttonComplete" id="replyBtn" onclick="refreshPage();">댓글쓰기</button>
-    </div>
-    </div>
+	 <div class="ReCount_wrap"><div class="ReCount">${dto.study_reply} 개의 댓글이 있습니다.</div></div>
+	 <div class="replyRap1">
+	 <div class="replyRap" align="center">
+	 <div class="card">
+	 <div class="card-dody">
+    <textarea class="commentInput" placeholder="댓글을 입력하세요" style="width: 598px" id="re_content"></textarea></div></div>
+	
+	</div>
+	</div>
+	<div class="commentInput_buttonWrapper">
+	
+	<div class="commentInput_button"><button type="button" class="btn btn-outline-secondary" id="replyBtn">댓글쓰기</button></div>
+<!-- 	<div class="commentInput_button"><button class="commentInput_buttonComplete" id="replyBtn">댓글쓰기</button></div> -->
+	</div>
+	
 	
 	 <div align="center">
 	      <table class="list" width="600px">
@@ -373,18 +380,6 @@ button.btn.btn-outline-dark{
 		type : "post"
 	});
 	
-	
-	//페이지 새로고침하는 함수(댓글 카운트 바로보기용도)
-	function refreshPage() {
-		
-	
-		window.location.reload();
-		
-	}
-		
-	
-		
-
 	 
 
 
@@ -495,17 +490,15 @@ button.btn.btn-outline-dark{
 				    scomment_writer :$("#scomment_writer" ).val(),
 				    study_num : ${dto.study_num }
 				    
-				    
 					},
 			success : function(data) {
 					if(data > 0) {
 						alert('댓글 작성 완료');
 						
-						refreshPage();
+					
 						// 댓글 작성 후 다시 전체 댓글 리스트를
 						// 화면에 뿌려주면 됨.
 						getList();
-						
 						
 						
 						
@@ -645,7 +638,6 @@ button.btn.btn-outline-dark{
 			  success : function(data){
 				  if(data > 0){
 					  alert('댓글이 삭제되었습니다.')
-					  refreshPage();
 					  getList();
 				  }else{
 					  alert('댓글 삭제에 실패했습니다.')
@@ -707,6 +699,16 @@ button.btn.btn-outline-dark{
 	  var textEleHeight = textEle.prop('scrollHeight');
 	  textEle.css('height', textEleHeight+16);
 	};//autoReplyHeight end
+	
+	
+
+	
+	
+	
+		
+	
+	
+	
 	
 	function adjustHeight() {
 		  var textEle = $('#study_cont');

@@ -60,8 +60,21 @@
 </script>
 	
 <style type="text/css">
+
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap')
+	;
+
+body {
+	font-family: 'Noto Sans KR' !important;
+}
+
 .mb-3 {
-	width: 40em;
+	width: 664px;
+}
+
+.mb-3.row{
+	margin-bottom: 0px !important;
 }
 
 #qna_cont {
@@ -70,8 +83,8 @@
 }
 
 
-.qnaEditDelete {
-	margin-left: 650px;
+.qnaEditDelete a{
+	text-decoration: none;
 }
 
 .qnaEditIcon {
@@ -96,6 +109,12 @@ h6{
 	text-align: left;
 }
 
+.card-subtitle{
+	text-align: right;
+    font-size: 0.9rem;
+    color: gray;
+}
+
 h5{
 	margin: auto;
 }
@@ -117,16 +136,27 @@ pre {
 }
 
 #qna_title{
-	border: 2px solid #0d6efd;
-	background-color: #0d6efd;
+	border: 2px solid #2b59c6;
+	background-color: #2b59c6;
 	border-radius: 15px;
 	width: 400px;
 	color: white;
-	font-weight:lighter;
+    padding-bottom: 5px;
+	box-shadow: 3px 3px 2px -1px rgba(0,0,0,0.48);
+	-webkit-box-shadow: 3px 3px 2px -1px rgba(0,0,0,0.48);
+	-moz-box-shadow: 3px 3px 2px -1px rgba(0,0,0,0.48);
+	font-weight: bold;
+}
+
+#qna_title a{
+text-decoration: none;
+color: white;
 }
 
  .qnaCommentDate{
 	 font-size:0.8em;
+	 padding-bottom: 10px;
+	 color: gray;
  }
  
  .qnaCommentwriter{
@@ -180,8 +210,39 @@ pre {
 	margin-bottom: 50px;
 }
 
+.ReCount_wrap {
+	display: flex;
+	justify-content: center;
+}
+
+.ReCount {
+text-align: left;
+	padding-left: 5px;
+	font-size: 20px;
+	width: 800px;
+	padding-bottom: 9px;
+	font-weight: bold;
+}
+
 
 /* 버튼 관련 css */
+
+.writeResetBtn1{
+	display: flex !important;
+    justify-content: flex-end !important;
+    text-align: right;
+}
+
+.writeResetBtn{
+	display: flex !important;
+    justify-content: flex-end !important;
+    text-align: right;
+}
+
+.title_btn_Wrap {
+	display: flex;
+	justify-content: space-between;
+}
 
 .modify{
 	background-color: #0d6efd;
@@ -282,61 +343,70 @@ pre {
 
 	<br>
 
-	<div align="center">
+	<div>
 		<c:set var="dto" value="${Cont }" />
+		<div align="center">
 
-		<h3 id = "qna_title">⦁  &nbsp; &nbsp; &nbsp; &nbsp; Coders Q&A  &nbsp; &nbsp; &nbsp; &nbsp; ⦁</h3>
+		<h3 align="center" id = "qna_title">⦁  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="<%=request.getContextPath() %>/qna_list.do">Q&A</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ⦁</h3>
 
 		<br>
-
 		<div class="align-middle">
 			<div class="container col-md-6" style="width: 800px;">
 				<div class="card">
 					<div class="card-body">
+						
+						<div class="qna_view_center">
 
-						<div class="qna_view_center" style = "display: flex; margin-bottom: 15px;">
-								<c:set var = "tag" value = "${dto.getQna_tag() }" />
-								<c:if test="${tag == 'JAVA'}">
-									<span class="badge text-bg-secondary" style = "padding-top: 10px;">JAVA</span>
-								</c:if>
-								<c:if test="${tag == 'HTML'}">
-									<span class="badge text-bg-primary" style = "padding-top: 10px;">HTML</span>
-								</c:if>
-								<c:if test="${tag == 'JAVASCRIPT'}">
-									<span class="badge text-bg-warning" style = "padding-top: 10px;">JAVASCRIPT</span>
-								</c:if>
-								<c:if test="${tag == 'CSS'}">
-									<span class="badge text-bg-danger" style = "padding-top: 10px;">CSS</span>
-								</c:if>
-								<c:if test="${tag == 'JQUERY'}">
-									<span class="badge text-bg-success" style = "padding-top: 10px;">JQUERY</span>
-								</c:if>
-								<c:if test="${tag == 'DATABASE'}">
-									<span class="badge text-bg-info" style = "padding-top: 10px;">DataBase</span>
-								</c:if>
-								<c:if test="${tag == 'JSP'}">
-									<span class="badge text-bg-dark" style = "padding-top: 10px;">JSP</span>
-								</c:if>
-								<c:if test="${tag == null}">
-									<span class="badge text-bg-light" style = "padding-top: 10px;">ETC</span>
-								</c:if>								
-								&nbsp;&nbsp;
-								<span style = "font-size: 1.3em;">${dto.getQna_title() }</span>
+							<div class="title_btn_Wrap">
+							
+								<div class="title_btn">
+									<c:set var="tag" value="${dto.getQna_tag() }" />
+									<c:if test="${tag == 'JAVA'}">
+										<span class="badge text-bg-secondary"
+											style="padding-top: 10px;">JAVA</span>
+									</c:if>
+									<c:if test="${tag == 'HTML'}">
+										<span class="badge text-bg-primary" style="padding: 10px;">HTML</span>
+									</c:if>
+									<c:if test="${tag == 'JAVASCRIPT'}">
+										<span class="badge text-bg-warning" style="padding: 10px;">JAVASCRIPT</span>
+									</c:if>
+									<c:if test="${tag == 'CSS'}">
+										<span class="badge text-bg-danger" style="padding: 10px;">CSS</span>
+									</c:if>
+									<c:if test="${tag == 'JQUERY'}">
+										<span class="badge text-bg-success" style="padding: 10px;">JQUERY</span>
+									</c:if>
+									<c:if test="${tag == 'DATABASE'}">
+										<span class="badge text-bg-info" style="padding: 10px;">DataBase</span>
+									</c:if>
+									<c:if test="${tag == 'JSP'}">
+										<span class="badge text-bg-dark" style="padding: 10px;">JSP</span>
+									</c:if>
+									<c:if test="${tag == null}">
+										<span class="badge text-bg-light" style="padding: 10px;">ETC</span>
+									</c:if>
+								</div>
+								
+								<div id="qnaEditDelete" class="qnaEditDelete"
+									style="display: none;">
+									<a id="qnaEditIcon" class="qnaEditIcon">수정</a> &nbsp;|&nbsp; <a id="qnaDeleteIcon"
+										class="qnaDeleteIcon">삭제</a>
+								</div>
+							</div>
+							&nbsp;
+							<h4 class="qna_title" style="text-align: left; font-weight: bold;">${dto.getQna_title() }</h4>
 						</div>
 
 							<div style = "margin-left: 15px;">
-							<h6 class="card-subtitle text-muted mb-4" align="left">
-								<i class="fa-regular fa-user"></i> &nbsp;${dto.qna_writer }&nbsp;&nbsp;
-								<i class="fa-regular fa-clock"></i> &nbsp;${dto.qna_date }&nbsp;
-								&nbsp; <i class="fa-regular fa-eye"></i> &nbsp;${dto.qna_hit  } 
+							<h6 class="card-subtitle">
+								<i class="fa-regular fa-user"></i> ${dto.qna_writer }&nbsp;
+								<i class="fa-regular fa-clock"></i> ${dto.qna_date }&nbsp;
+								&nbsp; <i class="fa-regular fa-eye"></i> ${dto.qna_hit  } 
 							</h6>
 							
 							
-							<span id="qnaEditDelete" class="qnaEditDelete" style="display: none;"><a id="qnaEditIcon" class="qnaEditIcon"
-						><i
-							class="fa-solid fa-scissors"></i></a>&nbsp; <a id="qnaDeleteIcon"
-							class="qnaDeleteIcon"><i
-							class="fa-solid fa-trash"></i></a></span>
+							
 
 
 						</div>
@@ -388,15 +458,16 @@ pre {
 						</div>
  					-->
  
-						<div>
+						<div class="writeResetBtn1">
 							<input class="btn btn-primary"  type="button"
-								value="댓글 작성" id = "commentOn">
+								value="댓글 작성" id = "commentOn">&nbsp;
 							<input class="btn btn-outline-secondary" type="button"
 								value="전체 목록" onclick= "location.href='qna_list.do'">
 						</div>
 
 					</div>
 				</div>
+			</div>
 			</div>
 			
 			<br>
@@ -451,11 +522,13 @@ pre {
 								<br> <br> <br>
 
 
-								<div>
+								<div class="writeResetBtn">
 									<input type="button" id="commentBtn" value="댓글 작성"
 										class="btn btn-primary">
+										&nbsp;
 										<input type="reset"
 										id="resetBtn" value="다시 작성" class="btn btn-outline-primary">
+										&nbsp;
 										<input type="reset"
 										id="cancelBtn" value="취소하기" class="btn btn-outline-secondary">
 								</div>
@@ -472,7 +545,12 @@ pre {
 
 			<br> <br> <br>
 			<div id = "commentForm">
-				<h5><i class="fa-regular fa-comment-dots"></i> 댓글 목록</h5>
+			
+				<div class="ReCount_wrap">
+					<div class="ReCount">${dto.qna_reply}개의 댓글이 있습니다.</div>
+				</div>
+				
+<!-- 				<h5><i class="fa-regular fa-comment-dots"></i> 댓글 목록</h5> -->
 				<br> 
 				<table class="list" cellspacing="0" width = "800">
 					
@@ -486,7 +564,7 @@ pre {
 			
 		</div>
 		<!-- 전체 div end -->
-
+</div>
 		<br>
 		<br>
 		

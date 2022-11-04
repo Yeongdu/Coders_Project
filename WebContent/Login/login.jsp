@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="Login/style.css" rel="stylesheet" type="text/css">
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -57,20 +56,258 @@
 	
 	
 </script>
+<style type="text/css">
+
+	#container{
+		margin-top: 10%;
+		width: 35%;
+	}
+	.text-on-pannel {
+	  background: #fff none repeat scroll 0 0;
+	  height: auto;
+	  margin-left: 20px;
+	  padding: 3px 5px;
+	  position: absolute;
+	  margin-top: -60px;
+	  border: 3px solid #2b59c6;
+	  border-radius: 8px;
+	}
+	
+	
+	#panel {
+	      margin-bottom: 20px;
+    background-color: #fff;
+    border: 3px solid #2b59c6;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+    box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+	  /* for text on pannel */
+	  margin-top: 27px !important;
+	}
+	
+	.panel-body {
+	  padding-top: 30px !important;
+	}
+	
+	#text {
+		background-color: #2b59c6;
+	}
+	
+	
+	.login_sns {
+		margin-left: 10%;
+		width: 80%;
+		padding: 20px;
+		display: flex;
+		border-bottom: 4px solid #0275d8;
+		justify-content: center;
+	}
+
+	.login_sns li {
+		padding: 0px 15px;
+		list-style: none;
+	}
+
+	.login_sns a {
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  font-size: 20px;
+	}
+
+	.login_input {
+	 margin-left: 10%;
+	  margin-top: 40px;
+	  width: 80%;
+	}
+	
+	.login_input > h5{
+		font-size: 2rem;
+	}
+
+	.login_input input {
+	  width: 100%;
+	  height: 50px;
+	  border-radius: 30px;
+	  margin-top: 10px;
+	  padding: 0px 20px;
+	  border: 1px solid lightgray;
+	  outline: none;
+	}
+
+	.login_etc {
+	  padding: 10px;
+	  width: 80%;
+	  font-size: 12px;
+	  display: flex;
+	  justify-content: space-between;
+	  align-items: center;
+	  font-weight: bold;
+	  margin-left: 10%;
+	}
+
+ 	.submit {
+	  margin-top: 50px;
+	  width: 80%;
+	  margin-left: 10%;
+	}
+	.submit input {
+	  margin-bottom: 50px;
+	  width: 100%;
+	  height: 50px;
+	  border: 0;
+	  outline: none;
+	  border-radius: 40px;
+	  background: #2b59c6;
+	  background: rgb(255, 255, 255);
+	  color: black;
+	  font-size: 1.2em;
+	  letter-spacing: 2px;
+	  transition: all 0.4s cubic-bezier(1, 1, 1, 1);
+	}
+	
+	.submit_btn:hover {
+	background: #2b59c6;;
+	cursor: pointer;
+	color: white;
+	}
+	
+	
+	b {
+		color: red;
+	}
+	
+	.wrap1 {
+	  width: 100%;
+	  height: 700px;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	}
+	
+	.form1 {
+	  width: 100%;
+	  height: 700px;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	}
+	
+	.wrap2 {
+	  width: 100%;
+	  height: 500px;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	}
+	
+	.form2 {
+	  width: 100%;
+	  height: 500px;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	}
+
+	.login1 {
+	  width: 100%;
+	  height: 500px;
+	  background: white;
+	  border-radius: 20px;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  flex-direction: column;
+	}
+	
+	.login_input1 {
+	  margin-left: 200px;
+	  margin-top: 20px;
+	  width: 500px;
+	}
+
+	.login_input1 input {
+	  width: 300px;
+	  height: 50px;
+	  border-radius: 30px;
+	  margin-top: 10px;
+	  padding: 0px 20px;
+	  border: 1px solid lightgray;
+	  outline: none;
+	}
+	
+	.submit1 {
+	  margin-left: 200px;
+	  margin-top: 50px;
+	  width: 500px;
+	}
+	.submit1 input {
+	  width: 300px;
+	  height: 50px;
+	  border: 0;
+	  outline: none;
+	  border-radius: 40px;
+	  background: rgb(255, 255, 255);
+	  color: black;
+	  font-size: 1.2em;
+	  letter-spacing: 2px;
+	  transition: all 0.4s cubic-bezier(1, 1, 1, 1);
+	}
+	
+	fieldset.scheduler-border {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+	}
+	
+	legend.scheduler-border {
+	    font-size: 1.2em !important;
+	    font-weight: bold !important;
+	    text-align: left !important;
+	}
+	
+	.title {
+		width: 100%;
+		margin-bottom: 25px;
+	}
+	
+	.font {
+	  width: 100%;
+	  height: 50px;
+	  border: 0;
+	  outline: none;
+	  background-color: #2b59c6;
+	  color: white;
+	  font-size: 2em;
+	  letter-spacing: 2px;
+	  text-align: center;
+	}
+	
+	.font p {
+		margin-top: 10px;
+	}
+	
+	#modal_body {
+		padding: 0px;
+	}
+</style>
 </head>
 <body>
 
-	<div class="container">
-		<div class="wrap">
+<div class="container" id="container">
+  <div class="panel" id="panel">
+    <div class="panel-body">
 			<form class="form" method="post" action="<%=request.getContextPath()%>/user_login_ok.do">
 			<input type="hidden" name="token" value="user">
 				<div class="login">
-					<p><a href="<%=request.getContextPath() %>/main.jsp">Coders</a></p>
+					  <h3 class="text-on-pannel text-primary" id="text"><strong class="text-uppercase"><p><a style="text-decoration: none; color: white;" href="<%=request.getContextPath() %>/main.jsp">CODE BOARD</a></p> </strong></h3>
 					<div class="login_sns">
 						<li>
 						<!-- kakao 로그인 버튼 노출 영역 -->
 							<a href="javascript:kakaoLogin();">
-								<img src="upload/kakaoicon.png">
+								<img src="<%=request.getContextPath() %>/upload/kakaoicon.png">
 							</a>
 						<!-- kakao 로그인 버튼 노출 영역 -->
 						</li>
@@ -80,7 +317,7 @@
 							<div id="naverIdLogin" style="display: none;"></div>
 							<!-- 커스텀 버튼 -->
 								<a href="#" class="naver-login" id="naverLogin">
-									<img src="upload/navericon.png">
+									<img src="<%=request.getContextPath() %>/upload/navericon.png">
 								</a> 
 							<!-- 커스텀 버튼 -->
 						<!-- naver 로그인 버튼 노출 영역 -->
@@ -176,7 +413,8 @@
 				</div>
 			</form>
 		</div>
-	</div>
+		</div>
+  </div>
 <!-- 로그인 end -->
 
 
@@ -317,11 +555,15 @@
 	  <div class="modal fade" id="myModal2">
 	    <div class="modal-dialog">
 	      <div class="modal-content">
-	        <div class="modal-body">
+	        <div class="modal-body" id="modal_body">
 	          <div class="wrap1">
 				<form class="form1" method="post" action="<%=request.getContextPath()%>/user_signup_ok.do">
 					<div class="login1">
-					<p class="font">SignUp</p>
+					<div class="title">
+						<div class="font">
+							<p>SIGN UP</p>
+						</div>
+					</div>
 						<div class="login_input1">
 							<h5><b>*</b> E-mail&nbsp;&nbsp;<span id="idcheck"></span></h5>
 							<input type="email" id="id_input" class="form-control" name="id" placeholder="Email" required>
@@ -344,7 +586,7 @@
 				            
 				            
 						<div class="submit1">
-							<input class="submit_btn"type="submit" value="Signup">
+							<input class="submit_btn"type="submit" value="SignUp">
 						</div>
 					</div>
 				</form>
@@ -361,12 +603,14 @@
 	  <div class="modal fade" id="myModal3">
 	    <div class="modal-dialog">
 	      <div class="modal-content">
-	        <div class="modal-body">
+	        <div class="modal-body" id="modal_body">
 	          <div class="wrap2">
 				<form class="form2" method="post" action="<%=request.getContextPath()%>/user_search_ok.do">
 				<input type="hidden" name="token" value="user">
 					<div class="login1">
-					<p class="font">Search</p>
+					<div class="title">
+						<p class="font">SEARCH</p>
+					</div>
 						<div class="login_input1">
 							<h5><b>*</b> E-mail</h5>
 							<input type="email" id="id_input" name="id" class="form-control" placeholder="Email" required>
@@ -378,7 +622,7 @@
 						</div>
 								            
 						<div class="submit1">
-							<input class="submit_btn"type="submit" value="Password Search">
+							<input class="submit_btn"type="submit" value="Search">
 						</div>
 					</div>
 				</form>

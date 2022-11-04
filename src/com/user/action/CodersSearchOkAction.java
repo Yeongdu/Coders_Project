@@ -38,7 +38,7 @@ public class CodersSearchOkAction implements Action {
 			}else {
 				
 				out.println("<script>");
-				out.println("alert(회원님의 비밀번호는 "+ dto.getUser_pwd()+ " 입니다.')");
+				out.println("alert('회원님의 비밀번호는 "+ dto.getUser_pwd()+ " 입니다.')");
 				out.println("location.href='user_login.do'");
 				out.println("</script>");
 				

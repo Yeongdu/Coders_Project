@@ -14,6 +14,10 @@
 <script src="https://kit.fontawesome.com/c85ddd0cc6.js" crossorigin="anonymous"></script>
 <style>
 
+	@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap')
+	;
+
 	* {
 	box-sizing: inherit;
 	}
@@ -22,6 +26,7 @@
 	text-decoration: none;
 	}
 	body {
+	font-family: 'Noto Sans KR' !important;
     min-width: 85.7142857143rem;
     width: 100%;
     margin: 0;
@@ -306,16 +311,19 @@
 	  border: 0;
 	  outline: none;
 	  border-radius: 40px;
-	  background: linear-gradient(to left, rgb(137, 178, 233), rgb(131, 201, 231));
-	  color: white;
+	  background: rgb(255, 255, 255);
+	  color: black;
 	  font-size: 1.2em;
 	  letter-spacing: 2px;
+	  transition: all 0.4s cubic-bezier(1, 1, 1, 1);
 	}
 	
-	.submit1_btn:hover {
+	.submit_btn:hover {
+	background: #2b59c6;;
 	cursor: pointer;
-	filter: brightness(0.85);
+	color: white;
 	}
+	
 	
 	p{
 		text-align: center;
@@ -1433,7 +1441,7 @@
 	});
 </script>
 </head>
-<body class="users users-show bg-primary" >
+<body class="users users-show" style="background-color: #2b59c6;" >
 
 	<jsp:include page="../include/user_top.jsp" />
 	

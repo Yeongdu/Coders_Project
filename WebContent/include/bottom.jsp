@@ -13,7 +13,7 @@
 
 	footer {
 		margin-top: 100px;
-		background-color: rgb(13,110,253);
+		background-color: #2b59c6;
 	}
 	.footer-main {
 		align-items: center;
@@ -38,6 +38,11 @@
 		color: #90CAF9;
 	}
 	
+	img {
+		width: 3rem;
+		height: 3rem;
+	}
+	
 	.container-center{
 		margin-left: 650px;
 		justify-content: center;
@@ -45,11 +50,11 @@
 	}
 	
 	.container-center h6 {
-		color: #90CAF9;
+		color: white;
 	}
 	
 	.container-left a {
-		color: #90CAF9;
+		color: white;
 		text-decoration: none;
 	}
 	
@@ -62,16 +67,14 @@
 		<div class="footer-main">
 			<div class="container-left">
 				<h4>
-					<a href="<%=request.getContextPath() %>/main.jsp">Coders</a>
+					<a href="<%=request.getContextPath() %>/main.jsp">
+						<img src="<%=request.getContextPath() %>/upload/logo2.png">&nbsp;CODE BOARD
+					</a>
 				</h4>
 			</div>
 			
 			<div class="container-center">
-				<h6>
-					SemiProject 6조<br>
-					조장 : 이현지 | 팀원 : 전영주 정영훈 김예지 최은지<br>
-					주소 : 서울특별시 중구 남대문로 120 대일빌딩 2F, 3F
-				</h6>
+				<h6>Copyright &copy; 2022 CODE BOARD All rights reserved.</h6>
 			</div>
 		</div>
 	</footer>

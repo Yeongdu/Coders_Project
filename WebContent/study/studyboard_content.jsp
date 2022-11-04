@@ -21,9 +21,8 @@
 	rel="stylesheet"
 	integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
 	crossorigin="anonymous">
-	
-<style type="text/css">
 
+<style type="text/css">
 @import
 	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap')
 	;
@@ -32,208 +31,190 @@ body {
 	font-family: 'Noto Sans KR' !important;
 }
 
-
- .container col-md-6{
- margin: auto;
- }
- 
- .study_title {
- font-weight: bold;
- 
- }
- 
- .study_subtitle {
- font-size: 0.9rem;
- }
- 
- .studyEditDelete{
- margin-left: 515px;
- }
- 
- .studyEditIcon{
-  color: black;
- }
- 
- .studyEditIcon:hover{
-  color: DarkBlue;
-  text-shadow: 1px 2px 2px gray;
- }
- 
- .studyDeleteIcon{
-  color: black;
- }
- 
- .studyDeleteIcon:hover {
-  color: DarkBlue;
-  text-shadow: 1px 2px 2px gray;
- }
- 
-
-.commentwrap{
-    width: 600px;
-    word-break: break-all;
-    
+#study_title_1 {
+	border: 2px solid #2b59c6;
+	background-color: #2b59c6;
+	border-radius: 15px;
+	width: 400px;
+	color: white;
+	padding-bottom: 5px;
+	box-shadow: 3px 3px 2px -1px rgba(0, 0, 0, 0.48);
+	-webkit-box-shadow: 3px 3px 2px -1px rgba(0, 0, 0, 0.48);
+	-moz-box-shadow: 3px 3px 2px -1px rgba(0, 0, 0, 0.48);
+	font-weight: bold;
 }
 
- 
-
- 
-  .swriter{
-   
-    font-size: 0.8em;
-    color: red;
-    margin: 0;
-    border-style: solid;
-    width: 50px;
-    text-align: center;
-    border-width: 1px;
-    border-radius: 10px;
-    background-color: #FFE6E6;
-}
-     
- .scomment_cont1{
- font-size: 18px;
-}
-     
-
- .modifyOK{
- 
-    display: block;
-    width: 100%;
-    line-height: 32px;
-    border: 1px solid #d2d2d2;
-    border-radius: 8px;
-    white-space: pre-wrap;
- }
- 
- 
- .borderbottom{
- 	border-bottom: 1px solid #bdbdbd;
-    padding: 10px;
- 	
- 	}
- 
-
- .ReCount_wrap{
- display: flex;
- justify-content: center;
- }
- 
- .ReCount{
-    padding-left: 5px;
-    font-size: 20px;
-    width: 600px;
-    padding-bottom: 9px;
-    font-weight: bold;
- }
- 
- .replyRap1{
- display: flex;
- justify-content: center;
- }
- 
- .replyRap{
- width: 600px;
- align-items: center;
-
- 
- }
- 
- .replyRap textarea {
-    font-family: inherit;
-    padding: 1rem;
-    outline: none;
-    border: 0;
-    border-radius: 16px;
-    width: 580px;
-    min-height: 100px;
-    margin-bottom: 10px;
-    resize: none;
-}
- 
- 
- #re_content{
- width: 600px;
- }
- 
- .button{
-
-    outline: none;
-    border: none;
-    background-color: #fff;
-    cursor: pointer;
-
-}
- 
- .btn.btn-outline-secondary{
- font-size: 1em;
- padding-left: 10px;
- padding-right: 10px;
- }
- 
-
-    
- .commentInput_buttonWrapper{
-    display: flex;
-    justify-content: center;
+#study_title_1 a {
+	text-decoration: none;
+	color: white;
 }
 
-.commentInput_button{
-text-align:right;
-width: 600px;
-padding-top: 7px;
-padding-bottom: 30px;
+.container col-md-6 {
+	margin: auto;
 }
 
-/* .commentInput_buttonComplete{ */
-/*     padding: 10px 30px; */
-/*     min-width: 120px; */
-/*     height: 40px; */
-/*     background: #646464;; */
-/*     border-radius: 50px; */
-/*     font-weight: 700; */
-/*     color: #fff; */
-/*     font-size: 16px; */
-/*     outline: none; */
-/*     border: none; */
-/*     cursor: pointer; */
-/* } */
-
-
-
- 
-.modifyBtn{
- color: black;
-  background-color: transparent;
-  border: 0;
+.study_title {
+	font-weight: bold;
 }
 
-.deleteBtn{
-   color: black;
-    background-color: transparent;
-    border: 0;
-}
- .contBottomWrab{
- display: flex;
- justify-content: space-between;
- }
- 
- .scommentDate{
- font-size:0.8em;
- }
- 
- .scommentwriter{
- font-weight: 600;
- width: 200px;
- }
- 
-.swriterwrap{
-   width: 50px;
+.title_btn_Wrap {
+	display: flex;
+	justify-content: space-between;
 }
 
-button.btn.btn-outline-dark{
- 	border-color:#b5b5b5;
+.study_subtitle {
+	text-align: right;
+	font-size: 0.9rem;
+	color: gray;
+}
 
+.studyEditDelete a {
+	text-decoration: none;
+}
+
+.studyEditIcon {
+	color: black;
+}
+
+.studyDeleteIcon {
+	color: black;
+}
+
+.commentwrap {
+	width: 800px;
+	word-break: break-all;
+}
+
+.swriter {
+	font-size: 0.8em;
+	color: red;
+	margin: 0;
+	border-style: solid;
+	width: 50px;
+	text-align: center;
+	border-width: 1px;
+	border-radius: 10px;
+	background-color: #FFE6E6;
+}
+
+.scomment_cont1 {
+	font-size: 18px;
+}
+
+.modifyOK {
+	display: block;
+	width: 100%;
+	line-height: 32px;
+	border: 1px solid #d2d2d2;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-radius: 8px;
+	white-space: pre-wrap;
+}
+
+.borderbottom {
+	border-bottom: 1px solid #bdbdbd;
+	padding: 10px;
+}
+
+.ReCount_wrap {
+	display: flex;
+	justify-content: center;
+}
+
+.ReCount {
+	padding-left: 5px;
+	font-size: 20px;
+	width: 800px;
+	padding-bottom: 9px;
+	font-weight: bold;
+}
+
+.replyRap1 {
+	display: flex;
+	justify-content: center;
+}
+
+.replyRap {
+	width: 800px;
+	align-items: center;
+}
+
+.replyRap textarea {
+	font-family: inherit;
+	padding: 1rem;
+	outline: none;
+	border: 0;
+	border-radius: 16px;
+	width: 780px;
+	min-height: 35px;
+	resize: none;
+	background-color: #ffffff00;
+}
+
+#re_content {
+	width: 800px;
+}
+
+.button {
+	outline: none;
+	border: none;
+	background-color: #fff;
+	cursor: pointer;
+}
+
+.btn.btn-outline-secondary {
+	font-size: 1em;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.commentInput_buttonWrapper {
+	display: flex;
+	justify-content: center;
+}
+
+.commentInput_button {
+	text-align: right;
+	width: 800px;
+	padding-top: 7px;
+	padding-bottom: 30px;
+}
+
+.modifyBtn {
+	color: black;
+	background-color: transparent;
+	border: 0;
+}
+
+.deleteBtn {
+	color: black;
+	background-color: transparent;
+	border: 0;
+}
+
+.contBottomWrab {
+	display: flex;
+	justify-content: space-between;
+}
+
+.scommentDate {
+	font-size: 0.8em;
+	padding-bottom: 10px;
+	color: gray;
+}
+
+.scommentwriter {
+	font-weight: 600;
+	width: 200px;
+}
+
+.swriterwrap {
+	width: 50px;
+}
+
+button.btn.btn-outline-dark {
+	border-color: #b5b5b5;
 }
 
 .btn.btn-outline-secondary {
@@ -250,142 +231,197 @@ button.btn.btn-outline-dark{
 	background-color: DarkCyan;
 	padding-bottom: 7px;
 	border: 0px;
-	margin-bottom: 9px;
 }
 
+.card-dody_reply {
+	height: 80px;
+}
 
+.card {
+	position: absolute;
+	min-width: 800px !important;
+}
+
+.card_mainWrap {
+	display: flex;
+	justify-content: center;
+	margin: 0 auto;
+}
+
+/* .hr-sect { */
+/* 	display: flex; */
+/* 	flex-basis: 100%; */
+/* 	align-items: center; */
+/* 	color: rgba(0, 0, 0, 0.35); */
+/* 	font-size: 1rem; */
+/* 	margin: 0 auto; */
+/* 	width: 800px; */
+/* } */
+
+/* .hr-sect a { */
+/* 	text-decoration: none; */
+/* 	color: gray; */
+/* } */
+
+/* .hr-sect::before, .hr-sect::after { */
+/* 	content: ""; */
+/* 	flex-grow: 1; */
+/* 	background: rgba(0, 0, 0, 0.35); */
+/* 	height: 1px; */
+/* 	font-size: 0px; */
+/* 	line-height: 0px; */
+/* 	margin: 0px 16px; */
+/* } */
 </style>
 
 
-	
-	
+
+
 </head>
 <body>
 
 	<c:if test="${empty userId }">
-	<jsp:include page="../include/none_top.jsp" />
+		<jsp:include page="../include/none_top.jsp" />
+	</c:if>
+
+	<c:if test="${!empty userId }">
+		<jsp:include page="../include/user_top.jsp" />
 	</c:if>
 	
-	<c:if test="${!empty userId }">
-	<jsp:include page="../include/user_top.jsp" />
-	</c:if>
 	<br>
 
 	<c:set var="dto" value="${Cont }" />
 	
 	<input type="hidden" value="${dto.getStudy_writer() }" name="study_writer">
 	<input type="hidden" value="${userId }" name="session_id">
+	<div align="center">
+		<h3 align="center" id = "study_title_1">⦁  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="<%=request.getContextPath() %>/studyBoard_list.do">Study</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ⦁</h3>
+	</div>
+<%-- 	<div class="hr-sect">모여서 공부해볼까용?&nbsp;/&nbsp;<a href="<%=request.getContextPath() %>/studyBoard_list.do">Study</a></div> --%>
+	<br>
 
-	<div class="align-middle">
-		<div class="container col-md-6" style="width: 600px;">
-			<div class="card">
-				<div class="card-body">
-					<div class="card-title mb-3">
-						<c:if test="${dto.study_status eq '모집중' }">
-							<button type="button" class="btn btn-primary">${dto.study_status }</button>
-						</c:if>
-						
-						<c:if test="${dto.study_status eq '모집완료' }">
-							<button type="button" class="btn btn-outline-secondary" disabled>${dto.study_status }</button>
-						</c:if>
-						
-						&nbsp;<h4 class="study_title">${dto.getStudy_title() }</h4></div>
-					<h6 class="study_subtitle">
+	<div class="card_mainWrap" style="width: 800px;">
+		<div class="card">
+			<div class="card-body">
+				<div class="card-title mb-3">
+					<div class="title_btn_Wrap">
+						<div class="title_btn">
+							<c:if test="${dto.study_status eq '모집중' }">
+								<button type="button" class="btn btn-primary">${dto.study_status }</button>
+							</c:if>
 
-						<i class="fa-regular fa-user"></i> ${dto.getStudy_writer() } &nbsp;
-						<i class="fa-regular fa-clock"></i> ${dto.getStudy_date()} &nbsp;
-						<i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }
-						
-					</h6>
-					<span id="studyEditDelete" class="studyEditDelete" style="display: none;"><a id="studyEditIcon" class="studyEditIcon"
-						><i
-							class="fa-solid fa-scissors"></i></a>&nbsp; <a id="studyDeleteIcon"
-						class="studyDeleteIcon"><i
-							class="fa-solid fa-trash"></i></a></span> <br> <br>
-					<p>
-						<img class="card-img"
-							src="<%=request.getContextPath()%>/study_upload/${dto.getStudy_file()}"
-							alt="" />
-					</p>
-					<p class="card-text"><textarea class="form-control" style="border:white;" id="study_cont" readonly>${dto.getStudy_cont() }</textarea></p>
-					<br> 
-					<div class="contBottomWrab">
-					<div><button class="btn btn-outline-dark" disabled><i
-						class="fa-regular fa-calendar-days"></i>
-						${dto.study_start.substring(0, 10)} ~ ${dto.study_end.substring(0, 10) }</button>
-					&nbsp; <button class="btn btn-outline-dark" disabled><i
-						class="fa-solid fa-person"></i> ${dto.study_people }</button></div>
-						<div>
-						<span id="studyComplete" class="btn btn-outline-success" style="display: none;" 
-						><i class="fa-solid fa-check"></i>&nbsp;모집완료</span>
+							<c:if test="${dto.study_status eq '모집완료' }">
+								<button type="button" class="btn btn-outline-secondary" disabled>${dto.study_status }</button>
+							</c:if>
 						</div>
+						<div id="studyEditDelete" class="studyEditDelete"
+							style="display: none;">
+							<a id="studyEditIcon" class="studyEditIcon">수정</a>
+							&nbsp;|&nbsp; <a id="studyDeleteIcon" class="studyDeleteIcon">삭제</a>
+						</div>
+					</div>
+
+					&nbsp;
+					<h4 class="study_title" style="text-align: left;">${dto.getStudy_title() }</h4>
+				</div>
+				<h6 class="study_subtitle">
+
+					<i class="fa-regular fa-user"></i> ${dto.getStudy_writer() } &nbsp;
+					<i class="fa-regular fa-clock"></i> ${dto.getStudy_date()} &nbsp; <i
+						class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }
+
+				</h6>
+				<br> <br>
+				<p>
+					<img class="card-img"
+						src="<%=request.getContextPath()%>/study_upload/${dto.getStudy_file()}"
+						alt="" />
+				</p>
+				<p class="card-text">
+					<textarea class="form-control" style="border: white;"
+						id="study_cont" readonly>${dto.getStudy_cont() }</textarea>
+				</p>
+				<br>
+				<div class="contBottomWrab">
+					<div>
+						<button class="btn btn-outline-dark" disabled>
+							<i class="fa-regular fa-calendar-days"></i> 
+							${dto.study_start.substring(0, 10)} ~
+							${dto.study_end.substring(0, 10) }
+						</button>
+						&nbsp;
+						<button class="btn btn-outline-dark" disabled>
+							<i class="fa-solid fa-person"></i> ${dto.study_people }
+						</button>
+					</div>
+					<div>
+						<span id="studyComplete" class="btn btn-outline-success"
+							style="display: none;"><i
+							class="fa-solid fa-check"></i>&nbsp;모집완료</span>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	
+
 	<br>
 	
+<!-- 	구분선 -->
+<!-- 	<div align="center"> -->
+<!-- 		<hr width="800px" align="center"> -->
+<!-- 	</div> -->
+
+	<br>
+
 	<%-- 댓글 폼 영역입니다. --%>
-	
-	 
-	 <div class="ReCount_wrap"><div class="ReCount">${dto.study_reply} 개의 댓글이 있습니다.</div></div>
-	 <div class="replyRap1">
-	 <div class="replyRap" align="center">
-	 <div class="card">
-	 <div class="card-dody">
-    <textarea class="commentInput" placeholder="댓글을 입력하세요" style="width: 598px" id="re_content"></textarea></div></div>
-	
+	<div class="ReCount_wrap">
+		<div class="ReCount">${dto.study_reply}개의 댓글이 있습니다.</div>
 	</div>
+	<div class="replyRap1">
+		<div class="replyRap" align="center">
+			<div class="card">
+				<div class="card-dody_reply">
+					<textarea class="commentInput" placeholder="댓글을 입력하세요"
+						id="re_content"></textarea>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="commentInput_buttonWrapper">
-	
-	<div class="commentInput_button"><button type="button" class="btn btn-outline-secondary" id="replyBtn" onclick="refreshPage();">댓글쓰기</button></div>
-	
+		<div class="commentInput_button">
+			<button type="button" class="btn btn-outline-secondary" id="replyBtn"
+				onclick="refreshPage();">댓글쓰기</button>
+		</div>
 	</div>
-	
-	
-	 <div align="center">
-	      <table class="list" width="600px">
-	         
-	       <tr class="line">
-	           <input type="hidden" value="${userId }" name="scomment_writer" id="scomment_writer">
-	           
-	         </tr>
-	     </table>
-	  </div>
-	  
-	  
-	  
-	  
-	
-	<jsp:include page="../include/bottom.jsp" />
-	
 
+
+	<div align="center">
+		<table class="list" width="798px">
+			<tr class="line">
+				<input type="hidden" value="${userId }" name="scomment_writer" id="scomment_writer">
+			</tr>
+		</table>
+	</div>
+
+
+	<jsp:include page="../include/bottom.jsp" />
 
 	<script type="text/javascript">
-	
-	
-	  
-	
+
 
      $(function() {
 	
-	// ajax에서 동일하게 사용되는 속성 설정
-	$.ajaxSetup({
-		// ajax에서 한글 깨짐 문제 해결
-		ContentType : "application/x-www-form-urlencoded;charset=UTF-8",
-		type : "post"
-	});
-	
-	    function refreshPage() {
-
-
-        window.location.reload();
-
-    }
+		// ajax에서 동일하게 사용되는 속성 설정
+		$.ajaxSetup({
+			// ajax에서 한글 깨짐 문제 해결
+			ContentType : "application/x-www-form-urlencoded;charset=UTF-8",
+			type : "post"
+		});
+		
+		//페이지 새로고침 함수
+		function refreshPage() {
+	        window.location.reload();
+	    }
 
 
 	// TBL_REPLY 테이블의 모든 데이터를 가져오는 함수
@@ -405,7 +441,7 @@ button.btn.btn-outline-dark{
 				
                  $(data).find("reply").each(function() {
 					
-                	  //1행 작성자, 수정, 삭제, 번호(hidden)
+                	 //1행 작성자, 수정, 삭제, 번호(hidden)
 
                      table += "<tr>";
                      table += "<td";
@@ -452,8 +488,6 @@ button.btn.btn-outline-dark{
                       table += "<td colspan='2'>&nbsp;</td>";
                       table += "</tr>";
                       
-                      
-
 				});
 				
 				//테이블의 첫번째 행의 아래에 table를 추가
@@ -461,21 +495,11 @@ button.btn.btn-outline-dark{
 				
 			},
 			
-			
-			
 			error : function() {
 				alert('데이터 통신 에러');
 			}
-			
-			
-			
+
 		});
-		
-		
-		
-		    
-		
-	   
 		
 	}  // getList() 함수 end
 	
@@ -506,7 +530,6 @@ button.btn.btn-outline-dark{
 						getList();
 						
 						
-						
 						// input 태그에 입력된 내용을 지워줌.
 						$("#re_content").each(function() {
 							$(this).val("");  // 입력된 값 지우기
@@ -527,8 +550,7 @@ button.btn.btn-outline-dark{
 	}
 	});  // 댓글 등록하기 end
 	
-	
-	
+
 
 	// 수정버튼 클릭 시 댓글 수정.
      $(document).on("click", "#modifyBtn", function(){
@@ -536,48 +558,30 @@ button.btn.btn-outline-dark{
     	 
 		console.log('성공');
 		
-		if(this.textContent == '수정'){
-			
+		if(this.textContent == '수정'){	
 			  
 		
          //수정 버튼 클릭 시 textarea태그의 숨김 속성을 해제하는 코드 (this는 modifyBtn )
          this.parentNode.parentNode.nextSibling.nextSibling.childNodes[0].childNodes[1].style.display = 'block';
          
-         
-         
          //autosize($('.modifyOK')); 숨겨진 textarea태그의 높이 자동조절
          autoReplyHeight($(this.parentNode.parentNode.nextSibling.nextSibling).find('textarea'));
-         
 
          //수정 버튼 클릭 시 div태그를 숨기는 코드 (this는 modifyBtn )	
          this.parentNode.parentNode.nextSibling.nextSibling.childNodes[0].childNodes[0].hidden = true;
-         
-         
 
          console.log('if문 성공');
          
-       
          
          //수정 버튼 클릭시 수정완료, 취소버튼으로 변경하는 코드
          //this.setAttribute('value', '수정완료');
          $(this).html('수정완료');
          $(this.nextSibling.nextSibling).html('취소');
-         
-         
-         
-         
-         
-         return;
-         
-         
-         
+                 
+         return;                  
          
         }
-		
-		 
-
-		
-		
+	
                
          //수정완료 버튼을 눌렀을 때 수정한 글이 저장되는 코드.
          if(this.textContent == '수정완료' ){
@@ -613,10 +617,7 @@ button.btn.btn-outline-dark{
 				
 				
 			});
-        	 
-			
-       
-      
+   
          }//수정완료 if문
          
   });//수정버튼 클릭 시 이벤트 end
@@ -654,9 +655,7 @@ button.btn.btn-outline-dark{
 				  
 				  alert('데이터통신오류입니다.')
 			  }
-			  
-			  
-			  
+		  
 		  })
 	  }//삭제if문
 	        return;
@@ -683,8 +682,6 @@ button.btn.btn-outline-dark{
 				this.parentNode.parentNode.nextSibling.nextSibling.childNodes[0].childNodes[1].value =
 					$(this.parentNode.parentNode.nextSibling.nextSibling.childNodes[0].childNodes[0]).text();
 	         
-	       
-	         
 	         console.log('if문 성공');
 	         
 	         //취소 버튼 클릭시 수정, 삭제버튼으로 변경하는 코드
@@ -698,30 +695,23 @@ button.btn.btn-outline-dark{
 	  
   });//삭제버튼 클릭 이벤트
 	
-	//테이블내의 textarea class= 'modifyOK'의 높이 자동조절 함수
-  function autoReplyHeight(elemt) {
-	  var textEle = $(elemt);
-	  textEle[0].style.height = 'auto';
-	  var textEleHeight = textEle.prop('scrollHeight');
-	  textEle.css('height', textEleHeight+16);
-	};//autoReplyHeight end
+  
+		//테이블내의 textarea class= 'modifyOK'의 높이 자동조절 함수
+		function autoReplyHeight(elemt) {
+			var textEle = $(elemt);
+			textEle[0].style.height = 'auto';
+			var textEleHeight = textEle.prop('scrollHeight');
+			textEle.css('height', textEleHeight+16);
+			};//autoReplyHeight end
 	
 	
-
-	
-	
-	
-		
-	
-	
-	
-	
-	function adjustHeight() {
-		  var textEle = $('#study_cont');
-		  textEle[0].style.height = 'auto';
-		  var textEleHeight = textEle.prop('scrollHeight');
-		  textEle.css('height', textEleHeight+8);
-		};
+		//본문 textarea 높이 자동조절 함수
+		function adjustHeight() {
+			var textEle = $('#study_cont');
+			textEle[0].style.height = 'auto';
+			var textEleHeight = textEle.prop('scrollHeight');
+			textEle.css('height', textEleHeight+8);
+			};
 
 	getList();  // 전체 리스트 함수 호출
 	adjustHeight();
@@ -777,9 +767,6 @@ button.btn.btn-outline-dark{
          	}
     	 }
     onlyWriterStatus();
-    
-    
-    
 
 
 });

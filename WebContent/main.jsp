@@ -13,6 +13,10 @@
 <script src="https://kit.fontawesome.com/c85ddd0cc6.js" crossorigin="anonymous"></script>
 <style type="text/css">
 
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap')
+	;
+
 	body {
 		font-family: 'Noto Sans KR' !important;
 		cursor: url('./qna_icon/cusor.png'),auto;
@@ -499,6 +503,7 @@
 
 	<!-- <div id = "right" align="right"></div> -->
 	
+	<jsp:include page="./include/bottom.jsp" />
 	
 </body>
 </html>

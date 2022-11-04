@@ -55,6 +55,24 @@ textarea{
     maxlength="1000";
 }
 
+
+
+.study_explain_main{
+
+    --tw-text-opacity: 1;
+    color: rgb(17 24 39/var(--tw-text-opacity));
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.75rem;
+    margin: 0;
+    
+    }
+    
+    .study_explain_top_wrap{
+     margin: auto;
+    }
+    
+
 </style>
 
 <!-- 추가할 기능 : '모집인원은N명을 초과할 수 없습니다' 알림 기능
@@ -73,20 +91,32 @@ textarea{
 	<jsp:include page="../include/user_top.jsp" />
 	</c:if>
 <br>
-
-	<div align="center">
-		<h3>STUDY 게시판 새 글쓰기</h3>
+    <div class="study_explain_top_wrap" style="width: 800px">
+	<div align="center" >
+	<div>
+	 <div class="study_explain_mainwrap" style="display: flex;">
+      <h3 class="study_explain_main"  >개발 관련 모임과 스터디</h3>
+       </div>
+         <div class="study_explain_subwrap" style="display: flex;">
+       <p class="study_explain_sub">지식공유 플랫폼 CODE BOARD에서 다양한 사람들과 만나 지식을 공유해보세요.</p>
+       </div>
+         <br>
+	 
 		<br>
+		</div>
 		<%-- enctype : 파일을 업로드 하기 위한 속성 --%>
+		<div class="form_wrap" style="width: 800px;">
 		<form method="post" enctype="multipart/form-data"
-			action="<%=request.getContextPath()%>/studyBoard_insert_ok.do">
+			action="<%=request.getContextPath()%>/studyBoard_insert_ok.do" style="justify-content: center;
+    display: flex;
+    flex-direction: column;">
 			
 			<input type="hidden" value="${userId }" name="study_writer">
 			<div class="mb-3 row">
 <!-- 				<label for="exampleFormControlInput1"  -->
 <!-- 					class="col-sm-2 col-form-label">제목</label> -->
 				<div class="col-sm-10">
-					<input name="study_title" class="form-control" placeholder="제목을 입력해주세요." style="width: 615px;" required>
+					<input name="study_title" class="form-control" placeholder="제목을 입력해주세요." style="width: 800px;" required>
 				</div>
 			</div>
 
@@ -99,7 +129,7 @@ textarea{
 <!-- 				<label for="exampleFormControlInput1" -->
 <!-- 					class="col-sm-2 col-form-label">본문</label> -->
 				<div class="col-sm-10">
-					<textarea class="form-control" id="study_cont" name="study_cont" placeholder="본문을 입력해주세요." style="width: 615px;" required></textarea>
+					<textarea class="form-control" id="study_cont" name="study_cont" placeholder="본문을 입력해주세요." style="width: 800px;" required></textarea>
 				</div>
 			</div>
 			
@@ -139,8 +169,9 @@ textarea{
 			</div>
 			
 		</form>
-
+      </div>
 	</div>
+</div>
 	
 	<jsp:include page="../include/bottom.jsp" />
 

@@ -13,6 +13,120 @@
 
 <style type="text/css">
 
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap')
+	;
+
+body {
+	font-family: 'Noto Sans KR' !important;
+}
+
+
+   .btn.btn-primary{
+   --bs-btn-bg: #2b59c6;
+   --bs-btn-border-color: #2b59c6;
+
+  --bs-btn-hover-color: #2b59c6;
+  --bs-btn-hover-bg: #ffffff00;
+  --bs-btn-hover-border-color: #2b59c6;
+
+}
+    .btn.btn-outline-primary{
+    --bs-btn-border-color: #2b59c6;
+    --bs-btn-color: #2b59c6;
+
+    --bs-btn-hover-color: white;
+    --bs-btn-hover-bg: #2b59c6;
+    --bs-btn-hover-border-color: #2b59c6;
+}
+
+
+  #space{
+   flex-grow: 0.1;  
+  
+  }
+
+
+   .qna_explain_mainwrap{
+    display: flex;
+    justify-content: flex-start;
+    margin: 0 auto;
+}
+
+
+   .qna_explain_subwrap{
+    display: flex;
+    justify-content: flex-start;
+    margin: 0 auto;
+}
+
+   .qna_explain_main{
+   --tw-text-opacity: 1;
+   color: rgb(17 24 39/var(--tw-text-opacity));
+   font-weight: 500;
+   font-size: 24px;
+   line-height: 1.75rem;
+   margin: 0;
+   }
+   
+   .qna_explain_sub{
+   --tw-text-opacity: 1;
+    color: rgb(107 114 128/var(--tw-text-opacity));
+     font-size: .875rem;
+    line-height: 1.25rem;
+    margin: 0;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+   }
+   
+   
+   .code_label{
+    --tw-text-opacity: 1;
+    color: rgb(55 65 81/var(--tw-text-opacity));
+    font-weight: 500;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 7px;
+
+
+   }
+   
+   .title_label{
+    --tw-text-opacity: 1;
+    color: rgb(55 65 81/var(--tw-text-opacity));
+    font-weight: 500;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+    padding-left: 10px;
+    padding-bottom: 7px;
+
+   }
+   
+   .main_label{
+    --tw-text-opacity: 1;
+    color: rgb(55 65 81/var(--tw-text-opacity));
+    font-weight: 500;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+    justify-content: flex-start;
+    padding-left: 8px;
+   }
+
 	#qna_write_main {
 		margin-top: 20px;
 	}
@@ -31,20 +145,20 @@
 	.top_wrab{
 		margin-bottom: 20px;
 		display: flex;
-		width: 40em;
+
 		
 	}	
 	
 	.tag_wrab {
-		width:auto;
-		margin:0;
-		flex: 1;
+ 	width: auto;
+    margin: 0;
+    flex-grow: 1;
 	}
 	
 	.title_wrab{
-		width:auto;
-		margin:0;
-		flex: 2;
+ 	width: auto;
+    margin: 0;
+    flex-grow: 3.5;
 	}
 	
 	.mb3 {
@@ -93,6 +207,12 @@
 		font-size: 20px;
 	}
 	
+	.qna_write_main_Wrap{
+	display: flex;
+	justify-content: center;
+	margin: 0 auto;
+	}
+	
 </style>
 </head>
 <body>
@@ -104,78 +224,112 @@
 	<c:if test="${!empty userId }">
 	<jsp:include page="../include/user_top.jsp" />
 	</c:if>
-	
-  <div id = "qna_write_main" align = "center">
-	<form method = "post" enctype = "multipart/form-data" action = "<%=request.getContextPath() %>/qna_insert_ok.do" id = "qna_write_form">
-		<input type = "hidden" value = "${userId }" name = "userId">
-			  <div class = "top_wrab" align = "center" width = "40em">
-			  		<div class = "tag_wrab">
-						<select class="form-select" aria-label="Default select example" name = "code" id = "code" style = "width:10em; margin-left:15px;">
-							<option value = "">언어 선택</option>
-							<option value = "JAVA">JAVA</option>
-							<option value = "HTML">HTML</option>
-							<option value = "CSS">CSS</option>
-							<option value = "JAVASCRIPT">JAVASCRIPT</option>
-							<option value = "JSP">JSP</option>
-							<option value = "JQUERY">JQUERY</option>
-							<option value = "DATABASE">DATABASE</option>
-							<option value = "">ETC</option>
-						</select>
-					</div>
-					<div id = "space">&nbsp;</div>
-					<div class = "title_wrab">
-						  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="제목은 30자 까지만 입력할 수 있습니다." name = "qna_title" style = "width: 29.8em; margin: 0;" maxlength="30">
-					</div>
-			</div><%--top_wrab의 end --%>
-			<div id = "qna_write_cotent" align = "center">
-				<ul>
-					<li id = "qna_write_code">
-						<div class="mb-3" style = "width:40em;">
-							<a id="modalOpen" class="modalOpen"><i class="bi bi-question-circle"></i></a>
-							<script src="https://kit.fontawesome.com/c85ddd0cc6.js" crossorigin="anonymous"></script>
-						  <textarea class="form-control" id="qna_code" rows="8" name = "qna_code" placeholder = "코드를 입력하세요."></textarea>
-						</div><%-- 코드 영역의 end --%>
-					</li>
-					
-					<li id = "qna_write_cont">
-						<div class="mb-3" style = "width:40em;">
-						  <textarea class="form-control" id="qna_content" rows="8" name = "qna_content" placeholder = "내용을 입력하세요."></textarea>
-						</div><%-- 내용 영역의 end --%>
-					</li>
-					
-					<li>
-						<div class="mb-3" style = "width:40em;">
-						  <input class="form-control" type="file" id="formFile" name = "qna_file">
-						</div><%-- 첨부파일의 end--%>
-					</li>
-				</ul>
-			</div><%--코드/질문내용/첨부파일의 end --%>
-			<div id = "qna_write_submit" align = "center">
-				<button type="submit" class="btn btn-outline-primary" id ="saveBtn">작성하기</button>&nbsp;&nbsp;
-				<button type="button" class="btn btn-outline-danger" onclick = "location.href='<%=request.getContextPath()%>/qna_list.do'">돌아가기</button>
-			</div><%--버튼의 end --%>
-	
-	</form>
-	
-		<div id = "modal" >
-			<div class = "modal_body">
-				<div class = "modalClose" align = "right"><i class="bi bi-x-lg"></i></div>
+<div class="qna_write_main_Wrap" style="width: 800px">
+	<div id="qna_write_main" align="center" style="width: 800px">
+		<div class="qna_explain_mainwrap">
+			<h3 class="qna_explain_main">기술 궁금증 해결하기</h3>
+			<br>
+		</div>
+		<div class="qna_explain_subwrap">
+			<p class="qna_explain_sub">지식공유 플랫폼 CODE BOARD에서 최고의 개발자들과 함께 궁금증을 해결하세요.</p>
+			<br>
+			<br>
+			<br>
+		</div>
+		<form method="post" enctype="multipart/form-data"
+			action="<%=request.getContextPath()%>/qna_insert_ok.do"
+			id="qna_write_form">
+			<input type="hidden" value="${userId }" name="userId">
+			<div class="top_wrab" align="center">
+				<div class="tag_wrab">
+					<label for="code" class="code_label">기술스택</label> <select
+						class="form-select" aria-label="Default select example"
+						name="code" id="code" style="width: 100%; margin-left: 0px;">
+						<option value="">언어 선택</option>
+						<option value="JAVA">JAVA</option>
+						<option value="HTML">HTML</option>
+						<option value="CSS">CSS</option>
+						<option value="JAVASCRIPT">JAVASCRIPT</option>
+						<option value="JSP">JSP</option>
+						<option value="JQUERY">JQUERY</option>
+						<option value="DATABASE">DATABASE</option>
+						<option value="">ETC</option>
+					</select>
+				</div>
+				<div id="space">&nbsp;</div>
+				<div class="title_wrab">
+					<label for="exampleFormControlInput1" class="title_label">제목</label>
+					<input type="text" class="form-control"
+						id="exampleFormControlInput1"
+						placeholder="제목은 30자 까지만 입력할 수 있습니다." name="qna_title"
+						style="width: 100%; margin: 0;" maxlength="30">
+				</div>
+
+			</div>
+			<%--top_wrab의 end --%>
+				<div id="qna_write_cotent" align="center">
+
+					<ul style="padding-left: 0px;">
+						<li id="qna_write_code">
+							<div class="mb-3">
+								<label class="main_label">본문</label> <a id="modalOpen"
+									class="modalOpen"><i class="bi bi-question-circle"></i></a>
+								<script src="https://kit.fontawesome.com/c85ddd0cc6.js"
+									crossorigin="anonymous"></script>
+								<textarea class="form-control" id="qna_code" rows="8"
+									name="qna_code" placeholder="코드를 입력하세요."></textarea>
+							</div> <%-- 코드 영역의 end --%>
+						</li>
+
+						<li id="qna_write_cont">
+							<div class="mb-3">
+								<textarea class="form-control" id="qna_content" rows="8"
+									name="qna_content" placeholder="내용을 입력하세요."></textarea>
+							</div> <%-- 내용 영역의 end --%>
+						</li>
+
+						<li>
+							<div class="mb-3">
+								<input class="form-control" type="file" id="formFile"
+									name="qna_file">
+							</div> <%-- 첨부파일의 end--%>
+						</li>
+					</ul>
+				</div>
+				<%--코드/질문내용/첨부파일의 end --%>
+			<div id="qna_write_submit" align="center">
+				<button type="submit" class="btn btn-outline-primary" id="saveBtn">작성하기</button>
+				&nbsp;&nbsp;
+				<button type="button" class="btn btn-outline-danger"
+					onclick="location.href='<%=request.getContextPath()%>/qna_list.do'">돌아가기</button>
+			</div>
+			<%--버튼의 end --%>
+
+		</form>
+
+		<div id="modal">
+			<div class="modal_body">
+				<div class="modalClose" align="right">
+					<i class="bi bi-x-lg"></i>
+				</div>
 				<h3>CODE 작성 방법</h3>
-				<br>
-				<img src = "./upload/codeInfo.gif">
-				<br>
-				<div class = "code_info">
-				<br>
-				<p style = "margin-bottom:0;">1. 말머리에서 선택한 언어와 질문하고자 하는 언어의 형식이 같아야합니다.</p>
-				<p style = "font-size:13px; margin-top:0; color:tomato;">*형식이 달라도 코드 출력은 되지만 에디터 형식으로 출력되지 않습니다.</p>
-				<p>2. 프로그램에서 코드를 복사해 붙여넣으세요.</p>
-				</div> 
+				<br> <img src="./upload/codeInfo.gif"> <br>
+				<div class="code_info">
+					<br>
+					<p style="margin-bottom: 0;">1. 말머리에서 선택한 언어와 질문하고자 하는 언어의 형식이
+						같아야합니다.</p>
+					<p style="font-size: 13px; margin-top: 0; color: tomato;">*형식이
+						달라도 코드 출력은 되지만 에디터 형식으로 출력되지 않습니다.</p>
+					<p>2. 프로그램에서 코드를 복사해 붙여넣으세요.</p>
+				</div>
 			</div>
 		</div>
-		
-  </div><%-- qna_write_main의 end --%>
-  
-  <jsp:include page="../include/bottom.jsp" />
+
+	</div>
+	</div>
+	<%-- qna_write_main의 end --%>
+
+	<jsp:include page="../include/bottom.jsp" />
   
   
   <script type="text/javascript">

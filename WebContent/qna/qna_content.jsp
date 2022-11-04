@@ -415,7 +415,7 @@ pre {
 									"></i> 작성자 </label>
 								<div class="col-sm-10">
 									<input class="form-control" type="text" name="co_writer"
-										id="co_writer" value=${userId  } size="10" readonly>
+										id="co_writer" readonly placeholder = "로그인이 필요한 기능입니다." value=${userId  }>
 								</div>
 							</div>
 

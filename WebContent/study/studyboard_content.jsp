@@ -380,7 +380,12 @@ button.btn.btn-outline-dark{
 		type : "post"
 	});
 	
-	 
+	    function refreshPage() {
+
+
+        window.location.reload();
+
+    }
 
 
 	// TBL_REPLY 테이블의 모든 데이터를 가져오는 함수

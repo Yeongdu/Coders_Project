@@ -35,9 +35,6 @@
 </script>
 </head>
 <body>
-
-	<%-- test용 --%>
-
 	<c:if test="${empty userId }">
 	<jsp:include page="../include/none_top.jsp" />
 	</c:if>
@@ -45,19 +42,34 @@
 	<c:if test="${!empty userId }">
 	<jsp:include page="../include/user_top.jsp" />
 	</c:if>
+	
+		<%-- 메인 배너 --%>
+	<div align = "center" id = "main_top" style = "width:800px; height: 200px; ">
+		<img src = "upload/qnabanner4.png" id = "qnabanner" style = "width:100%; height: 100%;">
+			<span class = "bannerText">Q&A</span>
+			<p class = "bannerText2" style = "font-size: 1em;">좋은 질문과 답변으로 동료의 시간을 아껴주세요.</p>
+	</div>
 
 	<div align = "center" id = "main">
-	
-		<div id = "main_top"> <%-- 정렬 / 언어 선택 창 --%>
-				<div class="form-floating mb-3">
-				  <input type="text" class="form-control" placeholder="질문" id ="search_keyword" name = "search_keyword">
-				 <a href = "#"><i class="fa-solid fa-magnifying-glass fa-2x" onclick = "goSearch()"></i></a>
-				 <script src="https://kit.fontawesome.com/c85ddd0cc6.js" crossorigin="anonymous"></script>
-				</div>
-			<ul>
-				<li class = "qna_language_sort" onchange = "goSortCode()">
-					<select class="form-select" aria-label="Default select example" name = "code" id = "code">
-					  	<option selected>::: 언어 선택 :::</option>
+	<br>
+		<div id = "main_top" style = "display:flex; width: 800px;"> <%-- 정렬 / 언어 선택 창 --%>
+	                <button id="qnaWrite_btn" class="btn btn-success"><i class="fa fa-pencil mr-1"></i> 새 글쓰기</button>
+					<div class="qnaSearchWrite" style="margin: auto;">
+							<span class="qna_search_left" style="width: 28em"> 
+							<span class="col-lg"> 
+							<span class="input-group list-search-form w-70"> 
+									<input type="text" id ="search_keyword" name = "search_keyword" value="" class="form-control" style = "margin-top:0;" />
+									<button type="button" class="btn btn-secondary ml-1" onclick = "goSearch()">
+										<i class="fa fa-search"></i> 검색
+									</button>
+								</span>
+							</span>
+							</span>
+					</div>
+				
+				<div class = "qna_language_sort" onchange = "goSortCode()" style = " margin:0;">
+					<select class="form-select" aria-label="Default select example" name = "code" id = "code" style = "width:8em;">
+					  	<option selected>언어순</option>
 						<option value = "JAVA">JAVA</option>
 						<option value = "HTML">HTML</option>
 						<option value = "CSS">CSS</option>
@@ -67,16 +79,25 @@
 						<option value = "DATABASE">DATABASE</option>
 						<option>ETC</option>
 					</select>
-				</li>
-				<li class = "qna_sort">
-					<button type="button" class="btn btn-outline-primary" id = "recent_btn" onclick = "location.href ='<%=request.getContextPath()%>/qna_list.do'" disabled>최신순</button>&nbsp;&nbsp;
-					<button type="button" class="btn btn-outline-primary" id = "view_btn" onclick = "location.href='<%=request.getContextPath()%>/qna_list_view.do'">조회순</button>&nbsp;&nbsp;
-					<button type="button" class="btn btn-outline-primary" id = "comment_btn" onclick = "location.href ='<%=request.getContextPath()%>/qna_list_comment.do'">답변순</button>
-				</li>
-			</ul>
+				</div>
+				&nbsp;&nbsp;
+				<div class = "qna_sort" style = "margin:auto;">
+					<div class="dropdown">
+					  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					    정렬
+					  </button>
+					  <ul class="dropdown-menu">
+					    <li><a class="dropdown-item" id = "recent_btn" href="<%=request.getContextPath()%>/qna_list.do">최신순</a></li>
+					    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/qna_list_view.do">조회순</a></li>
+					    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/qna_list_comment.do">답변순</a></li>
+					  </ul>
+					</div>
+				</div>
 		</div> <%-- main_top의 end --%>
 		
+		
 		<div id = "main_center"> <%-- 게시판 리스트 --%>
+		<br>
 			<form method = "post" name = "frm" id = "frm">
 			<c:set var = "list" value = "${List }" />
 			<c:if test="${!empty list }">
@@ -189,10 +210,6 @@
           </ul>
         </nav>
 		<%-- BootStrap을 이용한 페이징 처리 영역 끝 --%>
-		
-			<div class="col-12 text-right">
-                <button id="studyWrite_btn" class="btn btn-success"><i class="fa fa-pencil mr-1"></i> 새 글쓰기</button>
-           </div>
 		
 	</div> <%-- main의 end --%>
 	

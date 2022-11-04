@@ -18,7 +18,13 @@
 	;
 
 	body {
-	font-family: 'Noto Sans KR' !important;
+		font-family: 'Noto Sans KR' !important;
+		cursor: url('./qna_icon/cusor.png'),auto;
+	}
+	
+	html, body {
+		width: 100%;
+		height: 100vh;
 	}
 
 	a {
@@ -27,7 +33,7 @@
 	
 	#container {
 	  display: flex;
-	  width: 50em;
+	  width: 38em;
 	  padding-top: 10px;
 	  padding-bottom: 10px;
 	  margin: auto;
@@ -43,12 +49,12 @@
 	  flex: 3;
 	  text-align: left;
 	  font-size: 1.2em;
-	  flex-grow: 5;
+	  flex-grow: 4;
 	}
 	.qna_view_right {
 	  flex: 1;
 	  text-align: right;
-	  flex-grow: 2;
+	  flex-grow: 3;
 	}
 	
 	.qna_view_center{
@@ -57,7 +63,10 @@
 	
 	#qna_center {
 		clear: both;
+		display: block;
 	}
+	
+	
 	
 	#qna_view_writer { 
 		color : skyblue;
@@ -79,7 +88,7 @@
 	
 	#studyListContainer {
 	  display: flex;
-	  width: 50em;
+	  width: 38em;
 	  padding-top: 10px;
 	  padding-bottom: 10px;
 	  margin: auto;
@@ -113,6 +122,7 @@
 	
 	#study_center {
 		clear: both;
+		display: inline-block;
 	}
 	
 	.btn.btn-outline-primary {
@@ -182,8 +192,45 @@
 		white-space: nowrap;
 	}
 	
+	
+/* 	#left{
+		background-color: white;
+		width : 15%;
+		height: 100vh;
+		display: inline-block;	 
+		float: left;
+	}
+	
+	#right {
+		background-color: white;
+		width : 15%;
+		height: 100vh;
+		display: inline-block;	
+		float: right; 
+	} */
+	
+	#main{
+		width : 70%;
+		display: flex;
+		margin: auto;
+		flex-grow: 3;
+	}
+	
+	h1 {
+		width : 50%;
+		display: inline-block;
+	}
+	
+	
 </style>
 <script type="text/javascript">
+
+/* 
+	$('left').click(function(){
+		$('left').reoveClass('active')
+		$(this).addClass('active')
+	}) */
+
 	
 	$(function(){
 		$.ajaxSetup({
@@ -317,22 +364,75 @@
 		});
 	});
 </script>
-<style type="text/css">
-	#main{
-		margin-top: 3rem;
-		margin-bottom: 3rem;
-	}
+
+  <style type="text/css">
+  	#main{
+		margin-top: 0px;
+		margin-bottom: 20px;
+	} 
 	
-	#qna_head{
-		margin-top: 6rem;
-		margin-bottom: 6rem;
+ 	#qna_head{
+		margin-top: 20px;
+		margin-bottom: 20px;
 	}
 	
 	#study_head{
-		margin-top: 6rem;
-		margin-bottom: 6rem;
+		margin-top: 20px;
+		margin-bottom: 20px;
 	}
-</style>
+	
+	 #banner{
+		display: flex;
+		flex-grow : 2.5;
+		margin-bottom: 40px;
+		display: flex;
+		justify-content: center;
+			
+	}
+	 
+	#blank{
+		display : inline-block;
+		width: 5em;
+	}
+
+	
+	.inner{
+    	display: flex;
+    	h4{}
+	}	
+	
+	
+	.name {
+		border: 2px solid #2b59c6;
+		background-color: #2b59c6;
+		border-radius: 15px;
+		width: 400px;
+		height : 35px;
+		color: white;
+    	padding-bottom: 5px;
+		box-shadow: 3px 3px 2px -1px rgba(0,0,0,0.48);
+		-webkit-box-shadow: 3px 3px 2px -1px rgba(0,0,0,0.48);
+		-moz-box-shadow: 3px 3px 2px -1px rgba(0,0,0,0.48);
+		font-weight: bold;
+	}
+	
+	#QnAGo:hover{
+		background-color :white;
+		color : #2b59c6;
+		margin-bottom: 10px;
+		border: white;
+	}
+	
+	#studyGo:hover{
+		background-color :white;
+		color : #2b59c6; 
+		margin-bottom: 10px;
+		border: white;
+	}
+	
+	 
+</style>  
+
 </head>
 <body>
 	<c:if test="${empty userId }">
@@ -343,26 +443,67 @@
 	<jsp:include page="./include/user_top.jsp" />
 	</c:if>
 	
-	<div align="center" id ="main">
-		<div id="qna_head">
-			<h1>Q&A Board</h1>
-		</div>
-		
-		<div id ="qna_center">
-		</div>
-		
-		<div id="study_head">
-			<h1>Study Board</h1>
-		</div>
-		
-		<div id ="study_center">
-		</div>
+	<!-- <div id = "left" align="left"></div> -->
+	
+	<div id = "banner" align = "center">	
+		<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+	  	<div class="carousel-inner">
+	    <div class="carousel-item active" data-bs-interval="10000">
+	      <img src="./qna_icon/banner1.png" class="d-block w-100" alt="..." width = "1300" height = "300">
+	    </div>
+	    <div class="carousel-item" data-bs-interval="2000">
+	      <img src="./qna_icon/banner2.png" class="d-block w-100" alt="..." width = "1300" height = "300">
+	    </div>
+	    <div class="carousel-item">
+	      <img src="./qna_icon/banner3.png" class="d-block w-100" alt="..." width = "1300" height = "300">
+	    </div>
+	  </div>
+	  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	    <span class="visually-hidden">Previous</span>
+	  </button>
+	  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+	    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	    <span class="visually-hidden">Next</span>
+	  </button>
+  </div>
 	</div>
 	
+	
+	
+	<div align="center" id ="main">
+		
+		    <div class="inner">
+            <div class="QnA" onclick= "location.href='qna_list.do'">
+                <div class="name" id = "QnAGo"> <h4>⦁  &nbsp; &nbsp;Q&A &nbsp; &nbsp; ⦁</h4></div>
+                <div class="box">
+                	<br>
+                    <div id ="qna_center"></div>
+                </div>
+            </div>
+            
+            <div id ="blank"> </div>
+            
+            <div class="STUDY" onclick= "location.href='studyBoard_list.do'">
+                <div class="name" id = "studyGo"> <h4>⦁  &nbsp;STUDY&nbsp;  ⦁</h4></div>
+                <div class="box">
+                	<br>
+                    <div id ="study_center"></div>
+                </div>
+            </div>
+        </div>
+		
+		
+			
+		<!-- <div id="study_head">
+			<h3>Study Board</h3>
+		</div> -->
+		
+	</div>
+
+	<!-- <div id = "right" align="right"></div> -->
+	
 	<jsp:include page="./include/bottom.jsp" />
-	
-	
-	
 	
 </body>
 </html>

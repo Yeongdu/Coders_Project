@@ -227,6 +227,27 @@ text-align: left;
 
 /* 버튼 관련 css */
 
+.btn.btn-primary{
+--bs-btn-bg: #2b59c6;
+--bs-btn-border-color: #2b59c6;
+
+--bs-btn-hover-color: #2b59c6;
+--bs-btn-hover-bg: #ffffff00;
+--bs-btn-hover-border-color: #2b59c6;
+
+}
+
+.btn.btn-outline-primary{
+--bs-btn-border-color: #2b59c6;
+--bs-btn-color: #2b59c6;
+
+--bs-btn-hover-color: white;
+--bs-btn-hover-bg: #2b59c6;
+--bs-btn-hover-border-color: #2b59c6;
+}
+
+
+
 .writeResetBtn1{
 	display: flex !important;
     justify-content: flex-end !important;
@@ -523,14 +544,14 @@ text-align: left;
 
 
 								<div class="writeResetBtn">
-									<input type="button" id="commentBtn" value="댓글 작성"
+									<input type="button" id="commentBtn" value="등록"
 										class="btn btn-primary">
 										&nbsp;
 										<input type="reset"
-										id="resetBtn" value="다시 작성" class="btn btn-outline-primary">
+										id="resetBtn" value="리셋" class="btn btn-outline-primary">
 										&nbsp;
 										<input type="reset"
-										id="cancelBtn" value="취소하기" class="btn btn-outline-secondary">
+										id="cancelBtn" value="취소" class="btn btn-outline-danger">
 								</div>
 
 							</div>

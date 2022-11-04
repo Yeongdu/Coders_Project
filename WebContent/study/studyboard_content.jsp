@@ -248,30 +248,30 @@ button.btn.btn-outline-dark {
 	margin: 0 auto;
 }
 
-.hr-sect {
-	display: flex;
-	flex-basis: 100%;
-	align-items: center;
-	color: rgba(0, 0, 0, 0.35);
-	font-size: 1rem;
-	margin: 0 auto;
-	width: 800px;
-}
+/* .hr-sect { */
+/* 	display: flex; */
+/* 	flex-basis: 100%; */
+/* 	align-items: center; */
+/* 	color: rgba(0, 0, 0, 0.35); */
+/* 	font-size: 1rem; */
+/* 	margin: 0 auto; */
+/* 	width: 800px; */
+/* } */
 
-.hr-sect a {
-	text-decoration: none;
-	color: gray;
-}
+/* .hr-sect a { */
+/* 	text-decoration: none; */
+/* 	color: gray; */
+/* } */
 
-.hr-sect::before, .hr-sect::after {
-	content: "";
-	flex-grow: 1;
-	background: rgba(0, 0, 0, 0.35);
-	height: 1px;
-	font-size: 0px;
-	line-height: 0px;
-	margin: 0px 16px;
-}
+/* .hr-sect::before, .hr-sect::after { */
+/* 	content: ""; */
+/* 	flex-grow: 1; */
+/* 	background: rgba(0, 0, 0, 0.35); */
+/* 	height: 1px; */
+/* 	font-size: 0px; */
+/* 	line-height: 0px; */
+/* 	margin: 0px 16px; */
+/* } */
 </style>
 
 

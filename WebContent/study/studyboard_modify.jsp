@@ -75,12 +75,12 @@ body {
 		<input type="hidden" name="study_writer"
 			value="${dto.getStudy_writer() }"> <br>
 		<div class="align-middle">
-			<div class="container col-md-6" style="width: 600px;">
+			<div class="container col-md-6" style="width: 800px;">
 				<div class="card">
 					<div class="card-body">
 						<h4 class="card-title mb-3">
 							<input name="study_title" class="form-control"
-								value="${dto.getStudy_title() }">
+								value="${dto.getStudy_title() }" placeholder="제목을 입력하세요.">
 						</h4>
 						<h6 class="card-subtitle">
 							<i class="fa-regular fa-user"></i>&nbsp;${dto.getStudy_writer() }
@@ -95,7 +95,7 @@ body {
 						</p>
 						<p class="card-text">
 							<textarea onkeyup="adjustHeight();" class="form-control"
-								id="study_cont" name="study_cont">${dto.getStudy_cont() }</textarea>
+								id="study_cont" name="study_cont" placeholder="본문을 입력하세요.">${dto.getStudy_cont() }</textarea>
 						</p>
 
 						<div class="mb-3 row">
@@ -133,7 +133,7 @@ body {
 							<input class="btn btn-primary" type="submit" value="수정">
 							&nbsp;&nbsp; <input class="btn btn-outline-primary" type="reset"
 								value="리셋"> &nbsp;&nbsp; <input type="button" value="취소"
-								class="btn btn-outline-secondary" onclick="history.back()">
+								class="btn btn-outline-danger" onclick="history.back()">
 						</div>
 
 					</div>

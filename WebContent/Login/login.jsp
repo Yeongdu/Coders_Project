@@ -57,6 +57,14 @@
 	
 </script>
 <style type="text/css">
+	@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap')
+	;
+	
+	body {
+	cursor: url('<%=request.getContextPath()%>/qna_icon/cusor.png'),auto;
+	font-family: 'Noto Sans KR' !important;	
+	}
 
 	#container{
 		margin-top: 10%;

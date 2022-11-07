@@ -78,23 +78,19 @@
 		margin-bottom: 0;
 	}
 	
-	.study_view_aTag{
-	  text-decoration: none;
-	  line-height: 48px;
-	  color: gray;
+	#studyListContainer {
+		display: flex;
+		width: 40em;
+		padding-bottom: 10px;
+		margin: auto;
+		align-items: center;
 	}
 	
-	#studyListContainer {
-	  display: flex;
-	  width: 38em;
-	  padding-top: 10px;
-	  padding-bottom: 10px;
-	  margin: auto;
-	}
 	.study_view_left {
-	  flex: 1;
-	  text-align-last: left;
-	  flex-grow: 1;
+		flex: 1;
+		text-align-last: left;
+		flex-grow: 1;
+		padding-left: 15px;
 	}
 	
 	.study_view_center {
@@ -108,28 +104,14 @@
 	.study_view_right {
 		flex: 1;
 		text-align: right;
-		flex-grow: 3;
+		flex-grow: 2;
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
 	}
 	
-	.study_view_center {
-		margin: auto;
-	}
 	
-	#study_center {
-		clear: both;
-		display: inline-block;
-	}
-	
-	.btn.btn-outline-primary {
-		height: 37px;
-		padding-top: 0px;
-		padding-bottom: 0px;
-	}
-	
-	#studyListContainer:hover {
+	#studyListContainer_top:hover {
 		background-color: #f7f7f7;
 	}
 	
@@ -142,6 +124,9 @@
 	
 	.studyEndTxt {
 		font-weight: bold;
+		border-bottom: 7px solid #e8e8e8;
+		padding: 0.2em 0 0 0.2em;
+		color: gray;
 	}
 	
 	.studyIngTxt {
@@ -150,17 +135,11 @@
 		font-weight: bold;
 	}
 	
-	.etc {
-		width: 560px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-	
 	.btn.btn-outline-secondary {
 		width: 86px;
 		padding-left: 5px;
 		padding-right: 5px;
+		
 	}
 	
 	.btn.btn-primary {
@@ -173,23 +152,22 @@
 	}
 	
 	#StudylistBtn {
-		padding-left: 6px;
-		padding-right: 6px;
-		color: #dc3545;
 		border-color: #dc3545;
 		font-weight: bold;
+		border-bottom: 7px solid #DC3545;
+		padding: 0.2em 0 0 0.2em;
+		color: #DC3545;
 	}
 	
-	.etc {
-		text-decoration: none;
-		line-height: 48px;
-		color: gray;
-		width: 400px;
+	.study_view_aTag {
+		width: 460px;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+		text-decoration: none;
+		line-height: 48px;
+		color: gray;
 	}
-	
 	
 	#main{
 		width : 68%;
@@ -299,43 +277,50 @@
 					
 					let day = endDate_n - today_n + 1;
 					
-					table += "<div id='studyListContainer' class='border-top' class='border-bottom'>"
-					table += "<div class='study_view_left'>"
-					table += "<div><i class='fa-regular fa-eye'></i> &nbsp;"+$(this).find("hit").text()+"</div>"
-					table += "<div><i class='fa-regular fa-pen-to-square'></i> &nbsp;"+$(this).find("reply").text()+"</div></div>"
+					table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 38em; height: 7em;'><br>"
+					table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
+					table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
+					table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
+					table += "&nbsp;&nbsp; <i calss='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
+						
+					table += "<div id='studyListContainer'>"
 					table += "<div class='study_view_center'>"
-					table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
+					table += "<a class='study_view_aTag' href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='display: block;'>"
 					if($(this).find("type").text() == "모집중"){
 						table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
 					}else if($(this).find("type").text() == "모집완료"){
 						table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
 					}
-					table += "&nbsp;"+$(this).find("title").text()+"</a></div>"
+					if($(this).find("type").text() == "모집중"){
+						table += "&nbsp;<sapn style='font-size: 1.2em; color: black;'>"+$(this).find("title").text()+"</span></a></div>"	
+					}else if($(this).find("type").text() == "모집완료"){
+						table += "&nbsp;<sapn style='font-size: 1.2em; color: gray;'>"+$(this).find("title").text()+"</span></a></div>"
+					}
 					table += "<div class='study_view_right'>"
 					if($(this).find("date").text() == 'null'){
 						table += "<span></span>"
 					}else {
 						if(day > 0){
 							if($(this).find("type").text() == "모집완료"){
-								table += "<span class='studyEndTxt'>마감</span>"
+								table += "<span class='studyEndTxt'>마 감</span>"
 							}else if($(this).find("type").text() == "모집중"){
 								table += "<span class='studyIngTxt'>D - "+day+"</span>"
 							}
-							
+								
 						}else if(day == 0){
 							if($(this).find("type").text() == "모집완료"){
-								table += "<span class='studyEndTxt'>마감</span>"
+								table += "<span class='studyEndTxt'>마 감</span>"
 							}else if($(this).find("type").text() == "모집중"){
-								table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>오늘마감</button>"
+								table += "<span class='studyTodayEnd' id='StudylistBtn'>D - DAY</span>"
 							}
-							
+								
 						}else if(day < 0){
-							table += "<span class='studyEndTxt'>마감</span>"
+							table += "<span class='studyEndTxt'>마 감</span>"
 						}
 					}
 					table += "<button type='button' class='btn btn-outline-dark' disabled>"
-					table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div>"
-					
+					table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div></div>"
+						
 				});				
 				$("#study_center").append(table);
 			},
@@ -423,18 +408,18 @@
 		background-color :white;
 		border-radius: 15px;
 		color : #2b59c6;
-		
 		border: 2px solid white;
 	 	box-shadow: 3px 3px 2px -1px rgba(0,0,0,0.48);
 		-webkit-box-shadow: 3px 3px 2px -1px rgba(0,0,0,0.48);
 		-moz-box-shadow: 3px 3px 2px -1px rgba(0,0,0,0.48);
+		cursor: pointer;
 	}
 	
 	#studyGo:hover{
 		background-color :white;
 		color : #2b59c6; 
-	
 		border: white;
+		cursor: pointer;
 	}
 	
 	 

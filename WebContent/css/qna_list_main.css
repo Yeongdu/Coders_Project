@@ -1,12 +1,17 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap');
 
+	html {
+	scroll-behavior: smooth;
+	}
+	
 	body {
 	font-family: 'Noto Sans KR' !important;
 	}
 
 	a {
 	text-decoration: none;
+	color: black;
 	}
 	
 	ul{
@@ -18,29 +23,30 @@
 	}
 	
 	#container {
-	  display: flex;
 	  width: 50em;
-	  padding-top: 10px;
-	  padding-bottom: 10px;
+	  padding: 0;
 	  margin: auto;
+	  height: 7em;
+	  
 	}
+	
+	#container:hover{
+		background-color: #f7f7f7;
+	}
+	
 	.qna_view_left {
-	  flex: 1;
 	  text-align-last: left;
-	  flex-grow: 1;
 	}
 	
 	.qna_view_center {
 	  align-items: center;
-	  flex: 3;
 	  text-align: left;
 	  font-size: 1.2em;
-	  flex-grow: 7;
+	  height: 59px;
+      align-items: center;
 	}
 	.qna_view_right {
-	  flex: 1;
 	  text-align: right;
-	  flex-grow: 2;
 	}
 	
 	.qna_sort {
@@ -69,10 +75,20 @@
 	}
 	
 	#search_keyword {
-		margin-top: 20px;
-		margin-right: 10px;
 		display: inline-block;
-		width:35%;
+	}
+	
+	.input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3),
+	.input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-control,
+	.input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-select,
+	.input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating)
+	{
+	border-start-start-radius: 7px;
+	border-end-start-radius: 7px;
+	}
+	
+	.input-group>.form-control, .input-group>.form-floating, .input-group>.form-select {
+	flex: 0.7;
 	}
 	
 	#qna_view_writer { 
@@ -92,6 +108,8 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+		text-decoration: none;
+		line-height: 48px;
 	}
 	
 	
@@ -106,11 +124,16 @@
 		position: relative;
 	}
 	
+	#search_top{
+		margin-right: 5px;
+		margin-left: 5px;
+	}
+	
 	
 	.bannerText{
 		position: absolute;
 		top:23%;
-		left:15%;
+		left:12%;
 		transform: translate(-50%, -50%);
 		font-size: 1.5em;
 		font-family: 'Noto Sans KR';
@@ -118,8 +141,9 @@
 	
 	.bannerText2{
 		position: absolute;
-		top:40%;
-		left:33%;
+		top:35%;
+		left:42%;
+		width: 700px;
 		transform: translate(-50%, -50%);
 		font-size: 1.5em;
 		font-family: 'Noto Sans KR';
@@ -153,4 +177,35 @@
 		background-color: white;
 		border-radius: 5px;
 	}
+	
+	/*페이지 css*/
+	.active>.page-link, .page-link.active{
+	--bs-pagination-active-bg:#2b59c6;
+	--bs-pagination-active-border-color:#2b59c6;
+	}
+	
+	.page-link{
+	--bs-pagination-color : #2b59c6;
+	}
+	
+	.pagination{
+	--bs-pagination-color: #2b59c6;
+	--bs-pagination-focus-box-shadow: 0 0 0 0.08rem rgba(13, 110, 253, 0.25);
+	}
 		
+		
+	/* 프로그램 언어 뱃지 */
+	#qna .badge {
+    --bs-badge-padding-x: 0.5em;
+    --bs-badge-padding-y: 0.5em;
+    --bs-badge-font-size: 16px;
+    width: 86px;
+	height: 37px;
+	}
+	
+	/* 정렬 dropdown */
+	#qna .dropdown .btn-secondary {
+    --bs-btn-color: black;
+    --bs-btn-bg: #fff;
+    --bs-btn-border-color: #gray;
+	}

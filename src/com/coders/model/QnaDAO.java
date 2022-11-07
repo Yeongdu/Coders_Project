@@ -534,15 +534,13 @@ public class QnaDAO {
 					sql = "delete from qna where qna_num = ?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setInt(1, no);
-					
 					result = pstmt.executeUpdate();
 					
-					sql = "update qna set qna_num = qna_num-1 where qna_num > ?";
-					
+					sql = "update qna set qna_num = qna_num -1 where qna_num > ?";
+					pstmt = con.prepareStatement(sql);
 					pstmt.setInt(1, no);
-					
 					pstmt.executeUpdate();
-					 
+					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -652,6 +650,11 @@ public class QnaDAO {
 
 					result = pstmt.executeUpdate();
 					
+					// qna 테이블에 게시판 댓글 총 갯수 추가
+					sql = "update qna set qna_reply = qna_reply + 1 where qna_num = ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, dto.getQna_num());
+					pstmt.executeUpdate();
 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -714,9 +717,12 @@ public class QnaDAO {
 					result = pstmt.executeUpdate();
 					
 					sql = "update qna_comment set qcomment_num = qcomment_num-1 where qcomment_num > ?";
-					
 					pstmt.setInt(1, no);
+					pstmt.executeUpdate();
 					
+					sql = "update qna set qna_reply = qna_reply -1 where qna_num =(select qna_num from qna_comment where qcomment_num = ?)";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, no);
 					pstmt.executeUpdate();
 					 
 				} catch (SQLException e) {

@@ -217,7 +217,7 @@
 	
 <script type="text/javascript">
 
-	$("#studyWrite_btn").click(function(){
+	$("#qnaWrite_btn").click(function(){
 		if(${empty userId}) {
 			alert('로그인한 이용자만 이용할 수 있습니다.');
 		}else {

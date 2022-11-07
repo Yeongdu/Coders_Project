@@ -168,7 +168,23 @@ button.btn.btn-outline-dark {
 	</c:if>
 <br />
 <div align="center">
-<h3>모집중.  ${field  } "${keyword }" 검색결과</h3>
+<h3>모집중인 글  <c:if test="${field  eq 'all'}">
+		통합 검색 :
+	</c:if>
+	<c:if test="${field  eq 'title'}">
+		제목 검색 :
+	</c:if>
+	<c:if test="${field  eq 'cont'}">
+		본문 검색 :
+	</c:if>
+	<c:if test="${field  eq 'title_cont'}">
+		제목+본문 검색 :
+	</c:if>
+	<c:if test="${field  eq 'writer'}">
+		작성자 검색 :
+	</c:if>
+
+ "${keyword }"</h3>
 <br />
 
 
@@ -307,6 +323,7 @@ button.btn.btn-outline-dark {
 					class="col-lg"> <span
 						class="input-group list-search-form w-70"> <select
 							name="search_field" class="custom-select col-sm-4" >
+								<option value="all" <c:if test="${field eq 'all'}">selected</c:if>>통합</option>
 								<option value="title" <c:if test="${field eq 'title'}">selected</c:if>>제목</option>
 								<option value="cont" <c:if test="${field eq 'cont'}">selected</c:if>>내용</option>
 								<option value="title_cont" <c:if test="${field eq 'title_cont'}">selected</c:if>>제목+내용</option>

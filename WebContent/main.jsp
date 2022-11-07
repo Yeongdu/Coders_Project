@@ -87,12 +87,13 @@
 	}
 	
 	#studyListContainer {
-	  display: flex;
-	  width: 38em;
-	  padding-top: 10px;
-	  padding-bottom: 10px;
-	  margin: auto;
+		display: flex;
+		width: 38em;
+		padding-bottom: 10px;
+		margin: auto;
+		align-items: center;
 	}
+	
 	.study_view_left {
 	  flex: 1;
 	  text-align-last: left;
@@ -114,10 +115,6 @@
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
-	}
-	
-	.study_view_center {
-		margin: auto;
 	}
 	
 	#study_center {
@@ -143,20 +140,16 @@
 	}
 	
 	.studyEndTxt {
-	font-weight: bold;
+		font-weight: bold;
+		border-bottom: 7px solid #e8e8e8;
+		padding: 0.2em 0 0 0.2em;
+		color: gray;
 	}
 	
 	.studyIngTxt {
 		border-bottom: 7px solid #dcf1fb;
 		padding: 0.2em 0 0 0.2em;
 		font-weight: bold;
-	}
-	
-	.etc {
-		width: 560px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
 	}
 	
 	.btn.btn-outline-secondary {
@@ -175,18 +168,15 @@
 	}
 	
 	#StudylistBtn {
-		padding-left: 6px;
-		padding-right: 6px;
-		color: #dc3545;
 		border-color: #dc3545;
 		font-weight: bold;
+		border-bottom: 7px solid #DC3545;
+		padding: 0.2em 0 0 0.2em;
+		color: #DC3545;
 	}
 	
-	.etc {
-		text-decoration: none;
-		line-height: 48px;
-		color: gray;
-		width: 400px;
+	.study_view_aTag {
+		width: 450px;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
@@ -257,7 +247,7 @@
 					table += "<div class='qna_view_left'>"
 					table += "<div><i class='fa-regular fa-eye'></i> &nbsp;"+$(this).find("hit").text()+"</div>"
 					table += "<div><i class='fa-regular fa-pen-to-square'></i> &nbsp;"+$(this).find("reply").text()+"</div></div>"
-					
+						
 					table += "<div class='qna_view_center'>"
 					table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
 					if($(this).find("tag").text() == "HTML"){
@@ -278,7 +268,7 @@
 						table += "<span class='badge text-bg-secondary'>JAVA</span>"
 					}
 					table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
-					
+						
 					table += "<div class='qna_view_right'>"
 					table += "<div id = 'qna_view_writer'>"
 					table += "<i class='fa-regular fa-user'></i>&nbsp;"+text[0]+"</div>"
@@ -317,42 +307,50 @@
 					
 					let day = endDate_n - today_n + 1;
 					
-					table += "<div id='studyListContainer' class='border-top' class='border-bottom'>"
-					table += "<div class='study_view_left'>"
-					table += "<div><i class='fa-regular fa-eye'></i> &nbsp;"+$(this).find("hit").text()+"</div>"
-					table += "<div><i class='fa-regular fa-pen-to-square'></i> &nbsp;"+$(this).find("reply").text()+"</div></div>"
+					
+					table += "<div id='studyListContainer_top' class='border-top' align='center' style='width: 38em; height: 7em;'><br>"
+					table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
+					table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
+					table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
+					table += "&nbsp;&nbsp; <i calss='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
+					
+					table += "<div id='studyListContainer'>"
 					table += "<div class='study_view_center'>"
-					table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
+					table += "<a class='study_view_aTag' href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='display: block;'>"
 					if($(this).find("type").text() == "모집중"){
 						table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
 					}else if($(this).find("type").text() == "모집완료"){
 						table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
 					}
-					table += "&nbsp;"+$(this).find("title").text()+"</a></div>"
+					if($(this).find("type").text() == "모집중"){
+						table += "&nbsp;<sapn style='font-size: 1.2em; color: black;'>"+$(this).find("title").text()+"</span></a></div>"	
+					}else if($(this).find("type").text() == "모집완료"){
+						table += "&nbsp;<sapn style='font-size: 1.2em; color: gray;'>"+$(this).find("title").text()+"</span></a></div>"
+					}
 					table += "<div class='study_view_right'>"
 					if($(this).find("date").text() == 'null'){
 						table += "<span></span>"
 					}else {
 						if(day > 0){
 							if($(this).find("type").text() == "모집완료"){
-								table += "<span class='studyEndTxt'>마감</span>"
+								table += "<span class='studyEndTxt'>마 감</span>"
 							}else if($(this).find("type").text() == "모집중"){
 								table += "<span class='studyIngTxt'>D - "+day+"</span>"
 							}
 							
 						}else if(day == 0){
 							if($(this).find("type").text() == "모집완료"){
-								table += "<span class='studyEndTxt'>마감</span>"
+								table += "<span class='studyEndTxt'>마 감</span>"
 							}else if($(this).find("type").text() == "모집중"){
-								table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>오늘마감</button>"
+								table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>D - DAY</button>"
 							}
 							
 						}else if(day < 0){
-							table += "<span class='studyEndTxt'>마감</span>"
+							table += "<span class='studyEndTxt'>마 감</span>"
 						}
 					}
 					table += "<button type='button' class='btn btn-outline-dark' disabled>"
-					table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div>"
+					table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div></div>"
 					
 				});				
 				$("#study_center").append(table);
@@ -417,6 +415,7 @@
 	}
 	
 	#QnAGo:hover{
+		cursor: pointer;
 		background-color :white;
 		color : #2b59c6;
 		margin-bottom: 10px;
@@ -424,6 +423,7 @@
 	}
 	
 	#studyGo:hover{
+		cursor: pointer;
 		background-color :white;
 		color : #2b59c6; 
 		margin-bottom: 10px;

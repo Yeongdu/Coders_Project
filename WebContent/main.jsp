@@ -108,7 +108,7 @@
 	.study_view_right {
 		flex: 1;
 		text-align: right;
-		flex-grow: 2;
+		flex-grow: 3;
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
@@ -281,7 +281,7 @@
 			}
 		});
 		
-		$.ajax({
+	$.ajax({
 			type : "post",
 			async: false,
 			url : "mainstudy.jsp",

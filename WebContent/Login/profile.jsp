@@ -217,21 +217,32 @@
 		margin-bottom: 0;
 	}
 
+	.study_view_aTag{
+	  text-decoration: none;
+	  line-height: 48px;
+	  color: gray;
+	}
+	
 	#studyListContainer {
-	  display: flex;
-	  width: 100%;
-	  height: 60px;
-	  padding-top: 10px;
-	  padding-bottom: 10px;
-	  margin: auto;
+		display: flex;
+		width: 38em;
+		padding-bottom: 10px;
+		margin: auto;
+		align-items: center;
+	}
+	
+	.study_view_left {
+	  flex: 1;
+	  text-align-last: left;
+	  flex-grow: 1;
 	}
 	
 	.study_view_center {
-	  flex: 3;
-	  flex-grow: 7;
-	  text-align: left;
-	  font-size: 1em;
-	  align-items: center;
+		flex: 3;
+		flex-grow: 7;
+		text-align: left;
+		font-size: 1em;
+		align-items: center;
 	}
 	
 	.study_view_right {
@@ -243,12 +254,69 @@
 		justify-content: flex-end;
 	}
 	
-	.study_view_center {
-		margin: auto;
-	}
-	
 	#study_center {
 		clear: both;
+		display: inline-block;
+	}
+	
+	.btn.btn-outline-primary {
+		height: 37px;
+		padding-top: 0px;
+		padding-bottom: 0px;
+	}
+	
+	#studyListContainer:hover {
+		background-color: #f7f7f7;
+	}
+	
+	button.btn.btn-outline-dark {
+		border-color: #ffffff00;
+		width: 70px;
+		padding-right: 20px;
+		font-weight: bold;
+	}
+	
+	.studyEndTxt {
+		font-weight: bold;
+		border-bottom: 7px solid #e8e8e8;
+		padding: 0.2em 0 0 0.2em;
+		color: gray;
+	}
+	
+	.studyIngTxt {
+		border-bottom: 7px solid #dcf1fb;
+		padding: 0.2em 0 0 0.2em;
+		font-weight: bold;
+	}
+	
+	.btn.btn-outline-secondary {
+	width: 86px;
+	padding-left: 5px;
+	padding-right: 5px;
+	}
+	
+	.btn.btn-primary {
+		width: 86px;
+		padding-left: 5px;
+		padding-right: 5px;
+		background-color: DarkCyan;
+		padding-bottom: 7px;
+		border: 0px;
+	}
+	
+/* 	#StudylistBtn {
+		border-color: #dc3545;
+		font-weight: bold;
+		border-bottom: 7px solid #DC3545;
+		padding: 0.2em 0 0 0.2em;
+		color: #DC3545;
+	} */
+	
+	.study_view_aTag {
+		width: 450px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 	
 	.btn.btn-outline-primary{
@@ -894,39 +962,49 @@
 					
 					if(count < 5) {
 						
-						table += "<div id='studyListContainer' class='border-bottom'>"
+						table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 38em; height: 7em;'><br>"
+						table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
+						table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
+						table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
+						table += "&nbsp;&nbsp; <i calss='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
+							
+						table += "<div id='studyListContainer'>"
 						table += "<div class='study_view_center'>"
-						table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
+						table += "<a class='study_view_aTag' href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='display: block;'>"
 						if($(this).find("type").text() == "모집중"){
 							table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
 						}else if($(this).find("type").text() == "모집완료"){
 							table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
 						}
-						table += "&nbsp;&nbsp;&nbsp;"+$(this).find("title").text()+"</a></div>"
+						if($(this).find("type").text() == "모집중"){
+							table += "&nbsp;<sapn style='font-size: 1.2em; color: black;'>"+$(this).find("title").text()+"</span></a></div>"	
+						}else if($(this).find("type").text() == "모집완료"){
+							table += "&nbsp;<sapn style='font-size: 1.2em; color: gray;'>"+$(this).find("title").text()+"</span></a></div>"
+						}
 						table += "<div class='study_view_right'>"
-							if($(this).find("date").text() == 'null'){
-								table += "<span></span>"
-							}else {
-								if(day > 0){
-									if($(this).find("type").text() == "모집완료"){
-										table += "<span class='studyEndTxt'>마감</span>"
-									}else if($(this).find("type").text() == "모집중"){
-										table += "<span class='studyIngTxt'>D - "+day+"</span>"
-									}
-									
-								}else if(day == 0){
-									if($(this).find("type").text() == "모집완료"){
-										table += "<span class='studyEndTxt'>마감</span>"
-									}else if($(this).find("type").text() == "모집중"){
-										table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>오늘마감</button>"
-									}
-									
-								}else if(day < 0){
-									table += "<span class='studyEndTxt'>마감</span>"
+						if($(this).find("date").text() == 'null'){
+							table += "<span></span>"
+						}else {
+							if(day > 0){
+								if($(this).find("type").text() == "모집완료"){
+									table += "<span class='studyEndTxt'>마 감</span>"
+								}else if($(this).find("type").text() == "모집중"){
+									table += "<span class='studyIngTxt'>D - "+day+"</span>"
 								}
+									
+							}else if(day == 0){
+								if($(this).find("type").text() == "모집완료"){
+									table += "<span class='studyEndTxt'>마 감</span>"
+								}else if($(this).find("type").text() == "모집중"){
+									table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>D - DAY</button>"
+								}
+									
+							}else if(day < 0){
+								table += "<span class='studyEndTxt'>마 감</span>"
 							}
+						}
 						table += "<button type='button' class='btn btn-outline-dark' disabled>"
-						table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div>"
+						table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div></div>"
 						
 						count += 1;
 					}
@@ -976,39 +1054,49 @@
 						
 						let day = endDate_n - today_n + 1;
 							
-						table += "<div id='studyListContainer' class='border-bottom'>"
-							table += "<div class='study_view_center'>"
-							table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
-							if($(this).find("type").text() == "모집중"){
-								table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
-							}else if($(this).find("type").text() == "모집완료"){
-								table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
-							}
-							table += "&nbsp;&nbsp;&nbsp;"+$(this).find("title").text()+"</a></div>"
-							table += "<div class='study_view_right'>"
-								if($(this).find("date").text() == 'null'){
-									table += "<span></span>"
-								}else {
-									if(day > 0){
-										if($(this).find("type").text() == "모집완료"){
-											table += "<span class='studyEndTxt'>마감</span>"
-										}else if($(this).find("type").text() == "모집중"){
-											table += "<span class='studyIngTxt'>D - "+day+"</span>"
-										}
-										
-									}else if(day == 0){
-										if($(this).find("type").text() == "모집완료"){
-											table += "<span class='studyEndTxt'>마감</span>"
-										}else if($(this).find("type").text() == "모집중"){
-											table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>오늘마감</button>"
-										}
-										
-									}else if(day < 0){
-										table += "<span class='studyEndTxt'>마감</span>"
-									}
+						table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 38em; height: 7em;'><br>"
+						table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
+						table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
+						table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
+						table += "&nbsp;&nbsp; <i calss='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
+							
+						table += "<div id='studyListContainer'>"
+						table += "<div class='study_view_center'>"
+						table += "<a class='study_view_aTag' href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='display: block;'>"
+						if($(this).find("type").text() == "모집중"){
+							table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
+						}else if($(this).find("type").text() == "모집완료"){
+							table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
+						}
+						if($(this).find("type").text() == "모집중"){
+							table += "&nbsp;<sapn style='font-size: 1.2em; color: black;'>"+$(this).find("title").text()+"</span></a></div>"	
+						}else if($(this).find("type").text() == "모집완료"){
+							table += "&nbsp;<sapn style='font-size: 1.2em; color: gray;'>"+$(this).find("title").text()+"</span></a></div>"
+						}
+						table += "<div class='study_view_right'>"
+						if($(this).find("date").text() == 'null'){
+							table += "<span></span>"
+						}else {
+							if(day > 0){
+								if($(this).find("type").text() == "모집완료"){
+									table += "<span class='studyEndTxt'>마 감감</span>"
+								}else if($(this).find("type").text() == "모집중"){
+									table += "<span class='studyIngTxt'>D - "+day+"</span>"
 								}
-							table += "<button type='button' class='btn btn-outline-dark' disabled>"
-							table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div>"
+									
+							}else if(day == 0){
+								if($(this).find("type").text() == "모집완료"){
+									table += "<span class='studyEndTxt'>마 감</span>"
+								}else if($(this).find("type").text() == "모집중"){
+									table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>D - DAY</button>"
+								}
+									
+							}else if(day < 0){
+								table += "<span class='studyEndTxt'>마 감</span>"
+							}
+						}
+						table += "<button type='button' class='btn btn-outline-dark' disabled>"
+						table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div></div>"
 							
 					});
 					table += "<button class='showbtn' id='bstudycloselist' type='button' >닫 기</button>"
@@ -1055,39 +1143,49 @@
 						
 						if(count < 5) {
 							
-							table += "<div id='studyListContainer' class='border-bottom'>"
+							table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 38em; height: 7em;'><br>"
+							table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
+							table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
+							table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
+							table += "&nbsp;&nbsp; <i calss='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
+							
+							table += "<div id='studyListContainer'>"
 							table += "<div class='study_view_center'>"
-							table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
+							table += "<a class='study_view_aTag' href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='display: block;'>"
 							if($(this).find("type").text() == "모집중"){
 								table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
 							}else if($(this).find("type").text() == "모집완료"){
 								table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
 							}
-							table += "&nbsp;&nbsp;&nbsp;"+$(this).find("title").text()+"</a></div>"
+							if($(this).find("type").text() == "모집중"){
+								table += "&nbsp;<sapn style='font-size: 1.2em; color: black;'>"+$(this).find("title").text()+"</span></a></div>"	
+							}else if($(this).find("type").text() == "모집완료"){
+								table += "&nbsp;<sapn style='font-size: 1.2em; color: gray;'>"+$(this).find("title").text()+"</span></a></div>"
+							}
 							table += "<div class='study_view_right'>"
-								if($(this).find("date").text() == 'null'){
-									table += "<span></span>"
-								}else {
-									if(day > 0){
-										if($(this).find("type").text() == "모집완료"){
-											table += "<span class='studyEndTxt'>마감</span>"
-										}else if($(this).find("type").text() == "모집중"){
-											table += "<span class='studyIngTxt'>D - "+day+"</span>"
-										}
-										
-									}else if(day == 0){
-										if($(this).find("type").text() == "모집완료"){
-											table += "<span class='studyEndTxt'>마감</span>"
-										}else if($(this).find("type").text() == "모집중"){
-											table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>오늘마감</button>"
-										}
-										
-									}else if(day < 0){
-										table += "<span class='studyEndTxt'>마감</span>"
+							if($(this).find("date").text() == 'null'){
+								table += "<span></span>"
+							}else {
+								if(day > 0){
+									if($(this).find("type").text() == "모집완료"){
+										table += "<span class='studyEndTxt'>마 감감</span>"
+									}else if($(this).find("type").text() == "모집중"){
+										table += "<span class='studyIngTxt'>D - "+day+"</span>"
 									}
+										
+								}else if(day == 0){
+									if($(this).find("type").text() == "모집완료"){
+										table += "<span class='studyEndTxt'>마 감</span>"
+									}else if($(this).find("type").text() == "모집중"){
+										table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>D - DAY</button>"
+									}
+										
+								}else if(day < 0){
+									table += "<span class='studyEndTxt'>마 감</span>"
 								}
+							}
 							table += "<button type='button' class='btn btn-outline-dark' disabled>"
-							table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div>"
+							table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div></div>"
 							
 							count += 1;
 						}
@@ -1143,39 +1241,49 @@
 						
 						let day = endDate_n - today_n + 1;
 						
-						table += "<div id='studyListContainer' class='border-bottom'>"
+						table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 38em; height: 7em;'><br>"
+						table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
+						table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
+						table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
+						table += "&nbsp;&nbsp; <i calss='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
+						
+						table += "<div id='studyListContainer'>"
 						table += "<div class='study_view_center'>"
-						table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
+						table += "<a class='study_view_aTag' href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='display: block;'>"
 						if($(this).find("type").text() == "모집중"){
 							table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
 						}else if($(this).find("type").text() == "모집완료"){
 							table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
 						}
-						table += "&nbsp;&nbsp;&nbsp;"+$(this).find("title").text()+"</a></div>"
+						if($(this).find("type").text() == "모집중"){
+							table += "&nbsp;<sapn style='font-size: 1.2em; color: black;'>"+$(this).find("title").text()+"</span></a></div>"	
+						}else if($(this).find("type").text() == "모집완료"){
+							table += "&nbsp;<sapn style='font-size: 1.2em; color: gray;'>"+$(this).find("title").text()+"</span></a></div>"
+						}
 						table += "<div class='study_view_right'>"
-							if($(this).find("date").text() == 'null'){
-								table += "<span></span>"
-							}else {
-								if(day > 0){
-									if($(this).find("type").text() == "모집완료"){
-										table += "<span class='studyEndTxt'>마감</span>"
-									}else if($(this).find("type").text() == "모집중"){
-										table += "<span class='studyIngTxt'>D - "+day+"</span>"
-									}
-									
-								}else if(day == 0){
-									if($(this).find("type").text() == "모집완료"){
-										table += "<span class='studyEndTxt'>마감</span>"
-									}else if($(this).find("type").text() == "모집중"){
-										table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>오늘마감</button>"
-									}
-									
-								}else if(day < 0){
-									table += "<span class='studyEndTxt'>마감</span>"
+						if($(this).find("date").text() == 'null'){
+							table += "<span></span>"
+						}else {
+							if(day > 0){
+								if($(this).find("type").text() == "모집완료"){
+									table += "<span class='studyEndTxt'>마 감감</span>"
+								}else if($(this).find("type").text() == "모집중"){
+									table += "<span class='studyIngTxt'>D - "+day+"</span>"
 								}
+									
+							}else if(day == 0){
+								if($(this).find("type").text() == "모집완료"){
+									table += "<span class='studyEndTxt'>마 감</span>"
+								}else if($(this).find("type").text() == "모집중"){
+									table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>D - DAY</button>"
+								}
+									
+							}else if(day < 0){
+								table += "<span class='studyEndTxt'>마 감</span>"
 							}
+						}
 						table += "<button type='button' class='btn btn-outline-dark' disabled>"
-						table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div>"
+						table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div></div>"
 						
 						count += 1;
 					}
@@ -1224,41 +1332,51 @@
 						let endDate_n = Math.floor(endDate / (1000*60*60*24));
 						
 						let day = endDate_n - today_n + 1;
-							
-						table += "<div id='studyListContainer' class='border-bottom'>"
-							table += "<div class='study_view_center'>"
-							table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
-							if($(this).find("type").text() == "모집중"){
-								table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
-							}else if($(this).find("type").text() == "모집완료"){
-								table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
-							}
-							table += "&nbsp;&nbsp;&nbsp;"+$(this).find("title").text()+"</a></div>"
-							table += "<div class='study_view_right'>"
-								if($(this).find("date").text() == 'null'){
-									table += "<span></span>"
-								}else {
-									if(day > 0){
-										if($(this).find("type").text() == "모집완료"){
-											table += "<span class='studyEndTxt'>마감</span>"
-										}else if($(this).find("type").text() == "모집중"){
-											table += "<span class='studyIngTxt'>D - "+day+"</span>"
-										}
-										
-									}else if(day == 0){
-										if($(this).find("type").text() == "모집완료"){
-											table += "<span class='studyEndTxt'>마감</span>"
-										}else if($(this).find("type").text() == "모집중"){
-											table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>오늘마감</button>"
-										}
-										
-									}else if(day < 0){
-										table += "<span class='studyEndTxt'>마감</span>"
-									}
+						
+						table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 38em; height: 7em;'><br>"
+						table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
+						table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
+						table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
+						table += "&nbsp;&nbsp; <i calss='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
+						
+						table += "<div id='studyListContainer'>"
+						table += "<div class='study_view_center'>"
+						table += "<a class='study_view_aTag' href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='display: block;'>"
+						if($(this).find("type").text() == "모집중"){
+							table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
+						}else if($(this).find("type").text() == "모집완료"){
+							table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
+						}
+						if($(this).find("type").text() == "모집중"){
+							table += "&nbsp;<sapn style='font-size: 1.2em; color: black;'>"+$(this).find("title").text()+"</span></a></div>"	
+						}else if($(this).find("type").text() == "모집완료"){
+							table += "&nbsp;<sapn style='font-size: 1.2em; color: gray;'>"+$(this).find("title").text()+"</span></a></div>"
+						}
+						table += "<div class='study_view_right'>"
+						if($(this).find("date").text() == 'null'){
+							table += "<span></span>"
+						}else {
+							if(day > 0){
+								if($(this).find("type").text() == "모집완료"){
+									table += "<span class='studyEndTxt'>마 감감</span>"
+								}else if($(this).find("type").text() == "모집중"){
+									table += "<span class='studyIngTxt'>D - "+day+"</span>"
 								}
-							table += "<button type='button' class='btn btn-outline-dark' disabled>"
-							table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div>"
-							
+									
+							}else if(day == 0){
+								if($(this).find("type").text() == "모집완료"){
+									table += "<span class='studyEndTxt'>마 감</span>"
+								}else if($(this).find("type").text() == "모집중"){
+									table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>D - DAY</button>"
+								}
+									
+							}else if(day < 0){
+								table += "<span class='studyEndTxt'>마 감</span>"
+							}
+						}
+						table += "<button type='button' class='btn btn-outline-dark' disabled>"
+						table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div></div>"
+						
 					});
 					table += "<button class='showbtn' id='cstudycloselist' type='button' >닫 기</button>"
 					
@@ -1304,39 +1422,49 @@
 						
 						if(count < 5) {
 							
-							table += "<div id='studyListContainer' class='border-bottom'>"
+							table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 38em; height: 7em;'><br>"
+							table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
+							table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
+							table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
+							table += "&nbsp;&nbsp; <i calss='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
+							
+							table += "<div id='studyListContainer'>"
 							table += "<div class='study_view_center'>"
-							table += "<a href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
+							table += "<a class='study_view_aTag' href='<%=request.getContextPath()%>/studyBoard_content.do?no="+$(this).find("num").text()+"' style='display: block;'>"
 							if($(this).find("type").text() == "모집중"){
 								table += "<button type='button' class='btn btn-primary'>"+$(this).find("type").text() +"</button>"	
 							}else if($(this).find("type").text() == "모집완료"){
 								table += "<button type='button' class='btn btn-outline-secondary' disabled>"+$(this).find("type").text() +"</button>"
 							}
-							table += "&nbsp;&nbsp;&nbsp;"+$(this).find("title").text()+"</a></div>"
+							if($(this).find("type").text() == "모집중"){
+								table += "&nbsp;<sapn style='font-size: 1.2em; color: black;'>"+$(this).find("title").text()+"</span></a></div>"	
+							}else if($(this).find("type").text() == "모집완료"){
+								table += "&nbsp;<sapn style='font-size: 1.2em; color: gray;'>"+$(this).find("title").text()+"</span></a></div>"
+							}
 							table += "<div class='study_view_right'>"
-								if($(this).find("date").text() == 'null'){
-									table += "<span></span>"
-								}else {
-									if(day > 0){
-										if($(this).find("type").text() == "모집완료"){
-											table += "<span class='studyEndTxt'>마감</span>"
-										}else if($(this).find("type").text() == "모집중"){
-											table += "<span class='studyIngTxt'>D - "+day+"</span>"
-										}
-										
-									}else if(day == 0){
-										if($(this).find("type").text() == "모집완료"){
-											table += "<span class='studyEndTxt'>마감</span>"
-										}else if($(this).find("type").text() == "모집중"){
-											table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>오늘마감</button>"
-										}
-										
-									}else if(day < 0){
-										table += "<span class='studyEndTxt'>마감</span>"
+							if($(this).find("date").text() == 'null'){
+								table += "<span></span>"
+							}else {
+								if(day > 0){
+									if($(this).find("type").text() == "모집완료"){
+										table += "<span class='studyEndTxt'>마 감감</span>"
+									}else if($(this).find("type").text() == "모집중"){
+										table += "<span class='studyIngTxt'>D - "+day+"</span>"
 									}
+										
+								}else if(day == 0){
+									if($(this).find("type").text() == "모집완료"){
+										table += "<span class='studyEndTxt'>마 감</span>"
+									}else if($(this).find("type").text() == "모집중"){
+										table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>D - DAY</button>"
+									}
+										
+								}else if(day < 0){
+									table += "<span class='studyEndTxt'>마 감</span>"
 								}
+							}
 							table += "<button type='button' class='btn btn-outline-dark' disabled>"
-							table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div>"
+							table += "<i class='fa-solid fa-person'></i> "+ $(this).find("people").text() +"</button></div></div></div>"
 							
 							count += 1;
 						}

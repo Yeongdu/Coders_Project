@@ -200,7 +200,7 @@ textarea{
 				<label for="exampleFormControlInput1"
 					class="col-sm-2 col-form-label" style="font-weight: 500;font-size: .875rem;">모집기간</label>
 				<div class="col-sm-10">
-				<input type="text" class="form-control" name="study_daterange" / style="width: 694px;">
+				<input type="text" class="form-control" name="study_daterange" style="width: 694px;" required="required">
 				</div>
 			</div>
 			</div>
@@ -213,7 +213,7 @@ textarea{
 		
 			
 			<div>
-					<input class="btn btn-primary" onclick="checkCal()" type="submit" value="글쓰기"> &nbsp;&nbsp;&nbsp; 
+					<input class="btn btn-primary" type="submit" value="글쓰기"> &nbsp;&nbsp;&nbsp; 
 					<input class="btn btn-outline-primary" type="reset" value="다시작성"> &nbsp;&nbsp;&nbsp;
 					<input type="button" class="btn btn-outline-secondary" value="뒤로가기" onclick="history.back()">
 			</div>
@@ -228,22 +228,31 @@ textarea{
 <script type="text/javascript">
 $(function(){
 
-	
-		  $('input[name="study_daterange"]').daterangepicker({
-			  
-			locale: {
-	 	            "separator": " ~ ",
-	 	            "format": 'YYYY-MM-DD',
-	 	            "applyLabel": "확인",
-	 	            "cancelLabel": "취소",
-	 	            "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
-	 	 	        "monthNames": ["01월", "02월", "03월", "04월", "05월", "06월", "07월", "08월", "09월", "10월", "11월", "12월"]
-	 	    },
-		    opens: 'left'
-		  }, function(start, end, label) {
-		    $("#study_start").val(start.format('YYYY-MM-DD'));
-		    $("#study_end").val(end.format('YYYY-MM-DD'));
-		  });
+	 let stoday = new Date();
+
+     let etoday = new Date(stoday);
+
+     etoday.setDate(stoday.getDate() + 7);
+
+       $('input[name="study_daterange"]').daterangepicker({
+
+         locale: {
+                  "separator": " ~ ",
+                  "format": 'YYYY-MM-DD',
+                  "applyLabel": "확인",
+                  "cancelLabel": "취소",
+                  "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
+                   "monthNames": ["01월", "02월", "03월", "04월", "05월", "06월", "07월", "08월", "09월", "10월", "11월", "12월"]
+          },
+         opens: 'left'
+         }, function(start, end, label) {
+         $("#study_start").val(start.format('YYYY-MM-DD'));
+         $("#study_end").val(end.format('YYYY-MM-DD'));
+       });
+
+     $('input[name="study_daterange"]').data('daterangepicker').setStartDate(stoday);
+     $('input[name="study_daterange"]').data('daterangepicker').setEndDate(etoday);
+
 
 	
 	

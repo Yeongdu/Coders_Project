@@ -65,6 +65,10 @@
 	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap')
 	;
 
+html {
+	scroll-behavior: smooth;
+	}
+
 body {
 	font-family: 'Noto Sans KR' !important;
 }
@@ -614,6 +618,11 @@ text-align: left;
 			type : "post"
 		});
 		
+		//페이지 새로고침 함수
+		function refreshPage() {
+	        window.location.reload();
+	    }
+		
 		//qna_comment 테이블의 모든 데이터를 가져오는 함수
 		function getList() {
 			
@@ -774,11 +783,14 @@ text-align: left;
 
 							// 댓글 작성 후 다시 전체 댓글 리스트를 화면에 출력.
 							getList();
+							refreshPage();
 							
 							//입력된 내용을 지워줌.
 							$("#co_content").val("");
 							
 							$("#co_code").val("");
+							
+							
 						
 						
 						}else {
@@ -869,13 +881,15 @@ text-align: left;
 			$.ajax({
 				async : false,
 				url : "/Project/qna_comment_delete_ok.do",
-				data : "no="+$(this).attr("num"),
+				data : 
+					"no="+$(this).attr("num"),
 				datatype : "text",
 				success : function(data) {
 					if(data > 0) {
 						alert('댓글이 삭제되었습니다.');
 						
 						getList();
+						refreshPage();
 					}else {
 						alert('댓글이 삭제되지 않았습니다.');
 					}

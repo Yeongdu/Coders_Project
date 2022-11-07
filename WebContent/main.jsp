@@ -66,8 +66,6 @@
 		display: block;
 	}
 	
-	
-	
 	#qna_view_writer { 
 		color : skyblue;
 		font-size: 14px;
@@ -110,7 +108,7 @@
 	.study_view_right {
 		flex: 1;
 		text-align: right;
-		flex-grow: 2;
+		flex-grow: 3;
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
@@ -143,7 +141,7 @@
 	}
 	
 	.studyEndTxt {
-	font-weight: bold;
+		font-weight: bold;
 	}
 	
 	.studyIngTxt {
@@ -160,9 +158,9 @@
 	}
 	
 	.btn.btn-outline-secondary {
-	width: 86px;
-	padding-left: 5px;
-	padding-right: 5px;
+		width: 86px;
+		padding-left: 5px;
+		padding-right: 5px;
 	}
 	
 	.btn.btn-primary {
@@ -193,24 +191,8 @@
 	}
 	
 	
-/* 	#left{
-		background-color: white;
-		width : 15%;
-		height: 100vh;
-		display: inline-block;	 
-		float: left;
-	}
-	
-	#right {
-		background-color: white;
-		width : 15%;
-		height: 100vh;
-		display: inline-block;	
-		float: right; 
-	} */
-	
 	#main{
-		width : 70%;
+		width : 68%;
 		display: flex;
 		margin: auto;
 		flex-grow: 3;
@@ -299,7 +281,7 @@
 			}
 		});
 		
-		$.ajax({
+	$.ajax({
 			type : "post",
 			async: false,
 			url : "mainstudy.jsp",
@@ -381,15 +363,35 @@
 		margin-bottom: 20px;
 	}
 	
-	 #banner{
-		display: flex;
-		flex-grow : 2.5;
+	#banner{
+		display: flex; 
+	    flex-grow : 2.5;
+	    left : 16%;
+	    width: 68%;
 		margin-bottom: 40px;
-		display: flex;
+		position: relative;
 		justify-content: center;
+		background-size: cover; 
+		background-repeat: no-repeat;
+		background-position: center;
 			
 	}
-	 
+	
+	
+	  .carousel-inner{
+        width:auto;
+        height:300px; /* 이미지 높이 변경 */
+      }
+      .carousel-item{
+        width: auto;
+        height:100%;
+      }
+      .d-block {
+        display:block;
+        width: auto;
+        height: 100%;
+      }
+	
 	#blank{
 		display : inline-block;
 		width: 5em;
@@ -406,27 +408,32 @@
 		border: 2px solid #2b59c6;
 		background-color: #2b59c6;
 		border-radius: 15px;
+		font-weight: bold;
 		width: 400px;
-		height : 35px;
+		height : 40px;
 		color: white;
     	padding-bottom: 5px;
-		box-shadow: 3px 3px 2px -1px rgba(0,0,0,0.48);
+ 		box-shadow: 3px 3px 2px -1px rgba(0,0,0,0.48);
 		-webkit-box-shadow: 3px 3px 2px -1px rgba(0,0,0,0.48);
-		-moz-box-shadow: 3px 3px 2px -1px rgba(0,0,0,0.48);
+		-moz-box-shadow: 3px 3px 2px -1px rgba(0,0,0,0.48); 
 		font-weight: bold;
 	}
 	
 	#QnAGo:hover{
 		background-color :white;
+		border-radius: 15px;
 		color : #2b59c6;
-		margin-bottom: 10px;
-		border: white;
+		
+		border: 2px solid white;
+	 	box-shadow: 3px 3px 2px -1px rgba(0,0,0,0.48);
+		-webkit-box-shadow: 3px 3px 2px -1px rgba(0,0,0,0.48);
+		-moz-box-shadow: 3px 3px 2px -1px rgba(0,0,0,0.48);
 	}
 	
 	#studyGo:hover{
 		background-color :white;
 		color : #2b59c6; 
-		margin-bottom: 10px;
+	
 		border: white;
 	}
 	
@@ -445,28 +452,35 @@
 	
 	<!-- <div id = "left" align="left"></div> -->
 	
-	<div id = "banner" align = "center">	
-		<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-	  	<div class="carousel-inner">
-	    <div class="carousel-item active" data-bs-interval="10000">
-	      <img src="./qna_icon/banner1.png" class="d-block w-100" alt="..." width = "1300" height = "300">
-	    </div>
-	    <div class="carousel-item" data-bs-interval="2000">
-	      <img src="./qna_icon/banner2.png" class="d-block w-100" alt="..." width = "1300" height = "300">
-	    </div>
-	    <div class="carousel-item">
-	      <img src="./qna_icon/banner3.png" class="d-block w-100" alt="..." width = "1300" height = "300">
-	    </div>
-	  </div>
-	  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	    <span class="visually-hidden">Previous</span>
-	  </button>
-	  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-	    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	    <span class="visually-hidden">Next</span>
-	  </button>
-  </div>
+	<div id = "banner" align = "center">
+	
+	<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+		  <div class="carousel-indicators">
+		    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+		    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+		    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+		  </div>
+		  <div class="carousel-inner">
+		    <div class="carousel-item active">
+		      <img src="./upload/mainbanner1.png" class="d-block w-100" alt="...">
+		    </div>
+		    <div class="carousel-item">
+		      <img src="./upload/mainbanner2.png" class="d-block w-100" alt="...">
+		    </div>
+		    <div class="carousel-item">
+		      <img src="./upload/mainbanner3.png" class="d-block w-100" alt="...">
+		    </div>
+		  </div>
+		  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Previous</span>
+		  </button>
+		  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Next</span>
+		  </button>
+		</div>
+
 	</div>
 	
 	
@@ -475,7 +489,7 @@
 		
 		    <div class="inner">
             <div class="QnA" onclick= "location.href='qna_list.do'">
-                <div class="name" id = "QnAGo"> <h4>⦁  &nbsp; &nbsp;Q&A &nbsp; &nbsp; ⦁</h4></div>
+                <div class="name" id = "QnAGo"> <h3><b>⦁  &nbsp; &nbsp;Q&A &nbsp; &nbsp; ⦁</b></h3></div>
                 <div class="box">
                 	<br>
                     <div id ="qna_center"></div>
@@ -485,7 +499,7 @@
             <div id ="blank"> </div>
             
             <div class="STUDY" onclick= "location.href='studyBoard_list.do'">
-                <div class="name" id = "studyGo"> <h4>⦁  &nbsp;STUDY&nbsp;  ⦁</h4></div>
+                <div class="name" id = "studyGo"><h3><b>⦁  &nbsp;STUDY&nbsp;  ⦁</b></h3></div>
                 <div class="box">
                 	<br>
                     <div id ="study_center"></div>
@@ -507,4 +521,3 @@
 	
 </body>
 </html>
-

@@ -14,13 +14,22 @@
 
 
 <link rel="stylesheet"
-	href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/vs.min.css" />
+	href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/androidstudio.min.css" />
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
 <script>
   hljs.highlightAll();
-  hljs.configure({ 'languages': ['html'] });
+  hljs.configure({ 'languages': ['HTML'] });
+  
+  hljs.initLineNumbersOnLoad();
+	$(document).ready(function() {
+		$('code.hljs').each(function(i, block) {
+			hljs.lineNumbersBlock(block);
+		});
+	});
 </script>
+
+
 <!-- 코드 구현 스타일 -->
 
 
@@ -55,9 +64,11 @@
 			}
 		});
 	});
-	 
-		 
+	
 </script>
+
+
+
 	
 <style type="text/css">
 
@@ -188,6 +199,7 @@ color: white;
 .commentwrap{
     width: 600px;
     word-break: break-all;
+    height: 50px;
     
 }
 
@@ -270,35 +282,22 @@ text-align: left;
 }
 
 .modify{
-	background-color: #0d6efd;
-	border: #0d6efd;
+	background-color: white;
+	border: white;
 	border-radius: 10px;
-	color: white;
-	width: 55px;
+	color: black;
+	width: 80px;
 	height: 35px;
+	text-align: right;
 }
 
 .del{
 	background-color: white;
-	border: 1px solid lightgray;
+	border: white;
 	border-radius: 10px;
-	color: gray;
+	color: black;
 	width: 55px;
 	height: 35px;
-}
-
-.modify:hover{
-	background-color: #0c5dd4;
-	border: 1px solid #0c5dd4;
-	border-radius: 10px;
-	color: white;
-}
-
-#del:hover{
-	background-color: gray;
-	border: 1px solid gray;
-	border-radius: 10px;
-	color: white;
 }
 
  .modifyOn{
@@ -347,8 +346,23 @@ text-align: left;
  }
  
  .goodBadCount{
- 	padding-top: 0px;
+ 	vertical-align: top;
  }
+ 
+ 
+
+.hljs-line-numbers {
+    text-align: right;
+    border-right: 1px solid #ccc;
+    color: #999;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 
 </style>
 
@@ -536,15 +550,7 @@ text-align: left;
 
 							<br>
 
-							<div class="mb-3 row" id = "fileAttach">
-								<label for="exampleFormControlInput1"
-									class="col-sm-2 col-form-label"><i class="fa-solid fa-laptop-file"></i> 첨부</label>
-								<div class="col-sm-10">
-									<input class="form-control" type="file" name="co_file"
-										id="co_file">
-								</div>
-
-								<br> <br> <br>
+								<br>
 
 
 								<div class="writeResetBtn">
@@ -594,7 +600,7 @@ text-align: left;
 		<br>
 		
 
-	<script type="text/javascript">
+<script type="text/javascript">
 		
 		var qment = 0;
 		
@@ -618,10 +624,6 @@ text-align: left;
 			type : "post"
 		});
 		
-		//페이지 새로고침 함수
-		function refreshPage() {
-	        window.location.reload();
-	    }
 		
 		//qna_comment 테이블의 모든 데이터를 가져오는 함수
 		function getList() {
@@ -669,7 +671,7 @@ text-align: left;
 		                 }
 						 
 						//수정 버튼     
-						table += "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + "<button value = '수정' class= 'modify' align = 'right'>" + '수정' + "</button>" + "&nbsp"+					
+						table += "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + "<button value = '수정' class= 'modify' align = 'right'>" + '수정' + "</button>" + " &nbsp;|"+					
 									
 						//삭제 버튼 
 						 "<button value = '삭제' align = 'right' class = 'del' num = '" +$(this).find("qcomment_num").text()+"'>" + '삭제' + "</button>";
@@ -684,9 +686,9 @@ text-align: left;
 						table += "<td class='qnaCommentDate'>" + "작성일자: " + $(this).find("qcomment_date").text() + "</td>";
 						
 						//추천 버튼
-						table += "<td id ='tdGoodBad' align = 'left''>" + "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" +
+						table += "<td id ='tdGoodBad' align = 'left''>" + "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" +
 								"<input type = 'image' src = './qna_icon/thumbs-up.png' " +
-								"id = 'goodUp' num = '" +$(this).find("qcomment_num").text()+"'>" + "&nbsp; &nbsp; &nbsp;" + 
+								"id = 'goodUp' num = '" +$(this).find("qcomment_num").text()+"'>" + "&nbsp; &nbsp; &nbsp; &nbsp;" + 
 							
 						//비추천 버튼
 							"<input type = 'image' src = './qna_icon/thumbs-down.png' " +
@@ -700,8 +702,8 @@ text-align: left;
 						table += "<td align = 'left' class='commentwrap'><div class='qcomment_content' style='white-space : pre-wrap' >" + $(this).find("qcomment_cont").text() + "</div>";
 						
 						//추천-비추천 수치
-						table +=  "<td align = 'left' class = 'goodBadCount'>" + "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + $(this).find("qcomment_good").text() + 
-									"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + $(this).find("qcomment_bad").text() + "&nbsp;" + "</td>"
+						table +=  "<td align = 'left' class = 'goodBadCount'>" + "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + $(this).find("qcomment_good").text() + 
+									"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + $(this).find("qcomment_bad").text() + "&nbsp;" + "</td>"
 	                    table += "</tr>";
 					
 	   					 ////////////////5행 코드 소스 
@@ -714,6 +716,8 @@ text-align: left;
 		                     	table += " style='display: none;'>";	
 						}
 						
+						
+						
 						table += "<pre>" +"<code class = '{dto.getQna_tag() }'>" +"<textarea>" + $(this).find("qcomment_code").text() + "</textarea> " + "</code>" + "</pre>" + "</td>";						
 
 						table += "</tr>";
@@ -721,9 +725,9 @@ text-align: left;
 						/////////////////6행 수정 폼 창 
 						table += "<tr class = 'modifyForm' style='display: none;'>";
 				      	table += "<td align = 'left'>";
-                	 	table += "<textarea  class = 'modifyContArea' type='text' placeholder = '수정 내용을 입력하세요.'>" + "</textarea>" + 
+                	 	table += "<textarea  class = 'modifyContArea' type='text' placeholder = '로그인이 필요한 기능입니다.'>" + $(this).find("qcomment_cont").text() +"</textarea>" + 
                 	 	
-                	 				 "<textarea class = 'modifyCodeArea' type='text' placeholder = '수정 코드를 입력하세요.'>" + "</textarea>" + "</td>";
+                	 				 "<textarea class = 'modifyCodeArea' type='text' placeholder = '로그인이  필요한 기능입니다.'>" + $(this).find("qcomment_code").text() + "</textarea>" + "</td>";
                 	 	
                 	 	table += "</tr>";
 						
@@ -767,6 +771,8 @@ text-align: left;
 	// 댓글 작성 버튼을 클릭했을 때 DB에 추가로 저장.
 		$("#commentBtn").on("click", function() {
 			
+			if(${!empty userId}){
+			
 			$.ajax({
 				async : false,
 				url : "/Project/qna_comment_insert_ok.do",
@@ -783,25 +789,25 @@ text-align: left;
 
 							// 댓글 작성 후 다시 전체 댓글 리스트를 화면에 출력.
 							getList();
-							refreshPage();
 							
 							//입력된 내용을 지워줌.
 							$("#co_content").val("");
-							
 							$("#co_code").val("");
-							
-							
-						
 						
 						}else {
-							alert('댓글 등록에 실패했습니다.');
+							alert('내용을 입력해주세요.');
 						}
 				},
 				
 				error : function() {
-					alert('댓글 삭제 오류입니다.');
+					alert('댓글 등록 오류입니다.');
 				}
+				
 			});
+			
+			} else{
+				alert('로그인이 필요한 기능입니다.');
+			}
 			
 			
 		});  // 댓글 등록하기 end
@@ -819,7 +825,7 @@ text-align: left;
 				this.parentNode.parentNode.nextSibling.nextSibling.nextSibling.nextElementSibling.style.display = 'block';
 				
 				 //수정 버튼 클릭시 등록으로 변경하는 코드 
-		         $(this).html('등록');
+		         $(this).html('수정 완료');
 				 
 				 //수정버튼 클릭 시 삭제버튼을 취소 버튼으로 변경하기 
 				 $(this.nextElementSibling).html('취소')
@@ -827,7 +833,7 @@ text-align: left;
 			 return;
 			}
 			
-				if(this.textContent == '등록'){
+				if(this.textContent == '수정 완료'){
 				
 				
 				$.ajax({
@@ -841,13 +847,13 @@ text-align: left;
 						
 					}, 
 						success : function(data){
-							alert('대박 성공했습니다~');
+							alert('댓글이 수정되었습니다.');
 							getList();
 						
 					}, 
 					
 						error : function(){
-						   alert('데이터통신오류');
+						   alert('데이터 통신 오류가 발생했습니다.');
 					   }
 			
 				}); //ajax end
@@ -877,30 +883,30 @@ text-align: left;
 				
 			
 			if(this.textContent == '삭제'){
-				
+				 if(confirm("해당 댓글을 삭제하시겠습니까?")){
 			$.ajax({
 				async : false,
 				url : "/Project/qna_comment_delete_ok.do",
-				data : 
-					"no="+$(this).attr("num"),
+				data : "no="+$(this).attr("num"),
 				datatype : "text",
 				success : function(data) {
 					if(data > 0) {
 						alert('댓글이 삭제되었습니다.');
 						
 						getList();
-						refreshPage();
 					}else {
 						alert('댓글이 삭제되지 않았습니다.');
 					}
 				},
 				
 				error : function() {
-					alert('데이터 통신 오류입니다.~~~');
+					alert('데이터 통신 오류입니다.');
 				}
-			}); //ajax end
+			}) //ajax end
 			
-			}//삭제 if end
+			}//삭제if문
+			    return;
+			}
 			
 		});
 		
@@ -914,6 +920,8 @@ text-align: left;
 	
 		//추천 버튼 누르기 
 		$(document).on("click", "#goodUp", function(){
+			
+			if(${!empty userId}){
 			
 			$.ajax({
 				async : false,
@@ -945,11 +953,17 @@ text-align: left;
 				
 			})
 			
+			} else{
+				alert('로그인한 이용자만 이용할 수 있습니다.');
+			}
+			
 		});
 		
 	
 		//비추천 버튼 누르기 
 		$(document).on("click", "#goodDown", function(){
+			
+			if(${!empty userId}){
 			
 			$.ajax({
 				async : false,
@@ -980,6 +994,10 @@ text-align: left;
 				}
 				
 			})
+			
+			} else{
+				alert('로그인이 필요한 기능입니다.');
+			}
 			
 		});
 		

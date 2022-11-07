@@ -11,7 +11,7 @@
 	#header{
 		width: 100%;
 		height : 200px;
-		background-image: url('./qna_icon/header.png');
+		background-image: url('./upload/header.png');
 		background-size: cover; 
 		background-repeat: no-repeat;
 		background-position: center;
@@ -49,13 +49,13 @@
 	}
 	
 	.view_left{
-		margin-top: 25px;
+		margin-top: 35px;
 		height: 50px;
 		float: left;
 	}
 	
 	.view_right{
-		margin-top: 15px;
+		margin-top: 35px;
 		height: 50px;
 		float: right;
 	}

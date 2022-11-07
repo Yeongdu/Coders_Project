@@ -112,6 +112,26 @@ body {
 	height: 37px;
 	padding-top: 0px;
 	padding-bottom: 0px;
+	--bs-btn-border-color: #2b59c6;
+	--bs-btn-color: #2b59c6;
+
+	--bs-btn-hover-color: white;
+	--bs-btn-hover-bg: #2b59c6;
+	--bs-btn-hover-border-color: #2b59c6;
+}
+
+.active>.page-link, .page-link.active{
+--bs-pagination-active-bg:#2b59c6;
+--bs-pagination-active-border-color:#2b59c6;
+}
+
+.page-link{
+--bs-pagination-color : #2b59c6;
+}
+
+.pagination{
+--bs-pagination-color: #2b59c6;
+--bs-pagination-focus-box-shadow: 0 0 0 0.08rem rgba(13, 110, 253, 0.25);
 }
 
 #studyListContainer_top:hover {
@@ -142,6 +162,7 @@ button.btn.btn-outline-dark {
 	width: 86px;
 	padding-left: 5px;
 	padding-right: 5px;
+	
 }
 
 .btn.btn-primary {
@@ -247,14 +268,15 @@ button.btn.btn-outline-dark {
 					<span class="study_search_left" style="width: 28em"> 
 					<span class="col-lg"> 
 					<span class="input-group list-search-form w-70"> 
-							<!-- <select
-								name="search_field" class="custom-select col-sm-4">
+							<select
+								name="search_field" class="custom-select col-sm-4" style = "width:8em;">
+									<option value="all">통합</option>
 									<option value="title">제목</option>
 									<option value="cont">내용</option>
 									<option value="title_cont">제목+내용</option>
 									<option value="writer">작성자</option>
-							</select> --> 
-							<input type="text" name="search_keyword" value="" class="form-control" style = "width:20em;"/>
+							</select>
+							<input type="text" name="search_keyword" value="" class="form-control" style = "width:16em;"/>
 								<button type="submit" class="btn btn-secondary ml-1">
 									<i class="fa fa-search"></i> 검색
 								</button>

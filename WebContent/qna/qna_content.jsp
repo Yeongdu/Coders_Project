@@ -767,6 +767,8 @@ text-align: left;
 	// 댓글 작성 버튼을 클릭했을 때 DB에 추가로 저장.
 		$("#commentBtn").on("click", function() {
 			
+			if(${!empty userId}){
+			
 			$.ajax({
 				async : false,
 				url : "/Project/qna_comment_insert_ok.do",
@@ -786,19 +788,22 @@ text-align: left;
 							
 							//입력된 내용을 지워줌.
 							$("#co_content").val("");
-							
 							$("#co_code").val("");
 						
-						
 						}else {
-							alert('댓글 등록에 실패했습니다.');
+							alert('내용을 입력해주세요.');
 						}
 				},
 				
 				error : function() {
-					alert('댓글 삭제 오류입니다.');
+					alert('댓글 등록 오류입니다.');
 				}
+				
 			});
+			
+			} else{
+				alert('로그인이 필요한 기능입니다.');
+			}
 			
 			
 		});  // 댓글 등록하기 end
@@ -874,7 +879,7 @@ text-align: left;
 				
 			
 			if(this.textContent == '삭제'){
-				
+				 if(confirm("해당 댓글을 삭제하시겠습니까?")){
 			$.ajax({
 				async : false,
 				url : "/Project/qna_comment_delete_ok.do",
@@ -891,11 +896,13 @@ text-align: left;
 				},
 				
 				error : function() {
-					alert('데이터 통신 오류입니다.~~~');
+					alert('데이터 통신 오류입니다.');
 				}
-			}); //ajax end
+			}) //ajax end
 			
-			}//삭제 if end
+			}//삭제if문
+			    return;
+			}
 			
 		});
 		
@@ -909,6 +916,8 @@ text-align: left;
 	
 		//추천 버튼 누르기 
 		$(document).on("click", "#goodUp", function(){
+			
+			if(${!empty userId}){
 			
 			$.ajax({
 				async : false,
@@ -940,11 +949,17 @@ text-align: left;
 				
 			})
 			
+			} else{
+				alert('로그인한 이용자만 이용할 수 있습니다.');
+			}
+			
 		});
 		
 	
 		//비추천 버튼 누르기 
 		$(document).on("click", "#goodDown", function(){
+			
+			if(${!empty userId}){
 			
 			$.ajax({
 				async : false,
@@ -975,6 +990,10 @@ text-align: left;
 				}
 				
 			})
+			
+			} else{
+				alert('로그인이 필요한 기능입니다.');
+			}
 			
 		});
 		

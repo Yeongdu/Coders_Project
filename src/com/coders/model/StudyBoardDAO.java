@@ -242,10 +242,12 @@ public class StudyBoardDAO {
 				} else if (field.equals("cont")) {
 					searchSql = " where study_cont like '%" + keyword + "%'";
 				} else if (field.equals("title_cont")) {
-					searchSql = " where (study_title like '%" + keyword + "%') or (study_cont like '%" + keyword
-							+ "%')";
+					searchSql = " where ((study_title like '%" + keyword + "%') or (study_cont like '%" + keyword
+							+ "%'))";
 				} else if (field.equals("writer")) {
 					searchSql = " where board_writer like '%" + keyword + "%'";
+				} else if (field.equals("all")) {
+					searchSql = " where ((study_title like '%" + keyword + "%') or (study_cont like '%" + keyword + "%') or (study_writer like '%" + keyword + "%'))";
 				}
 			}
 
@@ -277,10 +279,12 @@ public class StudyBoardDAO {
 				} else if (field.equals("cont")) {
 					searchSql = " where study_cont like '%" + keyword + "%'";
 				} else if (field.equals("title_cont")) {
-					searchSql = " where (study_title like '%" + keyword + "%') or (study_cont like '%" + keyword
-							+ "%')";
+					searchSql = " where ((study_title like '%" + keyword + "%') or (study_cont like '%" + keyword
+							+ "%'))";
 				} else if (field.equals("writer")) {
 					searchSql = " where board_writer like '%" + keyword + "%'";
+				} else if (field.equals("all")) {
+					searchSql = " where ((study_title like '%" + keyword + "%') or (study_cont like '%" + keyword + "%') or (study_writer like '%" + keyword + "%'))";
 				}
 			}
 
@@ -318,10 +322,12 @@ public class StudyBoardDAO {
 				} else if (field.equals("cont")) {
 					searchSql = " where study_cont like '%" + keyword + "%'";
 				} else if (field.equals("title_cont")) {
-					searchSql = " where (study_title like '%" + keyword + "%') or (study_cont like '%" + keyword
-							+ "%')";
+					searchSql = " where ((study_title like '%" + keyword + "%') or (study_cont like '%" + keyword
+							+ "%'))";
 				} else if (field.equals("writer")) {
 					searchSql = " where study_writer like '%" + keyword + "%'";
+				} else if (field.equals("all")) {
+					searchSql = " where ((study_title like '%" + keyword + "%') or (study_cont like '%" + keyword + "%') or (study_writer like '%" + keyword + "%'))";
 				}
 			}
 			sql="select * from" + "(select row_number() over(order by study_group.study_date desc) as snum, "
@@ -388,6 +394,8 @@ public class StudyBoardDAO {
 					searchSql = " where ((study_title like '%" + keyword + "%') or (study_cont like '%" + keyword + "%'))";
 				} else if (field.equals("writer")) {
 					searchSql = " where study_writer like '%" + keyword + "%'";
+				} else if (field.equals("all")) {
+					searchSql = " where ((study_title like '%" + keyword + "%') or (study_cont like '%" + keyword + "%') or (study_writer like '%" + keyword + "%'))";
 				}
 			}
 			

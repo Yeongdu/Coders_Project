@@ -311,6 +311,7 @@ button.btn.btn-outline-dark {
 					class="col-lg"> <span
 						class="input-group list-search-form w-70"> <select
 							name="search_field" class="custom-select col-sm-4">
+								<option value="all">통합</option>
 								<option value="title">제목</option>
 								<option value="cont">내용</option>
 								<option value="title_cont">제목+내용</option>

@@ -185,6 +185,13 @@
 </style>
 <script type="text/javascript">
 
+/* 
+	$('left').click(function(){
+		$('left').reoveClass('active')
+		$(this).addClass('active')
+	}) */
+
+	
 	$(function(){
 		$.ajaxSetup({
 			ContentType : "application/x-www-form-urlencoded;charset=UTF-8",

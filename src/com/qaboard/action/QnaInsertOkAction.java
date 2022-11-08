@@ -22,7 +22,7 @@ public class QnaInsertOkAction implements Action {
 
 			String qnaBoardWriteFolder = "D:\\git\\Coders_Project\\WebContent\\qnaBoardWriteFolder";
 
-			int fileSize = 5 * 1024 * 1024; 
+			int fileSize = 10 * 1024 * 1024; 
 			
 			MultipartRequest multi = new MultipartRequest(request,qnaBoardWriteFolder,fileSize,"UTF-8",	new DefaultFileRenamePolicy());		
 			

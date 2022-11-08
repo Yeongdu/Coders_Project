@@ -19,7 +19,7 @@
 	src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
 <script>
   hljs.highlightAll();
-
+</script>
 
 <!-- 코드 구현 스타일 -->
 
@@ -66,6 +66,10 @@
 @import
 	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap')
 	;
+
+html {
+	scroll-behavior: smooth;
+	}
 
 body {
 	font-family: 'Noto Sans KR' !important;
@@ -480,11 +484,6 @@ text-align: left;
 							<p> 
 							</p>
 						</c:if>
-						<p> 
-						<img class="card-img" name="qna_file"
-							src="<%=request.getContextPath() %>/qnaBoardWriteFolder/${dto.getQna_file()}"
-							alt="" style = "height: auto;"/>
-						</p>
 						
 
 					<!-- 	<div class="mb-3 row">
@@ -599,7 +598,7 @@ text-align: left;
 		<br>
 		
 
-	<script type="text/javascript">
+<script type="text/javascript">
 		
 		var qment = 0;
 		

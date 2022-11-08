@@ -12,8 +12,6 @@
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://kit.fontawesome.com/89d1c95709.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
 <style type="text/css">
 
@@ -123,7 +121,7 @@ textarea {
 		</div>
 		</div>
 		
-			<h6 class="card-subtitle text-muted mb-4" readonly align="left">
+			<h6 class="card-subtitle text-muted mb-4" align="left">
 					<i class="fa-regular fa-user"></i> ${dto.qna_writer } &nbsp;
 					<i class="fa-regular fa-clock"></i> ${dto.qna_date } &nbsp;
 					<i class="fa-regular fa-eye"></i> ${dto.qna_hit }            
@@ -142,12 +140,19 @@ textarea {
 		<br>
 			
 		<div>
+			<p>
+				<c:if test="${!empty dto.getQna_file()}">
+					<img class="card-img" src="<%=request.getContextPath()%>/qnaBoardWriteFolder/${dto.getQna_file()}" alt="" style="height: auto;margin-bottom: 14px;"/> 
+				</c:if>	
+				<c:if test="${empty dto.getQna_file()}">
+				</c:if>	
+			</p>
 			<h5 class="card-title mb-3" align="center"> 본문 내용  </h5>
 				<div class="card-body">
 					<textarea class="form-control" name="qna_content" id = "qna_content">${dto.qna_cont }</textarea>
 				</div>
 		</div>
-			
+			<input type = "hidden" name = "qna_file_older" value = "${dto.qna_file }">
 		<br>
 			
 		<div class="mb-3 row">

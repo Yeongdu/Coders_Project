@@ -493,7 +493,18 @@ public class QnaDAO {
 				rs = pstmt.executeQuery();
 				 
 				if(rs.next()) {
+					if (dto.getQna_file() == null) {
+					sql = "update qna set qna_writer = ?, qna_title = ?, qna_cont = ?, qna_update = sysdate, qna_tag = ?, qna_code = ? where qna_num = ?";
+					pstmt = con.prepareStatement(sql);
 					
+					pstmt.setString(1, dto.getQna_writer());
+					pstmt.setString(2, dto.getQna_title());
+					pstmt.setString(3, dto.getQna_cont());
+					pstmt.setString(4, dto.getQna_tag());
+					pstmt.setString(5, dto.getQna_code());
+					pstmt.setInt(6, dto.getQna_num());
+					
+				} else {
 					sql = "update qna set qna_writer = ?, qna_title = ?, qna_cont = ?, qna_update = sysdate, qna_file = ?, qna_tag = ?, qna_code = ? where qna_num = ?";
 					pstmt = con.prepareStatement(sql);
 					
@@ -505,14 +516,9 @@ public class QnaDAO {
 					pstmt.setString(6, dto.getQna_code());
 					pstmt.setInt(7, dto.getQna_num());
 					
-					result = pstmt.executeUpdate();
-					
-				} else {
-					
-					result = -1;
 				}
-				
-				
+					result = pstmt.executeUpdate();
+				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -527,30 +533,9 @@ public class QnaDAO {
 		 public int deleteQna(int no){
 			 
 			 int result = 0;
-			 
-			 int num = 0;
 				
 				try {
 					openConn();
-					
-					sql = "select * from qna_comment where qna_num = ? order by qcomment_num desc";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setInt(1, no);
-					rs = pstmt.executeQuery();
-					
-					while(rs.next()) {
-						num = rs.getInt("qcomment_num");
-						
-						sql = "delete from qna_comment where qcomment_num = ?";
-						pstmt = con.prepareStatement(sql);
-						pstmt.setInt(1, num);
-						pstmt.executeUpdate();
-						
-						sql = "update qna_comment set qcomment_num = qcomment_num - 1 where qcomment_num > ?";
-						pstmt = con.prepareStatement(sql);
-						pstmt.setInt(1, num);
-						pstmt.executeUpdate();
-					}
 					
 					sql = "delete from qna where qna_num = ?";
 					pstmt = con.prepareStatement(sql);
@@ -651,6 +636,12 @@ public class QnaDAO {
 				try {
 					
 					openConn();
+					
+					// qna 테이블에 게시판 댓글 총 갯수 추가
+					sql = "update qna set qna_reply = qna_reply + 1 where qna_num = ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, dto.getQna_num());
+					pstmt.executeUpdate();
 				
 					sql = "select max(qcomment_num) from qna_comment";
 					pstmt = con.prepareStatement(sql);
@@ -670,12 +661,6 @@ public class QnaDAO {
 					pstmt.setString(5, dto.getQcomment_code());
 
 					result = pstmt.executeUpdate();
-					
-					// qna 테이블에 게시판 댓글 총 갯수 추가
-					sql = "update qna set qna_reply = qna_reply + 1 where qna_num = ?";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setInt(1, dto.getQna_num());
-					pstmt.executeUpdate();
 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block

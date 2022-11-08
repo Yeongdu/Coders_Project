@@ -1178,5 +1178,33 @@ public class QnaDAO {
 				return result;
 				
 			}//minus end
+			
+			
+			public List<QnaDTO> getQnaRankList() {
+				List<QnaDTO> qrlist = new ArrayList<QnaDTO>();
+				try {
+					openConn();
+					sql = "select qna_num,  qna_tag, qna_title, qna_reply, qna_hit from (select qna_num, qna_tag , qna_title, qna_reply, qna_hit from qna order by qna_reply desc,qna_hit desc) where rownum <= 7";
+					pstmt = con.prepareStatement(sql);
+					rs = pstmt.executeQuery();
+					while (rs.next()) {
+						QnaDTO qrdto = new QnaDTO();
+						qrdto.setQna_num(rs.getInt("qna_num"));
+						qrdto.setQna_tag(rs.getString("qna_tag"));
+						qrdto.setQna_title(rs.getString("qna_title"));
+						qrdto.setQna_reply(rs.getInt("qna_reply"));
+						qrdto.setQna_hit(rs.getInt("qna_hit"));
+						qrlist.add(qrdto);
+					}
+
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+				return qrlist;
+			}
+			
 
 }

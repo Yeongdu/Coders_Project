@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.coders.controller.Action;
 import com.coders.controller.ActionForward;
+import com.coders.model.QnaDAO;
+import com.coders.model.QnaDTO;
 import com.coders.model.StudyBoardDAO;
 import com.coders.model.StudyBoardDTO;
 
@@ -18,58 +20,70 @@ public class StudyBoardListAction implements Action {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
-		// ½ºÅÍµð °Ô½ÃÆÇÀÇ ±ÛÀ» º¸¿©ÁÖ´Â ºñÁö´Ï½º ·ÎÁ÷
+		// ï¿½ï¿½ï¿½Íµï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		
-		// ÆäÀÌÂ¡ Ã³¸® ÀÛ¾÷ ÁøÇà
+		// ï¿½ï¿½ï¿½ï¿½Â¡ Ã³ï¿½ï¿½ ï¿½Û¾ï¿½ ï¿½ï¿½ï¿½ï¿½
 		
-		// ÇÑ ÆäÀÌÁö´ç º¸¿©Áú °Ô½Ã¹°ÀÇ ¼ö
+		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½
 		int rowsize = 10;
 		
-		// ¾Æ·¡¿¡ º¸¿©Áú ÆäÀÌÁöÀÇ ÃÖ´ë ºí·° ¼ö - ¿¹) [1][2][3] / [4][5][6]
+		// ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½ï¿½ - ï¿½ï¿½) [1][2][3] / [4][5][6]
 		int block = 5;
 		
-		// DB °Ô½Ã¹°ÀÇ ÀüÃ¼ ¼ö (countÇÔ¼ö) -ÀüÃ¼ ÆäÀÌÁö ¼ö Ã¼Å©¸¦ À§ÇØ Ã¼Å©
+		// DB ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ (countï¿½Ô¼ï¿½) -ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¼Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 		int totalRecord = 0;
 		
-		//ÀüÃ¼ ÆäÀÌÁö ¼ö = ÇÑÆäÀÌÁö´ç º¸¿©Áú °Ô½Ã¹°ÀÇ ¼ö / ÀüÃ¼ °Ô½Ã¹°ÀÇ ¼ö
+		//ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½ / ï¿½ï¿½Ã¼ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½
 		int allPage = 0;
 		
-		int page = 0; //ÇöÀçÆäÀÌÁö º¯¼ö
+		int page = 0; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page").trim());
 		}else {
-			//Ã³À½À¸·Î "ÀüÃ¼ °Ô½Ã¹° ¸ñ·Ï" aÅÂ±×¸¦ Å¬¸¯ÇÑ °æ¿ì
+			//Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "ï¿½ï¿½Ã¼ ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ï¿½" aï¿½Â±×¸ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			page = 1;
 		}
 		
-		//ÇØ´ç ÆäÀÌÁö¿¡¼­ ½ÃÀÛ¹øÈ£
+		//ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Û¹ï¿½È£
 		int startNo = (page * rowsize) - (rowsize - 1);
 				
-		//ÇØ´ç ÆäÀÌÁö¿¡¼­ ³¡¹øÈ£
+		//ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È£
 		int endNo = (page * rowsize);
 				
-		//ÇØ´ç ÆäÀÌÁö¿¡¼­ ½ÃÀÛ ºí·°
+		//ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		int startBlock = (((page - 1) / block) * block) + 1;
 				
-		//ÇØ´ç ÆäÀÌÁö¿¡¼­ ³¡ ºí·°
+		//ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½
 		int endBlock = (((page - 1) / block) * block) + block;
 		
 		StudyBoardDAO dao = StudyBoardDAO.getInstance();
 		totalRecord = dao.getStudyCount();
 		
-		//ÀüÃ¼ °Ô½Ã¹°ÀÇ ¼ö¸¦ ÇÑ ÆäÀÌÁö´ç º¸¿©Áú °Ô½Ã¹°ÀÇ ¼ö·Î ³ª´©¾î ÁÖ¸é ÀüÃ¼ ÆäÀÌÁö ¼ö°¡ ³ª¿À°Ô µÈ´Ù.
-		//³ª¸ÓÁö°¡ ÀÖÀ¸¸é ¹«Á¶°Ç ÆäÀÌÁö ¼ö¸¦ ¿Ã·ÁÁÖ¾î¾ß ÇÑ´Ù.
+		//ï¿½ï¿½Ã¼ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¸ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È´ï¿½.
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ö¾ï¿½ï¿½ ï¿½Ñ´ï¿½.
 		allPage = (int)Math.ceil(totalRecord/(double)rowsize);
 		
 		if(endBlock > allPage) {
 			endBlock = allPage;
 		}
 		
-		//ÇöÀçÆäÀÌÁö¿¡ ÇØ´çÇÏ´Â °Ô½Ã¹°À» °¡Á®¿À´Â ¸Þ¼­µå È£Ãâ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ È£ï¿½ï¿½
 		List<StudyBoardDTO> pageList = dao.getStudyBoardList(page,rowsize);
 		
-		//Áö±Ý±îÁö ÆäÀÌÂ¡ Ã³¸® ½Ã ÀÛ¾÷Çß´ø ¸ðµç °ªµéÀ» view page·Î ÀÌµ¿
+		
+		   List<StudyBoardDTO> rankList = dao.getStudyRankList();
+
+		   QnaDAO qdao = QnaDAO.getInstance();
+		   List<QnaDTO> qrankList = qdao.getQnaRankList();
+
+
+		   request.setAttribute("qrList", qrankList);
+		  
+		
+		
+		
+		//ï¿½ï¿½ï¿½Ý±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Â¡ Ã³ï¿½ï¿½ ï¿½ï¿½ ï¿½Û¾ï¿½ï¿½ß´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ view pageï¿½ï¿½ ï¿½Ìµï¿½
 		request.setAttribute("page", page);
 		request.setAttribute("rowsize", rowsize);
 		request.setAttribute("block", block);
@@ -80,6 +94,7 @@ public class StudyBoardListAction implements Action {
 		request.setAttribute("startBlock", startBlock);
 		request.setAttribute("endBlock", endBlock);
 		request.setAttribute("List", pageList);
+		request.setAttribute("rList", rankList);
 		
 		
 		ActionForward forward = new ActionForward();

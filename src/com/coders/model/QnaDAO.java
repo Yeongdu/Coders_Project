@@ -153,7 +153,7 @@ public class QnaDAO {
 		try {
 			openConn();
 			
-			sql = "select * from (select row_number() over(order by qna_hit desc) qnum, q.* from qna q) where qnum >=? and qnum <= ?";
+			sql = "select * from (select row_number() over(order by qna_hit desc, qna_date desc) qnum, q.* from qna q) where qnum >=? and qnum <= ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startNo);
 			pstmt.setInt(2, endNo);
@@ -199,7 +199,7 @@ public class QnaDAO {
 		try {
 			openConn();
 			
-			sql = "select * from (select row_number() over(order by qna_reply desc) qnum, q.* from qna q) where qnum >=? and qnum <= ?";
+			sql = "select * from (select row_number() over(order by qna_reply desc, qna_date desc) qnum, q.* from qna q) where qnum >=? and qnum <= ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startNo);
 			pstmt.setInt(2, endNo);
@@ -493,7 +493,7 @@ public class QnaDAO {
 				rs = pstmt.executeQuery();
 				 
 				if(rs.next()) {
-					
+					if(dto.getQna_file() != null) {
 					sql = "update qna set qna_writer = ?, qna_title = ?, qna_cont = ?, qna_update = sysdate, qna_file = ?, qna_tag = ?, qna_code = ? where qna_num = ?";
 					pstmt = con.prepareStatement(sql);
 					
@@ -504,6 +504,17 @@ public class QnaDAO {
 					pstmt.setString(5, dto.getQna_tag());
 					pstmt.setString(6, dto.getQna_code());
 					pstmt.setInt(7, dto.getQna_num());
+					} else {
+						sql = "update qna set qna_writer = ?, qna_title = ?, qna_cont = ?, qna_update = sysdate, qna_tag = ?, qna_code = ? where qna_num = ?";
+						pstmt = con.prepareStatement(sql);
+						
+						pstmt.setString(1, dto.getQna_writer());
+						pstmt.setString(2, dto.getQna_title());
+						pstmt.setString(3, dto.getQna_cont());
+						pstmt.setString(4, dto.getQna_tag());
+						pstmt.setString(5, dto.getQna_code());
+						pstmt.setInt(6, dto.getQna_num());
+					}
 					
 					result = pstmt.executeUpdate();
 					

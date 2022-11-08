@@ -110,6 +110,7 @@
 		white-space: nowrap;
 		text-decoration: none;
 		line-height: 48px;
+		color:black;
 	}
 	
 	
@@ -208,4 +209,15 @@
     --bs-btn-color: black;
     --bs-btn-bg: #fff;
     --bs-btn-border-color: #gray;
+	}
+	
+	
+	#qna .text-bg-light {
+    color: white !important;
+    background-color: RGBA(192,192,192,var(--bs-bg-opacity,1))!important;
+	}
+	
+	#qna .text-bg-secondary {
+    color: #fff!important;
+    background-color: RGBA(108,23,125,var(--bs-bg-opacity,1))!important;
 	}

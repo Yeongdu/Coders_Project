@@ -18,7 +18,7 @@
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
 <script>
-  hljs.highlightAll();</script>
+  hljs.highlightAll();
 
 
 <!-- 코드 구현 스타일 -->
@@ -472,6 +472,18 @@ text-align: left;
 
 						<br> 
 						
+						<c:if test="${!empty dto.getQna_file() }"> 
+							<p> 
+							<img class="card-img" name="qna_file"
+								src="<%=request.getContextPath() %>/qnaBoardWriteFolder/${dto.getQna_file()}"
+								alt="" style="height: auto;"/>
+							</p>
+						</c:if>
+					
+						<c:if test="${empty dto.getQna_file() }"> 
+							<p> 
+							</p>
+						</c:if>
 						<p> 
 						<img class="card-img" name="qna_file"
 							src="<%=request.getContextPath() %>/qnaBoardWriteFolder/${dto.getQna_file()}"
@@ -596,13 +608,22 @@ text-align: left;
 		var qment = 0;
 		
 		function adjustHeight() {
-			  var textEle = $('textarea');
+			  var textEle = $('#qna_code');
 			  textEle[0].style.height = 'auto';
 			  var textEleHeight = textEle.prop('scrollHeight');
 			  textEle.css('height', textEleHeight+8);
 			};
 
 		adjustHeight();
+		
+		function adjustHeight2() {
+			  var textEle = $('#qna_cont');
+			  textEle[0].style.height = 'auto';
+			  var textEleHeight = textEle.prop('scrollHeight');
+			  textEle.css('height', textEleHeight+8);
+			};
+
+		adjustHeight2();
 		
 		
 
@@ -749,7 +770,7 @@ text-align: left;
 			});
 
 			
-		}  // getList() 함수 end
+		}  //() 함수 end
 		
 		
 		getList(); 

@@ -72,6 +72,61 @@ textarea{
      margin: auto;
     }
     
+    .study_explain_bottom_wrap{
+    	display: flex;
+    	justify-content: center;
+    	flex-direction: column;
+    }
+    
+    .btn.btn-primary{
+		--bs-btn-bg: #2b59c6;
+		--bs-btn-border-color: #2b59c6;
+
+		--bs-btn-hover-color: #2b59c6;
+		--bs-btn-hover-bg: #ffffff00;
+		--bs-btn-hover-border-color: #2b59c6;
+		width: 90px;
+
+	}
+	.btn.btn-outline-primary{
+		--bs-btn-border-color: #2b59c6;
+		--bs-btn-color: #2b59c6;
+
+		--bs-btn-hover-color: white;
+		--bs-btn-hover-bg: #2b59c6;
+		--bs-btn-hover-border-color: #2b59c6;
+	}
+	
+	   .title_label{
+    --tw-text-opacity: 1;
+    color: rgb(55 65 81/var(--tw-text-opacity));
+    font-weight: 500;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+    padding-left: 10px;
+    padding-bottom: 7px;
+
+   }
+   
+   .main_label{
+    --tw-text-opacity: 1;
+    color: rgb(55 65 81/var(--tw-text-opacity));
+    font-weight: 500;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+    justify-content: flex-start;
+    padding-left: 8px;
+    margin-bottom: 7px;
+   }
+	
+	
+    
 
 </style>
 
@@ -95,7 +150,7 @@ textarea{
 	<div align="center" >
 	<div>
 	 <div class="study_explain_mainwrap" style="display: flex;">
-      <h3 class="study_explain_main"  >개발 관련 모임과 스터디</h3>
+      <h3 class="study_explain_main" style="margin-bottom: 14px;">개발 관련 모임과 스터디</h3>
        </div>
          <div class="study_explain_subwrap" style="display: flex;">
        <p class="study_explain_sub">지식공유 플랫폼 CODE BOARD에서 다양한 사람들과 만나 지식을 공유해보세요.</p>
@@ -112,58 +167,53 @@ textarea{
     flex-direction: column;">
 			
 			<input type="hidden" value="${userId }" name="study_writer">
-			<div class="mb-3 row">
-<!-- 				<label for="exampleFormControlInput1"  -->
-<!-- 					class="col-sm-2 col-form-label">제목</label> -->
-				<div class="col-sm-10">
-					<input name="study_title" class="form-control" placeholder="제목을 입력해주세요." style="width: 800px;" required>
-				</div>
-			</div>
-
+				<label for="study_title" class="title_label">제목</label>
+					<input name="study_title" class="form-control" placeholder="제목을 입력해주세요." style="width: 800px;margin-bottom: 16px;" required>
 
 <!-- 			<div class="textLengthWrap"> -->
 <!-- 				<p class="textCount">0자</p> -->
 <!-- 				<p class="textTotal">/1000자</p> -->
 <!-- 			</div> -->
+
+				<label for="study_cont" class="main_label">본문</label>
+					<textarea class="form-control" id="study_cont" name="study_cont" placeholder="본문을 입력해주세요." style="width: 800px;margin-bottom: 16px;" required></textarea>
+
+			
+			<div class="study_explain_bottom_wrap">
 			<div class="mb-3 row">
-<!-- 				<label for="exampleFormControlInput1" -->
-<!-- 					class="col-sm-2 col-form-label">본문</label> -->
+				<label for="exampleFormControlInput1"
+					class="col-sm-2 col-form-label" style="font-weight: 500;font-size: .875rem;">파일첨부</label>
 				<div class="col-sm-10">
-					<textarea class="form-control" id="study_cont" name="study_cont" placeholder="본문을 입력해주세요." style="width: 800px;" required></textarea>
+					<input class="form-control" type="file" name="study_file" style="width: 694px;">
 				</div>
 			</div>
 			
 			<div class="mb-3 row">
 				<label for="exampleFormControlInput1"
-					class="col-sm-2 col-form-label">파일첨부</label>
+					class="col-sm-2 col-form-label" style="font-weight: 500;font-size: .875rem;">모집인원</label>
 				<div class="col-sm-10">
-					<input class="form-control" type="file" name="study_file">
+					<input type="number" name="study_people" class="form-control" min="0" max="10" placeholder="모집 인원은 1명~10명 입니다." required style="width: 694px;">
 				</div>
 			</div>
 			
 			<div class="mb-3 row">
 				<label for="exampleFormControlInput1"
-					class="col-sm-2 col-form-label">모집인원</label>
+					class="col-sm-2 col-form-label" style="font-weight: 500;font-size: .875rem;">모집기간</label>
 				<div class="col-sm-10">
-					<input type="number" name="study_people" class="form-control" min="0" max="10" placeholder="모집 인원은 1명~10명 입니다." required>
+				<input type="text" class="form-control" name="study_daterange" style="width: 694px;" required="required">
 				</div>
 			</div>
-			
-			<div class="mb-3 row">
-				<label for="exampleFormControlInput1"
-					class="col-sm-2 col-form-label">모집기간</label>
-				<div class="col-sm-10">
+			</div>
 				
-				<input type="text" class="form-control" name="study_daterange" />
+			
+				
 				<input type="hidden" name="study_start" id="study_start" title="시작일" maxlength="10">
 				<input type="hidden" name="study_end" id="study_end" title="종료일" maxlength="10">
 					
-				</div>
-			</div>
 		
 			
 			<div>
-					<input class="btn btn-primary" onclick="checkCal()" type="submit" value="글쓰기"> &nbsp;&nbsp;&nbsp; 
+					<input class="btn btn-primary" type="submit" value="글쓰기"> &nbsp;&nbsp;&nbsp; 
 					<input class="btn btn-outline-primary" type="reset" value="다시작성"> &nbsp;&nbsp;&nbsp;
 					<input type="button" class="btn btn-outline-secondary" value="뒤로가기" onclick="history.back()">
 			</div>
@@ -178,22 +228,31 @@ textarea{
 <script type="text/javascript">
 $(function(){
 
-	
-		  $('input[name="study_daterange"]').daterangepicker({
-			  
-			locale: {
-	 	            "separator": " ~ ",
-	 	            "format": 'YYYY-MM-DD',
-	 	            "applyLabel": "확인",
-	 	            "cancelLabel": "취소",
-	 	            "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
-	 	 	        "monthNames": ["01월", "02월", "03월", "04월", "05월", "06월", "07월", "08월", "09월", "10월", "11월", "12월"]
-	 	    },
-		    opens: 'left'
-		  }, function(start, end, label) {
-		    $("#study_start").val(start.format('YYYY-MM-DD'));
-		    $("#study_end").val(end.format('YYYY-MM-DD'));
-		  });
+	 let stoday = new Date();
+
+     let etoday = new Date(stoday);
+
+     etoday.setDate(stoday.getDate() + 7);
+
+       $('input[name="study_daterange"]').daterangepicker({
+
+         locale: {
+                  "separator": " ~ ",
+                  "format": 'YYYY-MM-DD',
+                  "applyLabel": "확인",
+                  "cancelLabel": "취소",
+                  "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
+                   "monthNames": ["01월", "02월", "03월", "04월", "05월", "06월", "07월", "08월", "09월", "10월", "11월", "12월"]
+          },
+         opens: 'left'
+         }, function(start, end, label) {
+         $("#study_start").val(start.format('YYYY-MM-DD'));
+         $("#study_end").val(end.format('YYYY-MM-DD'));
+       });
+
+     $('input[name="study_daterange"]').data('daterangepicker').setStartDate(stoday);
+     $('input[name="study_daterange"]').data('daterangepicker').setEndDate(etoday);
+
 
 	
 	

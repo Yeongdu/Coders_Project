@@ -441,6 +441,18 @@ public class StudyBoardDAO {
 			if (rs.next()) {
 				count = rs.getInt(1) + 1;
 			}
+			
+			if(dto.getStudy_start().equals("")) {
+				sql = "insert into study_group values(?,?,?,?,sysdate,'',?,'모집중',sysdate,sysdate+7,?,0)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, count);
+				pstmt.setString(2, dto.getStudy_writer());
+				pstmt.setString(3, dto.getStudy_title());
+				pstmt.setString(4, dto.getStudy_cont());
+				pstmt.setInt(5, dto.getStudy_people());
+				pstmt.setString(6, dto.getStudy_file());
+				
+			}else {
 			sql = "insert into study_group values(?,?,?,?,sysdate,'',?,'모집중',?,?,?,0)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, count);
@@ -451,6 +463,8 @@ public class StudyBoardDAO {
 			pstmt.setString(6, dto.getStudy_start());
 			pstmt.setString(7, dto.getStudy_end());
 			pstmt.setString(8, dto.getStudy_file());
+			}
+			
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {

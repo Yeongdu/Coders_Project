@@ -19,7 +19,7 @@
 	src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
 <script>
   hljs.highlightAll();
-
+</script>
 
 <!-- 코드 구현 스타일 -->
 
@@ -484,11 +484,6 @@ text-align: left;
 							<p> 
 							</p>
 						</c:if>
-						<p> 
-						<img class="card-img" name="qna_file"
-							src="<%=request.getContextPath() %>/qnaBoardWriteFolder/${dto.getQna_file()}"
-							alt="" style = "height: auto;"/>
-						</p>
 						
 
 					<!-- 	<div class="mb-3 row">

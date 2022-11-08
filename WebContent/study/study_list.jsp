@@ -276,7 +276,7 @@ button.btn.btn-outline-dark {
 <!-- 									<option value="title_cont">제목+내용</option> -->
 <!-- 									<option value="writer">작성자</option> -->
 <!-- 							</select> -->
-							<input type="text" name="search_keyword" value="" class="form-control" style = "width:20em;"/>
+							<input type="text" name="search_keyword" value="" class="form-control" style = "width:16em;"/>
 								<button type="submit" class="btn btn-secondary ml-1">
 									<i class="fa fa-search"></i> 검색
 								</button>
@@ -306,7 +306,7 @@ button.btn.btn-outline-dark {
 			<c:forEach items="${list }" var="dto">
 				<%-- 게시판 리스트 --%>
 				<div id="studyListContainer_top" class="border-bottom"
-					align="center" style="width: 50em; height: 7.6em;">
+					align="center" style="width: 50em; height: 7em;">
 					<br>
 					<div class="study_view_top" align="left"
 						style="margin-left: 5px; color: gray; font-size: 0.7em;">
@@ -454,14 +454,17 @@ button.btn.btn-outline-dark {
 	<jsp:include page="../include/bottom.jsp" />
 	<script type="text/javascript">
 $(function() {
+
+
 	$("#studyWrite_btn").click(function(){
-        if(${empty userId}) {
-            alert('로그인한 이용자만 이용할 수 있습니다.');
-            location.href = '<%=request.getContextPath()%>/user_login.do';
-        }else {
-            location.href = '<%=request.getContextPath()%>/studyBoard_insert.do';
-        }
-    });
+		if(${empty userId}) {
+			alert('로그인한 이용자만 이용할 수 있습니다.');
+		}else {
+			location.href = '<%=request.getContextPath()%>/studyBoard_insert.do';
+		}
+	});
+
+	
 	
 });
 </script>

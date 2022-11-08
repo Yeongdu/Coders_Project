@@ -638,7 +638,6 @@ button.btn.btn-outline-dark {
 			  datatype:"text",
 			  data:{
 				  scomment_num : this.parentNode.parentNode.childNodes[2].childNodes[0].textContent   //scomment_num 
-				  
 			  },
 			  
 			  success : function(data){

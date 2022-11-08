@@ -185,13 +185,6 @@
 </style>
 <script type="text/javascript">
 
-/* 
-	$('left').click(function(){
-		$('left').reoveClass('active')
-		$(this).addClass('active')
-	}) */
-
-	
 	$(function(){
 		$.ajaxSetup({
 			ContentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -465,13 +458,11 @@
 		    <span class="visually-hidden">Next</span>
 		  </button>
 		</div>
-
 	</div>
 	
 	
 	
 	<div align="center" id ="main">
-		
 		    <div class="inner">
             <div class="QnA" onclick= "location.href='qna_list.do'">
                 <div class="name" id = "QnAGo"> <h3><b>⦁  &nbsp; &nbsp;Q&A &nbsp; &nbsp; ⦁</b></h3></div>
@@ -491,16 +482,8 @@
                 </div>
             </div>
         </div>
-		
-		
-			
-		<!-- <div id="study_head">
-			<h3>Study Board</h3>
-		</div> -->
-		
 	</div>
 
-	<!-- <div id = "right" align="right"></div> -->
 	
 	<jsp:include page="./include/bottom.jsp" />
 	

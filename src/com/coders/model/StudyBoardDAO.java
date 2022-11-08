@@ -230,24 +230,26 @@ public class StudyBoardDAO {
 	}
 	
 	//모집중이면서 검색어에 해당하는 게시물의 수를 조회하는 메서드
-	public int searchStudyStatusListCount(String field, String keyword) {
+	public int searchStudyStatusListCount(String keyword) {
 		int count = 0;
 
 		try {
 			openConn();
 			String searchSql = "";
-			if (field != null && keyword != null) {
-				if (field.equals("title")) {
-					searchSql = " where study_title like '%" + keyword + "%'";
-				} else if (field.equals("cont")) {
-					searchSql = " where study_cont like '%" + keyword + "%'";
-				} else if (field.equals("title_cont")) {
-					searchSql = " where (study_title like '%" + keyword + "%') or (study_cont like '%" + keyword
-							+ "%')";
-				} else if (field.equals("writer")) {
-					searchSql = " where board_writer like '%" + keyword + "%'";
-				}
-			}
+//			if (field != null && keyword != null) {
+//				if (field.equals("title")) {
+//					searchSql = " where study_title like '%" + keyword + "%'";
+//				} else if (field.equals("cont")) {
+//					searchSql = " where study_cont like '%" + keyword + "%'";
+//				} else if (field.equals("title_cont")) {
+//					searchSql = " where ((study_title like '%" + keyword + "%') or (study_cont like '%" + keyword
+//							+ "%'))";
+//				} else if (field.equals("writer")) {
+//					searchSql = " where board_writer like '%" + keyword + "%'";
+//				} else if (field.equals("all")) {
+					searchSql = " where ((study_title like '%" + keyword + "%') or (study_cont like '%" + keyword + "%') or (study_writer like '%" + keyword + "%'))";
+//				}
+//			}
 
 			sql = "select count(*) from study_group" + searchSql + "and STUDY_STATUS='모집중'";
 			pstmt = con.prepareStatement(sql);
@@ -265,24 +267,26 @@ public class StudyBoardDAO {
 	
 
 	// 검색어에 해당하는 게시물의 수를 조회하는 메서드
-	public int searchStudyListCount(String field, String keyword) {
+	public int searchStudyListCount(String keyword) {
 		int count = 0;
 
 		try {
 			openConn();
 			String searchSql = "";
-			if (field != null && keyword != null) {
-				if (field.equals("title")) {
-					searchSql = " where study_title like '%" + keyword + "%'";
-				} else if (field.equals("cont")) {
-					searchSql = " where study_cont like '%" + keyword + "%'";
-				} else if (field.equals("title_cont")) {
-					searchSql = " where (study_title like '%" + keyword + "%') or (study_cont like '%" + keyword
-							+ "%')";
-				} else if (field.equals("writer")) {
-					searchSql = " where board_writer like '%" + keyword + "%'";
-				}
-			}
+//			if (field != null && keyword != null) {
+//				if (field.equals("title")) {
+//					searchSql = " where study_title like '%" + keyword + "%'";
+//				} else if (field.equals("cont")) {
+//					searchSql = " where study_cont like '%" + keyword + "%'";
+//				} else if (field.equals("title_cont")) {
+//					searchSql = " where ((study_title like '%" + keyword + "%') or (study_cont like '%" + keyword
+//							+ "%'))";
+//				} else if (field.equals("writer")) {
+//					searchSql = " where board_writer like '%" + keyword + "%'";
+//				} else if (field.equals("all")) {
+					searchSql = " where ((study_title like '%" + keyword + "%') or (study_cont like '%" + keyword + "%') or (study_writer like '%" + keyword + "%'))";
+//				}
+//			}
 
 			sql = "select count(*) from study_group" + searchSql;
 			pstmt = con.prepareStatement(sql);
@@ -299,7 +303,7 @@ public class StudyBoardDAO {
 	}
 
 	//게시글 검색
-	public List<StudyBoardDTO> searchStudyList(String field, String keyword, int page, int rowsize) {
+	public List<StudyBoardDTO> searchStudyList(String keyword, int page, int rowsize) {
 		List<StudyBoardDTO> list = new ArrayList<StudyBoardDTO>();
 
 		// 해당 페이지에서 시작번호
@@ -312,18 +316,20 @@ public class StudyBoardDAO {
 
 		try {
 			String searchSql = "";
-			if (field != null && keyword != null) {
-				if (field.equals("title")) {
-					searchSql = " where study_title like '%" + keyword + "%'";
-				} else if (field.equals("cont")) {
-					searchSql = " where study_cont like '%" + keyword + "%'";
-				} else if (field.equals("title_cont")) {
-					searchSql = " where (study_title like '%" + keyword + "%') or (study_cont like '%" + keyword
-							+ "%')";
-				} else if (field.equals("writer")) {
-					searchSql = " where study_writer like '%" + keyword + "%'";
-				}
-			}
+//			if (field != null && keyword != null) {
+//				if (field.equals("title")) {
+//					searchSql = " where study_title like '%" + keyword + "%'";
+//				} else if (field.equals("cont")) {
+//					searchSql = " where study_cont like '%" + keyword + "%'";
+//				} else if (field.equals("title_cont")) {
+//					searchSql = " where ((study_title like '%" + keyword + "%') or (study_cont like '%" + keyword
+//							+ "%'))";
+//				} else if (field.equals("writer")) {
+//					searchSql = " where study_writer like '%" + keyword + "%'";
+//				} else if (field.equals("all")) {
+					searchSql = " where ((study_title like '%" + keyword + "%') or (study_cont like '%" + keyword + "%') or (study_writer like '%" + keyword + "%'))";
+//				}
+//			}
 			sql="select * from" + "(select row_number() over(order by study_group.study_date desc) as snum, "
 					+ "study_group.*,(select count(*) from study_comment where study_group.study_num =study_comment.study_num) as commentCnt "
 					+ "from study_group " + searchSql +") where snum >=? and snum <= ?";
@@ -366,7 +372,7 @@ public class StudyBoardDAO {
 	
 	
 	//모집중인 게시글 검색
-	public List<StudyBoardDTO> searchStatusStudyList(String field, String keyword, int page, int rowsize) {
+	public List<StudyBoardDTO> searchStatusStudyList(String keyword, int page, int rowsize) {
 		List<StudyBoardDTO> list = new ArrayList<StudyBoardDTO>();
 
 		// 해당 페이지에서 시작번호
@@ -379,17 +385,19 @@ public class StudyBoardDAO {
 
 		try {
 			String searchSql = "";
-			if (field != null && keyword != null) {
-				if (field.equals("title")) {
-					searchSql = " where study_title like '%" + keyword + "%'";
-				} else if (field.equals("cont")) {
-					searchSql = " where study_cont like '%" + keyword + "%'";
-				} else if (field.equals("title_cont")) {
-					searchSql = " where ((study_title like '%" + keyword + "%') or (study_cont like '%" + keyword + "%'))";
-				} else if (field.equals("writer")) {
-					searchSql = " where study_writer like '%" + keyword + "%'";
-				}
-			}
+//			if (field != null && keyword != null) {
+//				if (field.equals("title")) {
+//					searchSql = " where study_title like '%" + keyword + "%'";
+//				} else if (field.equals("cont")) {
+//					searchSql = " where study_cont like '%" + keyword + "%'";
+//				} else if (field.equals("title_cont")) {
+//					searchSql = " where ((study_title like '%" + keyword + "%') or (study_cont like '%" + keyword + "%'))";
+//				} else if (field.equals("writer")) {
+//					searchSql = " where study_writer like '%" + keyword + "%'";
+//				} else if (field.equals("all")) {
+					searchSql = " where ((study_title like '%" + keyword + "%') or (study_cont like '%" + keyword + "%') or (study_writer like '%" + keyword + "%'))";
+//				}
+//			}
 			
 			sql = "select * from(select row_number() over(order by study_group.study_date desc) as snum, "
 					+ "study_group.*,(select count(*) from study_comment where study_group.study_num =study_comment.study_num) as commentCnt "

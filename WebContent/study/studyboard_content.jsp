@@ -272,6 +272,51 @@ button.btn.btn-outline-dark {
 /* 	line-height: 0px; */
 /* 	margin: 0px 16px; */
 /* } */
+
+.btn.btn-primary_rank{
+	font-size:0.6em;
+	width: 50px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 7px;
+	margin-bottom: 2px;
+}
+
+.btn.btn-outline-secondary_rank{
+	font-size:0.6em;
+	width: 50px;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-bottom: 2px;
+	--bs-btn-disabled-border-color: gray;
+	--bs-btn-disabled-color: gray;
+
+}
+
+
+.sideBanner {
+	position: absolute;
+	width: 280px;
+	height: 266px;
+	top: 250px;
+	background-color: none;
+	color: #fffffff;
+	margin: 5px;
+	padding: 5px;
+	border: 1px dashed gray;
+}
+
+.sideBanner a{
+text-decoration: none;
+font-size: 1em;
+}
+
+@media screen and (max-width: 1400px) {
+	.sideBanner {
+		display: none;
+	}
+}
+
 </style>
 
 
@@ -363,6 +408,11 @@ button.btn.btn-outline-dark {
 			</div>
 		</div>
 	</div>
+	
+	
+	
+	
+	
 
 	<br>
 	
@@ -372,6 +422,40 @@ button.btn.btn-outline-dark {
 <!-- 	</div> -->
 
 	<br>
+	
+	
+	<div class="sideBanner">
+	<p align="center" style="margin-bottom: 5px;border-bottom: 3px double #8080804f;">STUDY 게시판 인기글</p>
+		<c:set var="rlist" value="${rList }" />
+		<c:if test="${!empty rlist }">
+			<c:forEach items="${rlist }" var="rdto">
+				<div>
+
+					<a class="text-truncate"
+						href="<%=request.getContextPath()%>/studyBoard_content.do?no=${rdto.study_num }"
+						style="display: block;"> <c:if
+							test="${rdto.study_status eq '모집중' }">
+							<button type="button" class="btn btn-primary_rank" disabled>${rdto.study_status }</button>
+						</c:if> <c:if test="${rdto.study_status eq '모집완료' }">
+							<button type="button" class="btn btn-outline-secondary_rank" disabled>${rdto.study_status }</button>
+						</c:if> <c:if test="${rdto.study_status eq '모집중' }">
+							&nbsp;<span style="font-size: 0.9em; color: black;">${rdto.getStudy_title() }</span>
+						</c:if> <c:if test="${rdto.study_status eq '모집완료' }">
+							&nbsp;<span style="font-size: 0.9em; color: gray;">${rdto.getStudy_title() }</span>
+						</c:if>
+
+					</a>
+
+				</div>
+			</c:forEach>
+		</c:if>
+		<c:if test="${empty rlist }">
+			<h3>인기 게시글이 없음</h3>
+		</c:if>
+	</div>
+	
+	
+	
 
 	<%-- 댓글 폼 영역입니다. --%>
 	<div class="ReCount_wrap">
@@ -766,6 +850,23 @@ button.btn.btn-outline-dark {
          	}
     	 }
     onlyWriterStatus();
+    
+	// 기본 위치(top)값
+	var floatPosition = parseInt($(".sideBanner").css('top'))
+
+	// scroll 인식
+	$(window).scroll(function() {
+	  
+	    // 현재 스크롤 위치
+	    var currentTop = $(window).scrollTop();
+	    var bannerTop = currentTop + floatPosition + "px";
+
+	    //이동 애니메이션
+	    $(".sideBanner").stop().animate({
+	      "top" : bannerTop
+	    }, 700);
+
+	}).scroll();
 
 
 });

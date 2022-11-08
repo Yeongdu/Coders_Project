@@ -881,6 +881,32 @@ public class StudyBoardDAO {
 			return result;
 		}//getMainstudyList()메서드 end
 
+
+		public List<StudyBoardDTO> getStudyRankList() {
+			List<StudyBoardDTO> rlist = new ArrayList<StudyBoardDTO>();
+			try {
+				openConn();
+				sql = "select study_num,study_status,study_title from (select study_num, study_status, study_title from study_group order by study_hit desc) where rownum <= 7";
+				pstmt=con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					StudyBoardDTO rdto = new StudyBoardDTO();
+					rdto.setStudy_num(rs.getInt("study_num"));
+					rdto.setStudy_status(rs.getString("study_status"));
+					rdto.setStudy_title(rs.getString("study_title"));
+					rlist.add(rdto);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+			return rlist;
+		}
+		
+		
 		
 
 //

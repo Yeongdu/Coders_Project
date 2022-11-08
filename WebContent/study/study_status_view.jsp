@@ -309,14 +309,18 @@ button.btn.btn-outline-dark {
 				action="<%=request.getContextPath()%>/study_status_search.do">
 				<span class="study_search_left" style="width: 28em"> <span
 					class="col-lg"> <span
-						class="input-group list-search-form w-70"> <select
-							name="search_field" class="custom-select col-sm-4">
-								<option value="all">통합</option>
-								<option value="title">제목</option>
-								<option value="cont">내용</option>
-								<option value="title_cont">제목+내용</option>
-								<option value="writer">작성자</option>
-						</select> <input type="text" name="search_keyword" value=""
+						class="input-group list-search-form w-70"> 
+						
+<!-- 						<select -->
+<!-- 							name="search_field" class="custom-select col-sm-4"> -->
+<!-- 								<option value="all">통합</option> -->
+<!-- 								<option value="title">제목</option> -->
+<!-- 								<option value="cont">내용</option> -->
+<!-- 								<option value="title_cont">제목+내용</option> -->
+<!-- 								<option value="writer">작성자</option> -->
+<!-- 						</select>  -->
+						
+						<input type="text" name="search_keyword" value=""
 							class="form-control" />
 							<button type="submit" class="btn btn-secondary ml-1">
 								<i class="fa fa-search"></i> 검색

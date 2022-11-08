@@ -15,10 +15,10 @@ public class StudyStatusSearchAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String search_field = request.getParameter("search_field").trim();
+//		String search_field = request.getParameter("search_field").trim();
 		String search_keyword = request.getParameter("search_keyword").trim();
 		
-		System.out.println("search_field >>>" +search_field);
+//		System.out.println("search_field >>>" +search_field);
 		System.out.println("search_keyword >>>" +search_keyword);
 		 
 		int rowsize = 10;
@@ -48,7 +48,7 @@ public class StudyStatusSearchAction implements Action {
 		StudyBoardDAO dao = StudyBoardDAO.getInstance();
 		
 		
-		totalRecord = dao.searchStudyStatusListCount(search_field, search_keyword);
+		totalRecord = dao.searchStudyStatusListCount(search_keyword);
 
 		allPage = (int) Math.ceil(totalRecord / (double) rowsize);
 
@@ -56,7 +56,7 @@ public class StudyStatusSearchAction implements Action {
 			endBlock = allPage;
 		}
 
-		List<StudyBoardDTO> searchList = dao.searchStatusStudyList(search_field, search_keyword, page, rowsize);
+		List<StudyBoardDTO> searchList = dao.searchStatusStudyList(search_keyword, page, rowsize);
 
 		request.setAttribute("page", page);
 		request.setAttribute("rowsize", rowsize);
@@ -67,7 +67,7 @@ public class StudyStatusSearchAction implements Action {
 		request.setAttribute("endNo", endNo);
 		request.setAttribute("startBlock", startBlock);
 		request.setAttribute("endBlock", endBlock);
-		request.setAttribute("field", search_field);
+//		request.setAttribute("field", search_field);
 		request.setAttribute("keyword", search_keyword);
 		request.setAttribute("List", searchList);
 		

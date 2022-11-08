@@ -112,14 +112,9 @@ body {
 							&nbsp; <i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }</h6>
 						<br> <br>
 						<p>
-						<c:if test="${!empty dto.getStudy_file()}">
 							<img class="card-img"
 								src="<%=request.getContextPath()%>/study_upload/${dto.getStudy_file()}"
-								alt="" style="height: auto;margin-bottom: 14px;"/> 
-						</c:if>	
-						<c:if test="${empty dto.getStudy_file()}">
-						</c:if>	
-								<input class="form-control" class="card-img"
+								alt="" /> <input class="form-control" class="card-img"
 								type="file" name="study_file">
 						</p>
 						<p class="card-text">

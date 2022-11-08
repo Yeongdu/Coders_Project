@@ -67,10 +67,6 @@
 	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap')
 	;
 
-html {
-	scroll-behavior: smooth;
-	}
-
 body {
 	font-family: 'Noto Sans KR' !important;
 }
@@ -603,7 +599,7 @@ text-align: left;
 		<br>
 		
 
-<script type="text/javascript">
+	<script type="text/javascript">
 		
 		var qment = 0;
 		

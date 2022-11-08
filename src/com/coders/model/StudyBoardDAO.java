@@ -636,7 +636,7 @@ public class StudyBoardDAO {
                 pstmt.executeUpdate();
             }
 			
-			
+			 
 			sql = "delete from study_group where study_num = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, no);

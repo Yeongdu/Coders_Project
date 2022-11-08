@@ -484,6 +484,11 @@ text-align: left;
 							<p> 
 							</p>
 						</c:if>
+						<p> 
+						<img class="card-img" name="qna_file"
+							src="<%=request.getContextPath() %>/qnaBoardWriteFolder/${dto.getQna_file()}"
+							alt="" style = "height: auto;"/>
+						</p>
 						
 
 					<!-- 	<div class="mb-3 row">

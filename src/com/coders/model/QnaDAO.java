@@ -317,7 +317,7 @@ public class QnaDAO {
 				count = rs.getInt(1) + 1;
 			}
 			
-			sql = "insert into qna values(?,?,?,?,sysdate,'',?,0,?,?,0)";
+			sql = "insert into qna values(?,?,?,?,sysdate,'',?,0,?,?,default)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, count);
 			pstmt.setString(2, dto.getQna_writer());
@@ -527,30 +527,9 @@ public class QnaDAO {
 		 public int deleteQna(int no){
 			 
 			 int result = 0;
-			 
-			 int num = 0;
 				
 				try {
 					openConn();
-					
-					sql = "select * from qna_comment where qna_num = ? order by qcomment_num desc";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setInt(1, no);
-					rs = pstmt.executeQuery();
-					
-					while(rs.next()) {
-						num = rs.getInt("qcomment_num");
-						
-						sql = "delete from qna_comment where qcomment_num = ?";
-						pstmt = con.prepareStatement(sql);
-						pstmt.setInt(1, num);
-						pstmt.executeUpdate();
-						
-						sql = "update qna_comment set qcomment_num = qcomment_num - 1 where qcomment_num > ?";
-						pstmt = con.prepareStatement(sql);
-						pstmt.setInt(1, num);
-						pstmt.executeUpdate();
-					}
 					
 					sql = "delete from qna where qna_num = ?";
 					pstmt = con.prepareStatement(sql);

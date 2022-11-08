@@ -263,7 +263,7 @@ body {
 					<input type="text" class="form-control"
 						id="exampleFormControlInput1"
 						placeholder="제목은 30자 까지만 입력할 수 있습니다." name="qna_title"
-						style="width: 100%; margin: 0;" maxlength="30">
+						style="width: 100%; margin: 0;">
 				</div>
 
 			</div>

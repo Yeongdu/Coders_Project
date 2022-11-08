@@ -20,6 +20,7 @@
 		color: #2b59c6;
 		font-size: 1.05rem;
     	font-weight: bold;
+    	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 	}
 	
 	img {

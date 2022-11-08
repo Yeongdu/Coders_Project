@@ -4,6 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<body onresize="parent.resizeTo(800,600)" onload="parent.resizeTo(800,600)">
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
@@ -16,6 +19,7 @@
 		background-repeat: no-repeat;
 		background-position: center;
 	}
+	
 	
 	.top {
 		color: #2b59c6;

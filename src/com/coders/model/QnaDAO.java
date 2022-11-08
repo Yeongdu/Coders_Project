@@ -525,7 +525,7 @@ public class QnaDAO {
 		 
 		//qna�Խñ� ���� �޼ҵ�
 		 public int deleteQna(int no){
-			 
+			  
 			 int result = 0;
 				
 				try {

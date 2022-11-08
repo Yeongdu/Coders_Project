@@ -1169,4 +1169,3 @@ public class QnaDAO {
 			}//minus end
 
 }
-

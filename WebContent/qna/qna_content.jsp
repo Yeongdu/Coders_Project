@@ -19,7 +19,6 @@
 	src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
 <script>
   hljs.highlightAll();
-</script>
 
 
 <!-- 코드 구현 스타일 -->
@@ -485,6 +484,11 @@ text-align: left;
 							<p> 
 							</p>
 						</c:if>
+						<p> 
+						<img class="card-img" name="qna_file"
+							src="<%=request.getContextPath() %>/qnaBoardWriteFolder/${dto.getQna_file()}"
+							alt="" style = "height: auto;"/>
+						</p>
 						
 
 					<!-- 	<div class="mb-3 row">
@@ -766,7 +770,7 @@ text-align: left;
 			});
 
 			
-		}  // getList() 함수 end
+		}  //() 함수 end
 		
 		
 		getList(); 
@@ -797,6 +801,7 @@ text-align: left;
 
 							// 댓글 작성 후 다시 전체 댓글 리스트를 화면에 출력.
 							getList();
+							refreshPage();
 							
 							//입력된 내용을 지워줌.
 							$("#co_content").val("");
@@ -902,6 +907,7 @@ text-align: left;
 						alert('댓글이 삭제되었습니다.');
 						
 						getList();
+						refreshPage();
 					}else {
 						alert('댓글이 삭제되지 않았습니다.');
 					}
@@ -1049,26 +1055,10 @@ text-align: left;
 	</script>
 	
 <script type="text/javascript">
-<%-- 클립보드에 내용을 복사하는 이벤트 --%>
-	
-	$(function () {
-	    $('.copyAlbumId').click(function () {
-	 
-	      var copyText = document.getElementById("copy_id");//클립보드에 복사할 텍스트 가져옴
-	      var textArea = document.createElement("textarea");//textarea 생성
-	      
-	      textArea.value = copyText.textContent;//textarea에 텍스트 입력
-	      document.body.appendChild(textArea);//body에 textarea 추가
-	      
-	      textArea.select();//선택
-	      document.execCommand("Copy");//복사
-	      textArea.remove();//생성한 textarea 삭제
-	      
-	      alert("복사되었습니다.");
-	      
-	    });
-	});
-
+		//페이지 새로고침 함수
+		function refreshPage() {
+	        window.location.reload();
+	    }
 </script>
 	
 	

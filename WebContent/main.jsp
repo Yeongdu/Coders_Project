@@ -402,6 +402,7 @@
 		-webkit-box-shadow: 3px 3px 2px -1px rgba(0,0,0,0.48);
 		-moz-box-shadow: 3px 3px 2px -1px rgba(0,0,0,0.48); 
 		font-weight: bold;
+
 	}
 	
 	#QnAGo:hover{
@@ -443,17 +444,13 @@
 		  <div class="carousel-indicators">
 		    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
 		    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-		    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
 		  </div>
 		  <div class="carousel-inner">
 		    <div class="carousel-item active">
 		      <img src="./upload/mainbanner1.png" class="d-block w-100" alt="...">
 		    </div>
 		    <div class="carousel-item">
-		      <img src="./upload/mainbanner2.png" class="d-block w-100" alt="...">
-		    </div>
-		    <div class="carousel-item">
-		      <img src="./upload/mainbanner3.png" class="d-block w-100" alt="...">
+		      <img src="./upload/mainbanner2_1.png" class="d-block w-100" alt="...">
 		    </div>
 		  </div>
 		  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">

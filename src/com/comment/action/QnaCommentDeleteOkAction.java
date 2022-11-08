@@ -24,8 +24,7 @@ public class QnaCommentDeleteOkAction implements Action {
 		int check = dao.deleteQnaComment(qcomment_no);
 		
 		PrintWriter out = response.getWriter();
-		
-		
+
 		out.println(check);
 		
 		return null;

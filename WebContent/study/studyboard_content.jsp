@@ -335,10 +335,10 @@ button.btn.btn-outline-dark {
 				<p>
 					<img class="card-img"
 						src="<%=request.getContextPath()%>/study_upload/${dto.getStudy_file()}"
-						alt="" style="height: auto;"/>
+						alt="" />
 				</p>
 				<p class="card-text">
-					<textarea class="form-control" style="border: white; resize: none;"
+					<textarea class="form-control" style="border: white;"
 						id="study_cont" readonly>${dto.getStudy_cont() }</textarea>
 				</p>
 				<br>

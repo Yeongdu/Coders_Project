@@ -11,8 +11,6 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <link rel = "stylesheet" href = "./css/qna_board_main.css">
 <script type="text/javascript">
 
@@ -54,8 +52,7 @@
 
 	<div align = "center" id = "main">
 	<br>
-		<div id = "search_top" style = "display:flex; width: 750px;"> <%-- 정렬 / 언어 선택 창 --%>
-
+		<div id = "main_top" style = "display:flex; width: 800px;"> <%-- 정렬 / 언어 선택 창 --%>
 	                <button id="qnaWrite_btn" class="btn btn-success"><i class="fa fa-pencil mr-1"></i> 새 글쓰기</button>
 					<div class="qnaSearchWrite" style="margin: auto;">
 							<span class="qna_search_left" style="width: 28em"> 
@@ -155,7 +152,14 @@
 								${dto.getQna_title() }</a>
 								
 						</div>
-							<div id = "qna_view_date" align = "right">
+						
+						<div class="qna_view_right">
+							<div id = "qna_view_writer">
+								<i class="fa-regular fa-user"></i>&nbsp;
+								 <c:set var="text" value="${fn:split(dto.qna_writer,'@')}" />
+								 ${text[0] }
+							</div>
+							<div id = "qna_view_date">
 								<c:if test="${empty dto.getQna_update() }">
 									<i class="fa-regular fa-clock"></i>&nbsp;${dto.getQna_date() }
 								</c:if>
@@ -164,6 +168,7 @@
 								</c:if>
 								
 							</div>
+						</div>
 
 				</div>   <!-- id="container" end -->
 				</c:forEach>
@@ -215,11 +220,12 @@
 	$("#qnaWrite_btn").click(function(){
 		if(${empty userId}) {
 			alert('로그인한 이용자만 이용할 수 있습니다.');
-			 location.href = '<%=request.getContextPath()%>/user_login.do';
+			
 		}else {
 			location.href = '<%=request.getContextPath() %>/qna_insert.do'
 		}
 	});
+	
 </script>
 
 <script src="https://kit.fontawesome.com/c85ddd0cc6.js" crossorigin="anonymous"></script>

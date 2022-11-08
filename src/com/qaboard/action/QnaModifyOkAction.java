@@ -1,5 +1,6 @@
 package com.qaboard.action;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
@@ -41,16 +42,37 @@ public class QnaModifyOkAction implements Action {
 		String qna_code = multi.getParameter("qna_code").trim();
 		String qna_tag = multi.getParameter("qna_tag").trim();
 		
-		// 글 작성 시 삽입한 파일
-		String older_file = multi.getParameter("qna_file_older").trim();
-		
-		// 수정 시 작성한 파일
-		String new_file = multi.getFilesystemName("qna_file");
+		File file = multi.getFile("qna_file");
 
-		if (new_file != null) { // 새로 등록한 파일이 있으면
-			dto.setQna_file(new_file);
-		}else {
-			dto.setQna_file(older_file);
+		if(file != null) { // ÷�������� �����ϴ� ���
+			String fileName = file.getName();
+			
+			// ��¥ ��ü ����
+			Calendar cal = Calendar.getInstance();
+			int year = cal.get(Calendar.YEAR);
+			int month = cal.get(Calendar.MONTH) + 1;
+			int day = cal.get(Calendar.DAY_OF_MONTH);
+			
+			// ..../upload/2022-10-11
+			String homedir = saveFolder+"/"+year+"-"+month+"-"+day;
+			
+			// ��¥ ���� �����
+			File path1 = new File(homedir);
+			
+			if(!path1.exists()) { // ������ �������� �ʴ� ���
+				path1.mkdir(); // ���� ������ ������ִ� �޼���
+			}
+			
+			// ���� ����� ==> ��) ȫ�浿_���ϸ�
+			// ...../upload/2022-10-11/ȫ�浿_���ϸ�
+			String reFileName = qna_writer + "_" + fileName;
+			
+			file.renameTo(new File(homedir + "/" + reFileName)); // ������ �̸� ����
+			
+			// ������ DB�� ����Ǵ� ���� �̸�
+			// "/2022-10-11/ȫ�浿_���ϸ�"���� ������ ����
+			String fileDBName = "/" + year + "-" + month + "-" + day + "/" + reFileName;
+			dto.setQna_file(fileDBName);
 		}
 	
 		dto.setQna_num(qna_no);

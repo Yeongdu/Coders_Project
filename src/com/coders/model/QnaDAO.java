@@ -710,20 +710,20 @@ public class QnaDAO {
 				try {
 					openConn();
 					
-					sql = "delete from qna_comment where qcomment_num = ?";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setInt(1, no);
-					
-					result = pstmt.executeUpdate();
-					
-					sql = "update qna_comment set qcomment_num = qcomment_num-1 where qcomment_num > ?";
-					pstmt.setInt(1, no);
-					pstmt.executeUpdate();
-					
 					sql = "update qna set qna_reply = qna_reply -1 where qna_num =(select qna_num from qna_comment where qcomment_num = ?)";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setInt(1, no);
 					pstmt.executeUpdate();
+					
+					sql = "delete from qna_comment where qcomment_num = ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, no);
+					pstmt.executeUpdate();
+					
+					sql = "update qna_comment set qcomment_num = qcomment_num-1 where qcomment_num > ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, no);
+					result = pstmt.executeUpdate();
 					 
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block

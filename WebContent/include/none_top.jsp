@@ -43,7 +43,7 @@
 	}
 	
 	.logo_content > a {
-		width: 15.5%;
+		width: 11%;
 		font-size: 1.4rem;
 	}
 	

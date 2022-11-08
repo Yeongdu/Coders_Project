@@ -26,6 +26,7 @@
 	text-decoration: none;
 	}
 	body {
+	cursor: url('<%=request.getContextPath()%>/qna_icon/cusor.png'),auto;
 	font-family: 'Noto Sans KR' !important;
     min-width: 85.7142857143rem;
     width: 100%;
@@ -217,24 +218,29 @@
 		margin-bottom: 0;
 	}
 
-	.study_view_aTag{
-	  text-decoration: none;
-	  line-height: 48px;
-	  color: gray;
+	.study_view_aTag {
+		width: 460px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		text-decoration: none;
+		line-height: 48px;
+		color: gray;
 	}
 	
 	#studyListContainer {
 		display: flex;
-		width: 38em;
+		width: 40em;
 		padding-bottom: 10px;
 		margin: auto;
 		align-items: center;
 	}
 	
 	.study_view_left {
-	  flex: 1;
-	  text-align-last: left;
-	  flex-grow: 1;
+		flex: 1;
+		text-align-last: left;
+		flex-grow: 1;
+		padding-left: 15px;
 	}
 	
 	.study_view_center {
@@ -254,18 +260,7 @@
 		justify-content: flex-end;
 	}
 	
-	#study_center {
-		clear: both;
-		display: inline-block;
-	}
-	
-	.btn.btn-outline-primary {
-		height: 37px;
-		padding-top: 0px;
-		padding-bottom: 0px;
-	}
-	
-	#studyListContainer:hover {
+	#studyListContainer_top:hover {
 		background-color: #f7f7f7;
 	}
 	
@@ -290,9 +285,10 @@
 	}
 	
 	.btn.btn-outline-secondary {
-	width: 86px;
-	padding-left: 5px;
-	padding-right: 5px;
+		width: 86px;
+		padding-left: 5px;
+		padding-right: 5px;
+		
 	}
 	
 	.btn.btn-primary {
@@ -304,25 +300,12 @@
 		border: 0px;
 	}
 	
-/* 	#StudylistBtn {
+	#StudylistBtn {
 		border-color: #dc3545;
 		font-weight: bold;
 		border-bottom: 7px solid #DC3545;
 		padding: 0.2em 0 0 0.2em;
 		color: #DC3545;
-	} */
-	
-	.study_view_aTag {
-		width: 450px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-	
-	.btn.btn-outline-primary{
-		height: 37px;
-		padding-top: 0px;
-		padding-bottom: 0px;
 	}
 	
 	.wrap1 {
@@ -425,38 +408,6 @@
 		white-space: nowrap;
 	}
 	
-	.btn.btn-outline-primary {
-		height: 37px;
-		padding-top: 0px;
-		padding-bottom: 0px;
-	}
-	
-	#studyListContainer:hover {
-		background-color: #f7f7f7;
-	}
-	
-	button.btn.btn-outline-dark {
-		border-color: #ffffff00;
-		width: 70px;
-		padding-right: 20px;
-		font-weight: bold;
-	}
-	
-	.btn.btn-outline-secondary {
-	width: 86px;
-	padding-left: 5px;
-	padding-right: 5px;
-	}
-	
-	.btn.btn-primary {
-		width: 86px;
-		padding-left: 5px;
-		padding-right: 5px;
-		background-color: DarkCyan;
-		padding-bottom: 7px;
-		border: 0px;
-	}
-	
 	.showbtn {
 		width: 80px;
 	  	height: 30px;
@@ -474,24 +425,6 @@
 		background-color: rgba(0,0,0, .15) !important;
 	}
 	
-	#StudylistBtn {
-		padding-left: 6px;
-		padding-right: 6px;
-		color: #dc3545;
-		border-color: #dc3545;
-		font-weight: bold;
-		width: 80px;
-	}
-	
-	.studyEndTxt {
-	font-weight: bold;
-	}
-	
-	.studyIngTxt {
-		border-bottom: 7px solid #dcf1fb;
-		padding: 0.2em 0 0 0.2em;
-		font-weight: bold;
-	}
 	
 	
 	
@@ -996,7 +929,7 @@
 								if($(this).find("type").text() == "모집완료"){
 									table += "<span class='studyEndTxt'>마 감</span>"
 								}else if($(this).find("type").text() == "모집중"){
-									table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>D - DAY</button>"
+									table += "<span class='studyTodayEnd' id='StudylistBtn'>D - DAY</span>"
 								}
 									
 							}else if(day < 0){
@@ -1079,7 +1012,7 @@
 						}else {
 							if(day > 0){
 								if($(this).find("type").text() == "모집완료"){
-									table += "<span class='studyEndTxt'>마 감감</span>"
+									table += "<span class='studyEndTxt'>마 감</span>"
 								}else if($(this).find("type").text() == "모집중"){
 									table += "<span class='studyIngTxt'>D - "+day+"</span>"
 								}
@@ -1088,7 +1021,7 @@
 								if($(this).find("type").text() == "모집완료"){
 									table += "<span class='studyEndTxt'>마 감</span>"
 								}else if($(this).find("type").text() == "모집중"){
-									table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>D - DAY</button>"
+									table += "<span class='studyTodayEnd' id='StudylistBtn'>D - DAY</span>"
 								}
 									
 							}else if(day < 0){
@@ -1168,7 +1101,7 @@
 							}else {
 								if(day > 0){
 									if($(this).find("type").text() == "모집완료"){
-										table += "<span class='studyEndTxt'>마 감감</span>"
+										table += "<span class='studyEndTxt'>마 감</span>"
 									}else if($(this).find("type").text() == "모집중"){
 										table += "<span class='studyIngTxt'>D - "+day+"</span>"
 									}
@@ -1177,7 +1110,7 @@
 									if($(this).find("type").text() == "모집완료"){
 										table += "<span class='studyEndTxt'>마 감</span>"
 									}else if($(this).find("type").text() == "모집중"){
-										table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>D - DAY</button>"
+										table += "<span class='studyTodayEnd' id='StudylistBtn'>D - DAY</span>"
 									}
 										
 								}else if(day < 0){
@@ -1266,7 +1199,7 @@
 						}else {
 							if(day > 0){
 								if($(this).find("type").text() == "모집완료"){
-									table += "<span class='studyEndTxt'>마 감감</span>"
+									table += "<span class='studyEndTxt'>마 감</span>"
 								}else if($(this).find("type").text() == "모집중"){
 									table += "<span class='studyIngTxt'>D - "+day+"</span>"
 								}
@@ -1275,7 +1208,7 @@
 								if($(this).find("type").text() == "모집완료"){
 									table += "<span class='studyEndTxt'>마 감</span>"
 								}else if($(this).find("type").text() == "모집중"){
-									table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>D - DAY</button>"
+									table += "<span class='studyTodayEnd' id='StudylistBtn'>D - DAY</span>"
 								}
 									
 							}else if(day < 0){
@@ -1358,7 +1291,7 @@
 						}else {
 							if(day > 0){
 								if($(this).find("type").text() == "모집완료"){
-									table += "<span class='studyEndTxt'>마 감감</span>"
+									table += "<span class='studyEndTxt'>마 감</span>"
 								}else if($(this).find("type").text() == "모집중"){
 									table += "<span class='studyIngTxt'>D - "+day+"</span>"
 								}
@@ -1367,7 +1300,7 @@
 								if($(this).find("type").text() == "모집완료"){
 									table += "<span class='studyEndTxt'>마 감</span>"
 								}else if($(this).find("type").text() == "모집중"){
-									table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>D - DAY</button>"
+									table += "<span class='studyTodayEnd' id='StudylistBtn'>D - DAY</span>"
 								}
 									
 							}else if(day < 0){
@@ -1447,7 +1380,7 @@
 							}else {
 								if(day > 0){
 									if($(this).find("type").text() == "모집완료"){
-										table += "<span class='studyEndTxt'>마 감감</span>"
+										table += "<span class='studyEndTxt'>마 감</span>"
 									}else if($(this).find("type").text() == "모집중"){
 										table += "<span class='studyIngTxt'>D - "+day+"</span>"
 									}
@@ -1456,7 +1389,7 @@
 									if($(this).find("type").text() == "모집완료"){
 										table += "<span class='studyEndTxt'>마 감</span>"
 									}else if($(this).find("type").text() == "모집중"){
-										table += "<button class='btn btn-outline-primary' id='StudylistBtn' disabled>D - DAY</button>"
+										table += "<span class='studyTodayEnd' id='StudylistBtn'>D - DAY</span>"
 									}
 										
 								}else if(day < 0){

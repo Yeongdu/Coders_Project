@@ -527,6 +527,8 @@ public class QnaDAO {
 		 public int deleteQna(int no){
 			  
 			 int result = 0;
+			 
+			 int num = 0;
 				
 				try {
 					openConn();

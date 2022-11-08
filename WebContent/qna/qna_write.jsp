@@ -313,7 +313,7 @@ body {
 					<i class="bi bi-x-lg"></i>
 				</div>
 				<h3>CODE 작성 방법</h3>
-				<br> <img src="./upload/codeInfo.gif"> <br>
+				<br> <img src="./upload/codeInfo.gif" style="width: 600px; height: 300px;"> <br>
 				<div class="code_info">
 					<br>
 					<p style="margin-bottom: 0;">1. 말머리에서 선택한 언어와 질문하고자 하는 언어의 형식이

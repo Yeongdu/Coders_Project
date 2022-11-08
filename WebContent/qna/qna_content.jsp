@@ -19,14 +19,6 @@
 	src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
 <script>
   hljs.highlightAll();
-  hljs.configure({ 'languages': ['HTML'] });
-  
-  hljs.initLineNumbersOnLoad();
-	$(document).ready(function() {
-		$('code.hljs').each(function(i, block) {
-			hljs.lineNumbersBlock(block);
-		});
-	});
 </script>
 
 
@@ -481,11 +473,18 @@ text-align: left;
 
 						<br> 
 						
-						<p> 
-						<img class="card-img" name="qna_file"
-							src="<%=request.getContextPath() %>/qnaBoardWriteFolder/${dto.getQna_file()}"
-							alt="" />
-						</p>
+						<c:if test="${!empty dto.getQna_file() }"> 
+							<p> 
+							<img class="card-img" name="qna_file"
+								src="<%=request.getContextPath() %>/qnaBoardWriteFolder/${dto.getQna_file()}"
+								alt="" style="height: auto;"/>
+							</p>
+						</c:if>
+					
+						<c:if test="${empty dto.getQna_file() }"> 
+							<p> 
+							</p>
+						</c:if>
 						
 
 					<!-- 	<div class="mb-3 row">
@@ -605,13 +604,22 @@ text-align: left;
 		var qment = 0;
 		
 		function adjustHeight() {
-			  var textEle = $('textarea');
+			  var textEle = $('#qna_code');
 			  textEle[0].style.height = 'auto';
 			  var textEleHeight = textEle.prop('scrollHeight');
 			  textEle.css('height', textEleHeight+8);
 			};
 
 		adjustHeight();
+		
+		function adjustHeight2() {
+			  var textEle = $('#qna_cont');
+			  textEle[0].style.height = 'auto';
+			  var textEleHeight = textEle.prop('scrollHeight');
+			  textEle.css('height', textEleHeight+8);
+			};
+
+		adjustHeight2();
 		
 		
 

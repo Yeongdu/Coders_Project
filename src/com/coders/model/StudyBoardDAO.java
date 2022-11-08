@@ -612,9 +612,31 @@ public class StudyBoardDAO {
 	// 글번호에 해당하는 studyboard 게시글을 삭제하는 메서드.
 	public int deleteStudyboard(int no) {
 		int result = 0;
+		int num = 0;
 		try {
 
 			openConn();
+			
+			sql = "select * from study_comment where study_num = ? order by scomment_num desc";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, no);
+            rs = pstmt.executeQuery();
+
+            while(rs.next()) {
+                num = rs.getInt("scomment_num");
+
+                sql = "delete from study_comment where scomment_num = ?";
+                pstmt = con.prepareStatement(sql);
+                pstmt.setInt(1, num);
+                pstmt.executeUpdate();
+
+                sql = "update study_comment set scomment_num = scomment_num - 1 where scomment_num > ?";
+                pstmt = con.prepareStatement(sql);
+                pstmt.setInt(1, num);
+                pstmt.executeUpdate();
+            }
+			
+			
 			sql = "delete from study_group where study_num = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, no);
@@ -787,15 +809,13 @@ public class StudyBoardDAO {
 				openConn();
 
 				sql = "delete from study_comment where scomment_num = ?";
-
 				pstmt = con.prepareStatement(sql);
-
 				pstmt.setInt(1, no);
 
 				result = pstmt.executeUpdate();
 
 				sql = "update study_comment set scomment_num = scomment_num - 1 where scomment_num > ?";
-
+				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, no);
 
 				pstmt.executeUpdate();

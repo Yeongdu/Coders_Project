@@ -7,13 +7,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>질문 게시판</title>
+<title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-<link rel = "stylesheet" href = "./css/qna_list_main.css">
+<link rel = "stylesheet" href = "./css/qna_board_main.css">
 <script type="text/javascript">
 
 	function goSortCode() {
@@ -36,7 +36,7 @@
 	
 </script>
 </head>
-<body id  = "qna">
+<body>
 	<c:if test="${empty userId }">
 	<jsp:include page="../include/none_top.jsp" />
 	</c:if>
@@ -48,19 +48,20 @@
 		<%-- 메인 배너 --%>
 	<div align = "center" id = "main_top" style = "width:800px; height: 200px; ">
 		<img src = "upload/qnabanner4.png" id = "qnabanner" style = "width:100%; height: 100%;">
-			<span class = "bannerText">기술 Q&A</span>
-			<p class = "bannerText2" style = "font-size: 1em;">지식공유 플랫폼 CODE BOARD에서 최고의 개발자들과 함께 궁금증을 해결하세요.</p>
+			<span class = "bannerText">Q&A</span>
+			<p class = "bannerText2" style = "font-size: 1em;">좋은 질문과 답변으로 동료의 시간을 아껴주세요.</p>
 	</div>
 
 	<div align = "center" id = "main">
 	<br>
 		<div id = "search_top" style = "display:flex; width: 750px;"> <%-- 정렬 / 언어 선택 창 --%>
+
 	                <button id="qnaWrite_btn" class="btn btn-success"><i class="fa fa-pencil mr-1"></i> 새 글쓰기</button>
 					<div class="qnaSearchWrite" style="margin: auto;">
-							<span class="qna_search_left"> 
+							<span class="qna_search_left" style="width: 28em"> 
 							<span class="col-lg"> 
 							<span class="input-group list-search-form w-70"> 
-									<input type="text" id ="search_keyword" name = "search_keyword" value="" class="form-control" style = "margin-top:0; width:20em;" />
+									<input type="text" id ="search_keyword" name = "search_keyword" value="" class="form-control" style = "margin-top:0;" />
 									<button type="button" class="btn btn-secondary ml-1" onclick = "goSearch()">
 										<i class="fa fa-search"></i> 검색
 									</button>
@@ -70,7 +71,7 @@
 					</div>
 				
 				<div class = "qna_language_sort" onchange = "goSortCode()" style = " margin:0;">
-					<select class="form-select" aria-label="Default select example" name = "code" id = "code" style = "width:6em;">
+					<select class="form-select" aria-label="Default select example" name = "code" id = "code" style = "width:8em;">
 					  	<option selected>언어순</option>
 						<option value = "JAVA">JAVA</option>
 						<option value = "HTML">HTML</option>
@@ -82,39 +83,42 @@
 						<option>ETC</option>
 					</select>
 				</div>
-				&nbsp;&nbsp;			
-				<div class="dropdown">
-				  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-				    정렬
-				  </button>
-				  <ul class="dropdown-menu">
-				    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/qna_list.do">최신순</a></li>
-				    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/qna_list_view.do">조회순</a></li>
-				    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/qna_list_comment.do">답변순</a></li>
-				  </ul>
+				&nbsp;&nbsp;
+				<div class = "qna_sort" style = "margin:auto;">
+					<div class="dropdown">
+					  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					    정렬
+					  </button>
+					  <ul class="dropdown-menu">
+					    <li><a class="dropdown-item" id = "recent_btn" href="<%=request.getContextPath()%>/qna_list.do">최신순</a></li>
+					    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/qna_list_view.do">조회순</a></li>
+					    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/qna_list_comment.do">답변순</a></li>
+					  </ul>
+					</div>
 				</div>
-				<br>
 		</div> <%-- main_top의 end --%>
 		
-		<hr style="width: 50em; margin: 30px auto 10px;">
 		
 		<div id = "main_center"> <%-- 게시판 리스트 --%>
+		<br>
 			<form method = "post" name = "frm" id = "frm">
 			<c:set var = "list" value = "${List }" />
 			<c:if test="${!empty list }">
 				<c:forEach items="${list }" var="dto">
 				<input type = "hidden" name = "qna_num" id = "qna_num" value = "${dto.getQna_num() }">
-					<div id="container" class="border-bottom" class="border-bottom">
-						<div class="qna_view_left" align="left" style="margin-left: 5px; color: gray; font-size: 0.7em;">
-							<br>
+					<div id="container" class="border-top" class="border-bottom">
+						<div class="qna_view_left">
 							<div>
-								<i class="fa-regular fa-user"></i> &nbsp;${dto.getQna_writer() }
-								&nbsp;&nbsp; <i class="fa-regular fa-eye"></i>
-								&nbsp;${dto.getQna_hit() } &nbsp;&nbsp; <i
-									class="fa-regular fa-pen-to-square"></i>
-								&nbsp;${dto.getQna_reply() }
+								<i class="fa-regular fa-eye"></i>
+								${dto.getQna_hit() }
 							</div>
+							
+							<div>
+								<i class="fa-regular fa-pen-to-square"></i>
+								${dto.getQna_reply() }
+							</div> <%-- 답변 수 값 --%>
 						</div>
+	
 						<div class="qna_view_center">
 							<a href="<%=request.getContextPath()%>/qna_content.do?no=${dto.getQna_num() }"
 								style="display: block; text-decoration: none;" class = "etc">
@@ -126,7 +130,7 @@
 									<span class="badge text-bg-primary">HTML</span>
 								</c:if>
 								<c:if test="${tag == 'JAVASCRIPT'}">
-									<span class="badge text-bg-warning">JS</span>
+									<span class="badge text-bg-warning">JAVASCRIPT</span>
 								</c:if>
 								<c:if test="${tag == 'CSS'}">
 									<span class="badge text-bg-danger">CSS</span>
@@ -135,7 +139,7 @@
 									<span class="badge text-bg-success">JQUERY</span>
 								</c:if>
 								<c:if test="${tag == 'DATABASE'}">
-									<span class="badge text-bg-info">DB</span>
+									<span class="badge text-bg-info">DataBase</span>
 								</c:if>
 								<c:if test="${tag == 'JSP'}">
 									<span class="badge text-bg-dark">JSP</span>
@@ -148,9 +152,9 @@
 								</c:if>									
 								<%-- 표시할 프로그래밍 언어 다 표시하기 --%>
 								&nbsp;&nbsp;&nbsp;
-								<span id = "title" style = "color:black;">${dto.getQna_title() }</span></a>
+								${dto.getQna_title() }</a>
+								
 						</div>
-						
 							<div id = "qna_view_date" align = "right">
 								<c:if test="${empty dto.getQna_update() }">
 									<i class="fa-regular fa-clock"></i>&nbsp;${dto.getQna_date() }
@@ -165,7 +169,6 @@
 				</c:forEach>
 			</c:if>
 			</form>
-				<br>
 		</div> <%-- main_center의 end --%>
 
 	<%-- BootStrap을 이용한 페이징 처리 영역 --%>

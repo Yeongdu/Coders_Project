@@ -317,7 +317,7 @@ public class QnaDAO {
 				count = rs.getInt(1) + 1;
 			}
 			
-			sql = "insert into qna values(?,?,?,?,sysdate,'',?,0,?,?,default)";
+			sql = "insert into qna values(?,?,?,?,sysdate,'',?,0,?,?,0)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, count);
 			pstmt.setString(2, dto.getQna_writer());

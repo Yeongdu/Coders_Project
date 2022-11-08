@@ -298,7 +298,7 @@ body {
 				</div>
 				<%--코드/질문내용/첨부파일의 end --%>
 			<div id="qna_write_submit" align="center">
-				<button type="submit" class="btn btn-outline-primary" id="saveBtn">작성하기</button>
+				<button type="button" class="btn btn-outline-primary" id="saveBtn">작성하기</button>
 				&nbsp;&nbsp;
 				<button type="button" class="btn btn-outline-danger"
 					onclick="location.href='<%=request.getContextPath()%>/qna_list.do'">돌아가기</button>
@@ -393,6 +393,64 @@ body {
 	    $('.bi-x-lg').css('color','white');
 	    $('.bi-x-lg').css('text-shadow','-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray');
 	});
+	
+	$(function(){
+		function test() {    
+			LoadingWithMask();
+			while(true){
+				if("<%=request.getContextPath()%>/study_upload/"${dto.getStudyboard_file()} == )
+				
+			}
+		} 
+		
+		function LoadingWithMask() {    
+			//화면의 높이와 너비를 구합니다.    
+			var maskHeight = $(document).height();    
+			var maskWidth  = window.document.body.clientWidth;         
+			
+			//화면에 출력할 마스크를 설정해줍니다.    
+			var mask       = "<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'></div>";    
+			var loadingImg = "<div id='loadingImg' class='spinner-border text-primary' role='status'><span class='visually-hidden'>Loading...</span></div>";  
+			
+			//화면에 레이어 추가    
+			$("body").append(mask)     
+			$("#mask").append(loadingImg)     
+			
+			//마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채웁니다.    
+			$("#mask").css({            
+				"width" : maskWidth,            
+				"height": maskHeight,            
+				"opacity" : "0.3"    
+			});
+			
+			$("#loadingImg").css({
+				"margin-left" : "950px",
+				"margin-top" : "500px",
+			});
+			
+			
+			//마스크 표시    
+			$("#mask").show();      
+			
+			//로딩중 이미지 표시    
+			$("#loadingImg").show();
+			
+		} 
+			
+		function closeLoadingWithMask() {    
+				$("#mask, #loadingImg").hide();    
+				$("#mask, #loadingImg").empty();
+				$("#qna_write_form").submit();  
+		}
+		
+		// 등록 버튼 클릭 시 로딩창
+		$(document).on("click", "#saveBtn", function(){
+			test();
+		});
+	});
+	
+	
+	
 </script>
 
 

@@ -55,6 +55,24 @@ body {
     font-size: 0.9rem;
     color: gray;
 }
+
+#study_title_1 {
+	border: 2px solid #2b59c6;
+	background-color: #2b59c6;
+	border-radius: 15px;
+	width: 400px;
+	color: white;
+	padding-bottom: 5px;
+	box-shadow: 3px 3px 2px -1px rgba(0, 0, 0, 0.48);
+	-webkit-box-shadow: 3px 3px 2px -1px rgba(0, 0, 0, 0.48);
+	-moz-box-shadow: 3px 3px 2px -1px rgba(0, 0, 0, 0.48);
+	font-weight: bold;
+}
+
+#study_title_1 a {
+	text-decoration: none;
+	color: white;
+}
 </style>
 
 </head>
@@ -74,6 +92,12 @@ body {
 		<input type="hidden" name="study_no" value="${dto.getStudy_num() }">
 		<input type="hidden" name="study_writer"
 			value="${dto.getStudy_writer() }"> <br>
+			
+		<div align="center">
+			<h3 align="center" id = "study_title_1">⦁  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="<%=request.getContextPath() %>/studyBoard_list.do">Study</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ⦁</h3>
+		</div>
+			
+		<br>
 		<div class="align-middle">
 			<div class="container col-md-6" style="width: 800px;">
 				<div class="card">

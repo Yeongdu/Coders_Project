@@ -10,8 +10,16 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
-
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 
 <link rel="stylesheet"
 	href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/androidstudio.min.css" />
@@ -354,12 +362,28 @@ text-align: left;
     user-select: none;
 }
 
-
+#qna .badge {
+    --bs-badge-padding-x: 0.5em;
+    --bs-badge-padding-y: 0.5em;
+    --bs-badge-font-size: 16px;
+    width: 86px;
+    height: 37px;
+    }
+    
+#qna .text-bg-secondary {
+    color: #fff!important;
+    background-color: RGBA(108,23,125,var(--bs-bg-opacity,1))!important;
+	}    
+	
+textarea {
+	resize: none;
+}
+    
 </style>
 
 
 </head>
-<body>
+<body id = "qna">
 
 	<c:if test="${empty userId }">
 		<jsp:include page="../include/none_top.jsp" />
@@ -396,25 +420,25 @@ text-align: left;
 											style="padding-top: 10px;">JAVA</span>
 									</c:if>
 									<c:if test="${tag == 'HTML'}">
-										<span class="badge text-bg-primary" style="padding: 10px;">HTML</span>
+										<span class="badge text-bg-primary">HTML</span>
 									</c:if>
 									<c:if test="${tag == 'JAVASCRIPT'}">
-										<span class="badge text-bg-warning" style="padding: 10px;">JAVASCRIPT</span>
+										<span class="badge text-bg-warning">JS</span>
 									</c:if>
 									<c:if test="${tag == 'CSS'}">
-										<span class="badge text-bg-danger" style="padding: 10px;">CSS</span>
+										<span class="badge text-bg-danger">CSS</span>
 									</c:if>
 									<c:if test="${tag == 'JQUERY'}">
-										<span class="badge text-bg-success" style="padding: 10px;">JQUERY</span>
+										<span class="badge text-bg-success">JQUERY</span>
 									</c:if>
 									<c:if test="${tag == 'DATABASE'}">
-										<span class="badge text-bg-info" style="padding: 10px;">DataBase</span>
+										<span class="badge text-bg-info">DB</span>
 									</c:if>
 									<c:if test="${tag == 'JSP'}">
-										<span class="badge text-bg-dark" style="padding: 10px;">JSP</span>
+										<span class="badge text-bg-dark">JSP</span>
 									</c:if>
 									<c:if test="${tag == null}">
-										<span class="badge text-bg-light" style="padding: 10px;">ETC</span>
+										<span class="badge text-bg-light">ETC</span>
 									</c:if>
 								</div>
 								
@@ -449,7 +473,7 @@ text-align: left;
 
 						<div class="card-body" id = "code">
 							<c:if test="${empty dto.qna_code }">
-								<label></label>
+								<textarea class="form-control" id="qna_code" name="qna_code" readonly style = "display:none;"></textarea>
 							</c:if>
 							<c:if test="${!empty dto.qna_code }">
 									<div class="card-body" align="left" id = "noBlank">

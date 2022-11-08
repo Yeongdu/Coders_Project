@@ -52,7 +52,7 @@
 
 	<div align = "center" id = "main">
 	<br>
-		<div id = "search_top" style = "display:flex; width: 800px;"> <%-- 정렬 / 언어 선택 창 --%>
+		<div id = "search_top" style = "display:flex; width: 750px;"> <%-- 정렬 / 언어 선택 창 --%>
 	                <button id="qnaWrite_btn" class="btn btn-success"><i class="fa fa-pencil mr-1"></i> 새 글쓰기</button>
 					<div class="qnaSearchWrite" style="margin: auto;">
 							<span class="qna_search_left"> 

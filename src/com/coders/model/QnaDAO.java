@@ -561,6 +561,11 @@ public class QnaDAO {
 						pstmt = con.prepareStatement(sql);
 						pstmt.setInt(1, num);
 						pstmt.executeUpdate();
+						
+						sql = "update qna_comment set qna_num = qna_num -1 where qna_num = ?";
+						pstmt = con.prepareStatement(sql);
+						pstmt.setInt(1, no);
+						pstmt.executeUpdate();
 					}
 					
 					sql = "delete from qna where qna_num = ?";

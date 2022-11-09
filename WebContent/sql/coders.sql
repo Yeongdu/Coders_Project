@@ -68,3 +68,9 @@
         qna_num references qna(qna_num) on delete cascade,   -- qna �亯 ��ȣ
         user_id references user_member(user_id) on delete cascade	-- ���� ���̵�
     );
+    
+      create table bad(
+        bad_num number(5) primary key,             -- ���ƿ� ��ȣ
+        qna_num references qna(qna_num) on delete cascade,   -- qna �亯 ��ȣ
+        user_id references user_member(user_id) on delete cascade	-- ���� ���̵�
+    );

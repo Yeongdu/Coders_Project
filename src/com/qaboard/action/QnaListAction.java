@@ -10,6 +10,8 @@ import com.coders.controller.Action;
 import com.coders.controller.ActionForward;
 import com.coders.model.QnaDAO;
 import com.coders.model.QnaDTO;
+import com.coders.model.StudyBoardDAO;
+import com.coders.model.StudyBoardDTO;
 
 
 public class QnaListAction implements Action {
@@ -66,6 +68,13 @@ public class QnaListAction implements Action {
 				// ���� �������� �ش��ϴ� �Խù��� �������� �޼��� ȣ��(�ֽż�)
 				List<QnaDTO> qnaList = dao.getQnaList(page, rowsize);
 				
+				
+				//랭킹 배너
+				StudyBoardDAO sdao = StudyBoardDAO.getInstance(); 
+				List<StudyBoardDTO> rankList = sdao.getStudyRankList();
+				List<QnaDTO> qrankList = dao.getQnaRankList();
+
+				
 				// ++++++++++ �亯�� �޾ƿ��� �޼��� ++++++
 				
 				// ����¡ ó�� �� �۾��ߴ� ��� ������ viewpage�� �̵�
@@ -79,6 +88,10 @@ public class QnaListAction implements Action {
 				request.setAttribute("startBlock", startBlock);
 				request.setAttribute("endBlock", endBlock);
 				request.setAttribute("List", qnaList);
+				
+				//랭킹 배너
+				request.setAttribute("rList", rankList);
+				request.setAttribute("qrList", qrankList);
 				
 				ActionForward forward = new ActionForward();
 				

@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.coders.controller.Action;
 import com.coders.controller.ActionForward;
+import com.coders.model.QnaDAO;
+import com.coders.model.QnaDTO;
 import com.coders.model.StudyBoardDAO;
 import com.coders.model.StudyBoardDTO;
 
@@ -28,6 +30,13 @@ public class StudyBoardContentAction implements Action {
 		dao.StudyBoardHit(studyBoard_no);
 		
 		 List<StudyBoardDTO> rankList = dao.getStudyRankList();
+		 
+		 
+		 QnaDAO qdao = QnaDAO.getInstance();
+		 List<QnaDTO> qrankList = qdao.getQnaRankList();
+
+
+		 request.setAttribute("qrList", qrankList);
 
 
 		

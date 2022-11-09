@@ -9,13 +9,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script> -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"> -->
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.6.1.js"></script>
 	
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> -->
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script> -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	
@@ -200,7 +200,7 @@ textarea{
 				<label for="exampleFormControlInput1"
 					class="col-sm-2 col-form-label" style="font-weight: 500;font-size: .875rem;">모집기간</label>
 				<div class="col-sm-10">
-				<input type="text" class="form-control" name="study_daterange" style="width: 694px;" required="required">
+				<input type="text" class="form-control" name="study_daterange" style="width: 694px;">
 				</div>
 			</div>
 			</div>
@@ -254,39 +254,6 @@ $(function(){
      $('input[name="study_daterange"]').data('daterangepicker').setEndDate(etoday);
 
 
-	
-	
-// 	  $(".study_daterange").daterangepicker({
-// 	        locale: {
-// 	            "separator": "/",
-// 	            "format": 'YYYY-MM-DD',
-// 	            "applyLabel": "확인",
-// 	            "cancelLabel": "취소",
-// 	            "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
-// 	            "monthNames": ["01월", "02월", "03월", "04월", "05월", "06월", "07월", "08월", "09월", "10월", "11월", "12월"]
-// 	        },
-// 	        minDate: gYear+"/"+gMonth+"/"+gDate,
-// 	        maxDate: (gYear+1)+"/"+gMonth+"/"+gDate,
-// 	        autoApply: true,
-// 	        opens: 'center',
-// 	        timePicker: false,
-// 	        showDropdowns: false,
-// 	        singleDatePicker: false,
-// 	        isCustomDate : function(){}
-// 	    });
-	  
-// 	  $(".study_daterange").on("apply.daterangepicker", function(ev, picker){
-// 	        let sdate = picker.startDate.format('YYYY-MM-DD');
-// 	        let edate = picker.endDate.format('YYYY-MM-DD');
-// 	        const date1 = new Date(sdate);
-// 	        const date2 = new Date(edate);
-
-// 	        const diffDate = date1.getTime() - date2.getTime();
-// 	        const between = Math.abs(diffDate / (1000 * 60 * 60 * 24));
-
-// // 	        $(this).html(sdate.replaceAll("-", ". ") + " - " + edate.replaceAll("-", ". ") + "<em>" + between + "박 " + (between+1) + "일</em>");
-// // 	        $(".stay-room .sr-top .reserv-go").attr("start", sdate).attr("end", edate);
-// 	    });
 
 	
 	});

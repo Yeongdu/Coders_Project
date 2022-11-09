@@ -255,7 +255,7 @@ button.btn.btn-outline-dark {
 	position: absolute;
 	width: 280px;
 	height: 266px;
-	top: 250px;
+	top: 275px;
 	background-color: none;
 	color: #fffffff;
 
@@ -496,7 +496,7 @@ body .badge {
 
 							<a class="text-truncate"
 								href="<%=request.getContextPath()%>/studyBoard_content.do?no=${rdto.study_num }"
-								style="display: block;"> <c:if
+								style="display: block; color: black;"> <c:if
 									test="${rdto.study_status eq '모집중' }">
 									<button type="button" class="btn btn-primary_rank" disabled>${rdto.study_status }</button>
 								</c:if> <c:if test="${rdto.study_status eq '모집완료' }">
@@ -517,7 +517,6 @@ body .badge {
 				</c:if>
 			</div>
 
-			<br>
 
 			<div class="sideBanner_qna">
 				<p align="center"
@@ -531,7 +530,7 @@ body .badge {
 						<div class="qna_view_center">
 							<a class="text-truncate"
 								href="<%=request.getContextPath()%>/qna_content.do?no=${qrdto.getQna_num() }"
-								style="display: block; text-decoration: none; font-size: 0.9em;"
+								style="display: block; text-decoration: none; font-size: 0.9em; color: black;"
 								class="etc"> <c:set var="tag" value="${qrdto.getQna_tag() }" />
 								<c:if test="${tag == 'JAVA'}">
 									<span class="badge text-bg-secondary">JAVA</span>

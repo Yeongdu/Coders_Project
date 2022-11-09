@@ -86,14 +86,17 @@
 	}
 }
 
-body .badge2 {
+#qna .badge2 {
 	font-size: 0.6em;
-	width: 50px !important;
+	width: 50px;
 	padding-left: 5px;
 	padding-right: 5px;
 	height: 29px;
 	margin-bottom: 2px;
 	--bs-badge-padding-y: 1em;
+    border-radius: 5px;
+    border: 0px;
+	
 }
 
 </style>
@@ -294,29 +297,29 @@ body .badge2 {
 				<c:if test="${!empty qrlist }">
 					<c:forEach items="${qrlist }" var="qrdto">
 
-						<div class="qna_view_center">
+						<div class="qna_Rank_view_center">
 							<a class="text-truncate"
 								href="<%=request.getContextPath()%>/qna_content.do?no=${qrdto.getQna_num() }"
 								style="display: block; text-decoration: none; font-size: 0.9em;"
 								class="etc"> <c:set var="tag" value="${qrdto.getQna_tag() }" />
 								<c:if test="${tag == 'JAVA'}">
-									<span class="badge2 text-bg-secondary">JAVA</span>
+									<button type="button" class="badge2 text-bg-secondary">JAVA</button>
 								</c:if> <c:if test="${tag == 'HTML'}">
-									<span class="badge2 text-bg-primary">HTML</span>
+									<button type="button" class="badge2 text-bg-primary">HTML</button>
 								</c:if> <c:if test="${tag == 'JAVASCRIPT'}">
-									<span class="badge2 text-bg-warning">JS</span>
+									<button type="button" class="badge2 text-bg-warning">JS</button>
 								</c:if> <c:if test="${tag == 'CSS'}">
-									<span class="badge2 text-bg-danger">CSS</span>
+									<button type="button" class="badge2 text-bg-danger">CSS</button>
 								</c:if> <c:if test="${tag == 'JQUERY'}">
-									<span class="badge2 text-bg-success">JQUERY</span>
+									<button type="button" class="badge2 text-bg-success">JQUERY</button>
 								</c:if> <c:if test="${tag == 'DATABASE'}">
-									<span class="badge2 text-bg-info">DB</span>
+									<button type="button" class="badge2 text-bg-info">DB</button>
 								</c:if> <c:if test="${tag == 'JSP'}">
-									<span class="badge2 text-bg-dark">JSP</span>
+									<button type="button" class="badge2 text-bg-dark">JSP</button>
 								</c:if> <c:if test="${tag == 'ETC'}">
-									<span class="badge2 text-bg-light">ETC</span>
+									<button type="button" class="badge2 text-bg-light">ETC</button>
 								</c:if> <c:if test="${tag == null}">
-									<span class="badge2 text-bg-light">ETC</span>
+									<button type="button" class="badge2 text-bg-light">ETC</button>
 								</c:if> <%-- 표시할 프로그래밍 언어 다 표시하기 --%> &nbsp; <span id="title"
 								style="font-size: 0.9em;color: black;">${qrdto.getQna_title() }</span></a>
 						</div>

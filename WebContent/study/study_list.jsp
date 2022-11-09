@@ -296,6 +296,16 @@ body .badge {
 	--bs-badge-padding-y: 1em;
 	
 	}
+	
+	body .text-bg-light {
+    color: white !important;
+    background-color: RGBA(192,192,192,var(--bs-bg-opacity,1))!important;
+	}
+	
+	body .text-bg-secondary {
+    color: #fff!important;
+    background-color: RGBA(108,23,125,var(--bs-bg-opacity,1))!important;
+	}
 
 </style>
 

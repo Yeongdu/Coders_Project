@@ -408,13 +408,9 @@ body {
 	    $('.bi-x-lg').css('text-shadow','-1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray');
 	});
 	
-	$(function(){
+	/* $(function(){
 		function test() {    
 			LoadingWithMask();
-			while(true){
-				if("<%=request.getContextPath()%>/study_upload/"${dto.getStudyboard_file()} == )
-				
-			}
 		} 
 		
 		function LoadingWithMask() {    
@@ -461,7 +457,7 @@ body {
 		$(document).on("click", "#saveBtn", function(){
 			test();
 		});
-	});
+	}); */
 	
 	
 	

@@ -9,10 +9,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
-
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -406,7 +402,7 @@ textarea {
 	position: absolute;
 	width: 280px;
 	height: 266px;
-	top: 250px;
+	top: 275px;
 	background-color: none;
 	color: #fffffff;
 	padding: 5px;
@@ -539,9 +535,7 @@ body .badge2 {
 
 						<div class="card-body" id = "code">
 							<c:if test="${empty dto.qna_code }">
-
 								<textarea class="form-control" id="qna_code" name="qna_code" readonly style = "display:none;"></textarea>
-
 							</c:if>
 							<c:if test="${!empty dto.qna_code }">
 									<div class="card-body" align="left" id = "noBlank">
@@ -704,7 +698,7 @@ body .badge2 {
 
 							<a class="text-truncate"
 								href="<%=request.getContextPath()%>/studyBoard_content.do?no=${rdto.study_num }"
-								style="display: block;"> <c:if
+								style="display: block; color: black;"> <c:if
 									test="${rdto.study_status eq '모집중' }">
 									<button type="button" class="btn btn-primary_rank" disabled>${rdto.study_status }</button>
 								</c:if> <c:if test="${rdto.study_status eq '모집완료' }">
@@ -725,7 +719,6 @@ body .badge2 {
 				</c:if>
 			</div>
 
-			<br>
 
 			<div class="sideBanner_qna">
 				<p align="center"
@@ -739,7 +732,7 @@ body .badge2 {
 						<div class="qna_view_center">
 							<a class="text-truncate"
 								href="<%=request.getContextPath()%>/qna_content.do?no=${qrdto.getQna_num() }"
-								style="display: block; text-decoration: none; font-size: 0.9em;"
+								style="display: block; text-decoration: none; font-size: 0.9em; color: black;"
 								class="etc"> <c:set var="tag" value="${qrdto.getQna_tag() }" />
 								<c:if test="${tag == 'JAVA'}">
 									<span class="badge2 text-bg-secondary">JAVA</span>

@@ -312,7 +312,7 @@ body {
 				</div>
 				<%--코드/질문내용/첨부파일의 end --%>
 			<div id="qna_write_submit" align="center">
-				<button type="button" class="btn btn-outline-primary" id="saveBtn">작성하기</button>
+				<button type="submit" class="btn btn-outline-primary" id="saveBtn">작성하기</button>
 				&nbsp;&nbsp;
 				<button type="button" class="btn btn-outline-danger"
 					onclick="location.href='<%=request.getContextPath()%>/qna_list.do'">돌아가기</button>

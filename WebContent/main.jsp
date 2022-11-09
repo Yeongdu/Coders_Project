@@ -213,6 +213,69 @@
 	}
 	
 	
+	
+	/* 전환 애니메이션 효과 */
+.loader5{
+  position: relative;
+  width: 150px;
+  height: 20px;
+
+  top: 45%;
+  top: -webkit-calc(30% - 10px);
+  top: calc(30% - 10px);
+  left: 25%;
+  left: -webkit-calc(50% - 75px);
+  left: calc(50% - 75px);
+
+  background-color: rgba(255,255,255,0.2);
+}
+
+.loader5:after{
+  content: "LOADING ...";
+  color: #fff;
+  font-family:  Lato,"Helvetica Neue" ;
+  font-weight: 200;
+  font-size: 16px;
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  line-height: 20px;
+  left: 0;
+  top: 0;
+}
+
+.loader5:before{
+  content: "";
+  position: absolute;
+  background-color: #fff;
+  top: 0px;
+  height: 20px;
+  width: 0px;
+  z-index: 0;
+  -webkit-transform-origin:  100% 0%;
+      transform-origin:  100% 0% ;
+  -webkit-animation: loader5 3s ease-in-out;
+      animation: loader5 3s ease-in-out;
+}
+
+@-webkit-keyframes loader5{
+    0%{width: 0px; left: 0px}
+    48%{width: 100%; left: 0px}
+    50%{width: 100%; right: 0px}
+    52%{width: 100%; right: 0px}
+    100%{width: 0px; right: 0px}
+}
+
+@keyframes loader5{
+    0%{width: 0px; left: 0px}
+    48%{width: 100%; left: 0px}
+    50%{width: 100%; right: 0px}
+    52%{width: 100%; right: 0px}
+    100%{width: 0px; right: 0px}
+}
+	
+	
+	
 </style>
 <script type="text/javascript">
 
@@ -501,8 +564,8 @@
 	<div align="center" id ="main">
 		
 		    <div class="inner">
-            <div class="QnA" onclick= "location.href='qna_list.do'">
-                <div class="name" id = "QnAGo"> <h3><b>⦁  &nbsp; &nbsp;Q&A &nbsp; &nbsp; ⦁</b></h3></div>
+            <div class="QnA">
+                <div class="name" id = "QnAGo" onclick= "location.href='qna_list.do'"> <h3><b>⦁  &nbsp; &nbsp;Q&A &nbsp; &nbsp; ⦁</b></h3></div>
                 <div class="box">
                 	<br>
                     <div id ="qna_center"></div>
@@ -511,8 +574,8 @@
             
             <div id ="blank"> </div>
             
-            <div class="STUDY" onclick= "location.href='studyBoard_list.do'">
-                <div class="name" id = "studyGo"><h3><b>⦁  &nbsp;STUDY&nbsp;  ⦁</b></h3></div>
+            <div class="STUDY">
+                <div class="name" id = "studyGo" onclick= "location.href='studyBoard_list.do'"><h3><b>⦁  &nbsp;STUDY&nbsp;  ⦁</b></h3></div>
                 <div class="box">
                 	<br>
                     <div id ="study_center"></div>
@@ -529,6 +592,75 @@
 	</div>
 
 	<!-- <div id = "right" align="right"></div> -->
+	
+	<script type="text/javascript">
+	$(document).ready(function(){
+		function test() {    
+			LoadingWithMask();
+			setTimeout(closeLoadingWithMask, 1500);
+		} 
+		
+		function LoadingWithMask() {    
+			//화면의 높이와 너비를 구합니다.    
+			var maskHeight = $(document).height();    
+			var maskWidth  = window.document.body.clientWidth;         
+			
+			//화면에 출력할 마스크를 설정해줍니다.    
+			var mask       = "<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'></div>";    
+			var loadingImg = "<div class = 'loader5'></div>";
+				//"<div id='loadingImg' class='spinner-border text-primary' role='status'><span class='visually-hidden'>Loading...</span></div>";  
+			
+			//화면에 레이어 추가    
+			$("body").append(mask)     
+			$("#mask").append(loadingImg)     
+			
+			//마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채웁니다.    
+			$("#mask").css({            
+				"width" : maskWidth,            
+				"height": maskHeight,            
+				"opacity" : "0.3"    
+			});
+			
+			$("#loadingImg").css({
+				"margin-left" : "950px",
+				"margin-top" : "500px",
+			});
+			
+			
+			//마스크 표시    
+			$("#mask").show();      
+			
+			//로딩중 이미지 표시    
+			$("#loadingImg").show();
+			
+		} 
+			
+		function closeLoadingWithMask() {    
+				$("#mask, #loadingImg").hide();    
+				$("#mask, #loadingImg").empty();
+		}
+		
+		test();
+	});
+	
+	// 기본 위치(top)값
+	var floatPosition = parseInt($(".loader5").css('top'))
+
+	// scroll 인식
+	$(window).scroll(function() {
+	  
+	    // 현재 스크롤 위치
+	    var currentTop = $(window).scrollTop();
+	    var bannerTop = currentTop + floatPosition + "px";
+
+	    //이동 애니메이션
+	    $(".loader").stop().animate({
+	      "top" : bannerTop
+	    }, 700);
+
+	}).scroll();
+	
+	</script>
 	
 	<jsp:include page="./include/bottom.jsp" />
 	<script src="https://kit.fontawesome.com/7703fd875c.js"

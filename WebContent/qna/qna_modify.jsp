@@ -41,7 +41,31 @@ textarea {
 	.title_wrab {
 	  flex-grow: 6;
 		}
+		
+	.btn.btn-primary{
+     --bs-btn-bg: #2b59c6;
+     --bs-btn-border-color: #2b59c6;
+
+     --bs-btn-hover-color: #2b59c6;
+     --bs-btn-hover-bg: #ffffff00;
+     --bs-btn-hover-border-color: #2b59c6;
+
+}
+
+     .btn.btn-outline-primary{
+     --bs-btn-border-color: #2b59c6;
+     --bs-btn-color: #2b59c6;
+
+     --bs-btn-hover-color: white;
+     --bs-btn-hover-bg: #2b59c6;
+     --bs-btn-hover-border-color: #2b59c6;
+  }
 	
+	.card-subtitle{
+	text-align: right;
+    font-size: 0.9rem;
+    color: gray;
+}
 	
 </style>
 
@@ -123,7 +147,7 @@ textarea {
 		</div>
 		</div>
 		
-			<h6 class="card-subtitle text-muted mb-4" align="left">
+			<h6 class="card-subtitle">
 					<i class="fa-regular fa-user"></i> ${dto.qna_writer } &nbsp;
 					<i class="fa-regular fa-clock"></i> ${dto.qna_date } &nbsp;
 					<i class="fa-regular fa-eye"></i> ${dto.qna_hit }            

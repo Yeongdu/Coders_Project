@@ -56,6 +56,15 @@
     	font-weight: bold;
 	}
 	
+		#top:hover{
+		color: #2b59c6;
+		transform: scale(1.25);
+		transiton-duration: 0.5s;
+		text-shadow: none;
+		font-weight: bold;
+	}
+	
+	
 	
 </style>
 

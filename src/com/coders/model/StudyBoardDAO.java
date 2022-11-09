@@ -617,34 +617,11 @@ public class StudyBoardDAO {
 
 			openConn();
 			
-			sql = "select * from study_comment where study_num = ? order by scomment_num desc";
-            pstmt = con.prepareStatement(sql);
-            pstmt.setInt(1, no);
-            rs = pstmt.executeQuery();
-
-            while(rs.next()) {
-                num = rs.getInt("scomment_num");
-
-                sql = "delete from study_comment where scomment_num = ?";
-                pstmt = con.prepareStatement(sql);
-                pstmt.setInt(1, num);
-                pstmt.executeUpdate();
-
-                sql = "update study_comment set scomment_num = scomment_num - 1 where scomment_num > ?";
-                pstmt = con.prepareStatement(sql);
-                pstmt.setInt(1, num);
-                pstmt.executeUpdate();
-            }
-			
-			 
 			sql = "delete from study_group where study_num = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, no);
 			result = pstmt.executeUpdate();
-			sql = "update study_group set study_num = study_num - 1 where study_num > ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, no);
-			pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -653,28 +630,6 @@ public class StudyBoardDAO {
 		}
 		return result;
 	}// deleteStudyboard()메서드 end
-	
-	
-	 public void updateStudyNum(int no){
-			
-		 try {
-			 
-				openConn();
-				 
-				sql = "update study_group set study_num = study_num - 1 where study_num > ?";
-				pstmt = con.prepareStatement(sql);
-				
-				pstmt.setInt(1, no);
-				pstmt.executeUpdate();
-					
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				closeConn(rs, pstmt, con);
-			}
-	 } 
-	
 
 	// 글번호에 해당하는 댓글리스트를 조회하는 메서드.
 	public String getReplyList(int no) {
@@ -814,11 +769,13 @@ public class StudyBoardDAO {
 
 				result = pstmt.executeUpdate();
 
-				sql = "update study_comment set scomment_num = scomment_num - 1 where scomment_num > ?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, no);
-
-				pstmt.executeUpdate();
+				/*
+				 * sql =
+				 * "update study_comment set scomment_num = scomment_num - 1 where scomment_num > ?"
+				 * ; pstmt = con.prepareStatement(sql); pstmt.setInt(1, no);
+				 * 
+				 * pstmt.executeUpdate();
+				 */
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

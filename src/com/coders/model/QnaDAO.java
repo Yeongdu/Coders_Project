@@ -544,34 +544,10 @@ public class QnaDAO {
 				try {
 					openConn();
 					
-					sql = "select * from qna_comment where qna_num = ? order by qcomment_num desc";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setInt(1, no);
-					rs = pstmt.executeQuery();
-					
-					while(rs.next()) {
-						num = rs.getInt("qcomment_num");
-						
-						sql = "delete from qna_comment where qcomment_num = ?";
-						pstmt = con.prepareStatement(sql);
-						pstmt.setInt(1, num);
-						pstmt.executeUpdate();
-						
-						sql = "update qna_comment set qcomment_num = qcomment_num - 1 where qcomment_num > ?";
-						pstmt = con.prepareStatement(sql);
-						pstmt.setInt(1, num);
-						pstmt.executeUpdate();
-					}
-					
 					sql = "delete from qna where qna_num = ?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setInt(1, no);
 					result = pstmt.executeUpdate();
-					
-					sql = "update qna set qna_num = qna_num -1 where qna_num > ?";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setInt(1, no);
-					pstmt.executeUpdate();
 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -752,11 +728,6 @@ public class QnaDAO {
 					pstmt.setInt(1, no);
 					result = pstmt.executeUpdate();
 					
-					sql = "update qna_comment set qcomment_num = qcomment_num-1 where qcomment_num > ?";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setInt(1, no);
-					pstmt.executeUpdate();
-					 
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

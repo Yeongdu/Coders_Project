@@ -46,7 +46,6 @@ public class StudyBoardDeleteOkAction implements Action {
     	}
 	    
 		if (res > 0) {
-			dao.updateStudyNum(studyboard_no);
 			forward.setRedirect(true);
 			forward.setPath("studyBoard_list.do");
 		} else {

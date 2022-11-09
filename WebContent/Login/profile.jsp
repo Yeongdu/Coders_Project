@@ -157,12 +157,10 @@
 	}
 	
 	#container {
-	  display: flex;
-	  width: 100%;
-	  height: 60px;
-	  padding-top: 10px;
-	  padding-bottom: 10px;
+	  width: 40em;
+	  padding: 0;
 	  margin: auto;
+	  height: 7em;
 	}
 	
 	.tab {
@@ -183,25 +181,24 @@
 		margin-bottom: 100px;
 		flex: 0.6;
 	}
-	.qna_view_center {
-		flex: 3;
-		flex-grow: 7;
-		text-align: left;
-		font-size: 1em;
-		align-items: center;
-	}
-	.qna_view_right {
-		flex: 1;
-		text-align: right;
-		flex-grow: 2;
-		display: flex;
-		align-items: center;
-		justify-content: flex-end;
+	
+	#container:hover{
+		background-color: #f7f7f7;
 	}
 	
-	div {
-	  display: block;
+	.qna_view_left {
+	  text-align-last: left;
+	}
+	
+	.qna_view_center {
 	  align-items: center;
+	  text-align: left;
+	  font-size: 1.2em;
+	  height: 59px;
+      align-items: center;
+	}
+	.qna_view_right {
+	  text-align: right;
 	}
 	
 	.qna_view_center{
@@ -212,10 +209,47 @@
 		clear: both;
 	}
 	
+	#qna_view_writer { 
+		color : skyblue;
+		font-size: 14px;
+		margin-bottom: 5px;
+	}
+	
 	#qna_view_date {
 		color: gray;
 		font-size: 13px;
 		margin-bottom: 0;
+	}
+	
+	.etc {
+		width: 460px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		text-decoration: none;
+		line-height: 48px;
+		color: black;
+	}
+	
+	#main_top {
+		margin-top: 50px;
+		margin: auto;
+		position: relative;
+	}
+	
+	.btn.btn-outline-secondary {
+	width: 86px;
+	padding-left: 5px;
+	padding-right: 5px;
+	}
+	
+	/* 프로그램 언어 뱃지 */
+	#qna .badge {
+    --bs-badge-padding-x: 0.5em;
+    --bs-badge-padding-y: 0.5em;
+    --bs-badge-font-size: 16px;
+    width: 86px;
+	height: 37px;
 	}
 
 	.study_view_aTag {
@@ -459,33 +493,41 @@
 					
 					if(count < 5) {
 						
+						
 						table += "<div id='container' class='border-bottom'>"
+						table += "<div class='qna_view_left' aling='left' style='margin-left: 5px; color: gray; font-size:0.7em'><br><div>"
+						table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
+						table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
+						table += "&nbsp;&nbsp; <i class='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
+						
 						table += "<div class='qna_view_center'>"
 						table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
 						if($(this).find("tag").text() == "HTML"){
 							table += "<span class='badge text-bg-primary'>HTML</span>"
 						}else if($(this).find("tag").text() == "JAVASCRIPT"){
-							table += "<span class='badge text-bg-warning'>JAVASCRIPT</span>"
+							table += "<span class='badge text-bg-warning'>JS</span>"
 						}else if($(this).find("tag").text() == "CSS"){
 							table += "<span class='badge text-bg-danger'>CSS</span>"
 						}else if($(this).find("tag").text() == "JQUERY"){
 							table += "<span class='badge text-bg-success'>JQUERY</span>"
-						}else if($(this).find("tag").text() == "DATEBASE"){
-							table += "<span class='badge text-bg-info'>DATABASE</span>"
+						}else if($(this).find("tag").text() == "DATABASE"){
+							table += "<span class='badge text-bg-info'>DB</span>"
 						}else if($(this).find("tag").text() == "JSP"){
 							table += "<span class='badge text-bg-dark'>JSP</span>"
 						}else if($(this).find("tag").text() == "ETC"){
 							table += "<span class='badge text-bg-light'>ETC</span>"
 						}else if($(this).find("tag").text() == "JAVA"){
 							table += "<span class='badge text-bg-secondary'>JAVA</span>"
+						}else if($(this).find("tag").text() == "null"){
+							table += "<span class='badge text-bg-light'>ETC</span>"
 						}
-						table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
-						table += "<div class='qna_view_right'>"
-						table += "<div id ='qna_view_date'>"
+						table += "&nbsp;&nbsp;&nbsp;<span id='title' style='color:black;'>" + $(this).find("title").text() + "</span></a></div>"
+						
+						table += "<div id='qna_view_date' align='right'>"
 						if($(this).find("update").text() == 'null'){
-							table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text().substr(0,10)+"</div></div></div>"
+							table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text()+"</div></div></div>"
 						}else {
-							table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text().substr(0,10)+"</div></div></div>"
+							table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text()+"</div></div></div>"
 						}
 						count += 1;
 						
@@ -531,34 +573,42 @@
 					
 					$(data).find("main").each(function(){
 							
-							table += "<div id='container' class='border-bottom'>"
-							table += "<div class='qna_view_center'>"
-							table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
-							if($(this).find("tag").text() == "HTML"){
-								table += "<span class='badge text-bg-primary'>HTML</span>"
-							}else if($(this).find("tag").text() == "JAVASCRIPT"){
-								table += "<span class='badge text-bg-warning'>JAVASCRIPT</span>"
-							}else if($(this).find("tag").text() == "CSS"){
-								table += "<span class='badge text-bg-danger'>CSS</span>"
-							}else if($(this).find("tag").text() == "JQUERY"){
-								table += "<span class='badge text-bg-success'>JQUERY</span>"
-							}else if($(this).find("tag").text() == "DATEBASE"){
-								table += "<span class='badge text-bg-info'>DATABASE</span>"
-							}else if($(this).find("tag").text() == "JSP"){
-								table += "<span class='badge text-bg-dark'>JSP</span>"
-							}else if($(this).find("tag").text() == "ETC"){
-								table += "<span class='badge text-bg-light'>ETC</span>"
-							}else if($(this).find("tag").text() == "JAVA"){
-								table += "<span class='badge text-bg-secondary'>JAVA</span>"
-							}
-							table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
-							table += "<div class='qna_view_right'>"
-							table += "<div id ='qna_view_date'>"
-							if($(this).find("update").text() == 'null'){
-								table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text().substr(0,10)+"</div></div></div>"
-							}else {
-								table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text().substr(0,10)+"</div></div></div>"
-							}
+						
+						table += "<div id='container' class='border-bottom'>"
+						table += "<div class='qna_view_left' aling='left' style='margin-left: 5px; color: gray; font-size:0.7em'><br><div>"
+						table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
+						table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
+						table += "&nbsp;&nbsp; <i class='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
+						
+						table += "<div class='qna_view_center'>"
+						table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
+						if($(this).find("tag").text() == "HTML"){
+							table += "<span class='badge text-bg-primary'>HTML</span>"
+						}else if($(this).find("tag").text() == "JAVASCRIPT"){
+							table += "<span class='badge text-bg-warning'>JS</span>"
+						}else if($(this).find("tag").text() == "CSS"){
+							table += "<span class='badge text-bg-danger'>CSS</span>"
+						}else if($(this).find("tag").text() == "JQUERY"){
+							table += "<span class='badge text-bg-success'>JQUERY</span>"
+						}else if($(this).find("tag").text() == "DATABASE"){
+							table += "<span class='badge text-bg-info'>DB</span>"
+						}else if($(this).find("tag").text() == "JSP"){
+							table += "<span class='badge text-bg-dark'>JSP</span>"
+						}else if($(this).find("tag").text() == "ETC"){
+							table += "<span class='badge text-bg-light'>ETC</span>"
+						}else if($(this).find("tag").text() == "JAVA"){
+							table += "<span class='badge text-bg-secondary'>JAVA</span>"
+						}else if($(this).find("tag").text() == "null"){
+							table += "<span class='badge text-bg-light'>ETC</span>"
+						}
+						table += "&nbsp;&nbsp;&nbsp;<span id='title' style='color:black;'>" + $(this).find("title").text() + "</span></a></div>"
+						
+						table += "<div id='qna_view_date' align='right'>"
+						if($(this).find("update").text() == 'null'){
+							table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text()+"</div></div></div>"
+						}else {
+							table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text()+"</div></div></div>"
+						}
 							
 					});
 					table += "<button class='showbtn' id='qnabcloselist' type='button' >닫 기</button>"
@@ -597,33 +647,41 @@
 						
 						if(count < 5) {
 							
+							
 							table += "<div id='container' class='border-bottom'>"
+							table += "<div class='qna_view_left' aling='left' style='margin-left: 5px; color: gray; font-size:0.7em'><br><div>"
+							table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
+							table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
+							table += "&nbsp;&nbsp; <i class='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
+							
 							table += "<div class='qna_view_center'>"
 							table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
 							if($(this).find("tag").text() == "HTML"){
 								table += "<span class='badge text-bg-primary'>HTML</span>"
 							}else if($(this).find("tag").text() == "JAVASCRIPT"){
-								table += "<span class='badge text-bg-warning'>JAVASCRIPT</span>"
+								table += "<span class='badge text-bg-warning'>JS</span>"
 							}else if($(this).find("tag").text() == "CSS"){
 								table += "<span class='badge text-bg-danger'>CSS</span>"
 							}else if($(this).find("tag").text() == "JQUERY"){
 								table += "<span class='badge text-bg-success'>JQUERY</span>"
-							}else if($(this).find("tag").text() == "DATEBASE"){
-								table += "<span class='badge text-bg-info'>DATABASE</span>"
+							}else if($(this).find("tag").text() == "DATABASE"){
+								table += "<span class='badge text-bg-info'>DB</span>"
 							}else if($(this).find("tag").text() == "JSP"){
 								table += "<span class='badge text-bg-dark'>JSP</span>"
 							}else if($(this).find("tag").text() == "ETC"){
 								table += "<span class='badge text-bg-light'>ETC</span>"
 							}else if($(this).find("tag").text() == "JAVA"){
 								table += "<span class='badge text-bg-secondary'>JAVA</span>"
+							}else if($(this).find("tag").text() == "null"){
+								table += "<span class='badge text-bg-light'>ETC</span>"
 							}
-							table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
-							table += "<div class='qna_view_right'>"
-							table += "<div id ='qna_view_date'>"
+							table += "&nbsp;&nbsp;&nbsp;<span id='title' style='color:black;'>" + $(this).find("title").text() + "</span></a></div>"
+							
+							table += "<div id='qna_view_date' align='right'>"
 							if($(this).find("update").text() == 'null'){
-								table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text().substr(0,10)+"</div></div></div>"
+								table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text()+"</div></div></div>"
 							}else {
-								table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text().substr(0,10)+"</div></div></div>"
+								table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text()+"</div></div></div>"
 							}
 							count += 1;
 							
@@ -674,33 +732,41 @@
 					
 					if(count < 5) {
 						
+						
 						table += "<div id='container' class='border-bottom'>"
+						table += "<div class='qna_view_left' aling='left' style='margin-left: 5px; color: gray; font-size:0.7em'><br><div>"
+						table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
+						table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
+						table += "&nbsp;&nbsp; <i class='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
+						
 						table += "<div class='qna_view_center'>"
 						table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
 						if($(this).find("tag").text() == "HTML"){
 							table += "<span class='badge text-bg-primary'>HTML</span>"
 						}else if($(this).find("tag").text() == "JAVASCRIPT"){
-							table += "<span class='badge text-bg-warning'>JAVASCRIPT</span>"
+							table += "<span class='badge text-bg-warning'>JS</span>"
 						}else if($(this).find("tag").text() == "CSS"){
 							table += "<span class='badge text-bg-danger'>CSS</span>"
 						}else if($(this).find("tag").text() == "JQUERY"){
 							table += "<span class='badge text-bg-success'>JQUERY</span>"
-						}else if($(this).find("tag").text() == "DATEBASE"){
-							table += "<span class='badge text-bg-info'>DATABASE</span>"
+						}else if($(this).find("tag").text() == "DATABASE"){
+							table += "<span class='badge text-bg-info'>DB</span>"
 						}else if($(this).find("tag").text() == "JSP"){
 							table += "<span class='badge text-bg-dark'>JSP</span>"
 						}else if($(this).find("tag").text() == "ETC"){
 							table += "<span class='badge text-bg-light'>ETC</span>"
 						}else if($(this).find("tag").text() == "JAVA"){
 							table += "<span class='badge text-bg-secondary'>JAVA</span>"
+						}else if($(this).find("tag").text() == "null"){
+							table += "<span class='badge text-bg-light'>ETC</span>"
 						}
-						table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
-						table += "<div class='qna_view_right'>"
-						table += "<div id ='qna_view_date'>"
+						table += "&nbsp;&nbsp;&nbsp;<span id='title' style='color:black;'>" + $(this).find("title").text() + "</span></a></div>"
+						
+						table += "<div id='qna_view_date' align='right'>"
 						if($(this).find("update").text() == 'null'){
-							table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text().substr(0,10)+"</div></div></div>"
+							table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text()+"</div></div></div>"
 						}else {
-							table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text().substr(0,10)+"</div></div></div>"
+							table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text()+"</div></div></div>"
 						}
 						count += 1;
 						
@@ -744,34 +810,42 @@
 					
 					$(data).find("main").each(function(){
 							
-							table += "<div id='container' class='border-bottom'>"
-							table += "<div class='qna_view_center'>"
-							table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
-							if($(this).find("tag").text() == "HTML"){
-								table += "<span class='badge text-bg-primary'>HTML</span>"
-							}else if($(this).find("tag").text() == "JAVASCRIPT"){
-								table += "<span class='badge text-bg-warning'>JAVASCRIPT</span>"
-							}else if($(this).find("tag").text() == "CSS"){
-								table += "<span class='badge text-bg-danger'>CSS</span>"
-							}else if($(this).find("tag").text() == "JQUERY"){
-								table += "<span class='badge text-bg-success'>JQUERY</span>"
-							}else if($(this).find("tag").text() == "DATEBASE"){
-								table += "<span class='badge text-bg-info'>DATABASE</span>"
-							}else if($(this).find("tag").text() == "JSP"){
-								table += "<span class='badge text-bg-dark'>JSP</span>"
-							}else if($(this).find("tag").text() == "ETC"){
-								table += "<span class='badge text-bg-light'>ETC</span>"
-							}else if($(this).find("tag").text() == "JAVA"){
-								table += "<span class='badge text-bg-secondary'>JAVA</span>"
-							}
-							table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
-							table += "<div class='qna_view_right'>"
-							table += "<div id ='qna_view_date'>"
-							if($(this).find("update").text() == 'null'){
-								table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text().substr(0,10)+"</div></div></div>"
-							}else {
-								table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text().substr(0,10)+"</div></div></div>"
-							}
+						
+						table += "<div id='container' class='border-bottom'>"
+						table += "<div class='qna_view_left' aling='left' style='margin-left: 5px; color: gray; font-size:0.7em'><br><div>"
+						table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
+						table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
+						table += "&nbsp;&nbsp; <i class='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
+						
+						table += "<div class='qna_view_center'>"
+						table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
+						if($(this).find("tag").text() == "HTML"){
+							table += "<span class='badge text-bg-primary'>HTML</span>"
+						}else if($(this).find("tag").text() == "JAVASCRIPT"){
+							table += "<span class='badge text-bg-warning'>JS</span>"
+						}else if($(this).find("tag").text() == "CSS"){
+							table += "<span class='badge text-bg-danger'>CSS</span>"
+						}else if($(this).find("tag").text() == "JQUERY"){
+							table += "<span class='badge text-bg-success'>JQUERY</span>"
+						}else if($(this).find("tag").text() == "DATABASE"){
+							table += "<span class='badge text-bg-info'>DB</span>"
+						}else if($(this).find("tag").text() == "JSP"){
+							table += "<span class='badge text-bg-dark'>JSP</span>"
+						}else if($(this).find("tag").text() == "ETC"){
+							table += "<span class='badge text-bg-light'>ETC</span>"
+						}else if($(this).find("tag").text() == "JAVA"){
+							table += "<span class='badge text-bg-secondary'>JAVA</span>"
+						}else if($(this).find("tag").text() == "null"){
+							table += "<span class='badge text-bg-light'>ETC</span>"
+						}
+						table += "&nbsp;&nbsp;&nbsp;<span id='title' style='color:black;'>" + $(this).find("title").text() + "</span></a></div>"
+						
+						table += "<div id='qna_view_date' align='right'>"
+						if($(this).find("update").text() == 'null'){
+							table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text()+"</div></div></div>"
+						}else {
+							table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text()+"</div></div></div>"
+						}
 							
 					});
 					table += "<button class='showbtn' id='cqnacloselist' type='button' >닫 기</button>"
@@ -810,33 +884,41 @@
 						
 						if(count < 5) {
 							
+							
 							table += "<div id='container' class='border-bottom'>"
+							table += "<div class='qna_view_left' aling='left' style='margin-left: 5px; color: gray; font-size:0.7em'><br><div>"
+							table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
+							table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
+							table += "&nbsp;&nbsp; <i class='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
+							
 							table += "<div class='qna_view_center'>"
 							table += "<a href='<%=request.getContextPath()%>/qna_content.do?no="+$(this).find("num").text()+"' style='text-decoration: none; display: block;' class='etc'>"
 							if($(this).find("tag").text() == "HTML"){
 								table += "<span class='badge text-bg-primary'>HTML</span>"
 							}else if($(this).find("tag").text() == "JAVASCRIPT"){
-								table += "<span class='badge text-bg-warning'>JAVASCRIPT</span>"
+								table += "<span class='badge text-bg-warning'>JS</span>"
 							}else if($(this).find("tag").text() == "CSS"){
 								table += "<span class='badge text-bg-danger'>CSS</span>"
 							}else if($(this).find("tag").text() == "JQUERY"){
 								table += "<span class='badge text-bg-success'>JQUERY</span>"
-							}else if($(this).find("tag").text() == "DATEBASE"){
-								table += "<span class='badge text-bg-info'>DATABASE</span>"
+							}else if($(this).find("tag").text() == "DATABASE"){
+								table += "<span class='badge text-bg-info'>DB</span>"
 							}else if($(this).find("tag").text() == "JSP"){
 								table += "<span class='badge text-bg-dark'>JSP</span>"
 							}else if($(this).find("tag").text() == "ETC"){
 								table += "<span class='badge text-bg-light'>ETC</span>"
 							}else if($(this).find("tag").text() == "JAVA"){
 								table += "<span class='badge text-bg-secondary'>JAVA</span>"
+							}else if($(this).find("tag").text() == "null"){
+								table += "<span class='badge text-bg-light'>ETC</span>"
 							}
-							table += "&nbsp;&nbsp;&nbsp;" + $(this).find("title").text() + "</a></div>"
-							table += "<div class='qna_view_right'>"
-							table += "<div id ='qna_view_date'>"
+							table += "&nbsp;&nbsp;&nbsp;<span id='title' style='color:black;'>" + $(this).find("title").text() + "</span></a></div>"
+							
+							table += "<div id='qna_view_date' align='right'>"
 							if($(this).find("update").text() == 'null'){
-								table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text().substr(0,10)+"</div></div></div>"
+								table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("date").text()+"</div></div></div>"
 							}else {
-								table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text().substr(0,10)+"</div></div></div>"
+								table += "<i class='fa-regular fa-clock'></i>&nbsp;"+$(this).find("update").text()+"</div></div></div>"
 							}
 							count += 1;
 							
@@ -899,7 +981,7 @@
 						table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
 						table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
 						table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
-						table += "&nbsp;&nbsp; <i calss='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
+						table += "&nbsp;&nbsp; <i class='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
 							
 						table += "<div id='studyListContainer'>"
 						table += "<div class='study_view_center'>"
@@ -991,7 +1073,7 @@
 						table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
 						table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
 						table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
-						table += "&nbsp;&nbsp; <i calss='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
+						table += "&nbsp;&nbsp; <i class='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
 							
 						table += "<div id='studyListContainer'>"
 						table += "<div class='study_view_center'>"
@@ -1080,7 +1162,7 @@
 							table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
 							table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
 							table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
-							table += "&nbsp;&nbsp; <i calss='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
+							table += "&nbsp;&nbsp; <i class='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
 							
 							table += "<div id='studyListContainer'>"
 							table += "<div class='study_view_center'>"
@@ -1178,7 +1260,7 @@
 						table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
 						table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
 						table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
-						table += "&nbsp;&nbsp; <i calss='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
+						table += "&nbsp;&nbsp; <i class='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
 						
 						table += "<div id='studyListContainer'>"
 						table += "<div class='study_view_center'>"
@@ -1270,7 +1352,7 @@
 						table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
 						table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
 						table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
-						table += "&nbsp;&nbsp; <i calss='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
+						table += "&nbsp;&nbsp; <i class='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
 						
 						table += "<div id='studyListContainer'>"
 						table += "<div class='study_view_center'>"
@@ -1359,7 +1441,7 @@
 							table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
 							table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
 							table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
-							table += "&nbsp;&nbsp; <i calss='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
+							table += "&nbsp;&nbsp; <i class='fa-regular fa-pen-to-square'></i>&nbsp;"+$(this).find("reply").text()+"</div></div>"
 							
 							table += "<div id='studyListContainer'>"
 							table += "<div class='study_view_center'>"
@@ -1502,7 +1584,7 @@
 	});
 </script>
 </head>
-<body class="users users-show" style="background-color: #2b59c6;" >
+<body id="qna" class="users users-show" style="background-color: #2b59c6;" >
 
 	<jsp:include page="../include/user_top.jsp" />
 	

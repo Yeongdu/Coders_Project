@@ -14,13 +14,24 @@
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+
 <link rel="stylesheet"
 	href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/androidstudio.min.css" />
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
 <script>
   hljs.highlightAll();
-
+</script>
 
 <!-- 코드 구현 스타일 -->
 
@@ -67,6 +78,10 @@
 @import
 	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap')
 	;
+
+html {
+	scroll-behavior: smooth;
+	}
 
 body {
 	font-family: 'Noto Sans KR' !important;
@@ -351,12 +366,90 @@ text-align: left;
     user-select: none;
 }
 
+#qna .badge {
+    --bs-badge-padding-x: 0.5em;
+    --bs-badge-padding-y: 0.5em;
+    --bs-badge-font-size: 16px;
+    width: 86px;
+    height: 37px;
+    }
+    
+#qna .text-bg-secondary {
+    color: #fff!important;
+    background-color: RGBA(108,23,125,var(--bs-bg-opacity,1))!important;
+	}    
+	
+textarea {
+	resize: none;
+}
 
+.btn.btn-primary_rank {
+	font-size: 0.6em;
+	width: 50px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 7px;
+	margin-bottom: 2px;
+}
+
+.btn.btn-outline-secondary_rank {
+	font-size: 0.6em;
+	width: 50px;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-bottom: 2px;
+	--bs-btn-disabled-border-color: gray;
+	--bs-btn-disabled-color: gray;
+}
+
+.sideBanner {
+	position: absolute;
+	width: 280px;
+	height: 266px;
+	top: 250px;
+	background-color: none;
+	color: #fffffff;
+	padding: 5px;
+}
+
+.sideBanner_study {
+	padding: 5px;
+	margin: 5px;
+	border: 1px dashed gray;
+}
+
+.sideBanner_qna {
+	padding: 5px;
+	margin: 5px;
+	border: 1px dashed gray;
+}
+
+.sideBanner a {
+	text-decoration: none;
+	font-size: 1em;
+}
+
+@media screen and (max-width: 1400px) {
+	.sideBanner {
+		display: none;
+	}
+}
+
+body .badge2 {
+	font-size: 0.6em;
+	width: 50px !important;
+	padding-left: 5px;
+	padding-right: 5px;
+	height: 29px;
+	margin-bottom: 2px;
+	--bs-badge-padding-y: 1em;
+}
+    
 </style>
 
 
 </head>
-<body>
+<body id = "qna">
 
 	<c:if test="${empty userId }">
 		<jsp:include page="../include/none_top.jsp" />
@@ -393,25 +486,25 @@ text-align: left;
 											style="padding-top: 10px;">JAVA</span>
 									</c:if>
 									<c:if test="${tag == 'HTML'}">
-										<span class="badge text-bg-primary" style="padding: 10px;">HTML</span>
+										<span class="badge text-bg-primary">HTML</span>
 									</c:if>
 									<c:if test="${tag == 'JAVASCRIPT'}">
-										<span class="badge text-bg-warning" style="padding: 10px;">JAVASCRIPT</span>
+										<span class="badge text-bg-warning">JS</span>
 									</c:if>
 									<c:if test="${tag == 'CSS'}">
-										<span class="badge text-bg-danger" style="padding: 10px;">CSS</span>
+										<span class="badge text-bg-danger">CSS</span>
 									</c:if>
 									<c:if test="${tag == 'JQUERY'}">
-										<span class="badge text-bg-success" style="padding: 10px;">JQUERY</span>
+										<span class="badge text-bg-success">JQUERY</span>
 									</c:if>
 									<c:if test="${tag == 'DATABASE'}">
-										<span class="badge text-bg-info" style="padding: 10px;">DataBase</span>
+										<span class="badge text-bg-info">DB</span>
 									</c:if>
 									<c:if test="${tag == 'JSP'}">
-										<span class="badge text-bg-dark" style="padding: 10px;">JSP</span>
+										<span class="badge text-bg-dark">JSP</span>
 									</c:if>
 									<c:if test="${tag == null}">
-										<span class="badge text-bg-light" style="padding: 10px;">ETC</span>
+										<span class="badge text-bg-light">ETC</span>
 									</c:if>
 								</div>
 								
@@ -446,7 +539,9 @@ text-align: left;
 
 						<div class="card-body" id = "code">
 							<c:if test="${empty dto.qna_code }">
-								<textarea class="form-control" id="qna_code" name="qna_code" style="display: none;"readonly></textarea>
+
+								<textarea class="form-control" id="qna_code" name="qna_code" readonly style = "display:none;"></textarea>
+
 							</c:if>
 							<c:if test="${!empty dto.qna_code }">
 									<div class="card-body" align="left" id = "noBlank">
@@ -594,8 +689,91 @@ text-align: left;
 		<br>
 		<br>
 		
+		
+		
+<%-- 인기글 배너 --%>
+		<div class="sideBanner" align="left">
+			<div class="sideBanner_study">
+				<p align="center"
+					style="margin-bottom: 5px; border-bottom: 3px double #8080804f;">STUDY
+					게시판 인기글</p>
+				<c:set var="rlist" value="${rList }" />
+				<c:if test="${!empty rlist }">
+					<c:forEach items="${rlist }" var="rdto">
+						<div>
 
-	<script type="text/javascript">
+							<a class="text-truncate"
+								href="<%=request.getContextPath()%>/studyBoard_content.do?no=${rdto.study_num }"
+								style="display: block;"> <c:if
+									test="${rdto.study_status eq '모집중' }">
+									<button type="button" class="btn btn-primary_rank" disabled>${rdto.study_status }</button>
+								</c:if> <c:if test="${rdto.study_status eq '모집완료' }">
+									<button type="button" class="btn btn-outline-secondary_rank"
+										disabled>${rdto.study_status }</button>
+								</c:if> <c:if test="${rdto.study_status eq '모집중' }">
+							&nbsp;<span style="font-size: 0.9em; color: black;">${rdto.getStudy_title() }</span>
+								</c:if> <c:if test="${rdto.study_status eq '모집완료' }">
+							&nbsp;<span style="font-size: 0.9em; color: gray;">${rdto.getStudy_title() }</span>
+								</c:if>
+							</a>
+
+						</div>
+					</c:forEach>
+				</c:if>
+				<c:if test="${empty rlist }">
+					<h3>인기 게시글이 없음</h3>
+				</c:if>
+			</div>
+
+			<br>
+
+			<div class="sideBanner_qna">
+				<p align="center"
+					style="margin-bottom: 5px; border-bottom: 3px double #8080804f;">Q&A
+					게시판 인기글</p>
+
+				<c:set var="qrlist" value="${qrList }" />
+				<c:if test="${!empty qrlist }">
+					<c:forEach items="${qrlist }" var="qrdto">
+
+						<div class="qna_view_center">
+							<a class="text-truncate"
+								href="<%=request.getContextPath()%>/qna_content.do?no=${qrdto.getQna_num() }"
+								style="display: block; text-decoration: none; font-size: 0.9em;"
+								class="etc"> <c:set var="tag" value="${qrdto.getQna_tag() }" />
+								<c:if test="${tag == 'JAVA'}">
+									<span class="badge2 text-bg-secondary">JAVA</span>
+								</c:if> <c:if test="${tag == 'HTML'}">
+									<span class="badge2 text-bg-primary">HTML</span>
+								</c:if> <c:if test="${tag == 'JAVASCRIPT'}">
+									<span class="badge2 text-bg-warning">JS</span>
+								</c:if> <c:if test="${tag == 'CSS'}">
+									<span class="badge2 text-bg-danger">CSS</span>
+								</c:if> <c:if test="${tag == 'JQUERY'}">
+									<span class="badge2 text-bg-success">JQUERY</span>
+								</c:if> <c:if test="${tag == 'DATABASE'}">
+									<span class="badge2 text-bg-info">DB</span>
+								</c:if> <c:if test="${tag == 'JSP'}">
+									<span class="badge2 text-bg-dark">JSP</span>
+								</c:if> <c:if test="${tag == 'ETC'}">
+									<span class="badge2 text-bg-light">ETC</span>
+								</c:if> <c:if test="${tag == null}">
+									<span class="badge2 text-bg-light">ETC</span>
+								</c:if> <%-- 표시할 프로그래밍 언어 다 표시하기 --%> &nbsp; <span id="title"
+								style="font-size: 0.9em;color: black;">${qrdto.getQna_title() }</span></a>
+						</div>
+
+					</c:forEach>
+				</c:if>
+				<c:if test="${empty qrlist }">
+					<h3>인기 게시글이 없음</h3>
+				</c:if>
+			</div>
+		</div>
+<%-- 인기글 배너 end --%>
+		
+
+<script type="text/javascript">
 		
 		var qment = 0;
 		
@@ -616,6 +794,23 @@ text-align: left;
 			};
 
 		adjustHeight2();
+		
+		// 기본 위치(top)값
+		var floatPosition = parseInt($(".sideBanner").css('top'))
+
+		// scroll 인식
+		$(window).scroll(function() {
+		  
+		    // 현재 스크롤 위치
+		    var currentTop = $(window).scrollTop();
+		    var bannerTop = currentTop + floatPosition + "px";
+
+		    //이동 애니메이션
+		    $(".sideBanner").stop().animate({
+		      "top" : bannerTop
+		    }, 700);
+
+		}).scroll();
 		
 		
 

@@ -6,9 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+	crossorigin="anonymous"></script>
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
 <style type="text/css">
@@ -224,7 +231,8 @@ body {
 	<c:if test="${!empty userId }">
 	<jsp:include page="../include/user_top.jsp" />
 	</c:if>
-<div class="qna_write_main_Wrap" style="width: 800px">
+	
+   <div class="qna_write_main_Wrap" style="width: 800px">
 	<div id="qna_write_main" align="center" style="width: 800px">
 		<div class="qna_explain_mainwrap">
 			<h3 class="qna_explain_main">기술 궁금증 해결하기</h3>
@@ -262,14 +270,16 @@ body {
 					<input type="text" class="form-control"
 						id="exampleFormControlInput1"
 						placeholder="제목은 30자 까지만 입력할 수 있습니다." name="qna_title"
-						style="width: 100%; margin: 0;" maxlength="30">
+						style="width: 100%; margin: 0;">
 				</div>
 
 			</div>
 			<%--top_wrab의 end --%>
+			  <div class="qna_write_cotent_wrap">
 				<div id="qna_write_cotent" align="center">
-
-					<ul style="padding-left: 0px;">
+                    
+					<ul style="padding-left: 0px; margin-left: 0px;">
+					 <div class="qna_write_code_wrap">
 						<li id="qna_write_code">
 							<div class="mb-3">
 								<label class="main_label">본문</label> <a id="modalOpen"
@@ -293,8 +303,11 @@ body {
 								<input class="form-control" type="file" id="formFile"
 									name="qna_file">
 							</div> <%-- 첨부파일의 end--%>
+							</div>
 						</li>
 					</ul>
+					
+				</div>
 				</div>
 				<%--코드/질문내용/첨부파일의 end --%>
 			<div id="qna_write_submit" align="center">
@@ -313,7 +326,7 @@ body {
 					<i class="bi bi-x-lg"></i>
 				</div>
 				<h3>CODE 작성 방법</h3>
-				<br> <img src="./upload/codeInfo.gif" style="width: 600px; height: 300px;"> <br>
+				<br> <img src="./upload/codeInfo.gif"> <br>
 				<div class="code_info">
 					<br>
 					<p style="margin-bottom: 0;">1. 말머리에서 선택한 언어와 질문하고자 하는 언어의 형식이

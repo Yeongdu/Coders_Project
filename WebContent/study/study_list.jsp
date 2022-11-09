@@ -231,6 +231,72 @@ button.btn.btn-outline-dark {
 	background-color: white;
 	border-radius: 5px;
 }
+
+
+.btn.btn-primary_rank{
+	font-size:0.6em;
+	width: 50px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 7px;
+	margin-bottom: 2px;
+}
+
+.btn.btn-outline-secondary_rank{
+	font-size:0.6em;
+	width: 50px;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-bottom: 2px;
+	--bs-btn-disabled-border-color: gray;
+	--bs-btn-disabled-color: gray;
+}
+
+
+.sideBanner {
+	position: absolute;
+	width: 280px;
+	height: 266px;
+	top: 250px;
+	background-color: none;
+	color: #fffffff;
+
+	padding: 5px;
+}
+
+.sideBanner_study{
+	padding: 5px;
+	margin: 5px;
+	border: 1px dashed gray;
+}
+.sideBanner_qna{
+	padding: 5px;
+	margin: 5px;
+	border: 1px dashed gray;
+}
+
+.sideBanner a{
+text-decoration: none;
+font-size: 1em;
+}
+
+@media screen and (max-width: 1400px) {
+	.sideBanner {
+		display: none;
+	}
+}
+
+body .badge {
+	font-size:0.6em;
+	width: 50px;
+	height: 29px;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-bottom: 2px;
+	--bs-badge-padding-y: 1em;
+	
+	}
+
 </style>
 
 </head>
@@ -276,7 +342,7 @@ button.btn.btn-outline-dark {
 <!-- 									<option value="title_cont">제목+내용</option> -->
 <!-- 									<option value="writer">작성자</option> -->
 <!-- 							</select> -->
-							<input type="text" name="search_keyword" value="" class="form-control" style = "width:16em;"/>
+							<input type="text" name="search_keyword" value="" class="form-control" style = "width:20em;"/>
 								<button type="submit" class="btn btn-secondary ml-1">
 									<i class="fa fa-search"></i> 검색
 								</button>
@@ -306,7 +372,7 @@ button.btn.btn-outline-dark {
 			<c:forEach items="${list }" var="dto">
 				<%-- 게시판 리스트 --%>
 				<div id="studyListContainer_top" class="border-bottom"
-					align="center" style="width: 50em; height: 7em;">
+					align="center" style="width: 50em; height: 7.6em;">
 					<br>
 					<div class="study_view_top" align="left"
 						style="margin-left: 5px; color: gray; font-size: 0.7em;">
@@ -338,6 +404,9 @@ button.btn.btn-outline-dark {
 
 							</a>
 						</div>
+						
+						
+						
 
 
 
@@ -410,6 +479,91 @@ button.btn.btn-outline-dark {
 		</c:if>
 
 
+
+		<div class="sideBanner" align="left">
+			<div class="sideBanner_study">
+				<p align="center"
+					style="margin-bottom: 5px; border-bottom: 3px double #8080804f;">STUDY
+					게시판 인기글</p>
+				<c:set var="rlist" value="${rList }" />
+				<c:if test="${!empty rlist }">
+					<c:forEach items="${rlist }" var="rdto">
+						<div>
+
+							<a class="text-truncate"
+								href="<%=request.getContextPath()%>/studyBoard_content.do?no=${rdto.study_num }"
+								style="display: block;"> <c:if
+									test="${rdto.study_status eq '모집중' }">
+									<button type="button" class="btn btn-primary_rank" disabled>${rdto.study_status }</button>
+								</c:if> <c:if test="${rdto.study_status eq '모집완료' }">
+									<button type="button" class="btn btn-outline-secondary_rank"
+										disabled>${rdto.study_status }</button>
+								</c:if> <c:if test="${rdto.study_status eq '모집중' }">
+							&nbsp;<span style="font-size: 0.9em; color: black;">${rdto.getStudy_title() }</span>
+								</c:if> <c:if test="${rdto.study_status eq '모집완료' }">
+							&nbsp;<span style="font-size: 0.9em; color: gray;">${rdto.getStudy_title() }</span>
+								</c:if>
+							</a>
+
+						</div>
+					</c:forEach>
+				</c:if>
+				<c:if test="${empty rlist }">
+					<h3>인기 게시글이 없음</h3>
+				</c:if>
+			</div>
+
+			<br>
+
+			<div class="sideBanner_qna">
+				<p align="center"
+					style="margin-bottom: 5px; border-bottom: 3px double #8080804f;">Q&A
+					게시판 인기글</p>
+
+				<c:set var="qrlist" value="${qrList }" />
+				<c:if test="${!empty qrlist }">
+					<c:forEach items="${qrlist }" var="qrdto">
+
+						<div class="qna_view_center">
+							<a class="text-truncate"
+								href="<%=request.getContextPath()%>/qna_content.do?no=${qrdto.getQna_num() }"
+								style="display: block; text-decoration: none; font-size: 0.9em;"
+								class="etc"> <c:set var="tag" value="${qrdto.getQna_tag() }" />
+								<c:if test="${tag == 'JAVA'}">
+									<span class="badge text-bg-secondary">JAVA</span>
+								</c:if> <c:if test="${tag == 'HTML'}">
+									<span class="badge text-bg-primary">HTML</span>
+								</c:if> <c:if test="${tag == 'JAVASCRIPT'}">
+									<span class="badge text-bg-warning">JS</span>
+								</c:if> <c:if test="${tag == 'CSS'}">
+									<span class="badge text-bg-danger">CSS</span>
+								</c:if> <c:if test="${tag == 'JQUERY'}">
+									<span class="badge text-bg-success">JQUERY</span>
+								</c:if> <c:if test="${tag == 'DATABASE'}">
+									<span class="badge text-bg-info">DB</span>
+								</c:if> <c:if test="${tag == 'JSP'}">
+									<span class="badge text-bg-dark">JSP</span>
+								</c:if> <c:if test="${tag == 'ETC'}">
+									<span class="badge text-bg-light">ETC</span>
+								</c:if> <c:if test="${tag == null}">
+									<span class="badge text-bg-light">ETC</span>
+								</c:if> <%-- 표시할 프로그래밍 언어 다 표시하기 --%> &nbsp; <span id="title"
+								style="color: black;">${qrdto.getQna_title() }</span></a>
+						</div>
+
+					</c:forEach>
+				</c:if>
+				<c:if test="${empty qrlist }">
+					<h3>인기 게시글이 없음</h3>
+				</c:if>
+			</div>
+		</div>
+
+
+
+
+
+
 		<%-- BootStrap을 이용한 페이징 처리 영역 --%>
 		<nav>
 			<ul class="pagination">
@@ -454,17 +608,46 @@ button.btn.btn-outline-dark {
 	<jsp:include page="../include/bottom.jsp" />
 	<script type="text/javascript">
 $(function() {
-
-
 	$("#studyWrite_btn").click(function(){
-		if(${empty userId}) {
-			alert('로그인한 이용자만 이용할 수 있습니다.');
-		}else {
-			location.href = '<%=request.getContextPath()%>/studyBoard_insert.do';
-		}
-	});
-
+        if(${empty userId}) {
+            alert('로그인한 이용자만 이용할 수 있습니다.');
+            location.href = '<%=request.getContextPath()%>/user_login.do';
+        }else {
+            location.href = '<%=request.getContextPath()%>/studyBoard_insert.do';
+        }
+    });
 	
+	
+	
+	// 기본 위치(top)값
+	var floatPosition = parseInt($(".sideBanner").css('top'))
+
+	// scroll 인식
+	$(window).scroll(function() {
+	  
+	    // 현재 스크롤 위치
+	    var currentTop = $(window).scrollTop();
+	    var bannerTop = currentTop + floatPosition + "px";
+
+	    //이동 애니메이션
+	    $(".sideBanner").stop().animate({
+	      "top" : bannerTop
+	    }, 700);
+
+	}).scroll();
+	
+// 	$(window).scroll(function() {
+	  
+// 	    // 현재 스크롤 위치
+// 	    var currentTop = $(window).scrollTop();
+// 	    var bannerTop2 = currentTop + floatPosition + "px";
+
+// 	    //이동 애니메이션
+// 	    $(".sideBanner").stop().animate({
+// 	      "top" : bannerTop
+// 	    }, 700);
+
+// 	}).scroll();
 	
 });
 </script>

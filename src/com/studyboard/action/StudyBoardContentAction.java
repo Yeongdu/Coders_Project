@@ -1,12 +1,15 @@
 package com.studyboard.action;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.coders.controller.Action;
 import com.coders.controller.ActionForward;
+import com.coders.model.QnaDAO;
+import com.coders.model.QnaDTO;
 import com.coders.model.StudyBoardDAO;
 import com.coders.model.StudyBoardDTO;
 
@@ -14,7 +17,7 @@ public class StudyBoardContentAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// get¹æ½ÄÀ¸·Î ³Ñ¾î¿Â ±Û¹øÈ£¿¡ ÇØ´çÇÏ´Â °Ô½Ã±ÛÀÇ »ó¼¼³»¿ªÀ» DB¿¡¼­ Á¶È¸ÇÏ´Â ·ÎÁ÷.
+		// getï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ ï¿½Û¹ï¿½È£ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½Ô½Ã±ï¿½ï¿½ï¿½ ï¿½ó¼¼³ï¿½ï¿½ï¿½ï¿½ï¿½ DBï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
@@ -23,14 +26,26 @@ public class StudyBoardContentAction implements Action {
 		
 		StudyBoardDAO dao = StudyBoardDAO.getInstance();
 		
-		//°Ô½Ã±Û Á¶È¸¼ö¸¦ Áõ°¡½ÃÅ°´Â ¸Þ¼­µå È£Ãâ.
+		//ï¿½Ô½Ã±ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ È£ï¿½ï¿½.
 		dao.StudyBoardHit(studyBoard_no);
 		
+		 List<StudyBoardDTO> rankList = dao.getStudyRankList();
+		 
+		 
+		 QnaDAO qdao = QnaDAO.getInstance();
+		 List<QnaDTO> qrankList = qdao.getQnaRankList();
+
+
+		 request.setAttribute("qrList", qrankList);
+
+
 		
-		//±Û¹øÈ£¿¡ ÇØ´çÇÏ´Â »ó¼¼³»¿ªÀ» Á¶È¸ÇÏ´Â ¸Þ¼­µå
+		
+		//ï¿½Û¹ï¿½È£ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ó¼¼³ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ï´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 	   StudyBoardDTO content = dao.StudyboardContent(studyBoard_no);
 	   
 	   request.setAttribute("Cont", content);
+	   request.setAttribute("rList", rankList);
 	   
 	   ActionForward forward = new ActionForward();
 	   

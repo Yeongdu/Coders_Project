@@ -10,6 +10,8 @@ import com.coders.controller.Action;
 import com.coders.controller.ActionForward;
 import com.coders.model.QnaDAO;
 import com.coders.model.QnaDTO;
+import com.coders.model.StudyBoardDAO;
+import com.coders.model.StudyBoardDTO;
 
 public class QnaCodeSortListAction implements Action {
 
@@ -18,55 +20,62 @@ public class QnaCodeSortListAction implements Action {
 		
 		String codeName = request.getParameter("code").trim();
 		
-		// ÆäÀÌÂ¡ Ã³¸® ÀÛ¾÷ ÁøÇà
-		// ÇÑ ÆäÀÌÁö´ç º¸¿©Áú °Ô½Ã¹°ÀÇ ¼ö
+		// ï¿½ï¿½ï¿½ï¿½Â¡ Ã³ï¿½ï¿½ ï¿½Û¾ï¿½ ï¿½ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½
 		int rowsize = 10;
-		// ¾Æ·¡¿¡ º¸¿©Áú ÆäÀÌÁöÀÇ ÃÖ´ë ºí·° ¼ö - ¿¹) [1][2][3] / [4][5][6] / [7][8][9] / ....
+		// ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½ï¿½ - ï¿½ï¿½) [1][2][3] / [4][5][6] / [7][8][9] / ....
 		int block = 3;
 		
-		// DB»óÀÇ °Ô½Ã¹°ÀÇ ÀüÃ¼ ¼ö
+		// DBï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½
 		int totalRecord = 0;
-		// ÀüÃ¼ ÆäÀÌÁö ¼ö - ÀüÃ¼ °Ô½Ã¹°ÀÇ ¼ö / ÇÑ ÆäÀÌÁö ´ç º¸¿©Áú °Ô½Ã¹°ÀÇ ¼ö
+		// ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ - ï¿½ï¿½Ã¼ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½ / ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½
 		int allPage = 0;
 		
-		int page = 0;		// ÇöÀç ÆäÀÌÁö º¯¼ö
+		int page = 0;		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page").trim());
 		}else {
-			// Ã³À½À¸·Î "ÀüÃ¼ °Ô½Ã¹° ¸ñ·Ï" a ÅÂ±×¸¦ Å¬¸¯ÇÑ °æ¿ì
+			// Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "ï¿½ï¿½Ã¼ ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ï¿½" a ï¿½Â±×¸ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			page = 1;
 		}
 		
-		// ÇØ´ç ÆäÀÌÁö¿¡¼­ ½ÃÀÛ ¹øÈ£
+		// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 		int startNo = (page * rowsize) - (rowsize -1);
 		
-		// ÇØ´ç ÆäÀÌÁö¿¡¼­ ¸¶Áö¸· ¹øÈ£
+		// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 		int endNo = (page * rowsize);
 		
-		// ÇØ´ç ÆäÀÌÁö¿¡¼­ ½ÃÀÛ ºí·°
+		// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		int startBlock = (((page - 1) / block) * block) + 1;
 		
-		// ÇØ´ç ÆäÀÌÁö¿¡¼­ ³¡ ºí·°
+		// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½
 		int endBlock = (((page - 1) / block) * block) + block;
 		
 		
 		QnaDAO dao = QnaDAO.getInstance();
-		// Qna °Ô½ÃÆÇÀÇ ÀüÃ¼ ±Û °¹¼ö
+		// Qna ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		totalRecord = dao.getQnaCodeSortCount(codeName);
 		
-		// ÀüÃ¼ ÆäÀÌÁöÀÇ ¼ö : ÀüÃ¼ °Ô½Ã¹°ÀÇ ¼ö¸¦ ÇÑ ÆäÀÌÁö´ç º¸¿©Áú °Ô½Ã¹°ÀÇ ¼ö·Î ³ª´©±â
-		// ÀüÃ¼ ÆäÀÌÁö ¼ö°¡ ³ª¿Ã ¶§ ³ª¸ÓÁö°¡ ÀÖÀ¸¸é ¹«Á¶°Ç ÆäÀÌÁö ¼ö + 1(³ª¸ÓÁö °ªÀÌ µé¾î¿Ã ºÎºÐ)
+		// ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ : ï¿½ï¿½Ã¼ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ + 1(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½)
 		allPage = (int)Math.ceil(totalRecord / (double)rowsize);
 		
 		if(endBlock > allPage) {
 			endBlock = allPage;
 		}
 		
-		// ÇöÀç ÆäÀÌÁö¿¡ ÇØ´çÇÏ´Â °Ô½Ã¹°À» °¡Á®¿À´Â ¸Þ¼­µå È£Ãâ(ÃÖ½Å¼ø)
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ È£ï¿½ï¿½(ï¿½Ö½Å¼ï¿½)
 		
 		List<QnaDTO> codeSortlist = dao.codeSortList(page, rowsize, codeName);
 		List<QnaDTO> codelist = dao.getQnaList(page, rowsize);
+		
+		
+		StudyBoardDAO sdao = StudyBoardDAO.getInstance(); 
+		List<StudyBoardDTO> rankList = sdao.getStudyRankList();
+
+
+		List<QnaDTO> qrankList = dao.getQnaRankList();
 		
 		request.setAttribute("page", page);
 		request.setAttribute("rowsize", rowsize);
@@ -78,6 +87,9 @@ public class QnaCodeSortListAction implements Action {
 		request.setAttribute("startBlock", startBlock);
 		request.setAttribute("endBlock", endBlock);
 		request.setAttribute("codeName", codeName);
+		
+		request.setAttribute("rList", rankList);
+		request.setAttribute("qrList", qrankList);
 		
 		if(codeName.equals("NONE")) {
 			request.setAttribute("List", codelist);

@@ -298,6 +298,7 @@ public class UserDAO {
 					result += "<hit>" + rs.getString("qna_hit") + "</hit>";
 					result += "<title>" + rs.getString("qna_title") + "</title>";
 					result += "<writer>" + rs.getString("qna_writer") + "</writer>";
+					result += "<reply>" + rs.getInt("qna_reply") + "</reply>";
 					result += "<date>" + rs.getString("qna_date") + "</date>";
 					result += "<update>" + rs.getString("qna_update") + "</update>";
 					result += "</main>";
@@ -345,6 +346,7 @@ public class UserDAO {
 					result += "<hit>" + rs.getString("qna_hit") + "</hit>";
 					result += "<title>" + rs.getString("qna_title") + "</title>";
 					result += "<writer>" + rs.getString("qna_writer") + "</writer>";
+					result += "<reply>" + rs.getInt("qna_reply") + "</reply>";
 					result += "<date>" + rs.getString("qna_date") + "</date>";
 					result += "<update>" + rs.getString("qna_update") + "</update>";
 					result += "</main>";
@@ -539,6 +541,7 @@ public class UserDAO {
 					result += "<hit>" + rs.getString("study_hit") + "</hit>";
 					result += "<title>" + rs.getString("study_title") + "</title>";
 					result += "<writer>" + rs.getString("study_writer") + "</writer>";
+					result += "<reply>" + rs.getInt("study_reply") + "</reply>";
 					result += "<date>" + rs.getString("study_end") + "</date>";
 					result += "<type>" + rs.getString("study_status") + "</date>";
 					result += "</main>";
@@ -585,6 +588,7 @@ public class UserDAO {
 					result += "<hit>" + rs.getString("study_hit") + "</hit>";
 					result += "<title>" + rs.getString("study_title") + "</title>";
 					result += "<writer>" + rs.getString("study_writer") + "</writer>";
+					result += "<reply>" + rs.getInt("study_reply") + "</reply>";
 					result += "<date>" + rs.getString("study_date") + "</date>";
 					result += "<type>" + rs.getString("study_status") + "</date>";
 					result += "</main>";

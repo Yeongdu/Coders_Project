@@ -15,6 +15,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
@@ -283,7 +284,7 @@ body {
 						<li id="qna_write_code">
 							<div class="mb-3">
 								<label class="main_label">본문</label> <a id="modalOpen"
-									class="modalOpen"><i class="bi bi-question-circle"></i></a>
+									><i class="bi bi-question-circle"></i></a>
 								<script src="https://kit.fontawesome.com/c85ddd0cc6.js"
 									crossorigin="anonymous"></script>
 								<textarea class="form-control" id="qna_code" rows="8"
@@ -326,7 +327,7 @@ body {
 					<i class="bi bi-x-lg"></i>
 				</div>
 				<h3>CODE 작성 방법</h3>
-				<br> <img src="./upload/codeInfo.gif"> <br>
+				<br> <img src="./upload/codeInfo.gif" style = "width: 40em; height: 20em;"> <br>
 				<div class="code_info">
 					<br>
 					<p style="margin-bottom: 0;">1. 말머리에서 선택한 언어와 질문하고자 하는 언어의 형식이
@@ -385,12 +386,12 @@ body {
 	
 <%-- 아이콘 이미지 위로 마우스 올릴시 아이콘 변경 --%>
 	// 모달창 여는 ? 아이콘
-	$('.modalOpen').on('mouseover',function(){
+	$('#modalOpen').on('mouseover',function(){
 	    $('.bi-question-circle').attr('class','bi-question-circle-fill');
 	    $(this).css('cursor', 'pointer');
 	});
 	
-	$('.modalOpen').on('mouseout',function(){
+	$('#modalOpen').on('mouseout',function(){
 	    $('.bi-question-circle-fill').attr('class','bi-question-circle');
 	});
 	
@@ -409,8 +410,8 @@ body {
 </script>
 
 
-<script type="text/javascript">
-<%-- 클립보드 붙여넣기 --%>
+<%-- <script type="text/javascript">
+클립보드 붙여넣기
 
 function pasteFromClipboard(fieldId){
 	  const pasteTextarea = document.querySelector('#'+fieldId);
@@ -427,7 +428,7 @@ function pasteFromClipboard(fieldId){
 	    console.log('클립보드에서 가져올 수 없음!'+err);
 	  }
 
-</script>
+</script> --%>
 
 
 </body>

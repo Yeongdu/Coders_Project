@@ -524,7 +524,8 @@ public class UserDAO {
 				
 				openConn();
 			
-				sql = "select * from study_group where study_writer = ? order by study_date desc";
+				sql = "select study_group.*, (select count(*) from study_comment where study_group.study_num = study_comment.study_num) "
+						+ "as commentCnt from study_group where study_writer = ? order by study_date desc";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -541,7 +542,7 @@ public class UserDAO {
 					result += "<hit>" + rs.getString("study_hit") + "</hit>";
 					result += "<title>" + rs.getString("study_title") + "</title>";
 					result += "<writer>" + rs.getString("study_writer") + "</writer>";
-					result += "<reply>" + rs.getInt("study_reply") + "</reply>";
+					result += "<reply>" + rs.getInt("commentCnt") + "</reply>";
 					result += "<date>" + rs.getString("study_end") + "</date>";
 					result += "<type>" + rs.getString("study_status") + "</date>";
 					result += "</main>";
@@ -571,7 +572,8 @@ public class UserDAO {
 				
 				openConn();
 			
-				sql = "select * from study_group where study_num in (select study_num from study_comment where scomment_writer = ?) order by study_date desc";
+				sql = "select study_group.*, (select count(*) from study_comment where study_group.study_num = study_comment.study_num) "
+						+ "as commentCnt from study_group where study_num in(select study_num from study_comment where scomment_writer = ?)";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -588,7 +590,7 @@ public class UserDAO {
 					result += "<hit>" + rs.getString("study_hit") + "</hit>";
 					result += "<title>" + rs.getString("study_title") + "</title>";
 					result += "<writer>" + rs.getString("study_writer") + "</writer>";
-					result += "<reply>" + rs.getInt("study_reply") + "</reply>";
+					result += "<reply>" + rs.getInt("commentCnt") + "</reply>";
 					result += "<date>" + rs.getString("study_date") + "</date>";
 					result += "<type>" + rs.getString("study_status") + "</date>";
 					result += "</main>";

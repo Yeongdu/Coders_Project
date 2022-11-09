@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.coders.controller.Action;
 import com.coders.controller.ActionForward;
+import com.coders.model.QnaDAO;
+import com.coders.model.QnaDTO;
 import com.coders.model.StudyBoardDAO;
 import com.coders.model.StudyBoardDTO;
 
@@ -62,6 +64,13 @@ allPage = (int)Math.ceil(totalRecord/(double)rowsize);
 		}
 		List<StudyBoardDTO> pageList = dao.getStudyStatusList(page,rowsize);
 		
+		List<StudyBoardDTO> rankList = dao.getStudyRankList();
+		
+
+		QnaDAO qdao = QnaDAO.getInstance();
+		List<QnaDTO> qrankList = qdao.getQnaRankList();
+	
+		
 		//���ݱ��� ����¡ ó�� �� �۾��ߴ� ��� ������ view page�� �̵�
 				request.setAttribute("page", page);
 				request.setAttribute("rowsize", rowsize);
@@ -73,7 +82,8 @@ allPage = (int)Math.ceil(totalRecord/(double)rowsize);
 				request.setAttribute("startBlock", startBlock);
 				request.setAttribute("endBlock", endBlock);
 				request.setAttribute("List", pageList);
-				
+				request.setAttribute("rList", rankList);
+				request.setAttribute("qrList", qrankList);
 				
 				ActionForward forward = new ActionForward();
 				forward.setRedirect(false);

@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.coders.controller.Action;
 import com.coders.controller.ActionForward;
+import com.coders.model.QnaDAO;
+import com.coders.model.QnaDTO;
 import com.coders.model.StudyBoardDAO;
 import com.coders.model.StudyBoardDTO;
 
@@ -57,6 +59,13 @@ public class StudyStatusSearchAction implements Action {
 		}
 
 		List<StudyBoardDTO> searchList = dao.searchStatusStudyList(search_keyword, page, rowsize);
+		
+		List<StudyBoardDTO> rankList = dao.getStudyRankList();
+
+
+		QnaDAO qdao = QnaDAO.getInstance();
+		List<QnaDTO> qrankList = qdao.getQnaRankList();
+
 
 		request.setAttribute("page", page);
 		request.setAttribute("rowsize", rowsize);
@@ -70,6 +79,9 @@ public class StudyStatusSearchAction implements Action {
 //		request.setAttribute("field", search_field);
 		request.setAttribute("keyword", search_keyword);
 		request.setAttribute("List", searchList);
+		
+		request.setAttribute("rList", rankList);
+		request.setAttribute("qrList", qrankList);
 		
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);

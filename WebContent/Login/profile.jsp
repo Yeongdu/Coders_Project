@@ -157,7 +157,7 @@
 	}
 	
 	#container {
-	  width: 40em;
+	  width: 36em;
 	  padding: 0;
 	  margin: auto;
 	  height: 7em;
@@ -253,7 +253,7 @@
 	}
 
 	.study_view_aTag {
-		width: 460px;
+		width: 400px;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
@@ -264,7 +264,7 @@
 	
 	#studyListContainer {
 		display: flex;
-		width: 40em;
+		width: 36em;
 		padding-bottom: 10px;
 		margin: auto;
 		align-items: center;
@@ -977,7 +977,7 @@
 					
 					if(count < 5) {
 						
-						table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 38em; height: 7em;'><br>"
+						table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 36em; height: 7em;'><br>"
 						table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
 						table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
 						table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
@@ -1069,7 +1069,7 @@
 						
 						let day = endDate_n - today_n + 1;
 							
-						table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 38em; height: 7em;'><br>"
+						table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 36em; height: 7em;'><br>"
 						table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
 						table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
 						table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
@@ -1158,7 +1158,7 @@
 						
 						if(count < 5) {
 							
-							table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 38em; height: 7em;'><br>"
+							table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 36em; height: 7em;'><br>"
 							table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
 							table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
 							table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
@@ -1256,7 +1256,7 @@
 						
 						let day = endDate_n - today_n + 1;
 						
-						table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 38em; height: 7em;'><br>"
+						table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 36em; height: 7em;'><br>"
 						table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
 						table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
 						table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
@@ -1348,7 +1348,7 @@
 						
 						let day = endDate_n - today_n + 1;
 						
-						table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 38em; height: 7em;'><br>"
+						table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 36em; height: 7em;'><br>"
 						table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
 						table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
 						table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
@@ -1437,7 +1437,7 @@
 						
 						if(count < 5) {
 							
-							table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 38em; height: 7em;'><br>"
+							table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 36em; height: 7em;'><br>"
 							table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
 							table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
 							table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
@@ -1547,7 +1547,7 @@
 			
 			//화면에 출력할 마스크를 설정해줍니다.    
 			var mask       = "<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'></div>";    
-			var loadingImg = "<div id='loadingImg' class='spinner-border text-primary' role='status'><span class='visually-hidden'>Loading...</span></div>>";  
+			var loadingImg = "<div id='loadingImg' class='spinner-border text-primary' role='status'><span class='visually-hidden'>Loading...</span></div>";  
 			
 			//화면에 레이어 추가    
 			$("body").append(mask)     

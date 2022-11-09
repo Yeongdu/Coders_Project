@@ -308,7 +308,7 @@
 					
 					let day = endDate_n - today_n + 1;
 					
-					table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 38em; height: 7em;'><br>"
+					table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 40em; height: 7em;'><br>"
 					table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
 					table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
 					table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()

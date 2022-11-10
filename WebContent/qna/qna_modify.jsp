@@ -150,7 +150,7 @@ textarea {
 			<h6 class="card-subtitle">
 					<i class="fa-regular fa-user"></i> ${dto.qna_writer } &nbsp;
 					<i class="fa-regular fa-clock"></i> ${dto.qna_date } &nbsp;
-					<i class="fa-regular fa-eye"></i> ${dto.qna_hit }            
+					<i class="fa-regular fa-eye"></i> ${dto.qna_hit }
 			</h6>
 		<br>
 		<br>
@@ -166,17 +166,19 @@ textarea {
 		<br>
 			
 		<div>
-			<p>
-				<c:if test="${!empty dto.getQna_file()}">
-					<img class="card-img" src="<%=request.getContextPath()%>/qnaBoardWriteFolder/${dto.getQna_file()}" alt="" style="height: auto;margin-bottom: 14px;"/> 
-				</c:if>	
-				<c:if test="${empty dto.getQna_file()}">
-				</c:if>	
-			</p>
+			
 			<h5 class="card-title mb-3" align="center"> 본문 내용  </h5>
 				<div class="card-body">
 					<textarea class="form-control" name="qna_content" id = "qna_content">${dto.qna_cont }</textarea>
 				</div>
+				
+				<p>
+				<c:if test="${!empty dto.getQna_file()}">
+					<img class="card-img" src="<%=request.getContextPath()%>/qnaBoardWriteFolder/${dto.getQna_file()}" alt="" style="height: auto;margin-bottom: 14px; margin-top: 30px;"/> 
+				</c:if>	
+				<c:if test="${empty dto.getQna_file()}">
+				</c:if>	
+			</p>
 		</div>
 			<input type = "hidden" name = "qna_file_older" value = "${dto.qna_file }">
 		<br>

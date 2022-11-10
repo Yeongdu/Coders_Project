@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
 	#top {
 		color: white;
 		font-size: 1.05rem;
@@ -57,13 +59,38 @@
 	
 		#top:hover{
 		color: #2b59c6;
-		transform: scale(1.25);
 		transiton-duration: 0.5s;
 		text-shadow: none;
 		font-weight: bold;
 	}
 	
+	#logoTitle {
+	position: relative;
+	}
 	
+	.logo_title{
+	font-family: 'Fredoka One' !important;
+	position: absolute;
+	top:76%;
+	left:50%;
+	transform: translate(-50%, -50%);
+	font-size: 4vw;
+    color: white;
+    letter-spacing: 0.8vw;
+    text-shadow: 5px 5px 1px #223971; 
+	}
+
+	.logo_title:hover{
+	cursor: pointer
+	}
+  
+  		#top:hover{
+		color: #2b59c6;
+		transform: scale(1.25);
+		transiton-duration: 0.5s;
+		text-shadow: none;
+		font-weight: bold;
+	}
 	
 </style>
 
@@ -146,6 +173,9 @@
 	</nav>
 	
 	<div id = "logoTitle" class="top">
-		<img src="<%=request.getContextPath() %>/upload/header.png" style = "width:100%; height:200px;"></a>
+		<img src="<%=request.getContextPath() %>/upload/headerimg.png" style = "width:100%; height:200px;" id = "img">
+		<%-- <img src="<%=request.getContextPath() %>/upload/headertext.png" style = "width:100%; height:200px;" id = "text"
+				onclick= "location.href='main.jsp'"> --%>
+			<span class = "logo_title" onclick= "location.href='main.jsp'">CODE BOARD</span>
 	</div>
 

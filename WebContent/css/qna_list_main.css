@@ -168,7 +168,7 @@
 	/* 글쓰기 버튼 */
 	#qnaWrite_btn {
 	background-color: #2b59c6;
-	border: #2b59c6;
+	border: 1px solid #2b59c6;
 	height: 37px;
 	}
 	

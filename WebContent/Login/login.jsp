@@ -300,6 +300,11 @@
 	#modal_body {
 		padding: 0px;
 	}
+	
+	#atag:hover {
+		transform: scale(1.1);
+		transiton-duration: 0.5s;
+	}
 </style>
 </head>
 <body>
@@ -407,11 +412,11 @@
 					            
 					<div class="login_etc">
 						<div class="sign_up">
-							<a class="nav-link" href="#myModal2" data-bs-toggle="modal">Sigh up</a>
+							<a class="nav-link" href="#myModal2" data-bs-toggle="modal" id="atag">Sign up</a>
 						</div>
 					                
 						<div class="forgot_pw">
-							<a class="nav-link" href="#myModal3" data-bs-toggle="modal">Forgot Password?</a>
+							<a class="nav-link" href="#myModal3" data-bs-toggle="modal" id="atag">Forgot Password?</a>
 						</div>
 					</div>
 					            

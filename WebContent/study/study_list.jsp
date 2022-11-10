@@ -221,7 +221,7 @@ button.btn.btn-outline-dark {
 
 #studyWrite_btn {
 	background-color: #2b59c6;
-	border: #2b59c6;
+	border: 1px solid #2b59c6;
 	height: 37px;
 }
 

@@ -481,6 +481,7 @@ body .badge {
 
 		<c:if test="${empty list }">
 			<h3>게시글이 없음</h3>
+			<br>
 		</c:if>
 		
 		

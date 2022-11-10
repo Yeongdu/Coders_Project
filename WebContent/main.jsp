@@ -11,9 +11,7 @@
 <script src="https://kit.fontawesome.com/c85ddd0cc6.js" crossorigin="anonymous"></script>
 <style type="text/css">
 
-@import
-	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap')
-	;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap');
 
 	body {
 		font-family: 'Noto Sans KR' !important;

@@ -11,11 +11,18 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <style type="text/css">
 
+
+	  html, body {
+        margin: 0;
+      }
+      #footer {
+        width: 100%;
+        background: blue;
+      }
+
 	footer {
 		margin-top: 100px;
 		background-color: #2b59c6;
-		
-
 	}
 	.footer-main {
 		align-items: center;
@@ -60,15 +67,12 @@
 		text-decoration: none;
 	}
 	
-	html {
-		positon: relative;
-		min-height: 100%;
-		margin: 0;
-	}
 	
 </style>
 </head>
-   
+<body>
+    <div id="container"> </div>
+    <div id="footer">
 	<footer>
 		<div class="footer-main">
 			<div class="container-left">
@@ -84,6 +88,14 @@
 			</div>
 		</div>
 	</footer>
-
+	</div>
+    <script>
+      const footerDom = document.getElementById('container');
+      for(i=0; i<10; i++){
+        let p = document.createElement("p")
+        p.append('');
+        footerDom.append(p)
+      }
+    </script>
 </body>
 </html>

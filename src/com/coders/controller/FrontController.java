@@ -28,15 +28,12 @@ public class FrontController extends HttpServlet {
     			// getRequestURI() : "/프로젝트명/파일명(*.do)" 라는
     			//                   문자열을 반환해 주는 메서드.
     			String uri = request.getRequestURI();
-    			System.out.println("URI >>> " + uri);
     			
     			// getContextPath() : 현재 프로젝트명을 문자열로
     			//                    반환해 주는 메서드.
     			String path = request.getContextPath();
-    			System.out.println("Path >>> " + path);
     			
     			String command = uri.substring(path.length() + 1);
-    			System.out.println("Command >>> " + command);
     			
     			
     			Action action = null;
@@ -50,7 +47,6 @@ public class FrontController extends HttpServlet {
     			pro.load(fis);
     			
     			String value = pro.getProperty(command);
-    			System.out.println("Value >>> " + value);
     			
     			if(value.substring(0, 7).equals("execute")) {
     				StringTokenizer st = 

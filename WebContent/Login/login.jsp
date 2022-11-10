@@ -301,7 +301,12 @@
 		padding: 0px;
 	}
 	
-	#atag:hover {
+	#atag1:hover {
+		transform: scale(1.1);
+		transiton-duration: 0.5s;
+	}
+	
+	#atag1:hover {
 		transform: scale(1.1);
 		transiton-duration: 0.5s;
 	}
@@ -412,11 +417,11 @@
 					            
 					<div class="login_etc">
 						<div class="sign_up">
-							<a class="nav-link" href="#myModal2" data-bs-toggle="modal" id="atag">Sign up</a>
+							<a class="nav-link" href="#myModal2" data-bs-toggle="modal" id="atag1">Sign up</a>
 						</div>
 					                
 						<div class="forgot_pw">
-							<a class="nav-link" href="#myModal3" data-bs-toggle="modal" id="atag">Forgot Password?</a>
+							<a class="nav-link" href="#myModal3" data-bs-toggle="modal" id="atag2">Forgot Password?</a>
 						</div>
 					</div>
 					            
@@ -560,6 +565,22 @@
 			}
 		});
 		
+		$("#myModal2").on("hidden.bs.modal", function(){
+			$("#signup_id_input").val('');
+			$("#signup_pwd_input").val('');
+			$("#signup_pwd_ck_input").val('');
+			$("#signup_name").val('');
+			$("#pwdcheck_ck").text('');
+			$("#pwdcheck").text('');
+			$("#idcheck").text('');
+		});
+		
+		$("#myModal3").on("hidden.bs.modal", function(){
+			$("#search_id_input").val('');
+			$("#search_name").val('');
+		});
+		
+		
 	});
 </script>
 	
@@ -579,22 +600,22 @@
 					</div>
 						<div class="login_input1">
 							<h5><b>*</b> E-mail&nbsp;&nbsp;<span id="idcheck"></span></h5>
-							<input type="email" id="id_input" class="form-control" name="id" placeholder="Email" required>
+							<input type="email" id="signup_id_input" class="form-control" name="id" placeholder="Email" required>
 						</div>
 				            
 						<div class="login_input1">
 							<h5><b>*</b> Password&nbsp;&nbsp;<span id="pwdcheck"></span></h5>
-							<input type="password" id="pwd_input" class="form-control" name="pwd" placeholder="Password" required>
+							<input type="password" id="signup_pwd_input" class="form-control" name="pwd" placeholder="Password" required>
 						</div>
 						
 						<div class="login_input1">
 							<h5><b>*</b> Password Check&nbsp;&nbsp;<span id="pwdcheck_ck"></span></h5>
-							<input type="password" id="pwd_ck_input" class="form-control" placeholder="Password Check" required>
+							<input type="password" id="signup_pwd_ck_input" class="form-control" placeholder="Password Check" required>
 						</div>
 						
 						<div class="login_input1">
 							<h5><b>*</b> Name&nbsp;&nbsp;</h5>
-							<input type="text" name="name" class="form-control" placeholder="Name" required>
+							<input type="text" name="name" id="signup_name" class="form-control" placeholder="Name" required>
 						</div>
 				            
 				            
@@ -626,12 +647,12 @@
 					</div>
 						<div class="login_input1">
 							<h5><b>*</b> E-mail</h5>
-							<input type="email" id="id_input" name="id" class="form-control" placeholder="Email" required>
+							<input type="email" id="search_id_input" name="id" class="form-control" placeholder="Email" required>
 						</div>
 								            
 						<div class="login_input1">
 							<h5><b>*</b> Name</h5>
-							<input type="text" name="name" class="form-control" placeholder="Name" required>
+							<input type="text" name="name" id="search_name" class="form-control" placeholder="Name" required>
 						</div>
 								            
 						<div class="submit1">

@@ -14,7 +14,6 @@ public class StudyBoardModifyAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// get방식으로 넘어온 글번호에 해당하는 게시글을 조회하여 수정 폼 페이지로 이동시키는 비지니스 로직.
 		
 		int studyboard_no = Integer.parseInt(request.getParameter("no").trim());
 		

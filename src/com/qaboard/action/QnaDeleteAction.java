@@ -30,7 +30,7 @@ public class QnaDeleteAction implements Action {
 			forward.setPath("qna_list.do");
 		}else {
 			out.println("<script>");
-			out.println("alert('°Ô½Ã±Û »èÁ¦¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.')");
+			out.println("alert('ê²Œì‹œë¬¼ ì‚­ì œì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.')");
 			out.println("history.back()");
 			out.println("</script>");
 		}

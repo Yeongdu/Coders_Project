@@ -23,10 +23,6 @@ public class StudyBoardReplyModifyAction implements Action {
 	  
 	   String reply_cont = request.getParameter("content").trim();
 	   
-	   System.out.println("scomment_num >>> " + scomment_num);
-	   System.out.println("reply_cont >>> " + reply_cont);
-	   
-	   
 	  StudyBoardCommentDTO dto = new StudyBoardCommentDTO();
 	  
 	 

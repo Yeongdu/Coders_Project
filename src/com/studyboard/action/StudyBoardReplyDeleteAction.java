@@ -16,10 +16,7 @@ public class StudyBoardReplyDeleteAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// 댓글 삭제
 		
-		
 		int scomment_num = Integer.parseInt(request.getParameter("scomment_num").trim());
-		
-		System.out.println("scomment_num >>> " + scomment_num);
 		
 		StudyBoardDAO dao = StudyBoardDAO.getInstance();
 		

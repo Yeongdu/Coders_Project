@@ -8,12 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-3.6.1.js"></script>
-	
-	
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -86,10 +81,6 @@ body {
 		<jsp:include page="../include/user_top.jsp" />
 	</c:if>
 
-
-	<input type="hidden" name="study_no" value="${dto.getStudy_num() }">
-	<input type="hidden" name="study_writer"
-		value="${dto.getStudy_writer() }">
 	<br>
 
 	<div align="center">
@@ -104,6 +95,8 @@ body {
 	<div class="align-middle">
 		<form method="post" enctype="multipart/form-data"
 			action="<%=request.getContextPath()%>/studyboard_modify_ok.do">
+			<input type="hidden" name="study_no" value="${dto.getStudy_num() }">
+			<input type="hidden" name="study_writer" value="${dto.getStudy_writer() }">
 			<div class="container col-md-6" style="width: 800px;">
 				<div class="card">
 					<div class="card-body">

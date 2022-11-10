@@ -10,6 +10,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -28,6 +31,8 @@
 <script>
   hljs.highlightAll();
 </script>
+
+
 
 <!-- 코드 구현 스타일 -->
 
@@ -442,6 +447,39 @@ textarea {
     border-radius: 5px;
     border: 0px;
 }
+
+
+ .servey{
+   position: absolute;
+   width: 250px;
+   height: 500px;
+   top: 275px;
+   padding: 5px;
+   right: 1%;
+}
+
+.serveyimg{
+   width: 250px;
+   height: 500px;
+}
+
+@media screen and (max-width: 1400px) {
+	.servey {
+		display: none;
+	}
+}
+
+#goodUp{
+	color: #2b59c6;
+	font-size: 23px;
+}
+
+#goodDown{
+	color: #dc3545;
+	font-size: 23px;
+
+}
+
     
 </style>
 
@@ -614,15 +652,6 @@ textarea {
 										id="co_writer" readonly placeholder = "로그인이 필요한 기능입니다." value=${userId  }>
 								</div>
 							</div>
-
-							<br>
-
-							<div>
-								<div class="col-sm-10">
-									<textarea class="form-control" id="co_content"
-										name="co_content" rows="10" cols="40" placeholder="내용을 입력해주세요."></textarea>
-								</div>
-							</div>
 							
 							<br> 
 							
@@ -630,6 +659,15 @@ textarea {
 								<div class="col-sm-10">
 									<textarea class="form-control" id="co_code"
 										name="co_code" rows="10" cols="40" placeholder="코드를 입력해주세요."></textarea>
+								</div>
+							</div>
+							
+							<br> 
+							
+							<div>
+								<div class="col-sm-10">
+									<textarea class="form-control" id="co_content"
+										name="co_content" rows="10" cols="40" placeholder="내용을 입력해주세요."></textarea>
 								</div>
 							</div>
 							
@@ -664,7 +702,7 @@ textarea {
 			<div id = "commentForm">
 			
 				<div class="ReCount_wrap">
-					<div class="ReCount">${dto.qna_reply}개의 댓글이 있습니다.</div>
+					<div class="ReCount" id = "reply_data">${dto.qna_reply}개의 댓글이 있습니다.</div>
 				</div>
 				
 <!-- 				<h5><i class="fa-regular fa-comment-dots"></i> 댓글 목록</h5> -->
@@ -766,6 +804,15 @@ textarea {
 			</div>
 		</div>
 <%-- 인기글 배너 end --%>
+
+
+
+<%-- 사이드 배너  (광고)--%>		
+	<div class = "servey" align = "right"  width = "250" height = "500">
+         <img class = "serveyimg" src="./upload/sidebanner.png" width = "250" height = "500">   
+     </div>		
+<%-- 사이드 배너 end --%>	
+
 		
 
 <script type="text/javascript">
@@ -808,6 +855,26 @@ textarea {
 		}).scroll();
 		
 		
+		
+		//사이드배너 광고//
+		// 기본 위치(top)값
+		var floatPosition = parseInt($(".servey").css('top'))
+
+		// scroll 인식
+		$(window).scroll(function() {
+		  
+		    // 현재 스크롤 위치
+		    var currentTop = $(window).scrollTop();
+		    var bannerTop = currentTop + floatPosition + "px";
+
+		    //이동 애니메이션
+		    $(".servey").stop().animate({
+		      "top" : bannerTop
+		    }, 700);
+
+		}).scroll();
+		
+		
 
 	$(function() {
 		
@@ -837,8 +904,6 @@ textarea {
 					 	
 						////////////1행 작성자 아이콘 띄우기 
 						
-						"<div class='card-body'>"
-						
 						table += "<tr>";
 						table += "<td";
 						if('${dto.qna_writer }' == $(this).find("qcomment_writer").text()){
@@ -865,7 +930,7 @@ textarea {
 		                 }
 						 
 						//수정 버튼     
-						table += "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + "<button value = '수정' class= 'modify' align = 'right'>" + '수정' + "</button>" + " &nbsp;|"+					
+						table += "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + "<button value = '수정' class= 'modify' align = 'right'>" + '수정' + "</button>" + " &nbsp;|"+					
 									
 						//삭제 버튼 
 						 "<button value = '삭제' align = 'right' class = 'del' num = '" +$(this).find("qcomment_num").text()+"'>" + '삭제' + "</button>";
@@ -880,27 +945,18 @@ textarea {
 						table += "<td class='qnaCommentDate'>" + "작성일자: " + $(this).find("qcomment_date").text() + "</td>";
 						
 						//추천 버튼
-						table += "<td id ='tdGoodBad' align = 'left''>" + "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" +
-								"<input type = 'image' src = './qna_icon/thumbs-up.png' " +
-								"id = 'goodUp' num = '" +$(this).find("qcomment_num").text()+"'>" + "&nbsp; &nbsp; &nbsp; &nbsp;" + 
+						table += "<td id ='tdGoodBad' align = 'left''>" + "&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" +
+								"<i class='bi bi-hand-thumbs-up-fill' id = 'goodUp' num = '" +$(this).find("qcomment_num").text()+"'/></i>" + "&nbsp;" + $(this).find("qcomment_good").text() + "&nbsp; &nbsp; &nbsp; &nbsp;" +
 							
 						//비추천 버튼
-							"<input type = 'image' src = './qna_icon/thumbs-down.png' " +
-							"id = 'goodDown' num = '" +$(this).find("qcomment_num").text()+"'></td>"; 
+						
+							"<i class='bi bi-hand-thumbs-down-fill' id = 'goodDown' num = '" +$(this).find("qcomment_num").text()+"'/></i>" + "&nbsp;" + $(this).find("qcomment_bad").text() + "</td>"; 
 						
 						table += "</tr>";
 						
 						
 						///////////////4행 내용 + 추천/비추천 수치 + 코드 내용
-						table += "<tr>";
-						table += "<td align = 'left' class='commentwrap'><div class='qcomment_content' style='white-space : pre-wrap' >" + $(this).find("qcomment_cont").text() + "</div>";
 						
-						//추천-비추천 수치
-						table +=  "<td align = 'left' class = 'goodBadCount'>" + "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + $(this).find("qcomment_good").text() + 
-									"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + $(this).find("qcomment_bad").text() + "&nbsp;" + "</td>"
-	                    table += "</tr>";
-					
-	   					 ////////////////5행 코드 소스 
 						table += "<tr id = 'codecss'>";
 						table += "<td";
 						
@@ -910,18 +966,28 @@ textarea {
 		                     	table += " style='display: none;'>";	
 						}
 						
-						
-						
+											
 						table += "<pre>" +"<code class = '{dto.getQna_tag() }'>" +"<textarea>" + $(this).find("qcomment_code").text() + "</textarea> " + "</code>" + "</pre>" + "</td>";						
 
+					
+	   					 ////////////////5행 댓글 내용 + 추천-비추천 수치
 						table += "</tr>";
-							
+						
+						table += "<tr>";
+						table += "<td align = 'left' class='commentwrap'><div class='qcomment_content' style='white-space : pre-wrap' >" + $(this).find("qcomment_cont").text() + "</div>";
+						
+						/* //추천-비추천 수치
+						table +=  "<td align = 'left' class = 'goodBadCount'>" + "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + $(this).find("qcomment_good").text() + 
+									"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + $(this).find("qcomment_bad").text() + "&nbsp;" + "</td>"
+	                    table += "</tr>"; */
+						
+						
 						/////////////////6행 수정 폼 창 
 						table += "<tr class = 'modifyForm' style='display: none;'>";
 				      	table += "<td align = 'left'>";
-                	 	table += "<textarea  class = 'modifyContArea' type='text' placeholder = '로그인이 필요한 기능입니다.'>" + $(this).find("qcomment_cont").text() +"</textarea>" + 
+                	 	table += "<textarea  class = 'modifyCodeArea' type='text' placeholder = '로그인이 필요한 기능입니다.'>" + $(this).find("qcomment_code").text() +"</textarea>" + 
                 	 	
-                	 				 "<textarea class = 'modifyCodeArea' type='text' placeholder = '로그인이  필요한 기능입니다.'>" + $(this).find("qcomment_code").text() + "</textarea>" + "</td>";
+                	 				 "<textarea class = 'modifyContArea' type='text' placeholder = '로그인이  필요한 기능입니다.'>" + $(this).find("qcomment_cont").text() + "</textarea>" + "</td>";
                 	 	
                 	 	table += "</tr>";
 						
@@ -933,7 +999,6 @@ textarea {
 						table += "<td colspan='2'>&nbsp;</td>";
 						table += "</tr>";
 						
-						"</div>"
 	                  
 					});
 					
@@ -983,7 +1048,8 @@ textarea {
 
 							// 댓글 작성 후 다시 전체 댓글 리스트를 화면에 출력.
 							getList();
-							refreshPage();
+							
+							 $('#reply_data').load(location.href+' #reply_data');
 							
 							//입력된 내용을 지워줌.
 							$("#co_content").val("");
@@ -1037,8 +1103,8 @@ textarea {
 					data : {
 						
 						qcomment_num : this.parentNode.parentNode.nextSibling.firstChild.textContent,
-						qcomment_cont : this.parentNode.parentNode.nextSibling.nextSibling.nextSibling.nextSibling.firstChild.childNodes[0].value,
-						qcomment_code : this.parentNode.parentNode.nextSibling.nextSibling.nextSibling.nextSibling.firstChild.childNodes[1].value
+						qcomment_code : this.parentNode.parentNode.nextSibling.nextSibling.nextSibling.nextSibling.firstChild.childNodes[0].value,
+						qcomment_cont : this.parentNode.parentNode.nextSibling.nextSibling.nextSibling.nextSibling.firstChild.childNodes[1].value
 						
 					}, 
 						success : function(data){
@@ -1089,7 +1155,8 @@ textarea {
 						alert('댓글이 삭제되었습니다.');
 						
 						getList();
-						refreshPage();
+						$('#reply_data').load(location.href+' #reply_data');
+						
 					}else {
 						alert('댓글이 삭제되지 않았습니다.');
 					}
@@ -1112,90 +1179,88 @@ textarea {
 	----------------------------------------------------------------------------------------------------------------------------------------- 
  */
 		
-			 	
 	
-		//추천 버튼 누르기 
-		$(document).on("click", "#goodUp", function(){
-			
-			if(${!empty userId}){
-			
-			$.ajax({
-				async : false,
-				url : "/Project/qna_comment_good_ok.do",
-				datatype : "text",
-				data : "no="+$(this).attr("num"),
-					
-				success : function(data){
-					if(data>0){
-						
-							if(${empty userId }) {
-								alert('로그인이 필요한 기능입니다.');
-								
-							}else{
-								
-								/* alert("좋아요를 누르셨습니다.")
-								getList(); */
-
-							}	
-					}else {
-						
-						 getList(); 
-					}
-				}, 
-				
-				error : function(){
-					alert("데이터 통신 오류입니다.")
-				}
-				
-			})
-			
-			} else{
-				alert('로그인한 이용자만 이용할 수 있습니다.');
-			}
-			
-		});
+	//추천 버튼 누르기 
+	$(document).on("click", "#goodUp", function(){
 		
-	
-		//비추천 버튼 누르기 
-		$(document).on("click", "#goodDown", function(){
-			
-			if(${!empty userId}){
-			
-			$.ajax({
-				async : false,
-				url : "/Project/qna_comment_bad_ok.do",
-				datatype : "text",
-				data : "no="+$(this).attr("num"),
+		if(${!empty userId}){
+		
+		$.ajax({
+			async : false,
+			url : "/Project/qna_comment_good_ok.do",
+			datatype : "text",
+			data : "no="+$(this).attr("num"),
+				
+			success : function(data){
+				if(data>0){
 					
-				success : function(data){
-					if(data>0){
-						
-							if(${empty userId}) {
-								alert('로그인이 필요한 기능입니다.');
-								
-							}else{
-								
-								/* alert("좋아요를 누르셨습니다.")
-								getList(); */
+						if(${empty userId }) {
+							alert('로그인이 필요한 기능입니다.');
+							
+						}else{
+							
+							/* alert("좋아요를 누르셨습니다.")
+							getList(); */
 
-							}	
-					}else {
-						
-						 getList(); 
-					}
-				}, 
-				
-				error : function(){
-					alert("데이터 통신 오류입니다.")
+						}	
+				}else {
+					 getList();
 				}
-				
-			})
+			}, 
 			
-			} else{
-				alert('로그인이 필요한 기능입니다.');
+			error : function(){
+				alert("데이터 통신 오류입니다.")
 			}
 			
-		});
+		})
+		
+		} else{
+			alert('로그인한 이용자만 이용할 수 있습니다.');
+		}
+		
+	});
+	
+
+	//비추천 버튼 누르기 
+	$(document).on("click", "#goodDown", function(){
+		
+		if(${!empty userId}){
+		
+		$.ajax({
+			async : false,
+			url : "/Project/qna_comment_bad_ok.do",
+			datatype : "text",
+			data : "no="+$(this).attr("num"),
+				
+			success : function(data){
+				if(data>0){
+					
+						if(${empty userId}) {
+							alert('로그인이 필요한 기능입니다.');
+							
+						}else{
+							
+							/* alert("좋아요를 누르셨습니다.")
+							getList(); */
+
+						}	
+				}else {
+					 getList(); 
+				}
+			}, 
+			
+			error : function(){
+				alert("데이터 통신 오류입니다.")
+			}
+			
+		})
+		
+		} else{
+			alert('로그인이 필요한 기능입니다.');
+		}
+		
+	});
+		 	
 		
 	
 /*
@@ -1233,6 +1298,16 @@ textarea {
     onlyWriter();
 
 	});
+	
+	
+	$(function(){
+        var id = '<%=(String)session.getAttribute("userId")%>';
+
+        if(id == "null") {
+             $("#re_content").attr("placeholder", "로그인한 유저만 작성할 수 있습니다.");
+             $("#replyBtn").attr("disabled","disabled");
+        }
+    });
 
 	</script>
 	

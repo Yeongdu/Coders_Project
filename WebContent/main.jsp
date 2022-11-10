@@ -32,7 +32,7 @@
 	}
 	
 	#container {
-	  width: 40em;
+	  width: 38em;
 	  padding: 0;
 	  margin: auto;
 	  height: 7em;
@@ -111,7 +111,7 @@
 	
 	#studyListContainer {
 		display: flex;
-		width: 40em;
+		width: 38em;
 		padding-bottom: 10px;
 		margin: auto;
 		align-items: center;
@@ -126,7 +126,7 @@
 	
 	.study_view_center {
 		flex: 3;
-		flex-grow: 7;
+		flex-grow: 8;
 		text-align: left;
 		font-size: 1em;
 		align-items: center;
@@ -453,7 +453,7 @@
 		background-size: cover; 
 		background-repeat: no-repeat;
 		background-position: center;
-			
+		cursor: pointer;
 	}
 	
 	
@@ -541,7 +541,7 @@
 		  </div>
 		  <div class="carousel-inner">
 		    <div class="carousel-item active">
-		      <img src="./upload/mainbanner1.png" class="d-block w-100" alt="..." onclick = "location.href = '<%=request.getContextPath() %>/main_notice'">
+		      <img src="./upload/mainbanner1.png" id= "notice" class="d-block w-100" alt="..." onclick = "window.open('https://grass-biplane-e2d.notion.site/CODEBOARD-43276e9f498c45eea6dcf7c8cdb13ee9')">
 		    </div>
 		    <div class="carousel-item">
 		      <img src="./upload/mainbanner2.png" class="d-block w-100" alt="...">

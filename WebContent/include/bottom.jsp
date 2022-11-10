@@ -50,7 +50,7 @@
 	}
 	
 	.container-center h6 {
-		color: white;
+		color: lightslategray;
 	}
 	
 	.container-left a {

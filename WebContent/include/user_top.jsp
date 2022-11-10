@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<body onresize="parent.resizeTo(800,600)" onload="parent.resizeTo(800,600)">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
@@ -64,21 +63,11 @@
 		font-weight: bold;
 	}
 	
-	#img{
-		position: absolute;
-	}
-	
-	#text{
-		position: relative;
-		cursor: pointer;
-	}
 	
 	
 </style>
 
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script src = "https://developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -116,8 +105,15 @@
 <body>
 	<nav class="navbar navbar-expand-lg bg-light">
 		<div class="container-fluid">
-			<a class="navbar-brand" id="logo" style="text-decoration: none; display: block;" href="main.jsp">
-				<img src="<%=request.getContextPath() %>/upload/logo.png">&nbsp;CODE BOARD&nbsp;&nbsp;
+			<a class="navbar-brand" id="logo" style="text-decoration: none; display: flex;" href="main.jsp">
+				<div>
+					<img src="<%=request.getContextPath() %>/upload/logo.png">
+				</div>
+				
+				<div>
+					<div>&nbsp;CODE</div> 
+					<div style="margin-top: -10px; margin-left: 30px;">BOARD&nbsp;&nbsp;</div>
+				</div>
 			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -150,8 +146,6 @@
 	</nav>
 	
 	<div id = "logoTitle" class="top">
-		<img src="<%=request.getContextPath() %>/upload/headerimg.png" style = "width:100%; height:200px;" id = "img">
-		<img src="<%=request.getContextPath() %>/upload/headertext.png" style = "width:100%; height:200px;" id = "text"
-				onclick= "location.href='main.jsp'">
+		<img src="<%=request.getContextPath() %>/upload/header.png" style = "width:100%; height:200px;"></a>
 	</div>
 

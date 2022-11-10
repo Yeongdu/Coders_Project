@@ -24,7 +24,7 @@
 	#logo {
 		color: #2b59c6;
 		font-weight: bold;
-		font-size: 1.4rem;
+		font-size: 1.2rem;
 	}
 	
 	.view_left{
@@ -130,7 +130,7 @@
 
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg bg-light">
+	<nav class="navbar navbar-expand-lg bg-light" style = "margin-bottom: -10px;">
 		<div class="container-fluid">
 			<a class="navbar-brand" id="logo" style="text-decoration: none; display: flex;" href="main.jsp">
 				<div>

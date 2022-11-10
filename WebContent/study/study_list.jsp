@@ -21,17 +21,6 @@ String Today = new java.text.SimpleDateFormat("yyyyMMdd").format(new java.util.D
 <head>
 <meta charset="UTF-8">
 <title>공부 게시판 전체 리스트</title>
-
-
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-	crossorigin="anonymous">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-	crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 
 <style type="text/css">
@@ -315,7 +304,7 @@ body .badge {
    right: 1%;
 }
 
-.serveyimg{
+.serveyimg{	
    width: 250px;
    height: 500px;
 }	
@@ -365,14 +354,6 @@ body .badge {
 					<span class="study_search_left" style="width: 28em"> 
 					<span class="col-lg"> 
 					<span class="input-group list-search-form w-70"> 
-<!-- 							<select -->
-<!-- 								name="search_field" class="custom-select col-sm-4" style = "width:8em;"> -->
-<!-- 									<option value="all">통합</option> -->
-<!-- 									<option value="title">제목</option> -->
-<!-- 									<option value="cont">내용</option> -->
-<!-- 									<option value="title_cont">제목+내용</option> -->
-<!-- 									<option value="writer">작성자</option> -->
-<!-- 							</select> -->
 							<input type="text" name="search_keyword" value="" class="form-control" style = "width:20em;"/>
 								<button type="submit" class="btn btn-secondary ml-1">
 									<i class="fa fa-search"></i> 검색
@@ -435,11 +416,6 @@ body .badge {
 
 							</a>
 						</div>
-						
-						
-						
-
-
 
 						<div class="study_view_right">
 
@@ -703,16 +679,6 @@ $(function() {
 
 	}).scroll();
 
-
-
-
-
-
-
-
-
-
-	
 });
 </script>
 	<script src="https://kit.fontawesome.com/7703fd875c.js"

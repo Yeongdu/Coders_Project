@@ -541,7 +541,7 @@ body .badge {
 
 	<%-- 댓글 폼 영역입니다. --%>
 	<div class="ReCount_wrap">
-		<div class="ReCount">${dto.study_reply}개의 댓글이 있습니다.</div>
+		<div id = "reply_data" class="ReCount">${dto.study_reply}개의 댓글이 있습니다.</div>
 	</div>
 	<div class="replyRap1">
 		<div class="replyRap" align="center">
@@ -555,8 +555,7 @@ body .badge {
 	</div>
 	<div class="commentInput_buttonWrapper">
 		<div class="commentInput_button">
-			<button type="button" class="btn btn-outline-secondary" id="replyBtn"
-				onclick="refreshPage();">댓글쓰기</button>
+			<button type="button" class="btn btn-outline-secondary" id="replyBtn">댓글쓰기</button>
 		</div>
 	</div>
 
@@ -690,10 +689,10 @@ body .badge {
 					if(data > 0) {
 						alert('댓글 작성 완료');
 						
-						refreshPage();
 						// 댓글 작성 후 다시 전체 댓글 리스트를
 						// 화면에 뿌려주면 됨.
 						getList();
+						$('#reply_data').load(location.href+' #reply_data');
 						
 						
 						// input 태그에 입력된 내용을 지워줌.
@@ -809,8 +808,8 @@ body .badge {
 			  success : function(data){
 				  if(data > 0){
 					  alert('댓글이 삭제되었습니다.')
-					  refreshPage();
 					  getList();
+					  $('#reply_data').load(location.href+' #reply_data');
 				  }else{
 					  alert('댓글 삭제에 실패했습니다.')
 				  }
@@ -953,7 +952,20 @@ body .badge {
 
 });
 </script>
+<script type="text/javascript">
 
+	
+	$(function(){
+		var id = '<%=(String)session.getAttribute("userId")%>';
+		
+		if(id == "null") {
+			 $("#re_content").attr("placeholder", "로그인한 유저만 작성할 수 있습니다.");
+			 $("#replyBtn").attr("disabled","disabled");
+		}	
+	});
+	
+
+</script>
 	<script src="https://kit.fontawesome.com/7703fd875c.js" crossorigin="anonymous"></script>
 </body>
 </html>

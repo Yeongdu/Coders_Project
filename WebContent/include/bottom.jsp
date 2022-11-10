@@ -14,6 +14,8 @@
 	footer {
 		margin-top: 100px;
 		background-color: #2b59c6;
+		
+
 	}
 	.footer-main {
 		align-items: center;
@@ -58,10 +60,14 @@
 		text-decoration: none;
 	}
 	
+	html {
+		positon: relative;
+		min-height: 100%;
+		margin: 0;
+	}
 	
 </style>
 </head>
-<body>
    
 	<footer>
 		<div class="footer-main">

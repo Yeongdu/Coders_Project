@@ -86,19 +86,24 @@ body {
 		<jsp:include page="../include/user_top.jsp" />
 	</c:if>
 
-	<form method="post" enctype="multipart/form-data"
-		action="<%=request.getContextPath()%>/studyboard_modify_ok.do">
 
-		<input type="hidden" name="study_no" value="${dto.getStudy_num() }">
-		<input type="hidden" name="study_writer"
-			value="${dto.getStudy_writer() }"> <br>
-			
-		<div align="center">
-			<h3 align="center" id = "study_title_1">⦁  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="<%=request.getContextPath() %>/studyBoard_list.do">Study</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ⦁</h3>
-		</div>
-			
-		<br>
-		<div class="align-middle">
+	<input type="hidden" name="study_no" value="${dto.getStudy_num() }">
+	<input type="hidden" name="study_writer"
+		value="${dto.getStudy_writer() }">
+	<br>
+
+	<div align="center">
+		<h3 align="center" id="study_title_1">
+			⦁ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a
+				href="<%=request.getContextPath()%>/studyBoard_list.do">Study</a>
+			&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ⦁
+		</h3>
+	</div>
+
+	<br>
+	<div class="align-middle">
+		<form method="post" enctype="multipart/form-data"
+			action="<%=request.getContextPath()%>/studyboard_modify_ok.do">
 			<div class="container col-md-6" style="width: 800px;">
 				<div class="card">
 					<div class="card-body">
@@ -109,16 +114,17 @@ body {
 						<h6 class="card-subtitle">
 							<i class="fa-regular fa-user"></i>&nbsp;${dto.getStudy_writer() }
 							&nbsp; <i class="fa-regular fa-clock"></i> ${dto.getStudy_date()}
-							&nbsp; <i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }</h6>
+							&nbsp; <i class="fa-regular fa-eye"></i> ${dto.getStudy_hit() }
+						</h6>
 						<br> <br>
 						<p>
 							<c:if test="${!empty dto.getStudy_file()}">
-					<img class="card-img"
-						src="<%=request.getContextPath()%>/study_upload/${dto.getStudy_file()}"
-						alt="" style="height: auto;margin-bottom: 14px;"/>
-				</c:if>
-				<c:if test="${empty dto.getStudy_file()}"></c:if> <br>
-				<input class="form-control" class="card-img"
+								<img class="card-img"
+									src="<%=request.getContextPath()%>/study_upload/${dto.getStudy_file()}"
+									alt="" style="height: auto; margin-bottom: 14px;" />
+							</c:if>
+							<c:if test="${empty dto.getStudy_file()}"></c:if>
+							<br> <input class="form-control" class="card-img"
 								type="file" name="study_file">
 						</p>
 						<p class="card-text">
@@ -150,26 +156,26 @@ body {
 							</div>
 						</div>
 
-
-
-
-
-
-
-
 						<div align="center">
-							<input class="btn btn-primary" type="submit" value="수정">
-							&nbsp;&nbsp; <input class="btn btn-outline-primary" type="reset"
-								value="리셋"> &nbsp;&nbsp; <input type="button" value="취소"
-								class="btn btn-outline-danger" onclick="history.back()">
+							<input class="btn btn-primary" type="submit" value="수정">&nbsp;&nbsp;
+
+							<input type="button" value="취소" class="btn btn-outline-danger"
+								onclick="history.back()">
 						</div>
 
 					</div>
 
 				</div>
 			</div>
+		</form>
+		<br>
+		<div align="center">
+			<div style="width: 800px" align="right">
+				<button class="btn btn-outline-primary"
+					onclick="window.location.reload()">수정사항 되돌리기</button>
+			</div>
 		</div>
-	</form>
+	</div>
 
 
 

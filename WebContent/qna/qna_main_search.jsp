@@ -107,6 +107,27 @@
     border: 0px;
 	
 }
+
+ .servey{
+   position: absolute;
+   width: 250px;
+   height: 500px;
+   top: 275px;
+   padding: 5px;
+   right: 1%;
+}
+
+.serveyimg{
+   width: 250px;
+   height: 500px;
+}
+
+@media screen and (max-width: 1400px) {
+	.servey {
+		display: none;
+	}
+}
+
 </style>
 </head>
 <body id  = "qna">
@@ -354,7 +375,14 @@
 				</c:if>
 			</div>
 		</div>
-<%-- 인기글 배너 end --%>		
+<%-- 인기글 배너 end --%>	
+
+
+<%-- 사이드 배너  (광고)--%>		
+	<div class = "servey" align = "right"  width = "250" height = "500">
+         <img class = "serveyimg" src="./upload/sidebanner.png" width = "250" height = "500">   
+     </div>		
+<%-- 사이드 배너 end --%>		
 
 
 		
@@ -389,6 +417,26 @@
 	    }, 700);
 
 	}).scroll();
+	
+
+	//사이드배너 광고//
+	// 기본 위치(top)값
+	var floatPosition = parseInt($(".servey").css('top'))
+
+	// scroll 인식
+	$(window).scroll(function() {
+	  
+	    // 현재 스크롤 위치
+	    var currentTop = $(window).scrollTop();
+	    var bannerTop = currentTop + floatPosition + "px";
+
+	    //이동 애니메이션
+	    $(".servey").stop().animate({
+	      "top" : bannerTop
+	    }, 700);
+
+	}).scroll();
+	
 </script>
 
 <script src="https://kit.fontawesome.com/c85ddd0cc6.js" crossorigin="anonymous"></script>

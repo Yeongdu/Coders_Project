@@ -19,6 +19,91 @@
 	crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <link rel = "stylesheet" href = "./css/qna_list_main.css">
+<style type="text/css">
+.btn.btn-primary_rank {
+	font-size: 0.6em;
+	width: 50px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 7px;
+	margin-bottom: 2px;
+}
+
+.btn.btn-outline-secondary_rank {
+	font-size: 0.6em;
+	width: 50px;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-bottom: 2px;
+	--bs-btn-disabled-border-color: gray;
+	--bs-btn-disabled-color: gray;
+}
+
+.sideBanner {
+	position: absolute;
+	width: 280px;
+	height: 266px;
+	top: 275px;
+	background-color: none;
+	color: #fffffff;
+	padding: 5px;
+}
+
+.sideBanner_study {
+	padding: 5px;
+	margin: 5px;
+	border: 1px dashed gray;
+}
+
+.sideBanner_qna {
+	padding: 5px;
+	margin: 5px;
+	border: 1px dashed gray;
+}
+
+.sideBanner a {
+	text-decoration: none;
+	font-size: 1em;
+}
+
+@media screen and (max-width: 1400px) {
+	.sideBanner {
+		display: none;
+	}
+}
+
+#qna .badge2 {
+	font-size: 0.6em;
+	width: 50px;
+	padding-left: 5px;
+	padding-right: 5px;
+	height: 29px;
+	margin-bottom: 2px;
+	--bs-badge-padding-y: 1em;
+    border-radius: 5px;
+    border: 0px;
+}
+
+ .servey{
+   position: absolute;
+   width: 250px;
+   height: 500px;
+   top: 275px;
+   padding: 5px;
+   right: 1%;
+}
+
+.serveyimg{
+   width: 250px;
+   height: 500px;
+}
+
+@media screen and (max-width: 1400px) {
+	.servey {
+		display: none;
+	}
+}
+</style>
 <script type="text/javascript">
 
 	function goSortCode() {
@@ -208,6 +293,92 @@
         </nav>
 		<%-- BootStrap을 이용한 페이징 처리 영역 끝 --%>
 		
+		<%-- 인기글 배너 --%>
+		<div class="sideBanner" align="left">
+			<div class="sideBanner_study">
+				<p align="center"
+					style="margin-bottom: 5px; border-bottom: 3px double #8080804f;">STUDY
+					게시판 인기글</p>
+				<c:set var="rlist" value="${rList }" />
+				<c:if test="${!empty rlist }">
+					<c:forEach items="${rlist }" var="rdto">
+						<div>
+
+							<a class="text-truncate"
+								href="<%=request.getContextPath()%>/studyBoard_content.do?no=${rdto.study_num }"
+								style="display: block; color: black;"> <c:if
+									test="${rdto.study_status eq '모집중' }">
+									<button type="button" class="btn btn-primary_rank" disabled>${rdto.study_status }</button>
+								</c:if> <c:if test="${rdto.study_status eq '모집완료' }">
+									<button type="button" class="btn btn-outline-secondary_rank"
+										disabled>${rdto.study_status }</button>
+								</c:if> <c:if test="${rdto.study_status eq '모집중' }">
+							&nbsp;<span style="font-size: 0.9em; color: black;">${rdto.getStudy_title() }</span>
+								</c:if> <c:if test="${rdto.study_status eq '모집완료' }">
+							&nbsp;<span style="font-size: 0.9em; color: gray;">${rdto.getStudy_title() }</span>
+								</c:if>
+							</a>
+
+						</div>
+					</c:forEach>
+				</c:if>
+				<c:if test="${empty rlist }">
+					<h3>인기 게시글이 없음</h3>
+				</c:if>
+			</div>
+
+
+			<div class="sideBanner_qna">
+				<p align="center"
+					style="margin-bottom: 5px; border-bottom: 3px double #8080804f;">Q&A
+					게시판 인기글</p>
+
+				<c:set var="qrlist" value="${qrList }" />
+				<c:if test="${!empty qrlist }">
+					<c:forEach items="${qrlist }" var="qrdto">
+
+						<div class="qna_Rank_view_center">
+							<a class="text-truncate"
+								href="<%=request.getContextPath()%>/qna_content.do?no=${qrdto.getQna_num() }"
+								style="display: block; text-decoration: none; font-size: 0.9em; color: black;"
+								class="etc"> <c:set var="tag" value="${qrdto.getQna_tag() }" />
+								<c:if test="${tag == 'JAVA'}">
+									<button type="button" class="badge2 text-bg-secondary">JAVA</button>
+								</c:if> <c:if test="${tag == 'HTML'}">
+									<button type="button" class="badge2 text-bg-primary">HTML</button>
+								</c:if> <c:if test="${tag == 'JAVASCRIPT'}">
+									<button type="button" class="badge2 text-bg-warning">JS</button>
+								</c:if> <c:if test="${tag == 'CSS'}">
+									<button type="button" class="badge2 text-bg-danger">CSS</button>
+								</c:if> <c:if test="${tag == 'JQUERY'}">
+									<button type="button" class="badge2 text-bg-success">JQUERY</button>
+								</c:if> <c:if test="${tag == 'DATABASE'}">
+									<button type="button" class="badge2 text-bg-info">DB</button>
+								</c:if> <c:if test="${tag == 'JSP'}">
+									<button type="button" class="badge2 text-bg-dark">JSP</button>
+								</c:if> <c:if test="${tag == 'ETC'}">
+									<button type="button" class="badge2 text-bg-light">ETC</button>
+								</c:if> <c:if test="${tag == null}">
+									<button type="button" class="badge2 text-bg-light">ETC</button>
+								</c:if> <%-- 표시할 프로그래밍 언어 다 표시하기 --%> &nbsp; <span id="title"
+								style="font-size: 0.9em;color: black;">${qrdto.getQna_title() }</span></a>
+						</div>
+
+					</c:forEach>
+				</c:if>
+				<c:if test="${empty qrlist }">
+					<h3>인기 게시글이 없음</h3>
+				</c:if>
+			</div>
+		</div>
+<%-- 인기글 배너 end --%>		
+
+<%-- 사이드 배너  (광고)--%>		
+	<div class = "servey" align = "right"  width = "250" height = "500">
+         <img class = "serveyimg" src="./upload/sidebanner.png" width = "250" height = "500">   
+     </div>		
+<%-- 사이드 배너 end --%>		
+		
 	</div> <%-- main의 end --%>
 	
 	<jsp:include page="../include/bottom.jsp" />
@@ -222,6 +393,23 @@
 			location.href = '<%=request.getContextPath() %>/qna_insert.do'
 		}
 	});
+	
+	// 기본 위치(top)값
+	var floatPosition = parseInt($(".sideBanner").css('top'))
+
+	// scroll 인식
+	$(window).scroll(function() {
+	  
+	    // 현재 스크롤 위치
+	    var currentTop = $(window).scrollTop();
+	    var bannerTop = currentTop + floatPosition + "px";
+
+	    //이동 애니메이션
+	    $(".sideBanner").stop().animate({
+	      "top" : bannerTop
+	    }, 700);
+
+	}).scroll();
 </script>
 
 <script src="https://kit.fontawesome.com/c85ddd0cc6.js" crossorigin="anonymous"></script>

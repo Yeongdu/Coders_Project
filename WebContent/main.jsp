@@ -227,7 +227,7 @@
   left: -webkit-calc(50% - 75px);
   left: calc(50% - 75px);
 
-  background-color: rgba(255,255,255,0.2);
+  background-color: rgba(43, 89, 198, 0.5);
 }
 
 .loader5:after{

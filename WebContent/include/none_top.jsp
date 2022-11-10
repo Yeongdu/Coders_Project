@@ -23,7 +23,7 @@
 	#logo {
 		color: #2b59c6;
 		font-weight: bold;
-		font-size: 1.4rem;
+		font-size: 1.2rem;
 	}
 	
 	.view_left{
@@ -100,8 +100,15 @@
 <body>
 	<nav class="navbar navbar-expand-lg bg-light">
 		<div class="container-fluid">
-			<a class="navbar-brand" id="logo" style="text-decoration: none; display: block;" href="main.jsp">
-				<img src="<%=request.getContextPath() %>/upload/logo.png">&nbsp;CODE BOARD
+			<a class="navbar-brand" id="logo" style="text-decoration: none; display: flex;" href="main.jsp">
+				<div>
+					<img src="<%=request.getContextPath() %>/upload/logo.png">
+				</div>
+				
+				<div>
+					<div>&nbsp;CODE</div> 
+					<div style="margin-top: -10px; margin-left: 30px;">BOARD&nbsp;&nbsp;</div>
+				</div>
 			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>

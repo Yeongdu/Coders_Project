@@ -25,10 +25,10 @@
 	.main a {
 	text-decoration: none;
 	}
+	
 	body {
 	cursor: url('<%=request.getContextPath()%>/qna_icon/cusor.png'),auto;
 	font-family: 'Noto Sans KR' !important;
-    min-width: 85.7142857143rem;
     width: 100%;
     margin: 0;
     background-color: #FBFBFC;

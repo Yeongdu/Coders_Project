@@ -124,7 +124,7 @@
 					</li>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" id="top" href="#" role="button" data-bs-toggle="dropdown">
-							PROFILE ▾
+							PROFILE
 						</a>
 						<ul class="dropdown-menu">
 							<li><a class="dropdown-item" href="<%=request.getContextPath()%>/profile.do">프로필 보기</a></li>

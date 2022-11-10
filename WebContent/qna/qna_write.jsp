@@ -271,7 +271,7 @@ body {
 					<input type="text" class="form-control"
 						id="exampleFormControlInput1"
 						placeholder="제목은 30자 까지만 입력할 수 있습니다." name="qna_title"
-						style="width: 100%; margin: 0;">
+						style="width: 100%; margin: 0;" required>
 				</div>
 
 			</div>
@@ -295,7 +295,7 @@ body {
 						<li id="qna_write_cont">
 							<div class="mb-3">
 								<textarea class="form-control" id="qna_content" rows="8"
-									name="qna_content" placeholder="내용을 입력하세요."></textarea>
+									name="qna_content" placeholder="내용을 입력하세요." required></textarea>
 							</div> <%-- 내용 영역의 end --%>
 						</li>
 

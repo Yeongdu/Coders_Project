@@ -20,52 +20,40 @@ public class QnaListAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		
-				// ����¡ ó�� �۾� ����
-				// �� �������� ������ �Խù��� ��
 				int rowsize = 10;
-				// �Ʒ��� ������ �������� �ִ� �� �� - ��) [1][2][3] / [4][5][6] / [7][8][9] / ....
+				
 				int block = 3;
 				
-				// DB���� �Խù��� ��ü ��
 				int totalRecord = 0;
-				// ��ü ������ �� - ��ü �Խù��� �� / �� ������ �� ������ �Խù��� ��
+				
 				int allPage = 0;
 				
-				int page = 0;		// ���� ������ ����
+				int page = 0;		
 				
 				if(request.getParameter("page") != null) {
 					page = Integer.parseInt(request.getParameter("page").trim());
 				}else {
-					// ó������ "��ü �Խù� ���" a �±׸� Ŭ���� ���
 					page = 1;
 				}
 				
-				// �ش� ���������� ���� ��ȣ
 				int startNo = (page * rowsize) - (rowsize -1);
 				
-				// �ش� ���������� ������ ��ȣ
 				int endNo = (page * rowsize);
 				
-				// �ش� ���������� ���� ��
 				int startBlock = (((page - 1) / block) * block) + 1;
 				
-				// �ش� ���������� �� ��
 				int endBlock = (((page - 1) / block) * block) + block;
 				
 				
 				QnaDAO dao = QnaDAO.getInstance();
-				// Qna �Խ����� ��ü �� ����
 				totalRecord = dao.getQnaCount();
 				
-				// ��ü �������� �� : ��ü �Խù��� ���� �� �������� ������ �Խù��� ���� ������
-				// ��ü ������ ���� ���� �� �������� ������ ������ ������ �� + 1(������ ���� ���� �κ�)
 				allPage = (int)Math.ceil(totalRecord / (double)rowsize);
 				
 				if(endBlock > allPage) {
 					endBlock = allPage;
 				}
 				
-				// ���� �������� �ش��ϴ� �Խù��� �������� �޼��� ȣ��(�ֽż�)
 				List<QnaDTO> qnaList = dao.getQnaList(page, rowsize);
 				
 				
@@ -75,9 +63,6 @@ public class QnaListAction implements Action {
 				List<QnaDTO> qrankList = dao.getQnaRankList();
 
 				
-				// ++++++++++ �亯�� �޾ƿ��� �޼��� ++++++
-				
-				// ����¡ ó�� �� �۾��ߴ� ��� ������ viewpage�� �̵�
 				request.setAttribute("page", page);
 				request.setAttribute("rowsize", rowsize);
 				request.setAttribute("block", block);

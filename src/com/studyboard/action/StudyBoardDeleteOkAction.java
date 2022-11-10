@@ -16,7 +16,6 @@ public class StudyBoardDeleteOkAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// ������ư Ŭ���� �Ѿ�� �۹�ȣȭ ��й�ȣ�� ������ DB���� �Խñ��� �����ϴ� �����Ͻ� ����.
 		int studyboard_no = 
 			    Integer.parseInt(request.getParameter("no").trim());
 		
@@ -50,7 +49,7 @@ public class StudyBoardDeleteOkAction implements Action {
 			forward.setPath("studyBoard_list.do");
 		} else {
 			out.println("<script>");
-			out.println("alert('������ ������ �� �����ϴ�.')");
+			out.println("alert('게시물 삭제에 실패하였습니다.')");
 			out.println("history.back()");
 			out.println("</script>");
 		}

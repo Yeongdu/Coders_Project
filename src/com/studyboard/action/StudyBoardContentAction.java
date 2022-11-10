@@ -17,7 +17,6 @@ public class StudyBoardContentAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// get������� �Ѿ�� �۹�ȣ�� �ش��ϴ� �Խñ��� �󼼳����� DB���� ��ȸ�ϴ� ����.
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
@@ -26,35 +25,28 @@ public class StudyBoardContentAction implements Action {
 		
 		StudyBoardDAO dao = StudyBoardDAO.getInstance();
 		
-		//�Խñ� ��ȸ���� ������Ű�� �޼��� ȣ��.
 		dao.StudyBoardHit(studyBoard_no);
 		
-		 List<StudyBoardDTO> rankList = dao.getStudyRankList();
+		List<StudyBoardDTO> rankList = dao.getStudyRankList();
 		 
-		 
-		 QnaDAO qdao = QnaDAO.getInstance();
-		 List<QnaDTO> qrankList = qdao.getQnaRankList();
-
-
-		 request.setAttribute("qrList", qrankList);
-
-
+		QnaDAO qdao = QnaDAO.getInstance();
 		
+		List<QnaDTO> qrankList = qdao.getQnaRankList();
 		
-		//�۹�ȣ�� �ش��ϴ� �󼼳����� ��ȸ�ϴ� �޼���
-	   StudyBoardDTO content = dao.StudyboardContent(studyBoard_no);
-	   
-	   request.setAttribute("Cont", content);
-	   request.setAttribute("rList", rankList);
-	   
-	   ActionForward forward = new ActionForward();
-	   
-	   forward.setRedirect(false);
-	   
-	   forward.setPath("study/studyboard_content.jsp");
-	   
+		request.setAttribute("qrList", qrankList);
 		
+		StudyBoardDTO content = dao.StudyboardContent(studyBoard_no);
+			   
+		request.setAttribute("Cont", content);
 		
+		request.setAttribute("rList", rankList);
+			   
+		ActionForward forward = new ActionForward();
+			   
+		forward.setRedirect(false);
+	   
+		forward.setPath("study/studyboard_content.jsp");
+	   
 		return forward;
 	}
 

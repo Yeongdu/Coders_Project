@@ -15,8 +15,6 @@ public class QnaModifyAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		//qna 게시글 수정
-		
 		int qna_no = Integer.parseInt(request.getParameter("no").trim());
 		
 		QnaDAO dao = QnaDAO.getInstance();

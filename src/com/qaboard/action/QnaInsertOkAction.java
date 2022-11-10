@@ -24,7 +24,7 @@ public class QnaInsertOkAction implements Action {
 
 			int fileSize = 5 * 1024 * 1024; 
 			
-			MultipartRequest multi = new MultipartRequest(request,qnaBoardWriteFolder,fileSize,"UTF-8",	new DefaultFileRenamePolicy());		
+			MultipartRequest multi = new MultipartRequest(request,qnaBoardWriteFolder,fileSize,"UTF-8");		
 			
 			String userId = multi.getParameter("userId").trim();
 			String code = multi.getParameter("code").trim();
@@ -57,7 +57,7 @@ public class QnaInsertOkAction implements Action {
 			forward.setPath("qna_list.do");
 		}else {
 			out.println("<script>");
-			out.println("alert('게시글 작성 실패')");
+			out.println("alert('게시물 등록에 실패하였습니다.')");
 			out.println("history.back()");
 			out.println("</script>");
 		}

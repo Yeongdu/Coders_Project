@@ -17,20 +17,14 @@ public class StudyBoardInsertAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// Study寃뚯떆�뙋�뿉 �깉 湲��쓣 異붽��븯�뒗 硫붿꽌�뱶
 
 		StudyBoardDTO dto = new StudyBoardDTO();
 
-		// 1. �뙆�씪 ���옣 寃쎈줈 �꽕�젙
 		String saveFolder = "D:\\git\\Coders_Project\\WebContent\\study_upload";
 
-		// 2. 泥⑤� �뙆�씪 �겕湲� 吏��젙
 		int fileSize = 20 * 1024 * 1024; // 20MB
 
-		// 3. MultipartRequest 媛앹껜 �깮�꽦 ==> �뙆�씪�뾽濡쒕뱶 吏꾪뻾�븯湲� �쐞�븳 媛앹껜 �깮�꽦
-		MultipartRequest multi = new MultipartRequest(request, saveFolder, fileSize, "UTF-8",
-				new DefaultFileRenamePolicy()); // �뙆�씪 �씠由� 媛숈� 寃쎌슦 以묐났�븞�릺寃� �꽕�젙
-
+		MultipartRequest multi = new MultipartRequest(request, saveFolder, fileSize, "UTF-8"); 
 		
 		String study_writer = multi.getParameter("study_writer").trim();
 		String study_title = multi.getParameter("study_title").trim();
@@ -60,7 +54,7 @@ public class StudyBoardInsertAction implements Action {
 			forward.setRedirect(true);
 			forward.setPath("studyBoard_list.do");
 		}else {
-			out.println("<script> alert('�뾽濡쒕뱶 �떎�뙣.'); history.back(); </script>");
+			out.println("<script> alert('게시물 등록에 실패하였습니다.'); history.back(); </script>");
 		}
 		
 		

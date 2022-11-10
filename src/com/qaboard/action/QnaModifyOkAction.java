@@ -29,8 +29,7 @@ public class QnaModifyOkAction implements Action {
 				request,
 				saveFolder,
 				fileSize,
-				"UTF-8",
-				new DefaultFileRenamePolicy()
+				"UTF-8"
 				);
 
 		int qna_no = Integer.parseInt(multi.getParameter("qna_num").trim());
@@ -72,7 +71,7 @@ public class QnaModifyOkAction implements Action {
 			
 		} else {
 			out.println("<script>");
-			out.println("alert('�Խñ� ������ �����Ͽ����ϴ�.')");
+			out.println("alert('게시물 수정에 실패하였습니다.");
 			out.println("history.back()");
 			out.println("</script>");
 		}

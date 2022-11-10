@@ -20,62 +20,46 @@ public class QnaSearchAction implements Action {
 		
 		String search_keyword = request.getParameter("search_keyword").trim();
 		
-		// ����¡ ó�� �۾� ����
-		// �� �������� ������ �Խù��� ��
 		int rowsize = 10;
-		// �Ʒ��� ������ �������� �ִ� �� �� - ��) [1][2][3] / [4][5][6] / [7][8][9] / ....
+
 		int block = 3;
 		
-		// DB���� �Խù��� ��ü ��
 		int totalRecord = 0;
-		// ��ü ������ �� - ��ü �Խù��� �� / �� ������ �� ������ �Խù��� ��
+
 		int allPage = 0;
 		
-		int page = 1;		// ���� ������ ����
+		int page = 1;		
 		
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page").trim());
 		}
 		
-		// �ش� ���������� ���� ��ȣ
 		int startNo = (page * rowsize) - (rowsize -1);
 		
-		// �ش� ���������� ������ ��ȣ
 		int endNo = (page * rowsize);
 		
-		// �ش� ���������� ���� ��
 		int startBlock = (((page - 1) / block) * block) + 1;
 		
-		// �ش� ���������� �� ��
 		int endBlock = (((page - 1) / block) * block) + block;
-		
 		
 		QnaDAO dao = QnaDAO.getInstance();
 		
-		// DB���� �˻� �Խù��� ���� Ȯ���ϴ� �޼��� ȣ��
 		totalRecord = dao.searchListCount(search_keyword);
 		
-		
 		StudyBoardDAO sdao = StudyBoardDAO.getInstance(); 
+		
 		List<StudyBoardDTO> rankList = sdao.getStudyRankList();
-
 
 		List<QnaDTO> qrankList = dao.getQnaRankList();
 		
-		
-		
-		// �˻� �������� �� : �˻� �Խù��� ���� �� �������� ������ �Խù��� ���� ������
-		// �˻� ������ ���� ���� �� �������� ������ ������ ������ �� + 1(������ ���� ���� �κ�)
 		allPage = (int)Math.ceil(totalRecord / (double)rowsize);
 		
 		if(endBlock > allPage) {
 			endBlock = allPage;
 		}
 		
-		// ���� �������� �ش��ϴ� �˻� �Խù��� �������� �޼��� ȣ��
 		List<QnaDTO> searchList = dao.searchQnaList(search_keyword, page, rowsize);
 		
-		// ����¡ ó�� �� �۾��ߴ� ��� ������ viewpage�� �̵�
 		request.setAttribute("page", page);
 		request.setAttribute("rowsize", rowsize);
 		request.setAttribute("block", block);

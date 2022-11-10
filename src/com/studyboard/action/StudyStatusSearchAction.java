@@ -21,7 +21,6 @@ public class StudyStatusSearchAction implements Action {
 		String search_keyword = request.getParameter("search_keyword").trim();
 		
 //		System.out.println("search_field >>>" +search_field);
-		System.out.println("search_keyword >>>" +search_keyword);
 		 
 		int rowsize = 10;
 

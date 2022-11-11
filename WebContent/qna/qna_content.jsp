@@ -913,7 +913,7 @@ textarea {
 						//자기가 작성한 글에만 수정.삭제 버튼 띄우기 
 						table += "<td class='buttonwrap'colspan='6' align = 'left'";
 						
-						 if('${userId}' == $(this).find("qcomment_writer").text()){
+						 if('${userId}' == $(this).find("qcomment_writer").text() || '${userId}' == 'admin@hotmail.com'){
 		                     table += " style='display: block;'>";
 		                     }else {
 		                     table += " style='display: none;'>";
@@ -975,9 +975,15 @@ textarea {
 						/////////////////6행 수정 폼 창 
 						table += "<tr class = 'modifyForm' style='display: none;'>";
 				      	table += "<td align = 'left'>";
-                	 	table += "<textarea  class = 'modifyCodeArea' type='text' placeholder = '로그인이 필요한 기능입니다.'>" + $(this).find("qcomment_code").text() +"</textarea>" + 
+                	 	table += "<textarea  class = 'modifyCodeArea' type='text' placeholder = '로그인이 필요한 기능입니다.'>";
+                	 	if("null" != $(this).find("qcomment_code").text()){
+                	 		table += $(this).find("qcomment_code").text() + "</textarea>";
+                	 	}else {
+                	 		table += "</textarea>";
+                	 	}
+                	 	/* + $(this).find("qcomment_code").text() +"</textarea>" + */ 
                 	 	
-                	 				 "<textarea class = 'modifyContArea' type='text' placeholder = '로그인이  필요한 기능입니다.'>" + $(this).find("qcomment_cont").text() + "</textarea>" + "</td>";
+                	 	table += "<textarea class = 'modifyContArea' type='text' placeholder = '로그인이  필요한 기능입니다.'>" + $(this).find("qcomment_cont").text() + "</textarea>" + "</td>";
                 	 	
                 	 	table += "</tr>";
 						
@@ -1258,34 +1264,57 @@ textarea {
  */
 	
 	
-	//// 글쓴 사람만 studyEditDelete studyComplete 보이는 함수, 
+	//// 글쓴 사람만 qnaEditDelete qnaComplete 보이는 함수, 
 	// 글쓴 사람만 수정, 삭제, 모집완료처리 할수 있다. 모집중인 상태에서만 모집완료 버튼 보인다.
     function onlyWriter(){
-            if(${userId == dto.qna_writer}){
-                $('.qnaEditDelete').show();
-                $('#qnaDeleteIcon').on({
-                	  click: function () {
-                		  if(${userId == dto.qna_writer}){
-                	    		 var result = confirm('게시글을 삭제하시겠습니까?');
-                	    	        if(result) {
-                	    	        	//yes
-                	    	        	location.href='qna_delete.do?no=${dto.qna_num }';
-                	    	        	} else {
-                	    	        		//no
-                	    	        		return;
-                	    	        		}
-                	    	        }
-                		  }
-                });
-                $('#qnaEditIcon').on({
-                	click: function () {
-                		if(${userId == dto.qna_writer}){
-                			location.href='qna_modify.do?no=${dto.qna_num }';}
-                		}
-                });
-                }
-            }
-    onlyWriter();
+        if(${userId == dto.qna_writer}){
+            $('.qnaEditDelete').show();
+            $('#qnaDeleteIcon').on({
+            	  click: function () {
+            		  if(${userId == dto.qna_writer}){
+            	    		 var result = confirm('게시글을 삭제하시겠습니까?');
+            	    	        if(result) {
+            	    	        	//yes
+            	    	        	location.href='qna_delete.do?no=${dto.getQna_num() }';
+            	    	        	} else {
+            	    	        		//no
+            	    	        		return;
+            	    	        		}
+            	    	        }
+            		  }
+            });
+            $('#qnaEditIcon').on({
+            	click: function () {
+            		if(${userId == dto.qna_writer}){
+            			location.href="qna_modify_ok.do?no=${dto.getQna_num() }";}
+            		}
+            });
+            }else if(${userId == 'admin@hotmail.com'}){
+            	$('.qnaEditDelete').show();
+        $('#qnaDeleteIcon').on({
+      	  click: function () {
+      		  if(${userId == 'admin@hotmail.com'}){
+      	    		 var result = confirm('관리자 권한으로 게시글을 삭제하시겠습니까?');
+      	    	        if(result) {
+      	    	        	//yes
+      	    	        	location.href='qna_delete.do?no=${dto.getQna_num() }';
+      	    	        	} else {
+      	    	        		//no
+      	    	        		return;
+      	    	        		}
+      	    	        }
+      		  }
+      });
+      $('#qnaEditIcon').on({
+      	click: function () {
+      		if(${userId == 'admin@hotmail.com'}){
+      			alert('관리자는 게시글 삭제만 가능합니다.');
+      			}
+      		}
+      });
+      }
+        }
+onlyWriter();
 
 	});
 	

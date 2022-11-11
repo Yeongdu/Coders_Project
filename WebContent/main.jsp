@@ -28,7 +28,7 @@
 	}
 	
 	#container {
-	  width: 38em;
+	  width: 40em;
 	  padding: 0;
 	  margin: auto;
 	  height: 7em;
@@ -107,7 +107,7 @@
 	
 	#studyListContainer {
 		display: flex;
-		width: 38em;
+		width: 40em;
 		padding-bottom: 10px;
 		margin: auto;
 		align-items: center;
@@ -474,8 +474,8 @@
 
 	
 	.inner{
-		margin-bottom: 50px;
     	display: flex;
+    	h4{}
 	}	
 	
 	
@@ -537,7 +537,7 @@
 		  </div>
 		  <div class="carousel-inner">
 		    <div class="carousel-item active">
-		      <img src="./upload/mainbanner1.png" class="d-block w-100" alt="..." onclick = "https://grass-biplane-e2d.notion.site/CODEBOARD-43276e9f498c45eea6dcf7c8cdb13ee9">
+		      <img src="./upload/mainbanner1.png" class="d-block w-100" alt="..." onclick = "location.href = 'https://grass-biplane-e2d.notion.site/CODEBOARD-43276e9f498c45eea6dcf7c8cdb13ee9'">
 		    </div>
 		    <div class="carousel-item">
 		      <img src="./upload/mainbanner2.png" class="d-block w-100" alt="...">

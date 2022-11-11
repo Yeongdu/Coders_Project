@@ -987,12 +987,15 @@
 				$(data).find("main").each(function(){
 					
 					let today = new Date().getTime();
+					
 					let today_n = Math.floor(today / (1000*60*60*24));
 					
-					let endDate = new Date($(this).find("date").text()).getTime();
-					let endDate_n = Math.floor(endDate / (1000*60*60*24));
+					let endDate_d = $(this).find("date").text().substr(0,10);
+					let endDate_t = new Date(endDate_d).getTime();
 					
-					let day = endDate_n - today_n + 1;
+					let endDate_n = Math.floor(endDate_t / (1000*60*60*24));
+					
+					let day = endDate_n - today_n;
 					
 					if(count < 5) {
 						
@@ -1081,12 +1084,15 @@
 					$(data).find("main").each(function(){
 						
 						let today = new Date().getTime();
+						
 						let today_n = Math.floor(today / (1000*60*60*24));
 						
-						let endDate = new Date($(this).find("date").text()).getTime();
-						let endDate_n = Math.floor(endDate / (1000*60*60*24));
+						let endDate_d = $(this).find("date").text().substr(0,10);
+						let endDate_t = new Date(endDate_d).getTime();
 						
-						let day = endDate_n - today_n + 1;
+						let endDate_n = Math.floor(endDate_t / (1000*60*60*24));
+						
+						let day = endDate_n - today_n;
 							
 						table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 36em; height: 7em;'><br>"
 						table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
@@ -1168,12 +1174,15 @@
 					$(data).find("main").each(function(){
 						
 						let today = new Date().getTime();
+						
 						let today_n = Math.floor(today / (1000*60*60*24));
 						
-						let endDate = new Date($(this).find("date").text()).getTime();
-						let endDate_n = Math.floor(endDate / (1000*60*60*24));
+						let endDate_d = $(this).find("date").text().substr(0,10);
+						let endDate_t = new Date(endDate_d).getTime();
 						
-						let day = endDate_n - today_n + 1;
+						let endDate_n = Math.floor(endDate_t / (1000*60*60*24));
+						
+						let day = endDate_n - today_n;
 						
 						if(count < 5) {
 							
@@ -1273,12 +1282,15 @@
 					if(count < 5) {
 						
 						let today = new Date().getTime();
+						
 						let today_n = Math.floor(today / (1000*60*60*24));
 						
-						let endDate = new Date($(this).find("date").text()).getTime();
-						let endDate_n = Math.floor(endDate / (1000*60*60*24));
+						let endDate_d = $(this).find("date").text().substr(0,10);
+						let endDate_t = new Date(endDate_d).getTime();
 						
-						let day = endDate_n - today_n + 1;
+						let endDate_n = Math.floor(endDate_t / (1000*60*60*24));
+						
+						let day = endDate_n - today_n;
 						
 						table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 36em; height: 7em;'><br>"
 						table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
@@ -1365,12 +1377,15 @@
 					$(data).find("main").each(function(){
 						
 						let today = new Date().getTime();
+						
 						let today_n = Math.floor(today / (1000*60*60*24));
 						
-						let endDate = new Date($(this).find("date").text()).getTime();
-						let endDate_n = Math.floor(endDate / (1000*60*60*24));
+						let endDate_d = $(this).find("date").text().substr(0,10);
+						let endDate_t = new Date(endDate_d).getTime();
 						
-						let day = endDate_n - today_n + 1;
+						let endDate_n = Math.floor(endDate_t / (1000*60*60*24));
+						
+						let day = endDate_n - today_n;
 						
 						table += "<div id='studyListContainer_top' class='border-bottom' align='center' style='width: 36em; height: 7em;'><br>"
 						table += "<div class='study_view_top' align='left' style='margin-left: 5px; color: gray; font-size: 0.7em;'><div>"
@@ -1452,12 +1467,15 @@
 					$(data).find("main").each(function(){
 						
 						let today = new Date().getTime();
+						
 						let today_n = Math.floor(today / (1000*60*60*24));
 						
-						let endDate = new Date($(this).find("date").text()).getTime();
-						let endDate_n = Math.floor(endDate / (1000*60*60*24));
+						let endDate_d = $(this).find("date").text().substr(0,10);
+						let endDate_t = new Date(endDate_d).getTime();
 						
-						let day = endDate_n - today_n + 1;
+						let endDate_n = Math.floor(endDate_t / (1000*60*60*24));
+						
+						let day = endDate_n - today_n;
 						
 						if(count < 5) {
 							

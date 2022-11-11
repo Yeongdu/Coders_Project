@@ -1724,10 +1724,10 @@
 						</header>
 						<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 						  	<li class="nav-item" role="presentation">
-						   		<a class="nav-link active" id="pills-study-questions-tab" data-bs-toggle="pill" data-bs-target="#pills-study-questions" type="button" role="tab" aria-controls="pills-study-questions" aria-selected="true">질문 ${studyboardcount }</a>
+						   		<a class="nav-link active" id="pills-study-questions-tab" data-bs-toggle="pill" data-bs-target="#pills-study-questions" type="button" role="tab" aria-controls="pills-study-questions" aria-selected="true">게시글 ${studyboardcount }</a>
 						 	</li>
 						  	<li class="nav-item" role="presentation">
-						    	<a class="nav-link" id="pills-study-answers-tab" data-bs-toggle="pill" data-bs-target="#pills-study-answers" type="button" role="tab" aria-controls="pills-study-answers" aria-selected="false">답변 ${studycomment }</a>
+						    	<a class="nav-link" id="pills-study-answers-tab" data-bs-toggle="pill" data-bs-target="#pills-study-answers" type="button" role="tab" aria-controls="pills-study-answers" aria-selected="false">댓글 ${studycomment }</a>
 						  	</li>
 						</ul>
 						<!-- 탭 타이틀 -->

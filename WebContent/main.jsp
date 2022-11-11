@@ -474,8 +474,8 @@
 
 	
 	.inner{
+		margin-bottom: 50px;
     	display: flex;
-    	h4{}
 	}	
 	
 	

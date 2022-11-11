@@ -9,9 +9,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-
 <!-- KaKao Login Js -->
 <script src = "https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <!-- KaKao Login Js -->
@@ -69,7 +66,30 @@
 
 	#container{
 		margin-top: 10%;
-		width: 35%;
+		width: 60%;
+	}
+	
+	.users-show .content {
+    padding-top: 1.7142857143rem;
+	}
+	
+	.main>.content>.content-wrap {
+    max-width: 85.7142857143rem;
+    width: 85.7142857143rem;
+    margin: 0 auto;
+    padding-left: 3.5714285714rem;
+    padding-right: 3.5714285714rem;
+	}
+	
+	.users-show .content-wrap {
+    z-index: 2;
+    box-shadow: 4px 4px 8px -2px rgb(50 50 100 / 16%), 16px 16px 24px rgb(50 50 100 / 8%), 24px 24px 56px rgb(50 50 100 / 12%);
+    background-color: white;
+    padding-top: 3.1428571429rem;
+    padding-bottom: 3.5714285714rem;
+    min-height: 64.2857142857rem;
+    min-width: 85.7142857143rem;
+    border-radius: 0.2142857143rem;
 	}
 	.text-on-pannel {
 	  background: #fff none repeat scroll 0 0;
@@ -313,131 +333,137 @@
 	}
 </style>
 </head>
-<body>
+<body  id="qna" class="users users-show" style="background-color: #2b59c6;" >
 
 	<c:if test="${empty userId }">
 	<jsp:include page="../include/none_top.jsp" />
 	</c:if>
-
-<div class="container" id="container">
-  <div class="panel" id="panel">
-    <div class="panel-body">
-			<form class="form" method="post" action="<%=request.getContextPath()%>/user_login_ok.do">
-			<input type="hidden" name="token" value="user">
-				<div class="login">
-					  <h3 class="text-on-pannel text-primary" id="text"><strong class="text-uppercase"><p><a style="text-decoration: none; color: white;" href="<%=request.getContextPath() %>/main.jsp">CODE BOARD</a></p> </strong></h3>
-					<div class="login_sns">
-						<li>
-						<!-- kakao 로그인 버튼 노출 영역 -->
-							<a href="javascript:kakaoLogin();">
-								<img src="<%=request.getContextPath() %>/upload/kakaoicon.png">
-							</a>
-						<!-- kakao 로그인 버튼 노출 영역 -->
-						</li>
-									
-						<li>
-						<!-- naver 로그인 버튼 노출 영역 -->
-							<div id="naverIdLogin" style="display: none;"></div>
-							<!-- 커스텀 버튼 -->
-								<a href="#" class="naver-login" id="naverLogin">
-									<img src="<%=request.getContextPath() %>/upload/navericon.png">
-								</a> 
-							<!-- 커스텀 버튼 -->
-						<!-- naver 로그인 버튼 노출 영역 -->
-						
-						<!-- naver 로그인 -->
-							<script type="text/javascript">
-								var naverLogin = new naver.LoginWithNaverId(
-									{
-									clientId: "QUJaCNWazN945TqXtLvx",
-									callbackUrl: "http://localhost:8282/Project/Login/callback.jsp",
-									isPopup: false, /* 팝업을 통한 연동처리 여부 */
-									loginButton: {color: "green", type: 3, height: 60} /* 로그인 버튼의 타입을 지정 */
-									}
-								);
-							
-								/* 설정정보를 초기화하고 연동을 준비 */
-								naverLogin.init();
-														
-								const handleClick = () => {
-									naverRef.current.children[0].click();
-								}
-												
-								/* 이미지 버튼 클릭시 dispaly: none; 이 된 div id=naverIdLogin 실행*/
-								$(document).on("click", "#naverLogin", function(){
-									var naverLogin = document.getElementById("naverIdLogin").firstChild;
-									naverLogin.click();
-								});
-							</script>
-							<!-- naver 로그인 end -->
-						</li>
-									
-						<li>
-						<!-- google 로그인 버튼 노출 영역 -->
-							<div id="g_id_onload"
-								data-client_id="245672184873-e9t0u3q9anovb5il16eb6dkthv0r8go4.apps.googleusercontent.com"
-								data-callback="handleCredentialResponse">
-							</div>
-							<div class="g_id_signin" id="googleIdLogin" data-type="icon" data-shape="circle"></div>
-						<!-- google 로그인 버튼 노출 영역 -->
+	
+	<div class="main">
+		<div class="content clearfix">
+			<div class="content-wrap clearfix">
+				<div class="container" id="container">
+				  <div class="panel" id="panel">
+				    <div class="panel-body">
+						<form class="form" method="post" action="<%=request.getContextPath()%>/user_login_ok.do">
+							<input type="hidden" name="token" value="user">
+								<div class="login">
+									<h3 class="text-on-pannel text-primary" id="text"><strong class="text-uppercase"><p><a style="text-decoration: none; color: white;" href="<%=request.getContextPath() %>/main.jsp">CODE BOARD</a></p> </strong></h3>
+									<div class="login_sns">
+										<li>
+										<!-- kakao 로그인 버튼 노출 영역 -->
+											<a href="javascript:kakaoLogin();">
+												<img src="<%=request.getContextPath() %>/upload/kakaoicon.png">
+											</a>
+										<!-- kakao 로그인 버튼 노출 영역 -->
+										</li>
+													
+										<li>
+										<!-- naver 로그인 버튼 노출 영역 -->
+											<div id="naverIdLogin" style="display: none;"></div>
+											<!-- 커스텀 버튼 -->
+												<a href="#" class="naver-login" id="naverLogin">
+													<img src="<%=request.getContextPath() %>/upload/navericon.png">
+												</a> 
+											<!-- 커스텀 버튼 -->
+										<!-- naver 로그인 버튼 노출 영역 -->
+										
+										<!-- naver 로그인 -->
+											<script type="text/javascript">
+												var naverLogin = new naver.LoginWithNaverId(
+													{
+													clientId: "QUJaCNWazN945TqXtLvx",
+													callbackUrl: "http://localhost:8282/Project/Login/callback.jsp",
+													isPopup: false, /* 팝업을 통한 연동처리 여부 */
+													loginButton: {color: "green", type: 3, height: 60} /* 로그인 버튼의 타입을 지정 */
+													}
+												);
 											
-						<!-- goolge 로그인 -->
-							<script>
-								function handleCredentialResponse(response) {
-																        	
-									console.log("Encoded JWT ID token: " + response.credential);
-																          
-									const responsePayload = parseJwt(response.credential);
-																          
-									var nickname = responsePayload.name;
-									var id = responsePayload.email;
-																          
-									location.href="<%=request.getContextPath()%>/social_login_ok.do?id="+id+"&nickname="+nickname+"&token=user";
-								}
-																        
-								function parseJwt (token) {
-									var base64Url = token.split('.')[1];
-									var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-									var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-									return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-								}).join(''));
+												/* 설정정보를 초기화하고 연동을 준비 */
+												naverLogin.init();
+																		
+												const handleClick = () => {
+													naverRef.current.children[0].click();
+												}
 																
-								return JSON.parse(jsonPayload);
-								};
-										        
-							</script>
-						<!-- google 로그인 end -->
-						</li>
-					</div>
-								
-					<div class="login_input">
-						<h5><b>*</b> E-mail</h5>
-						<input type="email" class="form-control" name="id" placeholder="Email" required>
-					</div>
-					            
-					<div class="login_input">
-						<h5><b>*</b> Password</h5>
-						<input type="password" class="form-control" name="pwd" placeholder="Password" required>
-					</div>
-					            
-					<div class="login_etc">
-						<div class="sign_up">
-							<a class="nav-link" href="#myModal2" data-bs-toggle="modal" id="atag1">Sign up</a>
+												/* 이미지 버튼 클릭시 dispaly: none; 이 된 div id=naverIdLogin 실행*/
+												$(document).on("click", "#naverLogin", function(){
+													var naverLogin = document.getElementById("naverIdLogin").firstChild;
+													naverLogin.click();
+												});
+											</script>
+											<!-- naver 로그인 end -->
+										</li>
+													
+										<li>
+										<!-- google 로그인 버튼 노출 영역 -->
+											<div id="g_id_onload"
+												data-client_id="245672184873-e9t0u3q9anovb5il16eb6dkthv0r8go4.apps.googleusercontent.com"
+												data-callback="handleCredentialResponse">
+											</div>
+											<div class="g_id_signin" id="googleIdLogin" data-type="icon" data-shape="circle"></div>
+										<!-- google 로그인 버튼 노출 영역 -->
+															
+										<!-- goolge 로그인 -->
+											<script>
+												function handleCredentialResponse(response) {
+																				        	
+													console.log("Encoded JWT ID token: " + response.credential);
+																				          
+													const responsePayload = parseJwt(response.credential);
+																				          
+													var nickname = responsePayload.name;
+													var id = responsePayload.email;
+																				          
+													location.href="<%=request.getContextPath()%>/social_login_ok.do?id="+id+"&nickname="+nickname+"&token=user";
+												}
+																				        
+												function parseJwt (token) {
+													var base64Url = token.split('.')[1];
+													var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+													var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+													return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+												}).join(''));
+																				
+												return JSON.parse(jsonPayload);
+												};
+														        
+											</script>
+										<!-- google 로그인 end -->
+										</li>
+									</div>
+												
+									<div class="login_input">
+										<h5><b>*</b> E-mail</h5>
+										<input type="email" class="form-control" name="id" placeholder="Email" required>
+									</div>
+									            
+									<div class="login_input">
+										<h5><b>*</b> Password</h5>
+										<input type="password" class="form-control" name="pwd" placeholder="Password" required>
+									</div>
+									            
+									<div class="login_etc">
+										<div class="sign_up">
+											<a class="nav-link" href="#myModal2" data-bs-toggle="modal" id="atag1">Sign up</a>
+										</div>
+									                
+										<div class="forgot_pw">
+											<a class="nav-link" href="#myModal3" data-bs-toggle="modal" id="atag2">Forgot Password?</a>
+										</div>
+									</div>
+									            
+									<div class="submit">
+										<input class="submit_btn"type="submit" value="Login">
+									</div>
+								</div>
+							</form>
 						</div>
-					                
-						<div class="forgot_pw">
-							<a class="nav-link" href="#myModal3" data-bs-toggle="modal" id="atag2">Forgot Password?</a>
-						</div>
-					</div>
-					            
-					<div class="submit">
-						<input class="submit_btn"type="submit" value="Login">
 					</div>
 				</div>
-			</form>
+			</div>
 		</div>
-		</div>
-  </div>
+	</div>
   
   	<jsp:include page="../include/bottom.jsp" />
 <!-- 로그인 end -->

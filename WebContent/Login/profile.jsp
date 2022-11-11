@@ -13,6 +13,10 @@
 	@import
 	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap')
 	;
+	
+	html {
+	scroll-behavior: smooth;
+	}
 
 	* {
 	box-sizing: inherit;
@@ -148,7 +152,7 @@
     list-style: none;
 	}
 	
-	.tab-content>.active {
+	#tab-content>.active {
     display: block;
 	}
 	
@@ -159,7 +163,7 @@
 	  height: 7em;
 	}
 	
-	.tab {
+	#tab {
 		display: flex;
 		align-items: stretch;
 	}
@@ -178,7 +182,7 @@
 		flex: 0.6;
 	}
 	
-	#container:hover{
+	#container_main:hover{
 		background-color: #f7f7f7;
 	}
 	
@@ -490,7 +494,7 @@
 					if(count < 5) {
 						
 						
-						table += "<div id='container' class='border-bottom'>"
+						table += "<div id='container_main' class='border-bottom'>"
 						table += "<div class='qna_view_left' aling='left' style='margin-left: 5px; color: gray; font-size:0.7em'><br><div>"
 						table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
 						table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
@@ -570,7 +574,7 @@
 					$(data).find("main").each(function(){
 							
 						
-						table += "<div id='container' class='border-bottom'>"
+						table += "<div id='container_main' class='border-bottom'>"
 						table += "<div class='qna_view_left' aling='left' style='margin-left: 5px; color: gray; font-size:0.7em'><br><div>"
 						table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
 						table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
@@ -644,7 +648,7 @@
 						if(count < 5) {
 							
 							
-							table += "<div id='container' class='border-bottom'>"
+							table += "<div id='container_main' class='border-bottom'>"
 							table += "<div class='qna_view_left' aling='left' style='margin-left: 5px; color: gray; font-size:0.7em'><br><div>"
 							table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
 							table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
@@ -705,6 +709,10 @@
 				}
 			});
 			
+			var offset = $("#tab").offset();
+			
+			$("html, body").animate({scrollTop: offset.top}, 100);
+			
 		});
 
 /*------------------------------------------------------------------------------------------------------------------------------------------------- */
@@ -729,7 +737,7 @@
 					if(count < 5) {
 						
 						
-						table += "<div id='container' class='border-bottom'>"
+						table += "<div id='container_main' class='border-bottom'>"
 						table += "<div class='qna_view_left' aling='left' style='margin-left: 5px; color: gray; font-size:0.7em'><br><div>"
 						table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
 						table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
@@ -807,7 +815,7 @@
 					$(data).find("main").each(function(){
 							
 						
-						table += "<div id='container' class='border-bottom'>"
+						table += "<div id='container_main' class='border-bottom'>"
 						table += "<div class='qna_view_left' aling='left' style='margin-left: 5px; color: gray; font-size:0.7em'><br><div>"
 						table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
 						table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
@@ -881,7 +889,7 @@
 						if(count < 5) {
 							
 							
-							table += "<div id='container' class='border-bottom'>"
+							table += "<div id='container_main' class='border-bottom'>"
 							table += "<div class='qna_view_left' aling='left' style='margin-left: 5px; color: gray; font-size:0.7em'><br><div>"
 							table += "<i class='fa-regular fa-user'></i> &nbsp;"+$(this).find("writer").text()
 							table += "&nbsp;&nbsp; <i class='fa-regular fa-eye'></i>&nbsp;"+$(this).find("hit").text()
@@ -941,6 +949,10 @@
 					alert("데이터 통신 오류입니다.");
 				}
 			});
+			
+			var offset = $("#tab").offset();
+			
+			$("html, body").animate({scrollTop: offset.top}, 100);
 			
 		});
 		
@@ -1218,8 +1230,13 @@
 				
 				error : function(data){
 					alert("데이터 통신 오류입니다.");
+					
 				}
 			});
+			
+			var offset = $("#tab").offset();
+			
+			$("html, body").animate({scrollTop: offset.top}, 100);
 			
 		});
 		
@@ -1492,13 +1509,19 @@
 						
 					}
 					
+					
 					$("#studycomment").append(table);
+					
 				},
 				
 				error : function(data){
 					alert("데이터 통신 오류입니다.");
 				}
 			});
+			
+			var offset = $("#tab").offset();
+			
+			$("html, body").animate({scrollTop: offset.top}, 100);
 			
 		});
 		
@@ -1642,7 +1665,7 @@
 				<!-- 유저 인포 -->
 				
 				
-				<div class="tab">
+				<div id="tab" class="tab">
 					<!-- qna 탭 -->
 					<div class="qnatab">
 						<header>

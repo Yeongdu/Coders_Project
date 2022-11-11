@@ -8,6 +8,15 @@
 
 <style type="text/css">
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap')
+	;
+
+	body {
+		font-family: 'Noto Sans KR' !important;
+	}
+	
 	#top {
 		color: white;
 		font-size: 1.05rem;
@@ -55,12 +64,12 @@
     	font-weight: bold;
 	}
 	
-		#top:hover{
-		color: #2b59c6;
-		transform: scale(1.25);
-		transiton-duration: 0.5s;
-		text-shadow: none;
-		font-weight: bold;
+	#top:hover{
+	color: #2b59c6;
+	transiton-duration: 0.5s;
+	text-shadow: none;
+	font-weight: bold;
+	text-shadow: 1px 1px 2px gray;
 	}
 	
 /* 	#img{

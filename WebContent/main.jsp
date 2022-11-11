@@ -537,7 +537,7 @@
 		  </div>
 		  <div class="carousel-inner">
 		    <div class="carousel-item active">
-		      <img src="./upload/mainbanner1.png" class="d-block w-100" alt="..." onclick = "location.href = '<%=request.getContextPath() %>/main_notice'">
+		      <img src="./upload/mainbanner1.png" class="d-block w-100" alt="..." onclick = "https://grass-biplane-e2d.notion.site/CODEBOARD-43276e9f498c45eea6dcf7c8cdb13ee9">
 		    </div>
 		    <div class="carousel-item">
 		      <img src="./upload/mainbanner2.png" class="d-block w-100" alt="...">

@@ -643,12 +643,12 @@ body .badge {
 
 	<jsp:include page="../include/bottom.jsp" />
 	<script type="text/javascript">
-$(function() {
 	
-	 $(window).on('load', function () {
+	$(window).on('load', function () {
 	      $("#load").hide();
 	 });
-	 
+	
+$(function() {
 	$("#studyWrite_btn").click(function(){
         if(${empty userId}) {
             alert('로그인한 이용자만 이용할 수 있습니다.');

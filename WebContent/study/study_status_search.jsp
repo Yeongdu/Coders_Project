@@ -587,35 +587,35 @@ body .badge {
 
 
 
-		<%-- BootStrap을 이용한 페이징 처리 영역 --%>
+	<%-- BootStrap을 이용한 페이징 처리 영역 --%>
 		<nav>
 			<ul class="pagination">
 				<li class="page-item"><a class="page-link"
-					href="status_search.do?page=1&search_field=${field}&search_keyword=${keyword }">First</a></li>
+					href="study_status_search.do?page=1&search_field=${field}&search_keyword=${keyword }">First</a></li>
 				<c:choose>
 					<c:when test="${ (page - 1) == 0}">
-						<li><a class="page-link" href="status_search.do?page=1&search_field=${field}&search_keyword=${keyword }">Previous</a></li>
+						<li><a class="page-link" href="study_status_search.do?page=1&search_field=${field}&search_keyword=${keyword }">Previous</a></li>
 					</c:when>
 					<c:otherwise>
 						<li><a class="page-link"
-							href="status_search.do?page=${ page - 1 }&search_field=${field}&search_keyword=${keyword }">Previous</a></li>
+							href="study_status_search.do?page=${ page - 1 }&search_field=${field}&search_keyword=${keyword }">Previous</a></li>
 					</c:otherwise>
 				</c:choose>
 				<c:forEach begin="${ startBlock }" end="${ endBlock }" var="i">
 					<c:if test="${ i==page }">
 						<li class="page-item active" aria-current="page"><a
-							class="page-link" href="status_search.do?page=${i }&search_field=${field}&search_keyword=${keyword }">${i }</a></li>
+							class="page-link" href="study_status_search.do?page=${i }&search_field=${field}&search_keyword=${keyword }">${i }</a></li>
 					</c:if>
 					<c:if test="${ i!=page }">
 						<li class="page-item"><a class="page-link"
-							href="status_search.do?page=${i }&search_field=${field}&search_keyword=${keyword }">${i }</a></li>
+							href="study_status_search.do?page=${i }&search_field=${field}&search_keyword=${keyword }">${i }</a></li>
 					</c:if>
 				</c:forEach>
 				<c:if test="${ page < allPage }">
 					<li class="page-item"><a class="page-link"
-						href="status_search.do?page=${ page + 1 }&search_field=${field}&search_keyword=${keyword }">Next</a></li>
+						href="study_status_search.do?page=${ page + 1 }&search_field=${field}&search_keyword=${keyword }">Next</a></li>
 					<li class="page-item"><a class="page-link"
-						href="status_search.do?page=${ allPage }&search_field=${field}&search_keyword=${keyword }">End</a></li>
+						href="study_status_search.do?page=${ allPage }&search_field=${field}&search_keyword=${keyword }">End</a></li>
 				</c:if>
 			</ul>
 		</nav>

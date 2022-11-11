@@ -1286,7 +1286,7 @@ textarea {
             $('#qnaEditIcon').on({
             	click: function () {
             		if(${userId == dto.qna_writer}){
-            			location.href="qna_modify_ok.do?no=${dto.getQna_num() }";}
+            			location.href="qna_modify.do?no=${dto.getQna_num() }";}
             		}
             });
             }else if(${userId == 'admin@hotmail.com'}){

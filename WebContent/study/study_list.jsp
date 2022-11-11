@@ -315,6 +315,27 @@ body .badge {
 	}
 }
 
+#load {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: block;
+    opacity: 0.8;
+    background: white;
+    z-index: 99;
+    text-align: center;
+}
+
+#load > img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+}
+
+
 
 
 </style>
@@ -615,10 +636,19 @@ body .badge {
 
 	</div>
 	<br />
+	
+	<div id="load">
+    	<img src="./upload/icons8-sand-timer.gif" alt="loading">
+	</div>
 
 	<jsp:include page="../include/bottom.jsp" />
 	<script type="text/javascript">
 $(function() {
+	
+	 $(window).on('load', function () {
+	      $("#load").hide();
+	 });
+	 
 	$("#studyWrite_btn").click(function(){
         if(${empty userId}) {
             alert('로그인한 이용자만 이용할 수 있습니다.');

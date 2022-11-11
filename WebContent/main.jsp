@@ -212,68 +212,78 @@
 	
 	
 	/* 전환 애니메이션 효과 */
-.loader5{
-  position: relative;
-  width: 150px;
-  height: 20px;
-
-  top: 45%;
-  top: -webkit-calc(30% - 10px);
-  top: calc(30% - 10px);
-  left: 25%;
-  left: -webkit-calc(50% - 75px);
-  left: calc(50% - 75px);
-
-  background-color: rgba(43, 89, 198, 0.5);
-}
-
-.loader5:after{
-  content: "LOADING ...";
-  color: #fff;
-  font-family:  Lato,"Helvetica Neue" ;
-  font-weight: 200;
-  font-size: 16px;
-  position: absolute;
-  width: 100%;
-  height: 20px;
-  line-height: 20px;
-  left: 0;
-  top: 0;
-}
-
-.loader5:before{
-  content: "";
-  position: absolute;
-  background-color: #fff;
-  top: 0px;
-  height: 20px;
-  width: 0px;
-  z-index: 0;
-  -webkit-transform-origin:  100% 0%;
-      transform-origin:  100% 0% ;
-  -webkit-animation: loader5 3s ease-in-out;
-      animation: loader5 3s ease-in-out;
-}
-
-@-webkit-keyframes loader5{
-    0%{width: 0px; left: 0px}
-    48%{width: 100%; left: 0px}
-    50%{width: 100%; right: 0px}
-    52%{width: 100%; right: 0px}
-    100%{width: 0px; right: 0px}
-}
-
-@keyframes loader5{
-    0%{width: 0px; left: 0px}
-    48%{width: 100%; left: 0px}
-    50%{width: 100%; right: 0px}
-    52%{width: 100%; right: 0px}
-    100%{width: 0px; right: 0px}
-}
+	.loader5{
+	  position: relative;
+	  width: 150px;
+	  height: 20px;
 	
-#mainbannerImg:hover{
-cursor: pointer;	
-}
+	  top: 45%;
+	  top: -webkit-calc(30% - 10px);
+	  top: calc(30% - 10px);
+	  left: 25%;
+	  left: -webkit-calc(50% - 75px);
+	  left: calc(50% - 75px);
+	
+	  background-color: rgba(43, 89, 198, 0.5);
+	}
+	
+	.loader5:after{
+	  content: "LOADING ...";
+	  color: #fff;
+	  font-family:  Lato,"Helvetica Neue" ;
+	  font-weight: 200;
+	  font-size: 16px;
+	  position: absolute;
+	  width: 100%;
+	  height: 20px;
+	  line-height: 20px;
+	  left: 0;
+	  top: 0;
+	}
+	
+	.loader5:before{
+	  content: "";
+	  position: absolute;
+	  background-color: #fff;
+	  top: 0px;
+	  height: 20px;
+	  width: 0px;
+	  z-index: 0;
+	  -webkit-transform-origin:  100% 0%;
+	      transform-origin:  100% 0% ;
+	  -webkit-animation: loader5 3s ease-in-out;
+	      animation: loader5 3s ease-in-out;
+	}
+	
+	@-webkit-keyframes loader5{
+	    0%{width: 0px; left: 0px}
+	    48%{width: 100%; left: 0px}
+	    50%{width: 100%; right: 0px}
+	    52%{width: 100%; right: 0px}
+	    100%{width: 0px; right: 0px}
+	}
+	
+	@keyframes loader5{
+	    0%{width: 0px; left: 0px}
+	    48%{width: 100%; left: 0px}
+	    50%{width: 100%; right: 0px}
+	    52%{width: 100%; right: 0px}
+	    100%{width: 0px; right: 0px}
+	}
+		
+	#mainbannerImg:hover{
+	cursor: pointer;	
+	}
+
+	#qna .text-bg-light {
+    color: white !important;
+    background-color: RGBA(192,192,192,var(--bs-bg-opacity,1))!important;
+	}
+	
+	#qna .text-bg-secondary {
+    color: #fff!important;
+    background-color: RGBA(108,23,125,var(--bs-bg-opacity,1))!important;
+	}
 	
 </style>
 <script type="text/javascript">
@@ -516,6 +526,26 @@ cursor: pointer;
 		cursor: pointer;
 	}
 	
+	#load {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: block;
+    opacity: 0.8;
+    background: white;
+    z-index: 99;
+    text-align: center;
+}
+
+#load > img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+}
+	
 	 
 </style>  
 
@@ -581,19 +611,17 @@ cursor: pointer;
                 </div>
             </div>
         </div>
-		
-		
-			
-		<!-- <div id="study_head">
-			<h3>Study Board</h3>
-		</div> -->
-		
+	</div>
+	
+	<div id="load">
+    	<img src="./upload/icons8-sand-timer.gif" alt="loading">
 	</div>
 
-	<!-- <div id = "right" align="right"></div> -->
-	
 	<script type="text/javascript">
-	$(document).ready(function(){
+	 $(window).on('load', function () {
+	      $("#load").hide();
+	 });
+/* 	$(document).ready(function(){
 		function test() {    
 			LoadingWithMask();
 			setTimeout(closeLoadingWithMask, 1500);
@@ -640,7 +668,7 @@ cursor: pointer;
 		}
 		
 		test();
-	});
+	}); */
 	
 	// 기본 위치(top)값
 	var floatPosition = parseInt($(".loader5").css('top'))

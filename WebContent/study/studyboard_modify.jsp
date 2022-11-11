@@ -13,6 +13,19 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script>
+	$(function(){
+	$('#study_cont').keyup(function(e) {
+		$('#textCount').html("("+$(this).val().length+" / 1000)");
+		 
+        if($(this).val().length > 1000) {
+            $(this).val($(this).val().substring(0, 1000));
+            $('textCount').html("(1000 / 1000)");
+        }
+		});
+	});
+	
+</script>
 
 <style type="text/css">
 
@@ -121,8 +134,9 @@ body {
 								type="file" name="study_file">
 						</p>
 						<p class="card-text">
+							<div align="right"><div id="textCount" style="font-size: 0.5em; color: gray;">(0 / 1000)</div></div>
 							<textarea onkeyup="adjustHeight();" class="form-control"
-								id="study_cont" name="study_cont" placeholder="본문을 입력하세요.">${dto.getStudy_cont() }</textarea>
+								id="study_cont" name="study_cont" placeholder="본문을 입력하세요." required>${dto.getStudy_cont() }</textarea>
 						</p>
 
 						<div class="mb-3 row">

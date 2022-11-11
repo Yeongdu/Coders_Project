@@ -591,7 +591,7 @@ public class UserDAO {
 					result += "<title>" + rs.getString("study_title") + "</title>";
 					result += "<writer>" + rs.getString("study_writer") + "</writer>";
 					result += "<reply>" + rs.getInt("commentCnt") + "</reply>";
-					result += "<date>" + rs.getString("study_date") + "</date>";
+					result += "<date>" + rs.getString("study_end") + "</date>";
 					result += "<type>" + rs.getString("study_status") + "</date>";
 					result += "</main>";
 				}

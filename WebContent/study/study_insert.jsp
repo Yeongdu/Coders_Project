@@ -19,26 +19,16 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	
-	<script>
-	
+<script>
+	$(function(){
 	$('#study_cont').keyup(function(e) {
-		let content = $(this).val();
-
-		// 글자수 세기
-		if (content.length == 0 || content == '') {
-			$('.textCount').text('0자');
-		} else {
-			$('.textCount').text(content.length + '자');
-		}
-
-		// 글자수 제한
-		if (content.length > 200) {
-			// 1000자 부터는 타이핑 되지 않도록
-			$(this).val($(this).val().substring(0, 200));
-			// 1000자 넘으면 알림창 뜨도록
-			alert('본문은 1000자까지 입력 가능합니다.');
-		}
-		;
+		$('#textCount').html("("+$(this).val().length+" / 1000)");
+		 
+        if($(this).val().length > 1000) {
+            $(this).val($(this).val().substring(0, 1000));
+            $('textCount').html("(1000 / 1000)");
+        }
+		});
 	});
 	
 </script>
@@ -174,8 +164,9 @@ textarea{
 <!-- 				<p class="textCount">0자</p> -->
 <!-- 				<p class="textTotal">/1000자</p> -->
 <!-- 			</div> -->
-
+				
 				<label for="study_cont" class="main_label">본문</label>
+					<div align="right"><div id="textCount" style="font-size: 0.5em; color: gray;">(0 / 1000)</div></div>
 					<textarea class="form-control" id="study_cont" name="study_cont" placeholder="본문을 입력해주세요." style="width: 800px;margin-bottom: 16px;" required></textarea>
 
 			

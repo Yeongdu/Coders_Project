@@ -117,6 +117,26 @@
 	}
 }
 
+	#load {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: block;
+    opacity: 0.8;
+    background: white;
+    z-index: 99;
+    text-align: center;
+}
+
+#load > img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+}
+
 </style>
 </head>
 <body id  = "qna">
@@ -404,9 +424,17 @@
 		
 	</div> <%-- main의 end --%>
 	
+	<div id="load">
+    	<img src="./upload/icons8-sand-timer.gif" alt="loading">
+	</div>
+	
 	<jsp:include page="../include/bottom.jsp" />
 	
 <script type="text/javascript">
+
+	$(window).on('load', function () {
+	    $("#load").hide();
+	});
 
 	$("#qnaWrite_btn").click(function(){
 		if(${empty userId}) {

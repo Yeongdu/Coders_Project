@@ -168,7 +168,7 @@ textarea {
 			
 			<h5 class="card-title mb-3" align="center"> 본문 내용  </h5>
 				<div class="card-body">
-					<textarea class="form-control" name="qna_content" id = "qna_content">${dto.qna_cont }</textarea>
+					<textarea class="form-control" name="qna_content" id = "qna_content" required>${dto.qna_cont }</textarea>
 				</div>
 				
 				<p>

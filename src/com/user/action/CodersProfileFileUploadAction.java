@@ -29,9 +29,21 @@ public class CodersProfileFileUploadAction implements Action {
 
 		String file = multi.getFilesystemName("file").trim();
 		
-		UserDAO dao = UserDAO.getInstance();
+		PrintWriter out = response.getWriter();
 		
-		dao.userFileUpload(id, file);
+		String extension = file.substring(file.length() - 3);
+		
+		if(extension.equals("jpg") || extension.equals("png")) {
+			UserDAO dao = UserDAO.getInstance();
+			
+			dao.userFileUpload(id, file);
+			
+		}else {
+			
+			String result = "-1";
+			out.println(result);
+
+		}
 		
 		return null;
 	}

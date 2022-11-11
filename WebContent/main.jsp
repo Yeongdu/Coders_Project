@@ -28,7 +28,7 @@
 	}
 	
 	#container {
-	  width: 40em;
+	  width: 38em;
 	  padding: 0;
 	  margin: auto;
 	  height: 7em;
@@ -107,7 +107,7 @@
 	
 	#studyListContainer {
 		display: flex;
-		width: 40em;
+		width: 38em;
 		padding-bottom: 10px;
 		margin: auto;
 		align-items: center;
@@ -201,6 +201,7 @@
 		display: flex;
 		margin: auto;
 		flex-grow: 3;
+		justify-content: space-around;
 	}
 	
 	h1 {

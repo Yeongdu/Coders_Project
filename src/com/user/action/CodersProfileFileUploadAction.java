@@ -33,7 +33,7 @@ public class CodersProfileFileUploadAction implements Action {
 		
 		String extension = file.substring(file.length() - 3);
 		
-		if(extension.equals("jpg") || extension.equals("png")) {
+		if(extension.equals("jpg") || extension.equals("png") || extension.equals("gif")) {
 			UserDAO dao = UserDAO.getInstance();
 			
 			dao.userFileUpload(id, file);

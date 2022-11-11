@@ -469,25 +469,6 @@
     background-color: RGBA(108,23,125,var(--bs-bg-opacity,1))!important;
 	}
 	
-	#load {
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    position: fixed;
-    display: block;
-    opacity: 0.8;
-    background: white;
-    z-index: 99;
-    text-align: center;
-	}
-	
-	#load > img {
-	    position: absolute;
-	    top: 50%;
-	    left: 50%;
-	    z-index: 100;
-	}
 	
 	
 	
@@ -496,10 +477,6 @@
 <script type="text/javascript">
 	
 	$(function(){
-		
-		 $(window).on('load', function () {
-		      $("#load").hide();
-		 });
 		
 		var id = '<%=(String)session.getAttribute("userId")%>';
 		
@@ -1579,7 +1556,7 @@
 					
 					
 					if(data < 0){
-						alert("확장자는 jpg / png만 가능합니다.");
+						alert("확장자는 jpg / png / gif만 사용 가능합니다.");
 					}else{
 						test();
 					}
@@ -1773,10 +1750,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	
-	<div id="load">
-	    <img src="./upload/icons8-sand-timer.gif" alt="loading">
 	</div>
 	
 	<!-- 이름 수정 start -->

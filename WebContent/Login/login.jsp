@@ -353,7 +353,7 @@
 										<li>
 										<!-- kakao 로그인 버튼 노출 영역 -->
 											<a href="javascript:kakaoLogin();">
-												<img src="<%=request.getContextPath() %>/upload/kakaoicon.png">
+												<img src="<%=request.getContextPath() %>/upload/kakaoicon.png" style="width: 2.5rem; height: 2.5rem">
 											</a>
 										<!-- kakao 로그인 버튼 노출 영역 -->
 										</li>
@@ -363,7 +363,7 @@
 											<div id="naverIdLogin" style="display: none;"></div>
 											<!-- 커스텀 버튼 -->
 												<a href="#" class="naver-login" id="naverLogin">
-													<img src="<%=request.getContextPath() %>/upload/navericon.png">
+													<img src="<%=request.getContextPath() %>/upload/navericon.png" style="width: 2.5rem; height: 2.5rem">
 												</a> 
 											<!-- 커스텀 버튼 -->
 										<!-- naver 로그인 버튼 노출 영역 -->

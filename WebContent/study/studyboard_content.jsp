@@ -637,7 +637,7 @@ body .badge {
                      
                      table += "<td class='scommentwriter'><i class='fa-regular fa-user'>"+ "</i> " + $(this).find("scomment_writer").text() + "</td>";
                      table += "<td class='buttonwrap'colspan='5' align = 'right'";
-                     if('${userId}' == $(this).find("scomment_writer").text()){
+                     if('${userId}' == $(this).find("scomment_writer").text() || '${userId}' == 'admin@hotmail.com'){
                      table += " style='display: block;'>";
                      }else {
                      table += " style='display: none;'>";
@@ -925,7 +925,30 @@ body .badge {
                 			location.href="studyboard_modify.do?no=${dto.getStudy_num() }";}
                 		}
                 });
-                }
+                }else if(${userId == 'admin@hotmail.com'}){
+                	$('.studyEditDelete').show();
+            $('#studyDeleteIcon').on({
+          	  click: function () {
+          		  if(${userId == 'admin@hotmail.com'}){
+          	    		 var result = confirm('관리자 권한으로 게시글을 삭제하시겠습니까?');
+          	    	        if(result) {
+          	    	        	//yes
+          	    	        	location.href='studyboard_delete_ok.do?no=${dto.getStudy_num() }';
+          	    	        	} else {
+          	    	        		//no
+          	    	        		return;
+          	    	        		}
+          	    	        }
+          		  }
+          });
+          $('#studyEditIcon').on({
+          	click: function () {
+          		if(${userId == 'admin@hotmail.com'}){
+          			alert('관리자는 게시글 삭제만 가능합니다.');
+          			}
+          		}
+          });
+          }
             }
     onlyWriter();
     

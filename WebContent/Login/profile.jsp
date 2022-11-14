@@ -1810,7 +1810,7 @@
 					<div class="login1">
 					<p class="font">자기소개를 등록해주세요.</p>
 						<div class="login_input1">
-							<textarea name="profile" cols="37" rows="10" placeholder="${dto.user_profile }" required></textarea>
+							<textarea class="form-control" style="width: 60%;"name="profile" cols="37" rows="10" placeholder="${dto.user_profile }" required></textarea>
 						</div>
 								            
 						<div class="submit1">

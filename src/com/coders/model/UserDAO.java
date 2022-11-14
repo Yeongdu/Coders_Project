@@ -256,6 +256,25 @@ public class UserDAO {
 					
 					dto.setUser_file(rs.getString("user_file"));
 					
+				}else {
+					
+					dto = new UserDTO();
+					
+					dto.setUser_id("");
+					
+					dto.setUser_name("");
+					
+					dto.setUser_date("");
+					
+					dto.setUser_profile("");
+					
+					dto.setUser_homepage("");
+					
+					dto.setUser_pwd("");
+					
+					dto.setUser_file("");
+					
+					
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

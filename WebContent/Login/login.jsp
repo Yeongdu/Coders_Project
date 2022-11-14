@@ -480,9 +480,9 @@
 			type : "post"
 		});
 		
-		$("#id_input").blur(function() {
+		$("#signup_id_input").blur(function() {
 			
-			var userId = $("#id_input").val();
+			var userId = $("#signup_id_input").val();
 			
 			// 아이디 중복 여부 확인 - Ajax 기술
 			$.ajax({
@@ -498,7 +498,7 @@
 							
 						$("#idcheck").append(warningTxt);
 						
-						$("#id_input").val('');
+						$("#signup_id_input").val('');
 							
 						
 				 	}else if(data == 1){
@@ -508,7 +508,7 @@
 						
 						$("#idcheck").append(warningTxt);
 						
-						$("#id_input").val('');
+						$("#signup_id_input").val('');
 						
 						
 					}else {
@@ -529,9 +529,9 @@
 			
 		});
 		
-		$("#pwd_input").blur(function(){
+		$("#signup_pwd_input").blur(function(){
 			
-			var pwd = $("#pwd_input").val();
+			var pwd = $("#signup_pwd_input").val();
 			
 			var num = pwd.search(/[0-9]/g);
 			var eng = pwd.search(/[a-zA-Z]/ig);
@@ -545,7 +545,7 @@
 				
 				$("#pwdcheck").append(warningTxt);
 				
-				$("#pwd_input").val('');
+				$("#signup_pwd_input").val('');
 				
 				
 			 }else if(num < 0 || eng < 0 || spe < 0 ){
@@ -556,7 +556,7 @@
 				
 				$("#pwdcheck").append(warningTxt);
 				
-				$("#pwd_input").val('');
+				$("#signup_pwd_input").val('');
 				
 				
 			 }else {
@@ -570,10 +570,10 @@
 			 }
 		});
 		
-		$("#pwd_ck_input").blur(function(){
+		$("#signup_pwd_ck_input").blur(function(){
 			
-			var pwd = $("#pwd_input").val();
-			var pwdck = $("#pwd_ck_input").val();
+			var pwd = $("#signup_pwd_input").val();
+			var pwdck = $("#signup_pwd_ck_input").val();
 			
 			if(pwd == pwdck){
 				
@@ -593,7 +593,7 @@
 				
 				$("#pwdcheck_ck").append(warningTxt);
 				
-				$("#pwd_ck_input").val('');
+				$("#signup_pwd_ck_input").val('');
 				
 			}
 		});

@@ -59,6 +59,8 @@
 			}else {
 				$("#commentView").css("display", "block");	
 			}
+			var offset = $(".qna_title").offset();
+            		$("html, body").animate({scrollTop: offset.top}, 0);
 		});
 	});
 	

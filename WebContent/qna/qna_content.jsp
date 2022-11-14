@@ -45,6 +45,9 @@
 			}else {
 				$("#commentView").css("display", "block");	
 			}
+			
+			var offset = $("#commentView").offset();
+            $("html, body").animate({scrollTop: offset.top}, 100);
 		});	
 	});
 
@@ -98,10 +101,12 @@ body {
 
 .qnaEditIcon {
 	color: black;
+	cursor: pointer;
 }
 
 .qnaDeleteIcon {
 	color: black;
+	cursor: pointer;
 }
 
 .container col-md-6 {
@@ -462,11 +467,13 @@ textarea {
 #goodUp{
 	color: #2b59c6;
 	font-size: 23px;
+	cursor:pointer;
 }
 
 #goodDown{
 	color: #dc3545;
 	font-size: 23px;
+	cursor:pointer;
 
 }
 
@@ -975,7 +982,7 @@ textarea {
 						/////////////////6행 수정 폼 창 
 						table += "<tr class = 'modifyForm' style='display: none;'>";
 				      	table += "<td align = 'left'>";
-                	 	table += "<textarea  class = 'modifyCodeArea' type='text' placeholder = '로그인이 필요한 기능입니다.'>";
+                	 	table += "<textarea  class = 'modifyCodeArea' type='text' placeholder = '코드를 입력해주세요.'>";
                 	 	if("null" != $(this).find("qcomment_code").text()){
                 	 		table += $(this).find("qcomment_code").text() + "</textarea>";
                 	 	}else {
@@ -983,7 +990,7 @@ textarea {
                 	 	}
                 	 	/* + $(this).find("qcomment_code").text() +"</textarea>" + */ 
                 	 	
-                	 	table += "<textarea class = 'modifyContArea' type='text' placeholder = '로그인이  필요한 기능입니다.'>" + $(this).find("qcomment_cont").text() + "</textarea>" + "</td>";
+                	 	table += "<textarea class = 'modifyContArea' type='text' placeholder = '내용을 입력해주세요.'>" + $(this).find("qcomment_cont").text() + "</textarea>" + "</td>";
                 	 	
                 	 	table += "</tr>";
 						
@@ -1041,6 +1048,7 @@ textarea {
 				success : function(data) {
 						if(data > 0) {
 							alert('댓글이 등록되었습니다.');
+							$("#commentView").css("display", "none");
 
 							// 댓글 작성 후 다시 전체 댓글 리스트를 화면에 출력.
 							getList();
@@ -1323,12 +1331,15 @@ onlyWriter();
         var id = '<%=(String)session.getAttribute("userId")%>';
 
         if(id == "null") {
-             $("#re_content").attr("placeholder", "로그인한 유저만 작성할 수 있습니다.");
-             $("#replyBtn").attr("disabled","disabled");
+             $("#co_content").attr("placeholder", "로그인한 유저만 작성할 수 있습니다.");
+             $("#co_code").attr("placeholder", "로그인한 유저만 작성할 수 있습니다.");
+             $("#commentBtn").attr("disabled","disabled");
         }
     });
 
 	</script>
+	
+	
 	
 <script type="text/javascript">
 		//페이지 새로고침 함수

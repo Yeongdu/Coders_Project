@@ -17,6 +17,10 @@ body {
 	font-family: 'Noto Sans KR' !important;
 }
 
+html {
+	cursor: url('./qna_icon/cusor.png'),auto;
+}
+
 	#top {
 		color: white;
 		font-size: 1.05rem;

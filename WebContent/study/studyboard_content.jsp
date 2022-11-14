@@ -61,10 +61,12 @@ body {
 
 .studyEditIcon {
 	color: black;
+	cursor: pointer;
 }
 
 .studyDeleteIcon {
 	color: black;
+	cursor: pointer;
 }
 
 .commentwrap {

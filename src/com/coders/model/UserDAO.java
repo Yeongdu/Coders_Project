@@ -130,6 +130,68 @@ public class UserDAO {
 			
 		}
 		
+		// 유저 로그인 정보를 조회하는 메서드
+		public UserDTO UserLogin(String id) {
+			
+			UserDTO dto = new UserDTO();
+			
+			try {
+				openConn();
+				
+				sql = "select * from user_member where user_id = ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, id);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {	// 아이디가 존재할 때
+					
+					dto.setUser_id(rs.getString("user_id"));
+					
+					dto.setUser_name(rs.getString("user_name"));
+					
+					dto.setUser_date(rs.getString("user_date"));
+					
+					dto.setUser_profile(rs.getString("user_profile"));
+					
+					dto.setUser_homepage(rs.getString("user_homepage"));
+					
+					dto.setUser_pwd(rs.getString("user_pwd"));
+					
+					dto.setUser_file(rs.getString("user_file"));
+					
+				}else {	// 아이디가 존재하지 않을 때
+					
+					dto.setUser_id("");
+					
+					dto.setUser_name("");
+					
+					dto.setUser_date("");
+					
+					dto.setUser_profile("");
+					
+					dto.setUser_homepage("");
+					
+					dto.setUser_pwd("");
+					
+					dto.setUser_file("");
+					
+					
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+			
+			return dto;
+			
+		}
+		
 		// 유저 로그인 정보를 DB에 저장하는 메서드
 		public void snsUserInsert(String id, String name) {
 			

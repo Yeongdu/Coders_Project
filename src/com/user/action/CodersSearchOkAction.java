@@ -25,21 +25,31 @@ public class CodersSearchOkAction implements Action {
 		
 		PrintWriter out = response.getWriter();
 		
-		if(dto.getUser_name().equals(name)) {
+		if(dto.getUser_id().equals(id)) {
 			
-			if(dto.getUser_pwd() == null) {
+			if(dto.getUser_name().equals(name)) {
 				
-				out.println("<script>");
-				out.println("alert('Social 계정으로 로그인 하세요.')");
-				out.println("location.href='user_login.do'");
-				out.println("</script>");
-				
+				if(dto.getUser_pwd() == null) {
+					
+					out.println("<script>");
+					out.println("alert('Social 계정으로 로그인 하세요.')");
+					out.println("location.href='user_login.do'");
+					out.println("</script>");
+					
+				}else {
+					
+					out.println("<script>");
+					out.println("alert('회원님의 비밀번호는 "+ dto.getUser_pwd()+ " 입니다.')");
+					out.println("location.href='user_login.do'");
+					out.println("</script>");
+					
+				}
 				
 			}else {
 				
 				out.println("<script>");
-				out.println("alert('회원님의 비밀번호는 "+ dto.getUser_pwd()+ " 입니다.')");
-				out.println("location.href='user_login.do'");
+				out.println("alert('일치하는 회원의 정보가 없습니다.')");
+				out.println("history.back()");
 				out.println("</script>");
 				
 			}
@@ -47,7 +57,7 @@ public class CodersSearchOkAction implements Action {
 		}else {
 			
 			out.println("<script>");
-			out.println("alert('일치하는 회원의 정보가 없습니다.')");
+			out.println("alert('이메일을 제대로 입력하세요.')");
 			out.println("history.back()");
 			out.println("</script>");
 			

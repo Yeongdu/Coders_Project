@@ -598,19 +598,19 @@
 			}
 		});
 		
-		$("#myModal2").on("hidden.bs.modal", function(){
+		$(document).on("click","#atag1", function(){
 			$("#signup_id_input").val('');
 			$("#signup_pwd_input").val('');
 			$("#signup_pwd_ck_input").val('');
 			$("#signup_name").val('');
 			$("#pwdcheck_ck").text('');
 			$("#pwdcheck").text('');
-			$("#idcheck").text('');
+			$("#idcheck").text('');			
 		});
 		
-		$("#myModal3").on("hidden.bs.modal", function(){
+		$(document).on("click", "#atag2", function(){
 			$("#search_id_input").val('');
-			$("#search_name").val('');
+			$("#search_name").val('');			
 		});
 		
 		
